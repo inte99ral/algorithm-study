@@ -1,4 +1,11 @@
-// const input = require('fs').readFileSync('dev/stdin').toString().split('/n');
-const input = require('fs').readFileSync('input.txt').toString().split('/\n/');
+const input = {
+    hasNextLine: () => !!this.fullLine[this.lineIndex],
+    readLine: (() => {
+        this.lineIndex = 0;
+        this.fullLine = require('fs').readFileSync('input.txt').toString().split(/\r\n|\n|\r/gm);
+        return () => this.fullLine[this.lineIndex];
+    })(),
+}
 
-input.map((item) => { console.log(item)});
+const switchLen = input.readLine();
+const switchArr = [];

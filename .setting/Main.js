@@ -1,7 +1,6 @@
 const input = {
 	fullLine: () => this.fullLine,
-	lineIndex: () => this.lineIndex,
-	currLine: () => this.fullLine[this.lineIndex],
+	hasMoreLines: () => !!this.fullLine[this.lineIndex],
 	readLine: (() => {
 		this.lineIndex = 0;
 		// 백준 인식 코드
@@ -12,7 +11,8 @@ const input = {
 	})(),
 }
 
-console.log(input.readLine());
-console.log(input.readLine());
+while(input.hasMoreLines()) {
+	console.log(input.readLine());
+}
 
 
