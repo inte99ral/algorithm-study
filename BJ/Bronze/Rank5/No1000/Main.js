@@ -1,7 +1,7 @@
 const input = {
   readLine: (() => {
-    this.fullLine = require("fs")
-      .readFileSync("./input.txt")
+    this.fullLine = require('fs')
+      .readFileSync('./input.txt')
       .toString()
       .split(/\r\n|\r|\n/gm);
     this.lineIndex = 0;
@@ -13,9 +13,9 @@ const input = {
 let output = 0;
 input
   .readLine()
-  .split(" ")
+  .split(' ')
   .map((item) => {
     output += Number(item);
   });
 
-console.log(output.toString());
+console.log(output);
