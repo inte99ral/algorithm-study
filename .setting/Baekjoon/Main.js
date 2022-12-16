@@ -4,7 +4,7 @@ const input = {
   readLine: (() => {
     this.lineIndex = 0;
     // 백준 인식 코드
-    // this.fullLine = require('fs').readFileSync('/dev/stdin').toString().split(/\r\n|\r|\n/gm);
+    // this.fullLine = require('fs').readFileSync('dev/stdin').toString().split(/\r\n|\r|\n/gm);
     this.fullLine = require('fs')
       .readFileSync('input.txt')
       .toString()
