@@ -1,4 +1,4 @@
-package BJ.Silver.Rank4.No1244;
+package Baekjoon.Silver.Rank4.No1244;
 
 class Main {
   private static final String str = "hello, world";
