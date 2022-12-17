@@ -50,9 +50,24 @@ const solution = (jobs) => {
   return mean;
 };
 
-const perm = (index, length) => {
- if()
+const getPerm = (arr, len) => {
+  const output = [];
+  if (len === 1) return arr.map((el) => [el]);
+  // n개중에서 1개 선택할 때(nP1), 바로 모든 배열의 원소 return. 1개선택이므로 순서가 의미없음.
+
+  arr.forEach((fixed, index, origin) => {
+    const rest = [...origin.slice(0, index), ...origin.slice(index + 1)];
+
+    const perm = getPerm(rest, len - 1);
+
+    const attached = perm.map((el) => [fixed, ...el]);
+
+    output.push(...attached);
+  });
+
+  return output; // 결과 담긴 results return
 };
 
 // Answer ====================
 console.log('[answer]: ', solution(jobs));
+console.log('[answer]: ', getPerm(jobs, 3));
