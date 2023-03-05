@@ -11,8 +11,11 @@ class Main {
   public static void main(String[] args) throws IOException{
     System.setIn(new FileInputStream("input.txt"));
     br = new BufferedReader(new InputStreamReader(System.in));
-    System.out.println(br.readLine());
 
+    for(String line = br.readLine();line != null;line = br.readLine()) 
+      System.out.println(line);
+
+    br.close();
     return;
   }
 }
