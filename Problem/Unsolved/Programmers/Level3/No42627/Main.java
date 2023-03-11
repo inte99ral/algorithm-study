@@ -10,6 +10,7 @@ import java.util.ArrayList;
 class Main {
   private static BufferedReader br;
   private static int[][] jobs;
+  private static Main mainClass;
 
   public static void main(String[] args) throws IOException{
     List<Integer> tempList = new ArrayList<Integer>();
@@ -25,7 +26,12 @@ class Main {
       for(String number : numberSet.split(", "))
         tempList.add(Integer.parseInt(number));
 
+    jobs = new int[tempList.size() / 2][2];
 
+    for(int i = 0; i < tempList.size(); i++)
+      jobs[i / 2][i % 2] = tempList.get(i);
+
+    mainClass.solution(jobs);
     br.close();
     return;
   }
