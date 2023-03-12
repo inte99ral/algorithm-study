@@ -7,12 +7,12 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.ArrayList;
 
-class Main {
+class Solution {
   private static BufferedReader br;
   private static int[][] jobs;
-  private static Main mainClass;
 
   public static void main(String[] args) throws IOException{
+    Solution solution = new Solution();
     List<Integer> tempList = new ArrayList<Integer>();
     String line = "";
 
@@ -31,7 +31,7 @@ class Main {
     for(int i = 0; i < tempList.size(); i++)
       jobs[i / 2][i % 2] = tempList.get(i);
 
-    mainClass.solution(jobs);
+    main.solution(jobs);
     br.close();
     return;
   }
