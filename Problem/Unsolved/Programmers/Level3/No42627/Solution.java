@@ -6,13 +6,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 class Solution {
   private static BufferedReader br;
   private static int[][] jobs;
 
   public static void main(String[] args) throws IOException{
-    Solution solution = new Solution();
+    Solution solutionClass = new Solution();
     List<Integer> tempList = new ArrayList<Integer>();
     String line = "";
 
@@ -31,13 +32,20 @@ class Solution {
     for(int i = 0; i < tempList.size(); i++)
       jobs[i / 2][i % 2] = tempList.get(i);
 
-    main.solution(jobs);
+    solutionClass.solution(jobs);
     br.close();
     return;
   }
 
   public int solution(int[][] jobs) {
-    System.out.println("test code");
+    PriorityQueue<int[]> pq = new PriorityQueue<int[]>((x, y)->(x[1] - y[1]));    
+    
+    for(int[] job : jobs) 
+      pq.offer(job);
+    
+    while(pq.size() != 0)
+      System.out.println(pq.poll()[1]);
+    
     return 0;
   }
 }
