@@ -38,7 +38,7 @@ class Solution {
   }
 
   public int solution(int[][] jobs) {
-    PriorityQueue<int[]> pq = new PriorityQueue<int[]>((x, y)->(x[1] - y[1]));    
+    PriorityQueue<int[]> pq = new PriorityQueue<int[]>((x, y)->((x[1] - x[0]) - (y[1] - y[0])));    
     
     for(int[] job : jobs) 
       pq.offer(job);
