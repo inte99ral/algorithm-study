@@ -43,8 +43,9 @@ class Solution {
     for(int[] job : jobs) 
       pq.offer(job);
     
-    while(pq.size() != 0)
+    while(pq.size() != 0) {
       System.out.println(pq.poll()[1]);
+    }
     
     return 0;
   }
