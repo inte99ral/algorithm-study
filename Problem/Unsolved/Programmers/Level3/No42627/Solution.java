@@ -38,7 +38,8 @@ class Solution {
   }
 
   public int solution(int[][] jobs) {
-    PriorityQueue<int[]> pq = new PriorityQueue<int[]>((x, y)->((x[1] - x[0]) - (y[1] - y[0])));    
+    int answer = 0;
+    PriorityQueue<int[]> pq = new PriorityQueue<int[]>((x, y)->((x[1] - x[0]) - (y[1] - y[0])));
     
     for(int[] job : jobs) 
       pq.offer(job);
@@ -47,6 +48,6 @@ class Solution {
       System.out.println(pq.poll()[1]);
     }
     
-    return 0;
+    return answer;
   }
 }
