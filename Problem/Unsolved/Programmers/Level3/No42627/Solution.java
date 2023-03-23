@@ -39,15 +39,21 @@ class Solution {
 
   public int solution(int[][] jobs) {
     int answer = 0;
+    int time = 0;
     PriorityQueue<int[]> pq = new PriorityQueue<int[]>((x, y)->((x[1] - x[0]) - (y[1] - y[0])));
     
     for(int[] job : jobs) 
       pq.offer(job);
     
     while(pq.size() != 0) {
-      System.out.println(pq.poll()[1]);
+      int[] tempArr = pq.poll();
+      answer += time + tempArr[0] - tempArr[1];
+      time = tempArr[1];
     }
+
+    System.out.println("[LENGTH]: " + jobs.length);
+    System.out.println("[ANSWER]: " + answer / jobs.length);
     
-    return answer;
+    return answer / jobs.length;
   }
 }
