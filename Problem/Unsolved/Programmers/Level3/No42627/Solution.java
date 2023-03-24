@@ -47,12 +47,10 @@ class Solution {
     
     while(pq.size() != 0) {
       int[] tempArr = pq.poll();
-      answer += time + tempArr[0] - tempArr[1];
-      time = tempArr[1];
+      int waitingTime = (time < tempArr[0])? 0 : (time - tempArr[0]);
+      answer += tempArr[1] + waitingTime;
+      time = (time > tempArr[0])? time + tempArr[1] : tempArr[0] + tempArr[1];
     }
-
-    System.out.println("[LENGTH]: " + jobs.length);
-    System.out.println("[ANSWER]: " + answer / jobs.length);
     
     return answer / jobs.length;
   }
