@@ -40,22 +40,33 @@ class Solution {
   public int solution(int[][] jobs) {
     int answer = 0;
 
-    
+    int[] testArr = {1, 2, 3};
+    comb(testArr);    
 
     return answer;
   }
 
-  public void comb(int[][] jobs) {
-    combRecur(jobs, new int[jobs.length][jobs[0].length], 0, 0);
+  public void comb(int[] jobs) {
+    combRecur(jobs, new int[jobs.length], 0, 0);
     return;
   }
 
-  public void combRecur(int[][] jobs, int[][] selected, int index, int length) {
-    if(index == jobs.length) {
-      for(int[] iArr : selected) {
-        System.out.print(iArr[0] + "-");
-      }
+  public void combRecur(int[] jobs, int[] selected, int index, int length) {
+    if(length == jobs.length) {
+      System.out.print("[ ");
+      for(int i : selected) System.out.print(i + " ");
+      System.out.print("]\n");
+
+      return;
     }
+
+    if(index == jobs.length) 
+      return;
+
+    System.out.println("cycle");
+    combRecur(jobs, selected, index + 1, length);
+    selected[index] = jobs[index];
+    combRecur(jobs, selected, index + 1, length + 1);
     return;
   }
 
