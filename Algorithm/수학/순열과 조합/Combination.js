@@ -24,7 +24,7 @@ const comb = function (arr, selectNumber) {
   return results;
 };
 
-// -- Output ====================
+// -- Run ====================
 
 let arr = [1, 2, 3];
 console.log(comb(arr, 2));

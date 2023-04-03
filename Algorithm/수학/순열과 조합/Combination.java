@@ -1,18 +1,18 @@
 import java.util.Arrays;
 
-class Permutation {
+class Combination {
 
   // -- Methods ====================
 
-  public static void perm(int[] arr, int selectNumber) {
-    permRecur(arr, selectNumber, 0, new int[selectNumber], 0);
+  public static void comb(int[] arr, int selectNumber) {
+    combRecur(arr, selectNumber, -1, new int[selectNumber], 0);
     return;
   }
 
-  public static void permRecur(
+  public static void combRecur(
     int[] origin,
     int selectNumber,
-    int selectData,
+    int selectIndex,
     int[] fixed,
     int index
   ) {
@@ -22,13 +22,9 @@ class Permutation {
       return;
     }
 
-    for (int i = 0; i < origin.length; i++) {
-      // 해당 숫자는 이미 선택했었음
-      if ((selectData & 1 << i) > 0) continue;
-
-      // 선택함
+    for (int i = selectIndex + 1; i < origin.length; i++) {
       fixed[index] = origin[i];
-      permRecur(origin, selectNumber, selectData | 1 << i, fixed, index + 1);
+      combRecur(origin, selectNumber, i, fixed, index + 1);
     }
     return;
   }
@@ -36,7 +32,7 @@ class Permutation {
   // -- Run ====================
   public static void main(String[] args) {
     int[] arr = { 1, 2, 3 };
-    perm(arr, 2);
+    comb(arr, 3);
     return;
   }
 }
