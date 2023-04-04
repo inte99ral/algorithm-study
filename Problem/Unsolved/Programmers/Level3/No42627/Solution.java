@@ -4,14 +4,18 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * TODO: - 이거해야함
+ */
 class Solution {
+
   private static BufferedReader br;
   private static int[][] jobs;
 
-  public static void main(String[] args) throws IOException{
+  public static void main(String[] args) throws IOException {
     Solution solutionClass = new Solution();
     List<Integer> tempList = new ArrayList<Integer>();
     String line = "";
@@ -21,15 +25,14 @@ class Solution {
 
     line = br.readLine();
     line = line.substring(2, line.length() - 2);
-    
-    for (String numberSet : line.split("\\], \\["))
-      for(String number : numberSet.split(", "))
-        tempList.add(Integer.parseInt(number));
+
+    for (String numberSet : line.split("\\], \\[")) for (String number : numberSet.split(
+      ", "
+    )) tempList.add(Integer.parseInt(number));
 
     jobs = new int[tempList.size() / 2][2];
 
-    for(int i = 0; i < tempList.size(); i++)
-      jobs[i / 2][i % 2] = tempList.get(i);
+    for (int i = 0; i < tempList.size(); i++) jobs[i / 2][i % 2] = tempList.get(i);
 
     System.out.println("[ANSWER]: " + solutionClass.solution(jobs));
 
@@ -40,8 +43,8 @@ class Solution {
   public int solution(int[][] jobs) {
     int answer = 0;
 
-    int[] testArr = {1, 2, 3};
-    comb(testArr);    
+    int[] testArr = { 1, 2, 3 };
+    comb(testArr);
 
     return answer;
   }
@@ -52,16 +55,15 @@ class Solution {
   }
 
   public void combRecur(int[] jobs, int[] selected, int index, int length) {
-    if(length == jobs.length) {
+    if (length == jobs.length) {
       System.out.print("[ ");
-      for(int i : selected) System.out.print(i + " ");
+      for (int i : selected) System.out.print(i + " ");
       System.out.print("]\n");
 
       return;
     }
 
-    if(index == jobs.length) 
-      return;
+    if (index == jobs.length) return;
 
     System.out.println("cycle");
     combRecur(jobs, selected, index + 1, length);
@@ -70,7 +72,5 @@ class Solution {
     return;
   }
 
-  public void cal(int[][] jobs) {
-
-  }
+  public void cal(int[][] jobs) {}
 }
