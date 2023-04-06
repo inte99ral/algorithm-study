@@ -1,5 +1,3 @@
-package Problem.Unsolved.Programmers.Level3.No42627;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
