@@ -10,7 +10,7 @@ public class Main {
   private static StringTokenizer st;
 
   public static void main(String[] args) throws IOException {
-    // System.setIn(new FileInputStream("input.txt"));
+    System.setIn(new FileInputStream("input.txt"));
     br = new BufferedReader(new InputStreamReader(System.in));
 
     int K = Integer.parseInt(br.readLine());
