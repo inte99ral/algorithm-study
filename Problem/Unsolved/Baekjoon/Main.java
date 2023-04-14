@@ -1,81 +1,33 @@
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Main {
 
-  private static BufferedReader br;
-  private static StringTokenizer st;
-
   public static void main(String[] args) throws IOException {
-    // System.setIn(new FileInputStream("input.txt"));
-    br = new BufferedReader(new InputStreamReader(System.in));
+    System.setIn(new FileInputStream("input.txt"));
+    Scanner sc = new Scanner(System.in);
+    int[][] squareData = new int[2][4];
 
-    int K = Integer.parseInt(br.readLine());
-
-    int[] lenArr = new int[6];
-    int maxHIndex = -1;
-    int maxVIndex = -1;
-
-    {
-      st = new StringTokenizer(br.readLine());
-      // Horizontal
-      if (Integer.parseInt(st.nextToken()) < 3) {
-        lenArr[0] = Integer.parseInt(st.nextToken());
-        maxHIndex = 0;
-        maxVIndex = 1;
+    for (int i = 0; i < 4; i++) {
+      // System.out.println(sc.nextLine());
+      for (int j = 0; j < 2; j++) {
+        for (int k = 0; k < 4; k++) {
+          squareData[j][k] = sc.nextInt();
+        }
       }
-      // Vertical
-      else {
-        lenArr[0] = Integer.parseInt(st.nextToken());
-        maxHIndex = 1;
-        maxVIndex = 0;
+
+      // Print
+      {
+        System.out.println(Arrays.toString(squareData[0]));
+        System.out.println(Arrays.toString(squareData[1]));
+        System.out.println();
       }
+
+      if (squareData[0][2] + squareData[0][3] < squareData[1][2] + squareData[1][3]) {}
     }
 
-    for (int i = 1; i < 6; i++) {
-      st = new StringTokenizer(br.readLine());
-
-      // Horizontal
-      if (Integer.parseInt(st.nextToken()) < 3) {
-        lenArr[i] = Integer.parseInt(st.nextToken());
-        if (lenArr[i] > lenArr[maxHIndex]) maxHIndex = i;
-      }
-      // Vertical
-      else {
-        lenArr[i] = Integer.parseInt(st.nextToken());
-        if (lenArr[i] > lenArr[maxVIndex]) maxVIndex = i;
-      }
-    }
-
-    // maxVIndex -> maxHIndex 순서일 때
-    if ((maxVIndex + 1) % 6 == maxHIndex) {
-      System.out.println(
-        (
-          lenArr[maxHIndex] *
-          lenArr[maxVIndex] -
-          lenArr[(maxHIndex + 2) % 6] *
-          lenArr[(maxVIndex + 4) % 6]
-        ) *
-        K
-      );
-    }
-    // maxHIndex -> maxVIndex 순서일 때
-    else {
-      System.out.println(
-        (
-          lenArr[maxHIndex] *
-          lenArr[maxVIndex] -
-          lenArr[(maxHIndex + 4) % 6] *
-          lenArr[(maxVIndex + 2) % 6]
-        ) *
-        K
-      );
-    }
-
-    br.close();
-    return;
+    sc.close();
   }
 }

@@ -5,9 +5,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * TODO: - 이거해야함
- */
 class Solution {
 
   private static BufferedReader br;
