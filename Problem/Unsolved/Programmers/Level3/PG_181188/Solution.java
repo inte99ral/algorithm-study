@@ -1,71 +1,77 @@
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
 
 class Solution {
 
-  private static BufferedReader br;
-  private static int[][] jobs;
-
+  // -- Run
   public static void main(String[] args) throws IOException {
     Solution solutionClass = new Solution();
-    List<Integer> tempList = new ArrayList<Integer>();
-    String line = "";
 
     System.setIn(new FileInputStream("input.txt"));
-    br = new BufferedReader(new InputStreamReader(System.in));
+    Scanner sc = new Scanner(System.in);
 
-    line = br.readLine();
-    line = line.substring(2, line.length() - 2);
+    System.out.println(solutionClass.solution(sc.nextInt()));
 
-    for (String numberSet : line.split("\\], \\[")) for (String number : numberSet.split(
-      ", "
-    )) tempList.add(Integer.parseInt(number));
-
-    jobs = new int[tempList.size() / 2][2];
-
-    for (int i = 0; i < tempList.size(); i++) jobs[i / 2][i % 2] = tempList.get(i);
-
-    System.out.println("[ANSWER]: " + solutionClass.solution(jobs));
-
-    br.close();
+    sc.close();
     return;
   }
 
-  public int solution(int[][] jobs) {
-    int answer = 0;
+  // -- Methods
+  private int[][] matrix;
+  private int answer;
+  private int height;
+  private int width;
 
-    int[] testArr = { 1, 2, 3 };
-    comb(testArr);
+  public int solution(int n) {
+    answer = 0;
+    height = 3;
+    width = n;
+    matrix = new int[height][width];
+
+    recur(0, 0);
 
     return answer;
   }
 
-  public void comb(int[] jobs) {
-    combRecur(jobs, new int[jobs.length], 0, 0);
-    return;
-  }
+  public void recur(int y, int x) {
+    if (y >= height) return;
 
-  public void combRecur(int[] jobs, int[] selected, int index, int length) {
-    if (length == jobs.length) {
-      System.out.print("[ ");
-      for (int i : selected) System.out.print(i + " ");
-      System.out.print("]\n");
-
+    if (x >= width) {
+      answer++;
+      recur(y + 1, 0);
       return;
     }
 
-    if (index == jobs.length) return;
+    // -
+    if (x + 2 < width) {
+      matrix[y][x] = 1;
+      matrix[y][x + 1] = 1;
+      matrix[y][x + 2] = 1;
 
-    System.out.println("cycle");
-    combRecur(jobs, selected, index + 1, length);
-    selected[index] = jobs[index];
-    combRecur(jobs, selected, index + 1, length + 1);
+      recur(y, x + 3);
+
+      matrix[y][x] = 0;
+      matrix[y][x + 1] = 0;
+      matrix[y][x + 2] = 0;
+    }
+
+    // |
+    if (y + 2 < height) {
+      matrix[y][x] = 2;
+      matrix[y + 1][x] = 2;
+      matrix[y + 2][x] = 2;
+
+      recur(y, x + 3);
+
+      matrix[y][x] = 0;
+      matrix[y + 1][x] = 0;
+      matrix[y + 2][x] = 0;
+    }
+
+    // ㄱ
+    if (y + 2 < height) {}
+
     return;
   }
-
-  public void cal(int[][] jobs) {}
 }
