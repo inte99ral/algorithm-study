@@ -2,6 +2,7 @@
 
 - Problem site name
   - Problem name
+    - /assets
     - problem.md
     - answer.java
     - input.txt
