@@ -43,9 +43,9 @@ class Solution {
     if (y >= height) {
       answer++;
       return;
-    };
+    }
 
-    if(matrix[y][x]) {
+    if (matrix[y][x]) {
       recur(y, x + 1);
       return;
     }
@@ -89,63 +89,45 @@ class Solution {
       matrix[y - 1][x] = false;
     }
 
+    // ⌊
+    if (y - 1 >= 0 && x + 1 < width && !matrix[y][x + 1] && !matrix[y - 1][x]) {
+      matrix[y][x] = true;
+      matrix[y][x + 1] = true;
+      matrix[y - 1][x] = true;
 
+      recur(y, x + 2);
 
-    
+      matrix[y][x] = false;
+      matrix[y][x + 1] = false;
+      matrix[y - 1][x] = false;
+    }
+
+    // ⌈
+    if (y + 1 < height && x + 1 < width && !matrix[y][x + 1] && !matrix[y + 1][x]) {
+      matrix[y][x] = true;
+      matrix[y][x + 1] = true;
+      matrix[y + 1][x] = true;
+
+      recur(y, x + 2);
+
+      matrix[y][x] = false;
+      matrix[y][x + 1] = false;
+      matrix[y + 1][x] = false;
+    }
 
     // ⌉
-    if (y + 1 < height && x + 1 < width && !matrix[y][x + 1] && !matrix[y + 1][x + 1]) {
+    if (y + 1 < height && x - 1 >= 0 && !matrix[y][x - 1] && !matrix[y + 1][x]) {
       matrix[y][x] = true;
-      matrix[y][x + 1] = true;
-      matrix[y + 1][x + 1] = true;
-
-      recur(y, x + 1);
-
-      matrix[y][x] = false;
-      matrix[y][x + 1] = false;
-      matrix[y + 1][x + 1] = false;
-    }
-
-    // ⌊
-    if (y + 1 < height && x + 1 < width && !matrix[y + 1][x] && !matrix[y + 1][x + 1]) {
-      matrix[y][x] = true;
+      matrix[y][x - 1] = true;
       matrix[y + 1][x] = true;
-      matrix[y + 1][x + 1] = true;
 
       recur(y, x + 1);
 
       matrix[y][x] = false;
+      matrix[y][x - 1] = false;
       matrix[y + 1][x] = false;
-      matrix[y + 1][x + 1] = false;
-    }
-
-    // ⌋ ⌉⌋
-    if (y - 1 >= 0 && x + 1 < width && !matrix[y][x + 1] && !matrix[y - 1][x + 1]) {
-      matrix[y][x] = true;
-      matrix[y][x + 1] = true;
-      matrix[y - 1][x + 1] = true;
-
-      recur(y, x + 1);
-
-      matrix[y][x] = false;
-      matrix[y][x + 1] = false;
-      matrix[y - 1][x + 1] = false;
-    }
-
-    // ⌊
-    if (y + 1 < height && x + 1 < width && !matrix[y + 1][x] && !matrix[y + 1][x + 1]) {
-      matrix[y][x] = true;
-      matrix[y + 1][x] = true;
-      matrix[y + 1][x + 1] = true;
-
-      recur(y, x + 1);
-
-      matrix[y][x] = false;
-      matrix[y + 1][x] = false;
-      matrix[y + 1][x + 1] = false;
     }
 
     return;
   }
-
 }
