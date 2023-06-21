@@ -4,25 +4,35 @@
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 class Main {
 
-  private static BufferedReader br;
-
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws Exception {
     System.setIn(new FileInputStream("input.txt"));
-    br = new BufferedReader(new InputStreamReader(System.in));
 
-    for (String line = br.readLine(); line != null; line = br.readLine()) System.out.println(line);
+    Main mainClass = new Main();
+    List<Integer> tempList = new ArrayList<>();
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+    for (String line = br.readLine(); line != null; line = br.readLine()) {
+      for (String str : line.substring(1, line.length() - 1).split(",")) {
+        tempList.add(Integer.parseInt(str));
+      }
+    }
 
     br.close();
+
+    mainClass.solution(tempList.stream().mapToInt(Integer::intValue).toArray());
+
     return;
   }
 
-  public int solution(int[][] jobs) {
-    System.out.println("test code");
+  public int solution(int[] data) {
+    System.out.println(Arrays.toString(data));
     return 0;
   }
 }
