@@ -2,41 +2,56 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Main {
 
+  private int N;
+  private int M;
+  private int answer;
+
   public static void main(String[] args) throws IOException, NumberFormatException {
     System.setIn(new FileInputStream("input.txt"));
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    int T = Integer.parseInt(br.readLine());
-    int answer = 0;
-    boolean[][] matrix = new boolean[100][100];
+    Main mainInstance = new Main();
+    int[] cards;
 
-    for (int t = 0; t < T; t++) {
-      String[] lineArr = br.readLine().split(" ");
-      int X = Integer.parseInt(lineArr[0]);
-      int Y = Integer.parseInt(lineArr[1]);
+    {
+      BufferedReader br;
+      int[] tempArr;
 
-      for (int x = X; x < X + 10; x++) {
-        for (int y = Y; y < Y + 10; y++) {
-          matrix[x][y] = true;
-        }
-      }
-    }
-    br.close();
-
-    for (int x = 0; x < 100; x++) {
-      for (int y = 0; y < 100; y++) {
-        if (matrix[x][y]) {
-          if (x == 0 || !matrix[x - 1][y]) answer++;
-          if (x == 99 || !matrix[x + 1][y]) answer++;
-          if (y == 0 || !matrix[x][y - 1]) answer++;
-          if (y == 99 || !matrix[x][y + 1]) answer++;
-        }
-      }
+      br = new BufferedReader(new InputStreamReader(System.in));
+      tempArr = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+      N = tempArr[0];
+      M = tempArr[1];
+      cards = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+      br.close();
     }
 
-    System.out.println(answer);
+    System.out.println(Arrays.toString(cards));
+    mainInstance.comb(cards, 3);
+  }
+
+  public void comb(int[] arr, int select) {
+    combRecur(arr, new int[select], 0, select);
+    return;
+  }
+
+  private void combRecur(int[] origin, int[] selected, int index, int count) {
+    if (count == 0) {
+      int sum = 0;
+      for (int i : selected) {
+        sum += i;
+      }
+      return;
+    }
+
+    if (index == origin.length) {
+      return;
+    }
+
+    selected[selected.length - count] = origin[index];
+    combRecur(origin, selected, index + 1, count - 1);
+    combRecur(origin, selected, index + 1, count);
     return;
   }
 }
