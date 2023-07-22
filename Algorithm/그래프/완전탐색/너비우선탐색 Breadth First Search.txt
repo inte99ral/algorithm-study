@@ -1,0 +1,52 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <unordered_map>
+
+using namespace std;
+
+int solution(int n, vector<vector<int>> edge) 
+{
+    // 노드 입력
+    vector<vector<int>> node(n+1,vector<int>(0));
+    for(vector<int> i : edge)
+    {
+        node[i[0]].push_back(i[1]);
+        node[i[1]].push_back(i[0]);
+    }
+
+    // 레이어로 정리
+    vector<vector<int>> layor(n+1,vector<int>(0));
+    vector<int> prevList = {1};
+    int layorIndex = 0;
+    layor[0].push_back(1);
+    while(!layor[layorIndex].empty())
+    {
+        for(int nodeIndex : layor[layorIndex])
+        {
+            for(int next : node[nodeIndex])
+            {
+                if(*find(prevList.begin(), prevList.end(), next) != next){
+                    prevList.push_back(next);
+                    layor[layorIndex+1].push_back(next);
+                }
+            }
+        }
+        layorIndex++;
+    }
+    
+    // 확인
+    layorIndex = 0;
+    while(!layor[layorIndex].empty())
+    {
+        cout << "\nLayor "<< layorIndex << endl;
+        for(int i : layor[layorIndex]){
+            cout << i << " ";
+        }
+        layorIndex++;
+    }
+    
+    
+    return layor[layorIndex-1].size();
+}

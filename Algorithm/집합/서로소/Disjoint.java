@@ -1,3 +1,4 @@
+package 집합.서로소;
 import java.io.FileInputStream;
 import java.util.Arrays;
 import java.util.Scanner;
