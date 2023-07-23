@@ -1,0 +1,30 @@
+#include <algorithm>
+
+using namespace std;
+
+string solution(vector<string> participant, vector<string> completion) {
+    // 전체를 돌리게 된다면 모든 참가자 수 n 만큼 완주자 목록 n-1 를 확인해 봐야한다.
+    /*
+    for(string name : participant){
+        auto fi = find(completion.begin(), completion.end(), name);
+        if(fi == completion.end()){
+            return name;
+        }        
+        else{
+            completion.erase(fi);
+        }
+    }
+    */
+    // 하지만 목록을 양 쪽 목록을 소팅한다면 그 뒤로는 n 만큼만 확인해보면 된다
+    
+    sort(participant.begin(),participant.end());
+    sort(completion.begin(),completion.end());
+    
+    for(int i = 0; i < participant.size(); i++){
+        if(participant[i] != completion[i])
+            return participant[i];
+    }
+    
+    string answer;
+    return answer;
+}

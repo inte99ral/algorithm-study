@@ -1,0 +1,87 @@
+기본적인 알고리즘 개념+DFS BFS
+
+정신적인 팁
+	제발 문제에서 주어지는 자료형 마음 식히고 차분히 잘 확인하기
+
+C++ 꿀팁 모음
+	template
+template
+
+	<cctype>
+isalpha
+isdigit
+toupper
+tolower
+transform(str.begin(), str.end(),str.begin(), ::toupper); // 전체 대문자로
+
+	#include <vector> container
+vector<int> v;
+vector<int> v(5);
+vector<int> v(5,2); // {5, 5, 5, 5, 5}
+vector<int> v2(v1); // 복사
+vector<int> v2(v1.begin(), v1.end()); // 복사
+vector<vector<int>> node(n+1,vector<int>(0)) // 매트릭스 응용 예시
+
+v1.insert( iter, int i2 ) // iter 위치에 i2 값을 삽입한다.
+v1.insert( iter, int i2, int i3 ) // iter 위치에 i2 개의 i3 값을 삽입한다.
+v1.insert( iter, iter2, iter3 ) // iter 위치에 iter2 부터 iter3 를 삽입한다.
+v1.erase( iter ); // iter 가 가리키는 원소 제거
+v1.erase( iter1, iter2 ); // iter1 이상 iter2 미만 까지 가리키는 원소 제거
+v2.swap(v1); // v1과 v2의 원소를 스왑한다.
+#include<algorithm> auto it = find(v.begin(), v.end(), num); // 해당 원소를 검색해서 iterator를 반환한다.
+#include<algorithm> reverse(iter1, iter2) // iter1, iter2 사이의 벡터를 역전시킨다
+
+	#include <string> container
+string1.append( int1, string2 )
+string1.insert( int1, string2 )
+string1.replace( int1, int2, string2 )
+string1.erase( int1, int2 )
+
+
+	Split 구현
+std::vector<std::string>
+split( std::string const& original, char separator )
+{
+    std::vector<std::string> results;
+    std::string::const_iterator start = original.begin();
+    std::string::const_iterator end = original.end();
+    std::string::const_iterator next = std::find( start, end, separator );
+    while ( next != end ) {
+        results.push_back( std::string( start, next ) );
+        start = next + 1;
+        next = std::find( start, end, separator );
+    }
+    results.push_back( std::string( start, next ) );
+    return results;
+}
+
+	Split -> sscanf 응용(find 함수를 사용하는 split 방식보다는 ‘조금’ 느림)
+Split을 하지말고 특정 포맷에 맞춰 분할
+sscanf(<string>.c_str(), "%d-%d-%lf", &y, &m, &d);
+
+	교집합, 합집합 iterator 구현
+vector<string> s1 = {"a","c","b","a","c"};
+vector<string> s2 = {"a","e","c","a","c"};
+vector<string> su(s3.size() + s4.size()); // 합집합
+vector<string> sn(s3.size() + s4.size()); // 교집합
+vector<string>::iterator iter;
+
+sort(s1.begin(),s1.end());
+sort(s2.begin(),s2.end());
+
+iter = set_union(s1.begin(), s1.end(), s2.begin(), s2.end(), su.begin());
+su.resize(iter - su.begin()); // 크기 재조정
+iter = set_intersection(s1.begin(), s1.end(), s2.begin(), s2.end(), sn.begin());
+sn.resize(iter - sn.begin()); // 크기 재조정
+
+	교집합, 합집합 back_inserter 구현
+vector<string> s1 = {"a","c","b","a","c"};
+vector<string> s2 = {"a","e","c","a","c"};
+vector<string> su; // 합집합
+vector<string> sn; // 교집합
+
+sort(s1.begin(),s1.end());
+sort(s2.begin(),s2.end());
+
+set_union(s1.begin(), s1.end(), s2.begin(), s2.end(), back_inserter(su));
+set_intersection(s1.begin(), s1.end(), s2.begin(), s2.end(), back_inserter(sn));

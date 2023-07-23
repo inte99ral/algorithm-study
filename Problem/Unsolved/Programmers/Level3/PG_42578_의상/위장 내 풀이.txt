@@ -1,0 +1,25 @@
+#include <string>
+#include <map>
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+int solution(vector<vector<string>> clothes) {
+    int answer = 1;
+    map<string,int> cMap;
+    
+    for(vector<string> c : clothes){
+        if(cMap.find(c[0])==cMap.end()){
+            cMap[c[1]] = cMap[c[1]] + 1;
+        }
+        else{
+            cMap[c[1]] = 1;
+        }
+    }
+    
+    for( auto &[i,j] : cMap){
+        answer = answer * (j + 1);
+    }
+    return answer - 1;
+}

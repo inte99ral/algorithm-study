@@ -1,0 +1,83 @@
+#include <string>
+#include <iostream>
+#include <vector>
+#include <map>
+#include <algorithm>
+
+using namespace std;
+
+class sInfo{
+public:
+    int total;
+    vector<int> index;
+    vector<int> play;
+};
+
+vector<int> solution(vector<string> genres, vector<int> plays) {
+    // 1. genres 돌리면서 map에 에[0] plays 더하기
+    // 2. 돌리면서 재생횟수 벡터와 인덱스 벡터 기록
+    // 3. 홀 수면 pop_back()
+    
+    bool isOdd = (genres.size() / 2 != 0);
+    map<string,sInfo> sMap;
+    vector<int> answer;
+    
+    for(int i = 0; i < genres.size(); i++){
+        // first
+        if(sMap.find(genres[i]) == sMap.end()){
+            sInfo s;
+            s.total = plays[i];
+            s.index.push_back(i);
+            s.play.push_back(plays[i]);
+            
+            sMap[genres[i]] = s;
+        }
+        // after
+        else{
+            //i 가 고유번호 plays[i]가 재생횟수
+            sMap[genres[i]].total += plays[i];
+            
+            if(sMap[genres[i]].play.back() > plays[i]){
+                sMap[genres[i]].index.push_back(i);
+                sMap[genres[i]].play.push_back(plays[i]);
+            }
+            else if(sMap[genres[i]].play.front() < plays[i]){
+                sMap[genres[i]].index.insert(sMap[genres[i]].index.begin(),i);
+                sMap[genres[i]].play.insert(sMap[genres[i]].play.begin(),plays[i]);
+            }
+            else{
+                for(int j = 0; j < sMap[genres[i]].play.size(); j++){
+                    if(sMap[genres[i]].play[j] > plays[i]){
+                        sMap[genres[i]].index.insert(sMap[genres[i]].index.begin()+j,i);
+                        sMap[genres[i]].play.insert(sMap[genres[i]].play.begin()+j,plays[i]);
+                    }
+                }
+            }
+        }
+    }
+    
+    int fT = 0;
+    int bT = 0;
+    for(auto &[i,j] : sMap){
+        if(fT == 0){
+            answer.insert(answer.begin(),j.index.begin(),j.index.end());
+            fT = j.total;
+            bT = j.total;
+        }
+        else if(j.total >= fT){
+            answer.insert(answer.begin(),j.index.begin(),j.index.end());
+            fT = j.total;
+        }
+        else if(j.total <= bT){
+            answer.insert(answer.end(),j.index.begin(),j.index.end());
+            bT = j.total;
+        }
+    }
+    
+    if(isOdd){
+        answer.pop_back();
+    }
+        
+  
+    return answer;
+}
