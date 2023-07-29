@@ -6,7 +6,7 @@ using namespace std;
 
 int main() {
   string line;
-  ifstream file("./input.txt");
+  ifstream file("input.txt");
 
   if(file.is_open()){
     while(getline(file, line))

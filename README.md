@@ -13,7 +13,7 @@
 
 - 해당 문제 경로에 터미널로 접근 후에 명령어로 구동(우클릭 -> 통합 터미널에서 열기)
 
-  - cpp 파일은 "ctrl + alt + c" 로 빌드 후, "ctrl + alt + r" 로 구동
+  - cpp 파일은 코드러너로 우클릭 기동 또는 "ctrl + alt + c" 로 빌드 후, "ctrl + alt + r" 로 구동
   - java 파일은 `java Main.java`
   - js 파일은 `node Main.js`
 
