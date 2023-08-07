@@ -12,9 +12,175 @@
 # How To Set
 
 vscode는 관리하는 디렉토리의 .vscode 폴더 안의 파일로 환경설정이 가능하다
-tasks.json: 컴파일러 빌드 세팅
-launch.json: 디버거 세팅
-c_cpp_properties.json: 컴파일러 path 세팅, intellisense 세팅
+
+- tasks.json: 컴파일러 빌드 세팅
+
+  ```
+  {
+    "version": "2.0.0",
+    "runner": "terminal",
+    "type": "shell",
+    "echoCommand": true,
+    "presentation": {
+        "reveal": "always"
+    },
+    "tasks": [
+      // c++ compile
+      {
+        "label": "save and compile for C++",
+        "command": "g++",
+        "args": [
+          "${file}",
+          "-o",
+          "${fileDirname}/${fileBasenameNoExtension}"
+        ],
+        "group": "build",
+        "problemMatcher": {
+          "fileLocation": [
+            "relative",
+            "${workspaceRoot}"
+          ],
+          "pattern": {
+            "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning error):\\s+(.*)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "severity": 4,
+            "message": 5
+          }
+        }
+      },
+      // c comile
+      {
+        "label": "save and compile for C",
+        "command": "gcc",
+        "args": [
+          "${file}",
+          "-o",
+          "${fileDirname}/${fileBasenameNoExtension}"
+        ],
+        "group": "build",
+        "problemMatcher": {
+          "fileLocation": [
+            "relative",
+            "${workspaceRoot}"
+          ],
+          "pattern": {
+            "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning error):\\s+(.*)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "severity": 4,
+            "message": 5
+          }
+        }
+      },
+      // 파일 실행
+      {
+        "label": "execute",
+        "command": "cmd",
+        "group": "test",
+        "args": [
+          "/C",
+          "${fileDirname}\\${fileBasenameNoExtension}"
+        ]
+      },
+      // 파일 빌드
+      {
+        "type": "cppbuild",
+        "label": "C/C++: gcc.exe build active file",
+        "command": "C:\\msys64\\mingw64\\bin\\gcc.exe",
+        "args": [
+          "-fdiagnostics-color=always",
+          "-g",
+          "${file}",
+          "-o",
+          "${fileDirname}\\${fileBasenameNoExtension}.exe"
+        ],
+        "options": {
+          "cwd": "C:\\msys64\\mingw64\\bin"
+        },
+        "problemMatcher": [
+          "$gcc"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "detail": "compiler: C:\\msys64\\mingw64\\bin\\gcc.exe"
+      }
+    ]
+  }
+  ```
+
+- launch.json: 디버거 세팅
+
+  ```
+  {
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "gcc.exe - Build and debug active file",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "C:\\msys64\\mingw64\\bin", # 각자 msys64\\mingw64\\bin의 경로에 맞게 수정
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "miDebuggerPath": "C:\\msys64\\mingw64\\bin\\gdb.exe", # 여기도 경로에 맞게 수정
+        "setupCommands": [
+          {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          },
+          {
+            "description": "Set Disassembly Flavor to Intel",
+            "text": "-gdb-set disassembly-flavor intel",
+            "ignoreFailures": true
+          }
+        ],
+        "preLaunchTask": "C/C++: gcc.exe build active file"
+      }
+    ]
+  }
+  ```
+
+- c_cpp_properties.json: 컴파일러 path 세팅, intellisense 세팅
+
+  ```
+  {
+    "configurations": [
+      {
+        "name": "Win32",
+        "includePath": [
+          "${workspaceFolder}/**",
+          // msys64 설치 경로에 따라 수정할 것
+          "C:/msys64/mingw64/include"
+        ],
+        "defines": [
+          "_DEBUG",
+          "UNICODE",
+          "_UNICODE"
+        ],
+        "windowsSdkVersion": "10.0.18362.0",
+        // msys64 설치 경로에 따라 수정할 것
+        "compilerPath": "C:/msys64/mingw64/bin/gcc.exe",
+        "cStandard": "c11",
+        "cppStandard": "c++17",
+        // windows-msvc-x64 에서 아래와 같이 변경
+        "intelliSenseMode": "windows-gcc-x64"
+      }
+    ],
+    "version": 4
+  }
+  ```
 
 <br />
 
