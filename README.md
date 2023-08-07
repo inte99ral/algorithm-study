@@ -11,6 +11,8 @@
 
 # How To Set
 
+g++ 컴파일러를 내장한 Msys2 와 mingw64 를 설치해야함
+
 vscode는 관리하는 디렉토리의 .vscode 폴더 안의 파일로 환경설정이 가능하다
 
 - tasks.json: 컴파일러 빌드 세팅
@@ -116,10 +118,11 @@ vscode는 관리하는 디렉토리의 .vscode 폴더 안의 파일로 환경설
 - launch.json: 디버거 세팅
 
   ```
+  // 상단 메뉴바에서 실행 -> 구성추가 -> C++ (GDB/LLDB) 선택해서 구성 추가하면 자동생성됨
   {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    // IntelliSense를 사용하여 가능한 특성에 대해 알아보세요.
+    // 기존 특성에 대한 설명을 보려면 가리킵니다.
+    // 자세한 내용을 보려면 https://go.microsoft.com/fwlink/?linkid=830387을(를) 방문하세요.
     "version": "0.2.0",
     "configurations": [
       {
