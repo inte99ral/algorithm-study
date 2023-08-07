@@ -1,0 +1,16 @@
+/*
+ * ctrl + k -> ctrl + s 바로가기 키 설정창 띄우기
+ * 키 바인딩을 다음과 같이 조정
+ */
+[
+  // 컴파일
+  {
+    "key": "ctrl+alt+c",
+    "command": "workbench.action.tasks.build"
+  },
+  // 실행
+  {
+    "key": "ctrl+alt+r",
+    "command": "workbench.action.tasks.test"
+  }
+]

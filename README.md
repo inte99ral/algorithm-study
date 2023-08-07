@@ -9,6 +9,15 @@
 
 <br />
 
+# How To Set
+
+vscode는 관리하는 디렉토리의 .vscode 폴더 안의 파일로 환경설정이 가능하다
+tasks.json: 컴파일러 빌드 세팅
+launch.json: 디버거 세팅
+c_cpp_properties.json: 컴파일러 path 세팅, intellisense 세팅
+
+<br />
+
 # How To Run
 
 - 해당 문제 경로에 터미널로 접근 후에 명령어로 구동(우클릭 -> 통합 터미널에서 열기)
