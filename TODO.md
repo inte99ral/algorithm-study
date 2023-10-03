@@ -23,7 +23,7 @@
 
 # FIXME:
 
-- [ ] BJ 1592 영식이와 친구들 `#BronzeⅡ #구현 #시뮬레이션`
+- [ ] [BJ 1592 영식이와 친구들 #BronzeⅡ #구현 #시뮬레이션](Problem\Failed\Baekjoon\Bronze\Ⅱ\BJ_1592_영식이와_친구들\BJ_1592_영식이와_친구들_Bronze_2.md)
 - [ ] BJ 2798 블랙잭 `#BronzeⅡ #브루트포스`
 - [ ] BJ 2563 색종이 `#SilverⅤ #구현`
 - [ ] BJ 1244 스위치 켜고 끄기 `#SilverⅣ`
