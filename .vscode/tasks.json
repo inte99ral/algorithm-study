@@ -7,21 +7,19 @@
     "reveal": "always"
   },
   "tasks": [
+    // c++ 컴파일
     {
       "label": "save and compile for C++",
       "command": "g++",
-      "args": [
-        "${file}",
-        "-o",
-        "${fileDirname}/${fileBasenameNoExtension}"
-      ],
+      "args": ["${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}"],
       "group": "build",
+      // 컴파일시 에러를 편집기에 반영
+      // https://code.visualstudio.com/docs/editor/tasks#_defining-a-problem-matcher
       "problemMatcher": {
-        "fileLocation": [
-          "relative",
-          "${workspaceRoot}"
-        ],
+        "fileLocation": ["relative", "${workspaceRoot}"],
         "pattern": {
+          // 정규 표현식
+          // Example to match: helloWorld.c:5:3: warning: implicit declaration of function 'prinft'
           "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning error):\\s+(.*)$",
           "file": 1,
           "line": 2,
@@ -31,21 +29,19 @@
         }
       }
     },
+    // c 컴파일
     {
       "label": "save and compile for C",
       "command": "gcc",
-      "args": [
-        "${file}",
-        "-o",
-        "${fileDirname}/${fileBasenameNoExtension}"
-      ],
+      "args": ["${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}"],
       "group": "build",
+      // 컴파일시 에러를 편집기에 반영
+      // https://code.visualstudio.com/docs/editor/tasks#_defining-a-problem-matcher
       "problemMatcher": {
-        "fileLocation": [
-          "relative",
-          "${workspaceRoot}"
-        ],
+        "fileLocation": ["relative", "${workspaceRoot}"],
         "pattern": {
+          // 정규 표현식
+          // Example to match: helloWorld.c:5:3: warning: implicit declaration of function 'prinft'
           "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning error):\\s+(.*)$",
           "file": 1,
           "line": 2,
@@ -55,15 +51,14 @@
         }
       }
     },
+    // 바이너리 실행(Windows)
     {
       "label": "execute",
       "command": "cmd",
       "group": "test",
-      "args": [
-        "/C",
-        "${fileDirname}\\${fileBasenameNoExtension}"
-      ]
+      "args": ["/C", "${fileDirname}\\${fileBasenameNoExtension}"]
     },
+    // c++ 빌드 디버그
     {
       "type": "cppbuild",
       "label": "C/C++: g++.exe 활성 파일 빌드",
@@ -78,9 +73,7 @@
       "options": {
         "cwd": "${fileDirname}"
       },
-      "problemMatcher": [
-        "$gcc"
-      ],
+      "problemMatcher": ["$gcc"],
       "group": {
         "kind": "build",
         "isDefault": true
