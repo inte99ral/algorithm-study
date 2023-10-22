@@ -4,7 +4,8 @@
       "name": "Win32",
       "includePath": ["${workspaceFolder}/**"],
       "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
-      "compilerPath": "D:\\Program Files\\mingw64\\bin\\gcc.exe",
+      // MinGW bin 내부 g++.exe 주소
+      "compilerPath": "D:\\Program Files\\MinGW\\bin\\g++.exe",
       "intelliSenseMode": "windows-gcc-x64",
       "cppStandard": "c++17",
       "cStandard": "c17"

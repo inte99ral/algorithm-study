@@ -58,11 +58,35 @@
       "group": "test",
       "args": ["/C", "${fileDirname}\\${fileBasenameNoExtension}"]
     },
-    // c++ 빌드 디버그
+    // gcc 빌드 디버그
+    {
+      "type": "cppbuild",
+      "label": "C/C++: gcc.exe 활성 파일 빌드",
+      // MinGW bin 내부 gcc.exe 주소
+      "command": "D:\\Program Files\\MinGW\\bin\\gcc.exe",
+      "args": [
+        "-fdiagnostics-color=always",
+        "-g",
+        "${file}",
+        "-o",
+        "${fileDirname}\\${fileBasenameNoExtension}.exe"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "디버거에서 생성된 작업입니다."
+    },
+    // g++ 빌드 디버그
     {
       "type": "cppbuild",
       "label": "C/C++: g++.exe 활성 파일 빌드",
-      "command": "D:\\Program Files\\mingw64\\bin\\g++.exe",
+      // MinGW bin 내부 g++.exe 주소
+      "command": "D:\\Program Files\\MinGW\\bin\\g++.exe",
       "args": [
         "-fdiagnostics-color=always",
         "-g",
