@@ -10,7 +10,8 @@ public class Main {
   private static BufferedReader br;
 
   public static void main(String[] args) throws IOException {
-    System.setIn(new FileInputStream("input.txt"));
+    System.setIn(new FileInputStream("input.txt")); // -- 로컬 input.txt 입력 코드
+    
     br = new BufferedReader(new InputStreamReader(System.in));
 
     for (String line = br.readLine(); line != null; line = br.readLine()) System.out.println(line);

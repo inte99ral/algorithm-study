@@ -1,23 +1,15 @@
 #include <iostream>
-#include <fstream>
-#include <string>
 
 using namespace std;
 
 int main() {
-  string line;
-  ifstream file("input.txt");
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
+  freopen(".example\\Baekjoon\\input.txt", "rt", stdin); // -- 로컬 input.txt 입력 코드
 
-  if(file.is_open()){
-    while(getline(file, line))
-      cout << line << endl;
-
-    file.close();
-  }
-  else {
-    cout << "error" << endl;
-    return 1;
-  }
-
+  string x;
+  getline(cin, x);
+  cout << x;
   return 0;
 }

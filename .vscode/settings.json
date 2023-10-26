@@ -51,7 +51,11 @@
 {
   "files.associations": {
     "ostream": "cpp",
-    "iosfwd": "cpp"
+    "iosfwd": "cpp",
+    "string": "cpp",
+    "iostream": "cpp",
+    "istream": "cpp",
+    "fstream": "cpp"
   },
   "cmake.configureOnOpen": true,
   "workbench.colorTheme": "Default Light+",

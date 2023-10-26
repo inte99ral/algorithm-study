@@ -11,7 +11,12 @@
     {
       "label": "save and compile for C++",
       "command": "g++",
-      "args": ["${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}"],
+      "args": [
+        "-std=c++17", // C++ 17 적용 옵션
+        "${file}",
+        "-o",
+        "${fileDirname}/${fileBasenameNoExtension}"
+      ],
       "group": "build",
       // 컴파일시 에러를 편집기에 반영
       // https://code.visualstudio.com/docs/editor/tasks#_defining-a-problem-matcher
@@ -58,14 +63,15 @@
       "group": "test",
       "args": ["/C", "${fileDirname}\\${fileBasenameNoExtension}"]
     },
-    // gcc 빌드 디버그
+    // g++ 빌드 디버그
     {
       "type": "cppbuild",
-      "label": "C/C++: gcc.exe 활성 파일 빌드",
-      // MinGW bin 내부 gcc.exe 주소
-      "command": "D:\\Program Files\\MinGW\\bin\\gcc.exe",
+      "label": "C/C++: g++.exe 활성 파일 빌드",
+      // MinGW bin 내부 g++.exe 주소
+      "command": "D:\\Program Files\\Msys64\\mingw64\\bin\\g++.exe",
       "args": [
-        "-fdiagnostics-color=always",
+        "-std=c++17", // C++ 17 적용
+        "-fdiagnostics-color=always", // gcc 진단 메시지 형식 제어 ​​옵션
         "-g",
         "${file}",
         "-o",
@@ -81,14 +87,14 @@
       },
       "detail": "디버거에서 생성된 작업입니다."
     },
-    // g++ 빌드 디버그
+    // gcc 빌드 디버그
     {
       "type": "cppbuild",
-      "label": "C/C++: g++.exe 활성 파일 빌드",
-      // MinGW bin 내부 g++.exe 주소
-      "command": "D:\\Program Files\\MinGW\\bin\\g++.exe",
+      "label": "C/C++: gcc.exe 활성 파일 빌드",
+      // MinGW bin 내부 gcc.exe 주소
+      "command": "D:\\Program Files\\Msys64\\mingw64\\bin\\gcc.exe",
       "args": [
-        "-fdiagnostics-color=always",
+        "-fdiagnostics-color=always", // gcc 진단 메시지 형식 제어 ​​옵션
         "-g",
         "${file}",
         "-o",

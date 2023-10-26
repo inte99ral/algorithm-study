@@ -3,10 +3,9 @@ const input = {
   hasMoreLines: () => !!this.fullLine[this.lineIndex],
   readLine: (() => {
     this.lineIndex = 0;
-    // 백준 인식 코드
-    // this.fullLine = require('fs').readFileSync('dev/stdin').toString().split(/\r\n|\r|\n/gm);
     this.fullLine = require('fs')
-      .readFileSync('input.txt')
+      // .readFileSync('dev/stdin') // -- 백준 입력 코드
+      .readFileSync('input.txt') // -- 로컬 input.txt 입력 코드
       .toString()
       .split(/\r\n|\r|\n/gm);
 

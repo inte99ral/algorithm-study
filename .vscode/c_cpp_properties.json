@@ -5,7 +5,7 @@
       "includePath": ["${workspaceFolder}/**"],
       "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
       // MinGW bin 내부 g++.exe 주소
-      "compilerPath": "D:\\Program Files\\MinGW\\bin\\g++.exe",
+      "compilerPath": "D:\\Program Files\\Msys64\\mingw64\\bin\\g++.exe",
       "intelliSenseMode": "windows-gcc-x64",
       "cppStandard": "c++17",
       "cStandard": "c17"

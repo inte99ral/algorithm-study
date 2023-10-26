@@ -2,7 +2,7 @@
 
 # DONE:
 
-- [x] 2023.06.15 | [BJ 1000 A+B #BronzeⅤ #수학 #구현 #사칙연산](Problem\Solved\Baekjoon\Bronze\Ⅴ\BJ_1000_A+B\BJ_1000_A+B.md)
+- [x] 2023.06.15 | [BJ 1000 A+B #BronzeⅤ #수학 #구현 #사칙연산](Problem\Solved\Baekjoon\Bronze\5\BJ_1000_A+B\question.md)
 
 <br />
 
