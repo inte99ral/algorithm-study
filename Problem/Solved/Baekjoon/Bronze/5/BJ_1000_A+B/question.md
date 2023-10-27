@@ -1,4 +1,4 @@
-# [스위치 켜고 끄기](https://www.acmicpc.net/problem/1000)
+# [A+B](https://www.acmicpc.net/problem/1000)
 
 | 시간 제한 | 메모리 제한 |
 | :-------: | :---------: |
