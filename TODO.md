@@ -2,7 +2,7 @@
 
 # DONE:
 
-- [x] 2023.10.27 | [BJ 1000 A+B #BronzeⅤ #수학 #구현 #사칙연산](Problem\Solved\Baekjoon\Bronze\5\BJ_1000_A+B\question.md)
+- [x] 2023.10.27 | [BJ 1000 A+B #Bronze_5 #수학 #구현 #사칙연산](Problem\Solved\Baekjoon\Bronze\5\BJ_1000_A+B\question.md)
 
 <br />
 
@@ -10,7 +10,8 @@
 
 # FIXME:
 
-- [ ] 2023.06.16 | BJ 1244 스위치 켜고 끄기 `#Silver_4 #구현 #시뮬레이션`
+- [ ] [BJ 1244 스위치 켜고 끄기 #Silver_4 #구현 #시뮬레이션](Problem\Failed\Baekjoon\Silver\4\BJ_1244_스위치_켜고_끄기\question.md)
+
 - [ ] 2023.06.17 | BJ 1592 영식이와 친구들 `#Bronze_2 #구현 #시뮬레이션`
 - [ ] 2023.06.18 | BJ 2292 벌집 `#Bronze_2 #수학`
 - [ ] 2023.06.19 | BJ 2477 참외밭 `#Silver_2 #수학 #구현 #기하학`
