@@ -1,16 +1,19 @@
 # [A+B](https://www.acmicpc.net/problem/1000)
 
+<center>
+
 | 시간 제한 | 메모리 제한 |
 | :-------: | :---------: |
 |   2 초    |   128 MB    |
 
+</center>
 <br />
 
 ## 문제
 
 <br />
 
-두 정수 A와 B를 입력받은 다음, A+B를 출력하는 프로그램을 작성하시오.
+&nbsp;두 정수 A와 B를 입력받은 다음, A+B를 출력하는 프로그램을 작성하시오.
 
 <br />
 
@@ -18,7 +21,7 @@
 
 <br />
 
-첫째 줄에 A와 B가 주어진다. (0 < A, B < 10)
+&nbsp;첫째 줄에 A와 B가 주어진다. (0 < A, B < 10)
 
 <br />
 
@@ -26,10 +29,10 @@
 
 <br />
 
-첫째 줄에 A+B를 출력한다.
+&nbsp;첫째 줄에 A+B를 출력한다.
 
 <br />
-
+<center>
 <table><tr><th><img width=120/>예제 입력 1<img width=120/></th><th><img width=120/>예제 출력 1<img width=120/></th></tr><tr><td>
 
 ```
@@ -43,7 +46,7 @@
 ```
 
 </td></tr></table>
-
+</center>
 <br />
 
 ## 출처
