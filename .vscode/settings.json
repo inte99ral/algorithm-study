@@ -55,9 +55,7 @@
     "string": "cpp",
     "iostream": "cpp",
     "istream": "cpp",
-    "fstream": "cpp",
-    "chrono": "cpp",
-    "functional": "cpp"
+    "fstream": "cpp"
   },
   "cmake.configureOnOpen": true,
   "workbench.colorTheme": "Default Light+",
