@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Main {
 
@@ -15,7 +16,7 @@ public class Main {
     br = new BufferedReader(new InputStreamReader(System.in));
 
     for (String line = br.readLine(); line != null; line = br.readLine()) System.out.println(line);
-
+    // arr = Arrays.stream(br.readLine().split(" ")).mapToInt(x -> Integer.parseInt(x)).toArray();
     br.close();
     return;
   }

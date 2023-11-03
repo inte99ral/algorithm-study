@@ -3,6 +3,7 @@
 # DONE:
 
 - [x] 2023.10.27 | [BJ 1000 A+B #Bronze_5 #수학 #구현 #사칙연산](Problem\Solved\Baekjoon\Bronze\5\BJ_1000\question.md)
+- [ ] 2023.11.02 | [BJ 1244 스위치 켜고 끄기 #Silver_4 #구현 #시뮬레이션](Problem\Solved\Baekjoon\Silver\4\BJ_1244\question.md)
 
 <br />
 
