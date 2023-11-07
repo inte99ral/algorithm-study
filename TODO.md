@@ -4,6 +4,7 @@
 
 - [x] 2023.10.27 | [BJ 1000 A+B #Bronze_5 #수학 #구현 #사칙연산](Problem\Solved\Baekjoon\Bronze\5\BJ_1000\question.md)
 - [x] 2023.11.02 | [BJ 1244 스위치 켜고 끄기 #Silver_4 #구현 #시뮬레이션](Problem\Solved\Baekjoon\Silver\4\BJ_1244\question.md)
+- [x] 2023.11.07 | [BJ 1592 영식이와 친구들 #Bronze_2 #구현 #시뮬레이션](Problem\Solved\Baekjoon\Bronze\2\BJ_1592\question.md)
 
 <br />
 
@@ -11,7 +12,6 @@
 
 # FIXME:
 
-- [ ] 2023.06.17 | BJ 1592 영식이와 친구들 `#Bronze_2 #구현 #시뮬레이션`
 - [ ] 2023.06.18 | BJ 2292 벌집 `#Bronze_2 #수학`
 - [ ] 2023.06.19 | BJ 2477 참외밭 `#Silver_2 #수학 #구현 #기하학`
 - [ ] 2023.06.20 | PG 1845 폰켓몬 `#Level_1 #해시`
@@ -24,8 +24,6 @@
 - [ ] 2023.07.06 | BJ 2810 컵홀더 `#BronzeⅠ #구현 #문자열 #그리디`
 - [ ] 2023.07.09 | BJ 2851 슈퍼마리오 `#BronzeⅠ #구현 #브루트포스 #누적합`
 - [ ] 2023.07.18 | BJ 2941 크로아티아알파벳 `#SilverⅤ #구현 #문자열`
-- [ ] [BJ 1592 영식이와 친구들 #BronzeⅡ #구현 #시뮬레이션](Problem\Failed\Baekjoon\Bronze\Ⅱ\BJ_1592_영식이와_친구들\BJ_1592_영식이와_친구들_Bronze_2.md)
-- [ ] BJ 2798 블랙잭 `#BronzeⅡ #브루트포스`
 - [ ] BJ 2563 색종이 `#SilverⅤ #구현`
 - [ ] BJ 1244 스위치 켜고 끄기 `#SilverⅣ`
 - [ ] BJ 2567 색종이2 `#SilverⅣ`
