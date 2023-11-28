@@ -5,11 +5,10 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-  private static BufferedReader br;
-  private static StringTokenizer st;
-
   public static void main(String[] args) throws IOException, NumberFormatException {
     System.setIn(new FileInputStream("input.txt")); // -- 로컬 input.txt 입력 코드
+    BufferedReader br;
+    StringTokenizer st;
     int N; 
     int M;
     int L;

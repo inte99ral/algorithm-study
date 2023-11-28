@@ -12,7 +12,7 @@
 
 # FIXME:
 
-- [ ] 2023.06.18 | BJ 2292 벌집 `#Bronze_2 #수학`
+- [x] 2023.11.28 | [BJ 2292 벌집 #Bronze_2 #수학](Problem\Failed\Baekjoon\Bronze\2\BJ_2292\question.md)
 - [ ] 2023.06.19 | BJ 2477 참외밭 `#Silver_2 #수학 #구현 #기하학`
 - [ ] 2023.06.20 | PG 1845 폰켓몬 `#Level_1 #해시`
 
