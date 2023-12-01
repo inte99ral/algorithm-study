@@ -1,3 +1,8 @@
+/*
+ * 해설 ㄱ 자 모양을 추측하기 위하여 반시계방향 상수 배열을 만들고
+ * ㄱ자 모양을 위해 시계방향으로 꺾이는 순간을 파악
+ */
+
 #include <iostream>
 
 using namespace std;
@@ -13,17 +18,26 @@ int main() {
   int K;
   int maxArea = 0;
   int delArea = 0;
+
+  int firstDirc = 0;
   int prevDirc = 0;
   int currDirc = 0;
+
+  int firstLen = 0;
   int prevLen = 0;
   int currLen = 0;
 
-  const int *clockwise = new int[5]{0, 3, 4, 2, 1};
-  const int *counterclockwise = new int[5]{0, 4, 3, 1, 2};
+  const int *clockwise = new int[5]{-1, 3, 4, 2, 1};
 
   cin >> K;
 
-  for(int i = 0; i < 7; i++) {
+  cin >> currDirc;
+  cin >> currLen;
+
+  firstDirc = currDirc;
+  firstLen = currLen;
+
+  for(int i = 0; i < 5; i++) {
     int currArea;
 
     prevDirc = currDirc;
@@ -34,12 +48,32 @@ int main() {
 
     currArea = prevLen * currLen;
 
-    if(currDirc)
-
-    if(maxArea < newArea) maxArea = newArea; 
+    if(currDirc == clockwise[prevDirc]) {
+      delArea = currArea;
+    }
+    else {
+      if(maxArea < currArea) {
+        maxArea = currArea;
+      } 
+    }
   }
 
-  cout << K;
+  {
+    prevDirc = currDirc;
+    prevLen = currLen;
+
+    int currArea = firstLen * prevLen;
+
+    if(firstDirc == clockwise[prevDirc]) {
+      delArea = firstLen * prevLen;
+    }
+    else {
+      int currArea = firstLen * prevLen;
+      if(maxArea < currArea) maxArea = currArea; 
+    }
+  }
+
+  cout << K * (maxArea - delArea);
 
   return 0;
 }

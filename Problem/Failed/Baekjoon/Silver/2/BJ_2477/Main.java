@@ -1,3 +1,8 @@
+/*
+ * 해설 ㄱ 자 모양을 추측하기 위하여 가장 긴 변 두개를 찾고
+ * 그 후에 2번 뒤에 나올 부분이 ㄱ자의 꺾이는 부분임을 파악
+ */
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
