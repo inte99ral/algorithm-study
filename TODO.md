@@ -13,10 +13,10 @@
 # FIXME:
 
 - [x] 2023.11.28 | [BJ 2292 벌집 #Bronze_2 #수학](Problem\Failed\Baekjoon\Bronze\2\BJ_2292\question.md)
-- [ ] 2023.06.19 | BJ 2477 참외밭 `#Silver_2 #수학 #구현 #기하학`
-- [ ] 2023.06.20 | PG 1845 폰켓몬 `#Level_1 #해시`
+- [ ] 2023.06.19 | [BJ 2477 참외밭 #Silver_2 #수학 #구현 #기하학](Problem\Failed\Baekjoon\Silver\2\BJ_2477\question.md)
+- [ ] 2023.06.20 | [PG 1845 폰켓몬 #Level_1 #해시](Problem\Failed\Programmers\L1\PG_1845\question.md)
+- [ ] 2023.06.21 | [PG 181188 요격 시스템 #Level_2 #연습문제](Problem\Failed\Programmers\L2\PG_181188\question.md)
 
-- [ ] 2023.06.21 | PG 181188 요격 시스템 `#Level_2 #연습문제`
 - [ ] 2023.06.27 | BJ 2527 직사각형 `#Silver_1 #수학 #기하학 #많은_조건_분기`
 - [ ] 2023.06.28 | BJ 2563 색종이 `#SilverⅤ #구현`
 - [ ] 2023.06.29 | BJ 2567 색종이2 `#SilverⅣ #구현`
