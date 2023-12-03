@@ -31,20 +31,9 @@
 <br />
 <center>
 
-<style>th {width: 30vw; text-align: center;} td {padding: 1em;}</style>
-<table><tr><th>targets</th><th>result</th></tr><tr><td><div>
-
-```
-[[4,5],[4,8],[10,14],[11,13],[5,12],[3,7],[1,4]]
-```
-
-</div></td><td>
-
-```
-3
-```
-
-</td></tr></table>
+|                     targets                      | result |
+| :----------------------------------------------: | :----: |
+| [[4,5],[4,8],[10,14],[11,13],[5,12],[3,7],[1,4]] |   3    |
 
 </center>
 <br/>
