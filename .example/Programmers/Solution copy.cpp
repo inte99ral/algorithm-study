@@ -1,6 +1,15 @@
-#include <bits/stdc++.h>
+/**
+ * 2차원 배열 
+ */
 
+// #include <bits/stdc++.h>
+#include <iostream>
+#include <map>
+#include <sstream>
 #include <vector>
+#include <regex>
+
+#include <typeinfo>
 
 using namespace std;
 
@@ -15,13 +24,14 @@ int main() {
   string buffer;
 
   getline(cin, rawInput);
-
   regex regExp("[0-9]+");
+
   sregex_token_iterator iter(
     rawInput.begin(),
     rawInput.end(),
     regExp
-  ), end;
+  );
+  sregex_token_iterator end;
 
   while (iter != end) {
     vector<int> tempVec = {stoi(*iter++), stoi(*iter++)};
@@ -34,27 +44,14 @@ int main() {
 
 // -- Solution ====================
 int solution(vector<vector<int>> targets) {
-    vector<vector<int>> section;
+    int answer = 123456789;
 
-    section.push_back({targets[0][0],targets[0][1]});
-
-    for(vector<int> target : targets) {
-      int index = 0;
-      while(index <= section.size()) {
-        if(index == section.size()) {
-          section.push_back(target);
-          continue;
-        }
-        
-        if(target[1] <= section[index][0] || section[index][1] <= target[0]) continue;
-
-        if(target[0] <= section[index][1] || section[index][0] >= target[1]) {
-
-          break;
-        }
+    for(vector<int> iVec : targets) {
+      cout << "[";
+      for(int i : iVec) {
+        cout << i << ",";
       }
-
-
+      cout << "]" << '\n';
     }
 
     return answer;
