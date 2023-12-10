@@ -47,8 +47,11 @@ class Solution {
 
     for (int i = 1; i < targets.length; i++) {
       if (targets[i][0] < memory.get(memory.size() - 1).get(1)) {
-        memory.get(memory.size() - 1).set(0, targets[i][0]);
-        if (targets[i][1] < memory.get(memory.size() - 1).get(1)) memory
+        memory
+          .get(memory.size() - 1)
+          .set(0, targets[i][0]);
+        if (targets[i][1] < memory.get(memory.size() - 1).get(1))
+        memory
           .get(memory.size() - 1)
           .set(1, targets[i][1]);
         memory.get(memory.size() - 1).add(targets[i][0]);

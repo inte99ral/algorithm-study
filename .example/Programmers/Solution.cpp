@@ -5,7 +5,7 @@
 
 using namespace std;
 
-// -- Header ====================
+// -- Header =========================
 int solution(vector<int> nums);
 
 // -- Local Input ====================
@@ -24,7 +24,7 @@ int main() {
   return 0;
 }
 
-// -- Solution ====================
+// -- Solution =======================
 int solution(vector<int> nums)
 {
   for(int num : nums) {

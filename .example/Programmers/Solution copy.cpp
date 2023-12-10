@@ -1,39 +1,36 @@
 /**
  * 2차원 배열 
  */
-
-// #include <bits/stdc++.h>
-#include <iostream>
-#include <map>
-#include <sstream>
-#include <vector>
-#include <regex>
-
-#include <typeinfo>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-// -- Header ====================
-int solution(vector<vector<int>> nums);
+// -- Header =========================
+int solution(vector<vector<int>> targets);
 
 // -- Local Input ====================
 int main() {
-  freopen("Problem\\Failed\\Programmers\\L2\\PG_181188\\input.txt", "rt", stdin);
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
+
+  freopen("Problem\\Solved\\Programmers\\Level2\\PG_181188\\input.txt", "rt", stdin);
+
   string rawInput;
   vector<vector<int>> input;
+
+  regex regExp("[0-9]+");
   string buffer;
 
   getline(cin, rawInput);
-  regex regExp("[0-9]+");
 
   sregex_token_iterator iter(
     rawInput.begin(),
     rawInput.end(),
     regExp
-  );
-  sregex_token_iterator end;
+  ), end;
 
-  while (iter != end) {
+  while(iter != end) {
     vector<int> tempVec = {stoi(*iter++), stoi(*iter++)};
     input.push_back(tempVec);
   }
@@ -42,17 +39,12 @@ int main() {
   return 0;
 }
 
-// -- Solution ====================
+// -- Solution =======================
 int solution(vector<vector<int>> targets) {
-    int answer = 123456789;
 
-    for(vector<int> iVec : targets) {
-      cout << "[";
-      for(int i : iVec) {
-        cout << i << ",";
-      }
-      cout << "]" << '\n';
-    }
-
-    return answer;
+  for(vector<int> target : targets) {
+    cout << target[0] << ", " << target[1] << "\n";
+  }
+  return 0;
 }
+
