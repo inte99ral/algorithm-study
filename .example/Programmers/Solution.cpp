@@ -1,35 +1,53 @@
 #include <bits/stdc++.h>
-// #include <iostream>
-// #include <sstream>
-// #include <vector>
 
 using namespace std;
 
 // -- Header =========================
-int solution(vector<int> nums);
+int solution(vector<vector<int>> targets);
 
 // -- Local Input ====================
 int main() {
-  freopen("Problem\\Failed\\Programmers\\L1\\PG_1845\\input.txt", "rt", stdin);
-  string rawData;
-  string buffer;
-  vector<int> input;
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
+  vector<vector<int>> input;
 
-  getline(cin, rawData);
-  stringstream ss(rawData.substr(1,rawData.size() - 2));
+  {
+    string rawInput;
+    string buffer;
+    regex regExp("[0-9]+");
 
-  while(getline(ss, buffer, ',')) input.push_back(7);
 
-  cout << solution(input) << '\n';
+    freopen(".example\\Programmers\\question\\input.txt", "rt", stdin);
+    getline(cin, rawInput);
+
+    sregex_token_iterator iter(
+      rawInput.begin(),
+      rawInput.end(),
+      regExp
+    ), end;
+
+    while(iter != end) {
+      vector<int> tempVec = {stoi(*iter++), stoi(*iter++)};
+      input.push_back(tempVec);
+    }
+  }
+
+  cout << "[answer]: " + to_string(solution(input)) << '\n';
   return 0;
 }
 
 // -- Solution =======================
-int solution(vector<int> nums)
-{
-  for(int num : nums) {
-    cout << num << endl;
-  }
+/**
+ * 2차원 배열 데이터 전용
+ */
+int solution(vector<vector<int>> targets) {
   int answer = 0;
+
+  for(vector<int> target : targets) {
+    cout << "[" << target[0] << ", " << target[1] << "]" << "\n";
+  }
+
   return answer;
 }
+

@@ -2,6 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "Solution",
+      "request": "launch",
+      "mainClass": "Solution",
+      "projectName": "Algorithm_Study_7fe8fac"
+    },
+    {
       "name": "gcc.exe - Build and debug active file",
       "type": "cppdbg",
       "request": "launch",

@@ -11,7 +11,7 @@ int main() {
   cin.tie(nullptr);
   cout.tie(nullptr);
 
-  freopen("Problem\\Solved\\Programmers\\Level2\\PG_181188\\input.txt", "rt", stdin);
+  freopen("E:\\StudySpace\\Coding\\Algorithm_Study\\Problem\\Solved\\Programmers\\Level2\\PG_181188\\question\\input.txt", "rt", stdin);
 
   string rawInput;
   vector<vector<int>> input;

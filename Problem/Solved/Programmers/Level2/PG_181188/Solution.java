@@ -1,37 +1,46 @@
+import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.StringTokenizer;
 
 class Solution {
+  // -- Local Input ====================
+  public static void main(String[] args) throws IOException, NumberFormatException {
+    System.setIn(new FileInputStream("question/input.txt"));
+    Solution solInstance = new Solution();
 
-  public static void main(String[] args) throws IOException {
-    Solution solutionClass = new Solution();
-    List<Integer> tempList = new ArrayList<Integer>();
-    String line = "";
+    LinkedList<LinkedList<Integer>> rawInput = new LinkedList<LinkedList<Integer>>();
+    int[][] input;
 
-    System.setIn(new FileInputStream("input.txt"));
-    Scanner sc = new Scanner(System.in);
+    {
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      StringTokenizer st = new StringTokenizer(br.readLine(), "[, ]");
 
-    line = sc.nextLine();
-    line = line.substring(2, line.length() - 2);
+      while(st.hasMoreTokens()) {
+        rawInput.add(
+          new LinkedList<Integer>(Arrays.asList(
+            Integer.parseInt(st.nextToken()), 
+            Integer.parseInt(st.nextToken())
+          ))
+        );
+      }
+      br.close();
+    }
 
-    for (String numberSet : line.split("\\], \\[")) for (String number : numberSet.split(
-      ", "
-    )) tempList.add(Integer.parseInt(number));
+    input = rawInput.stream().map(e -> e.stream().mapToInt(i -> i).toArray()).toArray(int[][]::new);
 
-    int[][] jobs = new int[tempList.size() / 2][2];
-
-    for (int i = 0; i < tempList.size(); i++) jobs[i / 2][i % 2] = tempList.get(i);
-
-    System.out.println("[ANSWER]: " + solutionClass.solution(jobs));
-
-    sc.close();
+    System.out.println(solInstance.solution(input));
     return;
   }
 
+  // -- Solution =======================
+  /**
+   * 이상하게 풀었음 ㄹㅇ
+   */
   public int solution(int[][] targets) {
     ArrayList<ArrayList<Integer>> memory = new ArrayList<ArrayList<Integer>>();
 
@@ -63,12 +72,6 @@ class Solution {
 
         memory.add(tempMemory);
       }
-    }
-
-    // 디버깅 코드
-    System.out.println("[디버깅]");
-    {
-      for (ArrayList iList : memory) System.out.println(iList.toString());
     }
 
     return memory.size();
