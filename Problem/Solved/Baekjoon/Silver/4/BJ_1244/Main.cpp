@@ -6,7 +6,7 @@ int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
   cout.tie(nullptr);
-  freopen("Problem\\Solved\\Baekjoon\\Silver\\4\\BJ_1244\\input.txt", "rt", stdin); // -- 로컬 input.txt 입력 코드
+  freopen("Problem\\Solved\\Baekjoon\\Silver\\4\\BJ_1244\\question\\input.txt", "rt", stdin); // -- 로컬 input.txt 입력 코드
 
   int L;
   int N;

@@ -37,13 +37,44 @@
 
 <br />
 <center>
+<style>th {width: 30vw; text-align: center;} td {padding: 1em;}</style>
+<table><tr><th>nums</th><th>result</th></tr><tr><td><div>
 
-|     nums      | result |
-| :-----------: | :----: |
-|   [3,1,2,3]   |   2    |
-| [3,3,3,2,2,4] |   3    |
-| [3,3,3,2,2,2] |   2    |
+```
+[3,1,2,3]
+```
 
+</div></td><td>
+
+```
+2
+```
+
+</td></tr><tr><td><div>
+
+```
+[3,3,3,2,2,4]
+```
+
+</div></td><td>
+
+```
+3
+```
+
+</td></tr><tr><td><div>
+
+```
+[3,3,3,2,2,2]
+```
+
+</div></td><td>
+
+```
+2
+```
+
+</td></tr></table>
 </center>
 <br/>
 

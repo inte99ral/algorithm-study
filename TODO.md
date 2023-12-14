@@ -2,14 +2,13 @@
 
 # DONE:
 
-- [ ] 2023.10.27 | [BJ 1000 A+B #Bronze_5 #수학 #구현 #사칙연산](Problem\Solved\Baekjoon\Bronze\5\BJ_1000\question.md)
-- [ ] 2023.11.02 | [BJ 1244 스위치 켜고 끄기 #Silver_4 #구현 #시뮬레이션](Problem\Solved\Baekjoon\Silver\4\BJ_1244\question.md)
-- [ ] 2023.11.07 | [BJ 1592 영식이와 친구들 #Bronze_2 #구현 #시뮬레이션](Problem\Solved\Baekjoon\Bronze\2\BJ_1592\question.md)
-- [ ] 2023.11.28 | [BJ 2292 벌집 #Bronze_2 #수학](Problem\Failed\Baekjoon\Bronze\2\BJ_2292\question.md)
-- [ ] 2023.12.01 | [BJ 2477 참외밭 #Silver_2 #수학 #구현 #기하학](Problem\Failed\Baekjoon\Silver\2\BJ_2477\question.md)
-- [ ] 2023.06.20 | [PG 1845 폰켓몬 #Level_1 #해시](Problem\Failed\Programmers\L1\PG_1845\question.md)
-
-- [x] 2023.06.21 | [PG 181188 요격 시스템 #Level_2 #연습문제](Problem\Solved\Programmers\Level2\PG_181188\question\info.md)
+- [x] 2023.10.27 | [BJ 1000 A+B #Bronze_5 #수학 #구현 #사칙연산](Problem\Solved\Baekjoon\Bronze\5\BJ_1000\question.md)
+- [x] 2023.11.02 | [BJ 1244 스위치 켜고 끄기 #Silver_4 #구현 #시뮬레이션](Problem\Solved\Baekjoon\Silver\4\BJ_1244\question\info.md)
+- [x] 2023.11.07 | [BJ 1592 영식이와 친구들 #Bronze_2 #구현 #시뮬레이션](Problem\Solved\Baekjoon\Bronze\2\BJ_1592\question\info.md)
+- [x] 2023.11.28 | [BJ 2292 벌집 #Bronze_2 #수학](Problem\Solved\Baekjoon\Bronze\2\BJ_2292\question\info.md)
+- [x] 2023.12.01 | [BJ 2477 참외밭 #Silver_2 #수학 #구현 #기하학](Problem\Solved\Baekjoon\Silver\2\BJ_2477\question\info.md)
+- [x] 2023.12.20 | [PG 1845 폰켓몬 #Level_1 #해시](Problem\Solved\Programmers\Level1\PG_1845\question\info.md)
+- [x] 2023.12.21 | [PG 181188 요격 시스템 #Level_2 #연습문제](Problem\Solved\Programmers\Level2\PG_181188\question\info.md)
 
 <br />
 

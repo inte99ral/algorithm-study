@@ -12,7 +12,7 @@ int solution(vector<int> nums);
 
 // -- Local Input ====================
 int main() {
-  freopen("Problem\\Failed\\Programmers\\L1\\PG_1845\\input.txt", "rt", stdin);
+  freopen("Problem\\Solved\\Programmers\\Level1\\PG_1845\\question\\input.txt", "rt", stdin);
   string rawData;
   string buffer;
   vector<int> input;

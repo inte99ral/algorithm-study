@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 
 public class Main {
   public static void main(String[] args) throws IOException, NumberFormatException {
-    System.setIn(new FileInputStream("input.txt")); // -- 로컬
+    System.setIn(new FileInputStream("question/input.txt")); // -- 로컬
     BufferedReader br;
     int N;
     int answer;

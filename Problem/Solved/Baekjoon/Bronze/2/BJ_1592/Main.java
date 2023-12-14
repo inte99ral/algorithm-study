@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 
 public class Main {
   public static void main(String[] args) throws IOException, NumberFormatException {
-    System.setIn(new FileInputStream("input.txt")); // -- 로컬 input.txt 입력 코드
+    System.setIn(new FileInputStream("question/input.txt")); // -- 로컬 input.txt 입력 코드
     BufferedReader br;
     StringTokenizer st;
     int N; 

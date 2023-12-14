@@ -1,4 +1,5 @@
-/*
+/**
+ * java Main.java
  * 해설 ㄱ 자 모양을 추측하기 위하여 가장 긴 변 두개를 찾고
  * 그 후에 2번 뒤에 나올 부분이 ㄱ자의 꺾이는 부분임을 파악
  */
@@ -15,7 +16,7 @@ public class Main {
   private static StringTokenizer st;
 
   public static void main(String[] args) throws IOException {
-    System.setIn(new FileInputStream("input.txt"));
+    System.setIn(new FileInputStream("question/input.txt"));
     br = new BufferedReader(new InputStreamReader(System.in));
 
     int K = Integer.parseInt(br.readLine());

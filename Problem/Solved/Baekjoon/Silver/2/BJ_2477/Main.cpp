@@ -11,7 +11,7 @@ int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
   cout.tie(nullptr);
-  freopen("Problem\\Failed\\Baekjoon\\Silver\\2\\BJ_2477\\input.txt", "rt", stdin); // -- 로컬
+  freopen("Problem\\Solved\\Baekjoon\\Silver\\2\\BJ_2477\\question\\input.txt", "rt", stdin); // -- 로컬
 
   int answer;
 

@@ -1,3 +1,6 @@
+/**
+ * java Solution.java
+ */
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -5,23 +8,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.StringTokenizer;
 
 class Solution {
 
   public static void main(String[] args) throws Exception {
-    System.setIn(new FileInputStream("input.txt"));
+    System.setIn(new FileInputStream("question/input.txt"));
+    Solution solInstance = new Solution();
 
-    Solution solutionClass = new Solution();
-    List<Integer> tempList = new ArrayList<>();
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    String line = br.readLine();
-    br.close();
+    int[] input;
+    {
+      ArrayList<Integer> rawInput = new ArrayList<>();
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      StringTokenizer st = new StringTokenizer(br.readLine(),"[, ]");
 
-    for (String str : line.substring(1, line.length() - 1).split(",")) {
-      tempList.add(Integer.parseInt(str));
+      while (st.hasMoreTokens()) rawInput.add(Integer.parseInt(st.nextToken()));
+      input = rawInput.stream().mapToInt(e -> e).toArray();
+      br.close();
     }
 
-    System.out.println(solutionClass.solution(tempList.stream().mapToInt(i -> i).toArray()));
+    System.out.println(solInstance.solution(input));
     return;
   }
 

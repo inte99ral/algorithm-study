@@ -15,7 +15,7 @@ public class Main {
     int N;
     int target;
 
-    System.setIn(new FileInputStream("input.txt"));
+    System.setIn(new FileInputStream("question/input.txt"));
     br = new BufferedReader(new InputStreamReader(System.in));
 
     L = Integer.parseInt(br.readLine());
