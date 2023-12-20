@@ -59,48 +59,6 @@
 ```
 
 </td></tr></table>
-
-<table><tr><th>예제 입력 2</th><th>예제 출력 2</th></tr><tr><td><div>
-
-```
-4 1 3
-```
-
-</div></td><td>
-
-```
-0
-```
-
-</td></tr></table>
-
-<table><tr><th>예제 입력 3</th><th>예제 출력 3</th></tr><tr><td><div>
-
-```
-10 3 5
-```
-
-</div></td><td>
-
-```
-4
-```
-
-</td></tr></table>
-
-<table><tr><th>예제 입력 3</th><th>예제 출력 3</th></tr><tr><td><div>
-
-```
-15 4 9
-```
-
-</div></td><td>
-
-```
-15
-```
-
-</td></tr></table>
 </center>
 <br />
 

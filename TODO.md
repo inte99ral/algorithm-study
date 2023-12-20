@@ -7,8 +7,8 @@
 - [x] 2023.11.07 | [BJ 1592 영식이와 친구들 #Bronze_2 #구현 #시뮬레이션](Problem\Solved\Baekjoon\Bronze\2\BJ_1592\question\info.md)
 - [x] 2023.11.28 | [BJ 2292 벌집 #Bronze_2 #수학](Problem\Solved\Baekjoon\Bronze\2\BJ_2292\question\info.md)
 - [x] 2023.12.01 | [BJ 2477 참외밭 #Silver_2 #수학 #구현 #기하학](Problem\Solved\Baekjoon\Silver\2\BJ_2477\question\info.md)
-- [x] 2023.12.20 | [PG 1845 폰켓몬 #Level_1 #해시](Problem\Solved\Programmers\Level1\PG_1845\question\info.md)
-- [x] 2023.12.21 | [PG 181188 요격 시스템 #Level_2 #연습문제](Problem\Solved\Programmers\Level2\PG_181188\question\info.md)
+- [x] 2023.12.10 | [PG 1845 폰켓몬 #Level_1 #해시](Problem\Solved\Programmers\Level1\PG_1845\question\info.md)
+- [x] 2023.12.15 | [PG 181188 요격 시스템 #Level_2 #연습문제](Problem\Solved\Programmers\Level2\PG_181188\question\info.md)
 
 <br />
 
@@ -16,13 +16,14 @@
 
 # FIXME:
 
-- [ ] 2023.06.27 | BJ 2527 직사각형 `#Silver_1 #수학 #기하학 #많은_조건_분기`
-- [ ] 2023.06.28 | BJ 2563 색종이 `#SilverⅤ #구현`
-- [ ] 2023.06.29 | BJ 2567 색종이2 `#SilverⅣ #구현`
+- [x] 2023.12.20 | [BJ 2527 직사각형 #Silver_1 #수학 #기하학 #많은조건분기](Problem\Solved\Baekjoon\Silver\1\BJ_2527\question\info.md)
+- [x] 2023.12.20 | [BJ 2941 크로아티아알파벳 #Silver_5 #구현 #문자열](Problem\Solved\Baekjoon\Silver\5\BJ_2941\question\info.md)
+- [ ] 2023.06.28 | [BJ 2563 색종이 #Silver_5 #구현](Problem\Failed\Baekjoon\Silver\5\BJ_2563\question\info.md)
+- [ ] 2023.06.29 | [BJ 2567 색종이2 #Silver_4 #구현](Problem\Failed\Baekjoon\Silver\4\BJ_2567\question\info.md)
+
 - [ ] 2023.07.01 | BJ 2798 블랙잭 `#BronzeⅡ #브루트포스`
 - [ ] 2023.07.06 | BJ 2810 컵홀더 `#BronzeⅠ #구현 #문자열 #그리디`
 - [ ] 2023.07.09 | BJ 2851 슈퍼마리오 `#BronzeⅠ #구현 #브루트포스 #누적합`
-- [ ] 2023.07.18 | BJ 2941 크로아티아알파벳 `#SilverⅤ #구현 #문자열`
 - [ ] BJ 2563 색종이 `#SilverⅤ #구현`
 - [ ] BJ 1244 스위치 켜고 끄기 `#SilverⅣ`
 - [ ] BJ 2567 색종이2 `#SilverⅣ`

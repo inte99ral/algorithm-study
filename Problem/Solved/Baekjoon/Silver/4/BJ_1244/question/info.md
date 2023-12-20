@@ -73,7 +73,8 @@
 
 <br />
 <center>
-<table><tr><th><img width=120/>예제 입력 1<img width=120/></th><th><img width=120/>예제 출력 1<img width=120/></th></tr><tr><td>
+<style>th {width: 30vw; text-align: center;} td {padding: 1em;}</style>
+<table><tr><th>예제 입력 1</th><th>예제 출력 1</th></tr><tr><td><div>
 
 ```
 8
@@ -83,7 +84,7 @@
 2 3
 ```
 
-</td><td>
+</div></td><td>
 
 ```
 1 0 0 0 1 1 0 1
