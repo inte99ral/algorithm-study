@@ -7,14 +7,14 @@ int main() {
   cin.tie(nullptr);
   cout.tie(nullptr);
 
-  freopen("Problem\\Failed\\Baekjoon\\Silver\\5\\BJ_2563\\question\\input.txt", "rt", stdin);
+  freopen("Problem\\Solved\\Baekjoon\\Silver\\5\\BJ_2563\\question\\input.txt", "rt", stdin);
 
   bool matrix[101][101] = {false,};
   int N;
   int answer = 0;
 
   cin >> N;
-  for (int i = 0; i < N; i++) {
+  for (int n = 0; n < N; n++) {
     int xCoord, yCoord;
 
     cin >> xCoord >> yCoord;
