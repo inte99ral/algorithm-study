@@ -20,7 +20,7 @@
 
 # FIXME:
 
-- [ ] 2023.07.01 | [BJ 2798 블랙잭 #Bronze_2 #브루트포스](Problem\Failed\Baekjoon\Bronze\2\BJ_2798\question\info.md)
+- [ ] 2023.07.01 | [BJ 2798 블랙잭 #Bronze_2 #브루트포스](Problem\Solved\Baekjoon\Bronze\2\BJ_2798\question\info.md)
 - [ ] 2023.07.06 | [BJ 2810 컵홀더 #Bronze_1 #구현 #문자열 #그리디](Problem\Solved\Baekjoon\Bronze\1\BJ_2810\question\info.md)
 - [ ] 2023.07.09 | [BJ 2851 슈퍼마리오 #Bronze_1 #구현 #브루트포스 #누적합](Problem\Solved\Baekjoon\Bronze\1\BJ_2851\question\info.md)
 
