@@ -7,26 +7,30 @@ public class Main {
 
   public static void main(String[] args) throws IOException, NumberFormatException {
     System.setIn(new FileInputStream("input.txt"));
-    BufferedReader br;
     int answer = 0;
 
-    br = new BufferedReader(new InputStreamReader(System.in));
     {
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      
       for (int i = 0; i < 10; i++) {
         int tempInt = Integer.parseInt(br.readLine());
         if (answer + tempInt <= 100) {
           answer += tempInt;
-        } else {
+        } 
+        
+        else {
           if (100 - answer < answer + tempInt - 100) {
             break;
-          } else {
+          } 
+          else {
             answer += tempInt;
             break;
           }
         }
       }
+
+      br.close();
     }
-    br.close();
 
     System.out.println(answer);
     return;
