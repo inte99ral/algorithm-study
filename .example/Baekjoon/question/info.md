@@ -46,13 +46,13 @@
 <br />
 <center>
 <style>th {width: 30vw; text-align: center;} td {padding: 1em;}</style>
-<table><tr><th>예제 입력 1</th><th>예제 출력 1</th></tr><tr><td><div>
+<table><tr><th>예제 입력 1</th><th>예제 출력 1</th></tr><tr><td>
 
 ```
 5 3 2
 ```
 
-</div></td><td>
+</td><td>
 
 ```
 10
