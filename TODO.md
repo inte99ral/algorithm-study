@@ -26,7 +26,10 @@
 - [x] 2023.12.27 | [BJ 2164 카드2 #SilverⅣ #자료구조 #큐](Problem\Solved\Baekjoon\Silver\4\BJ_2164\question\info.md)
 - [x] 2023.12.29 | [BJ 15649 N과 M (1) #Silver_3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15649\question\info.md)
 - [x] 2023.01.01 | [BJ 15649 N과 M (2) #Silver_3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15650\question\info.md)
+- [x] 2023.01.02 | [BJ 15649 N과 M (3) #Silver_3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15651\question\info.md)
+
 https://www.acmicpc.net/workbook/view/2052
+
 - [ ] BJ 4963 섬의 개수 `#SilverⅡ`
 - [ ] BJ 1992 쿼드트리 `#SilverⅠ`
 - [ ] BJ 15686 치킨 배달 `#GoldⅤ`

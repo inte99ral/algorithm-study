@@ -11,7 +11,7 @@ int main() {
   cin.tie(nullptr);
   cout.tie(nullptr);
   
-  freopen("Problem\\Unsolved\\Baekjoon\\Silver\\3\\BJ_15650\\question\\input.txt", "rt", stdin);
+  freopen("Problem\\Solved\\Baekjoon\\Silver\\3\\BJ_15650\\question\\input.txt", "rt", stdin);
 
   int N, M;
   cin >> N >> M;
