@@ -16,6 +16,7 @@
 <center>
 
 ![그림1](./asset/1.png)
+<img src="./asset/1.png" style="width:50vw; aspect-ratio: 1 / 1;"/>
 
 </center>
 
