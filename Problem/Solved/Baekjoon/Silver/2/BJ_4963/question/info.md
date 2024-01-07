@@ -107,10 +107,10 @@
 
 <br />
 
+&nbsp; ICPC > Regionals > Asia Pacific > Japan > Japan Domestic Contest > 2009 Japan Domestic Contest B번
+
 - 문제를 번역한 사람: baekjoon
-- 문제의 오타를 찾은 사람: chatterboy, chsun0303, dtc03012, hello70825
-- 어색한 표현을 찾은 사람: djm03178
-- 문제를 다시 작성한 사람: jh05013
+- 문제의 오타를 찾은 사람: j4bez
 
 <br />
 
@@ -118,5 +118,7 @@
 
 <br />
 
-- 구현
-- 시뮬레이션
+- 그래프 이론
+- 그래프 탐색
+- 너비 우선 탐색
+- 깊이 우선 탐색
