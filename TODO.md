@@ -28,7 +28,8 @@
 
 # FIXME:
 
-- [ ] BJ 1992 쿼드트리 `#SilverⅠ`
+- [ ] [BJ 1992 쿼드트리 #Silver_1 ##](Problem\Failed\Baekjoon\Silver\1\BJ_1992\question\info.md)
+- [ ] [BJ 15651 N과 M (4) #Silver_3 #백트래킹](Problem\Failed\Baekjoon\Silver\3\BJ_15651\question\info.md)
 - [ ] BJ 15686 치킨 배달 `#GoldⅤ`
 - [ ] BJ 7576 토마토 `#GoldⅤ`
 - [ ] BJ 17135 캐슬 디펜스 `#GoldⅢ`

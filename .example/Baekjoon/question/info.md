@@ -13,14 +13,13 @@
 
 <br />
 
-<center>
-
-![그림1](./asset/1.png)
-<img src="./asset/1.png" style="width:50vw; aspect-ratio: 1 / 1;"/>
-
-</center>
-
 &nbsp; 문제 대강 이렇게 나옴 `<그림 1>` 봐라.
+
+<br />
+<center>
+<img src="./asset/1.png" style="width:50vw; aspect-ratio: 2 / 1"/>
+</center>
+<br />
 
 &nbsp; 영식이와 친구들이 원형으로 모여서 시계방향으로 1부터 N까지 적혀있는 자리에 앉는다. 영식이와 친구들은 공 던지는 게임을 하기로 했다. 게임의 규칙은 다음과 같다.
 
