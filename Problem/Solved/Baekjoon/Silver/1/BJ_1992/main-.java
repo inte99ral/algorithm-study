@@ -1,20 +1,17 @@
-package BJ.Silver.S1;
-// https://www.acmicpc.net/problem/1992
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BJ_1992_쿼드트리 {
+public class Main {
 	private static BufferedReader br;
 	private static char[][] image;
 	private static int MATRIX_SIZE;
 	private static Queue<Character> answer;
 	
 	public static void main(String[] args) throws Exception {
-		System.setIn(new FileInputStream("input.txt"));
+		System.setIn(new FileInputStream("question/input.txt"));
 		br = new BufferedReader(new InputStreamReader(System.in));
 		
 		answer = new LinkedList<>();
