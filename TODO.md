@@ -29,8 +29,7 @@
 
 # FIXME:
 
-- [ ] [BJ 15651 N과 M (4) #Silver_3 #백트래킹](Problem\Failed\Baekjoon\Silver\3\BJ_15651\question\info.md)
-- [ ] BJ 15686 치킨 배달 `#GoldⅤ`
+- [ ] [BJ 15686 치킨 배달 #Gold/5 # # ](Problem\Failed\Baekjoon\Gold\5\BJ_15686\question\info.md)
 - [ ] BJ 7576 토마토 `#GoldⅤ`
 - [ ] BJ 17135 캐슬 디펜스 `#GoldⅢ`
 - [ ] BJ 2252 줄 세우기 `#GoldⅢ`
