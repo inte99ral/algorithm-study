@@ -2,7 +2,8 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
   cout.tie(nullptr);
@@ -15,7 +16,8 @@ int main() {
   // cout << input << '\n';
 
   // -- Int Array
-  for(int i = 0; i < 6; i++) {
+  for (int i = 0; i < 6; i++)
+  {
     cin >> input;
     cout << input << '\n';
   }
