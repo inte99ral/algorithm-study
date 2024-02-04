@@ -186,5 +186,7 @@
     "**/.next/**"
   ],
   "todohighlight.keywords": [],
-  "html.format.extraLiners": ""
+  "html.format.extraLiners": "",
+  "C_Cpp.clang_format_style": "{UseTab: Never, IndentWidth: 2, TabWidth: 2, AllowShortIfStatementsOnASingleLine: AllIfsAndElse, IndentCaseLabels: false, ColumnLimit: 0, NamespaceIndentation: All, FixNamespaceComments: false}",
+  "C_Cpp.clang_format_fallbackStyle": "Google"
 }
