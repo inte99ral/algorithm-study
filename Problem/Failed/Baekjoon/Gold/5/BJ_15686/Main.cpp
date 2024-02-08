@@ -14,8 +14,8 @@ int main() {
   int M;
   vector<vector<int>> matrix;
 
-  vector<vector<int>> cVec; // chicken vector
-  vector<vector<int>> hVec; // house vector
+  vector<vector<int>> cVec;  // chicken vector
+  vector<vector<int>> hVec;  // house vector
 
   cin >> N >> M;
 
@@ -27,7 +27,8 @@ int main() {
       tempVec.push_back(tempInt);
       if (tempInt == 1) {
         continue;
-      } else if (tempInt == 2) {
+      }
+      else if (tempInt == 2) {
         continue;
       }
     }
