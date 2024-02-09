@@ -11,13 +11,13 @@ int main() {
   cin.tie(nullptr);
   cout.tie(nullptr);
 
-  freopen("Problem\\Failed\\Baekjoon\\Silver\\3\\BJ_15649\\question\\input.txt", "rt", stdin); // -- local input.txt
+  freopen("Problem\\Failed\\Baekjoon\\Silver\\3\\BJ_15649\\question\\input.txt", "rt", stdin);  // -- local input.txt
 
   int N, M;
   vector<int> iVec;
 
   cin >> N >> M;
-  for(int n = 0; n < N; n++) iVec.push_back(n + 1);
+  for (int n = 0; n < N; n++) iVec.push_back(n + 1);
   perm(iVec, N, M);
 
   return 0;
@@ -28,15 +28,16 @@ void perm(vector<int> origin, int N, int M) {
   permRecur(origin, fixed, N, M, 0, 0);
 }
 
+// N R origin select memory count
 void permRecur(vector<int> origin, vector<int> fixed, int N, int M, int select, int length) {
-  if(length == M) {
-    for(int f : fixed) cout << f << ' ';
+  if (length == M) {
+    for (int f : fixed) cout << f << ' ';
     cout << '\n';
     return;
   }
 
-  for(int n = 0; n < N; n++) {
-    if((select >> n) & 1) continue;
+  for (int n = 0; n < N; n++) {
+    if ((select >> n) & 1) continue;
     fixed[length] = origin[n];
     permRecur(origin, fixed, N, M, select | (1 << n), length + 1);
   }
