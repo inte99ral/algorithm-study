@@ -39,20 +39,22 @@ int main() {
     matrix.push_back(tempVec);
   }
 
-  combRecur(cVec.size(), M, {{1, 2}, {1, 2}, {1, 2}}, {}, 0, 0);
+  combRecur(cVec.size(), M, cVec, {}, -1, 0);
 
   return 0;
 }
 
 void combRecur(int N, int R, vector<vector<int>> origin, vector<vector<int>> select, int memory, int count) {
-  cout << "11" << endl;
-  for (vector<int> v : origin) {
-    cout << "[" << v[0] << "" << v[1] << "]\n";
+  if (count == R) {
+    for (vector<int> v : select) cout << "[" << v[0] << ", " << v[1] << "]\n";
+    cout << endl;
+    return;
   }
 
-  cout << "11" << endl;
-  for (vector<int> v : select) {
-    cout << "[" << v[0] << "" << v[1] << "]\n";
+  for (int i = memory + 1; i < origin.size(); i++) {
+    select.push_back(origin[i]);
+    combRecur(N, R, origin, select, i, count + 1);
+    select.pop_back();
   }
   return;
 }
