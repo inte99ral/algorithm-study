@@ -3,9 +3,6 @@
 
 using namespace std;
 
-void comb(int N, int R);
-void combRecur(vector<int> origin, vector<int> fixed, int N, int R, int selected, int length);
-
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
@@ -13,31 +10,14 @@ int main() {
 
   freopen("Problem\\Unsolved\\Baekjoon\\Silver\\3\\BJ_15650\\question\\input.txt", "rt", stdin);
 
-  int N, M;
-  cin >> N >> M;
+  int N = 5;
+  int R = 3;
 
-  comb(N, M);
+  int arr[5][2] = {{0, 0}, {1, 1}};
+
+  for (int *a : arr) {
+    cout << a[0] << ", " << a[1] << "\n";
+  }
+
   return 0;
-}
-
-void comb(int N, int R) {
-  vector<int> origin;
-  vector<int> fixed;
-  for (int n = 1; n <= N; n++) origin.push_back(n);
-  combRecur(origin, fixed, N, R, -1, 0);
-}
-
-// N R origin select memory count
-void combRecur(vector<int> origin, vector<int> fixed, int N, int R, int selected, int length) {
-  if (length == R) {
-    for (int i : fixed) cout << i << ' ';
-    cout << '\n';
-    return;
-  }
-
-  for (int n = selected + 1; n < N; n++) {
-    fixed.push_back(origin.at(n));
-    combRecur(origin, fixed, N, R, n, length + 1);
-    fixed.pop_back();
-  }
 }
