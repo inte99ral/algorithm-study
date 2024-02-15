@@ -1,6 +1,11 @@
 #include <iostream>
-#include <queue>
 #include <sstream>
+#include <vector>
+
+#define PRINT_ARR(arr)                                    \
+  cout << "[";                                            \
+  for (auto arrElement : arr) cout << arrElement << ", "; \
+  cout << "\b\b]\n";
 
 using namespace std;
 
@@ -35,20 +40,16 @@ int main() {
 
   // CASE 1 : RAW 한 구현
   {
-    // count memory
-    queue<pair<int, int>> taskQueue;
-    taskQueue.push(make_pair<int, int>(8, 2));
+    // memory count stack
+    vector<pair<int, int>> task;
+    task.push_back(make_pair<int, int>(0, 0));
 
-    while (taskQueue.empty()) {
-      cout << taskQueue.front().first << ", " << taskQueue.front().second << '\n';
-      taskQueue.pop();
+    while (!task.empty()) {
+      if (task.front().second == R) {
+        PRINT_ARR(select);
+      }
+      task.pop_back();
     }
-    // do {
-    //   cout << taskQueue.front().first << ", " << taskQueue.front().second << '\n';
-    //   taskQueue.pop();
-    //   /* code */
-    // }
-    // while (taskQueue.empty());
   }
 
   // TEST
