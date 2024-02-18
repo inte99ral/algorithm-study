@@ -11,7 +11,7 @@ void func(_Ty first, _Ty...)  // 마지막 인자로 NULL과 같은 값을 전�
   _Ty val = first;
 
   std::cout << first << " ";  // list는 first의 다음 인자를 가리키기에 first는 따로 출력해주어야 한다.
-  while (val != NULL) {
+  while (val != 0) {
     std::cout << (val = va_arg(list, _Ty)) << " \n";
   }
 
