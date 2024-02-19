@@ -1,11 +1,31 @@
 /**
- * Dynamic Array
+ * Array Parameter
  */
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
+void arrayParaneter(int* a) {
+  // int(*b)[2][2] = (int*)a;
+}
+
 int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
+
+  string input =
+      "5 3 3\n"
+      "0 0 0\n"
+      "1 0 0\n"
+      "2 0 0\n"
+      "3 0 0\n"
+      "4 0 0";
+
+  stringbuf inputBuf(input);
+  streambuf* backup = cin.rdbuf(&inputBuf);
+
   int size;
 
   cout << "Size : ";
@@ -35,5 +55,7 @@ int main() {
   // 배열 삭제하기
   delete[] dyary;
 
+  cin.clear();
+  cin.rdbuf(backup);
   return 0;
 }
