@@ -6,8 +6,10 @@
 
 using namespace std;
 
-void arrayParaneter(int* a) {
-  // int(*b)[2][2] = (int*)a;
+void arrayParaneter(int* x) {
+  for (int i = 0; i < 4; i++) {
+    std::cout << x[i] << " ";
+  }
 }
 
 int main() {
@@ -16,44 +18,66 @@ int main() {
   cout.tie(nullptr);
 
   string input =
-      "5 3 3\n"
-      "0 0 0\n"
-      "1 0 0\n"
-      "2 0 0\n"
-      "3 0 0\n"
-      "4 0 0";
+      "2 3 2 "
+      "11 12 "
+      "23 24 "
+      "35 36 ";
 
   stringbuf inputBuf(input);
   streambuf* backup = cin.rdbuf(&inputBuf);
 
-  int size;
+  int D = 1;  // Dimension
+  int N = 1;
+  int* size;
+  int* tempArr;
 
-  cout << "Size : ";
-  cin >> size;
-  int* dyary;
-  dyary = new int[size];  // 동적 배열 생성
+  cin >> D;
+  size = new int[D];
 
-  // 입력 받기
-  for (int i = 0; i < size; i++) {
-    cin >> dyary[i];
+  for (int d = 0; d < D; d++) {
+    cin >> size[d];
+    N *= size[d];
   }
 
-  // 출력 하기
-  int* curr = 0;
-  int *begin, *end;
-  begin = dyary;
-  end = dyary + size;
-
-  curr = begin;
-
-  while (curr != end) {
-    cout << *(curr) << "\t";
-    curr++;
+  tempArr = new int[N];
+  for (int n = 0; n < N; n++) {
+    cin >> tempArr[n];
   }
-  cout << endl;
 
-  // 배열 삭제하기
-  delete[] dyary;
+  for (int n = 0; n < N; n++) {
+    cout << tempArr[n] << ' ';
+  }
+
+  // {
+  //   int size;
+
+  //   cout << "Size : ";
+  //   cin >> size;
+  //   int* dyary;
+  //   dyary = new int[size];  // 동적 배열 생성
+
+  //   // 입력 받기
+  //   for (int i = 0; i < size; i++) {
+  //     cin >> dyary[i];
+  //   }
+
+  //   // 출력 하기
+  //   int* curr = 0;
+  //   int *begin, *end;
+  //   begin = dyary;
+  //   end = dyary + size;
+
+  //   curr = begin;
+
+  //   while (curr != end) {
+  //     cout << *(curr) << "\t";
+  //     curr++;
+  //   }
+  //   cout << endl;
+
+  //   // 배열 삭제하기
+  //   delete[] dyary;
+  // }
 
   cin.clear();
   cin.rdbuf(backup);

@@ -1,3 +1,6 @@
+/**
+ * 가변 인자 (Variable argument)
+ */
 #include <cstdarg>
 #include <iostream>
 
