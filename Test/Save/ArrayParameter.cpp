@@ -39,14 +39,33 @@ int main() {
     N *= size[d];
   }
 
-  tempArr = new int[N];
-  for (int n = 0; n < N; n++) {
-    cin >> tempArr[n];
+  // tempArr = new int[N];
+  // for (int n = 0; n < N; n++) {
+  //   cin >> tempArr[n];
+  // }
+
+  int arr[size[0]][size[1]];
+
+  for (int i = 0; i < size[0]; i++) {
+    for (int j = 0; j < size[1]; j++) {
+      cin >> arr[i][j];
+      // cout << size[0] << ", " << size[1] << endl;
+    }
   }
 
-  for (int n = 0; n < N; n++) {
-    cout << tempArr[n] << ' ';
-  }
+  // for (int i = 0; i < size[0]; i++) {
+  //   for (int j = 0; j < size[1]; j++) {
+  //     cout << arr[i][j] << ' ';
+  //   }
+  // }
+
+  arrayParaneter((int*)arr);
+
+  // arrayParaneter(tempArr);
+
+  // for (int n = 0; n < N; n++) {
+  //   cout << tempArr[n] << ' ';
+  // }
 
   // {
   //   int size;
