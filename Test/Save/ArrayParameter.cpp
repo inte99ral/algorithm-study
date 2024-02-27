@@ -6,9 +6,10 @@
 
 using namespace std;
 
-void arrayParaneter(int* x) {
-  for (int i = 0; i < 4; i++) {
+void arrayParaneter(int size, int* x) {
+  for (int i = 0; i < size; i++) {
     std::cout << x[i] << " ";
+    x[i] = 0;
   }
 }
 
@@ -39,34 +40,28 @@ int main() {
     N *= size[d];
   }
 
-  // tempArr = new int[N];
-  // for (int n = 0; n < N; n++) {
-  //   cin >> tempArr[n];
-  // }
-
   int arr[size[0]][size[1]];
 
   for (int i = 0; i < size[0]; i++) {
     for (int j = 0; j < size[1]; j++) {
       cin >> arr[i][j];
-      // cout << size[0] << ", " << size[1] << endl;
+    }
+  }
+  arrayParaneter(N, (int*)arr);
+
+  for (int i = 0; i < size[0]; i++) {
+    for (int j = 0; j < size[1]; j++) {
+      cout << arr[i][j];
     }
   }
 
-  // for (int i = 0; i < size[0]; i++) {
-  //   for (int j = 0; j < size[1]; j++) {
-  //     cout << arr[i][j] << ' ';
-  //   }
-  // }
+  cin.clear();
+  cin.rdbuf(backup);
+  return 0;
+}
 
-  arrayParaneter((int*)arr);
-
-  // arrayParaneter(tempArr);
-
-  // for (int n = 0; n < N; n++) {
-  //   cout << tempArr[n] << ' ';
-  // }
-
+// 동적할당
+void save1() {
   // {
   //   int size;
 
@@ -97,8 +92,4 @@ int main() {
   //   // 배열 삭제하기
   //   delete[] dyary;
   // }
-
-  cin.clear();
-  cin.rdbuf(backup);
-  return 0;
 }
