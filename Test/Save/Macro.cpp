@@ -1,3 +1,4 @@
+// [매크로 루프 참고링크](https://stackoverflow.com/questions/28231743/self-unrolling-macro-loop-in-c-c)
 #include <iostream>
 #include <sstream>
 #include <vector>
