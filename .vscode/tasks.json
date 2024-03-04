@@ -90,6 +90,39 @@
       }
     },
 
+    // C++ 테스트
+    {
+      "label": "C++: ----------",
+      "detail": "----------",
+      "type": "cppbuild",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "command": "g++",
+      // "args": [
+      //   "-std=c++17",
+      //   "${fileDirname}\\**.cpp",
+      //   "-o",
+      //   "${fileDirname}\\${fileBasenameNoExtension}.exe"
+      // ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": {
+        "owner": "cpp",
+        "fileLocation": ["relative", "${workspaceRoot}"],
+        "pattern": {
+          "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        }
+      }
+    },
+
     // C 릴리즈 빌드
     {
       "label": "C: gcc 릴리즈 빌드",
