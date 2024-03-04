@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cstdarg>
 #include <iostream>
 #include <string>
 #include <typeinfo>
@@ -12,17 +13,43 @@ int func1(int arr[], int N, string name) {
   return 0;
 }
 
+template <typename T>
+void printArr(T arr, ...) {
+  va_list ap;
+  va_start(ap, arr);
+
+  int buffer = va_arg(ap, int);
+
+  if (!buffer) {
+    cout << arr;
+  }
+  else {
+    printArr(*arr, 0);
+
+    // while (buffer) {
+    //   cout << buffer << ' ';
+    //   buffer = va_arg(ap, int);
+    // }
+  }
+
+  va_end(ap);
+}
+
 int main() {
   string input = "";
 
-  int arr1[5][5] = {{10, 11, 12, 13, 14}, {20, 21, 22, 23, 24}};
-  int arr2[7];
+  // int arr1[5][5] = {{10, 11, 12, 13, 14}, {20, 21, 22, 23, 24}};
+  // int arr2[7];
 
-  copy((int*)arr1, (int*)arr1 + 7, (int*)arr2);
+  int arr1[8] = {0, 1, 2, 3, 4, 5, 6, 7};
+  int arr2[2][2][2];
+  int arr3 = 400;
 
-  func1(arr2, sizeof(arr2) / sizeof(arr2[0]), "arr2");  // 사이즈가 안맞아도 복사 가능
+  copy((int*)arr1, (int*)arr1 + 8, (int*)arr2);
 
-  int* arr3 = new int[5];
+  printArr(arr1, 2, 0);
+
+  // func1(arr2, sizeof(arr2) / sizeof(arr2[0]), "arr2");  // 사이즈가 안맞아도 복사 가능
 
   // // copy(arr1, arr1 + 25, arr2);
   // // copy(&arr1[0][0], &arr1[0][0] + 4, &arr2[0][0]);
@@ -42,8 +69,6 @@ int main() {
   // func1((int*)arr1, 20);
 
   // func1((int*)arr2, 20);
-
-  delete arr3;
 
   return 0;
 }
