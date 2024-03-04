@@ -5,8 +5,8 @@
 
 using namespace std;
 
-int func1(int arr[], int N) {
-  cout << "fnc1: " << typeid(arr).name() << " - N: " << N << endl;
+int func1(int arr[], int N, string name) {
+  cout << "[NAME]:" << name << " - [TYPE]:" << typeid(arr).name() << " - [N]:" << N << endl;
   for (int n = 0; n < N; n++) cout << arr[n] << ' ';
   cout << '\b' << endl;
   return 0;
@@ -15,17 +15,14 @@ int func1(int arr[], int N) {
 int main() {
   string input = "";
 
-  int arr1[5] = {10, 11, 12, 13, 14};
-  int arr2[2];
+  int arr1[5][5] = {{10, 11, 12, 13, 14}, {20, 21, 22, 23, 24}};
+  int arr2[7];
 
-  copy((int*)arr1, (int*)arr1 + 2, (int*)arr2);
+  copy((int*)arr1, (int*)arr1 + 7, (int*)arr2);
 
-  func1(arr2, 2);
+  func1(arr2, sizeof(arr2) / sizeof(arr2[0]), "arr2");  // 사이즈가 안맞아도 복사 가능
 
-  // int arr1[5][5] = {{10, 11, 12, 13, 14}, {20, 21, 22, 23, 24}};
-  // int arr2[5][5] = {};
-
-  // int** arr3 = new int*[5];
+  int* arr3 = new int[5];
 
   // // copy(arr1, arr1 + 25, arr2);
   // // copy(&arr1[0][0], &arr1[0][0] + 4, &arr2[0][0]);
@@ -46,7 +43,7 @@ int main() {
 
   // func1((int*)arr2, 20);
 
-  // delete arr3;
+  delete arr3;
 
   return 0;
 }
