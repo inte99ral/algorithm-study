@@ -92,20 +92,26 @@
 
     // C++ 테스트
     {
-      "label": "C++: ----------",
-      "detail": "----------",
-      "type": "cppbuild",
+      "label": "C++: ----------------------------------------",
+      "detail": "--------------------------------------------",
+      "type": "shell",
       "group": {
         "kind": "build",
-        "isDefault": true
+        "isDefault": false
       },
-      "command": "g++",
-      // "args": [
-      //   "-std=c++17",
-      //   "${fileDirname}\\**.cpp",
-      //   "-o",
-      //   "${fileDirname}\\${fileBasenameNoExtension}.exe"
-      // ],
+      // 리눅스 체계 명령어 치환(Command Substitution) $(find) -> %dir /b | findstr% 윈도우 명령어 치환으로 바꿔야 사용가능
+      "command": "g++ -g $(find . -type f -iregex \".*.cpp\") -o ${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "args": [
+        "-g",
+        "$(find",
+        "${fileDirname}",
+        "-type",
+        "f",
+        "-iregex",
+        "'.*\\.cpp')",
+        "-o",
+        "${fileDirname}/${fileBasenameNoExtension}"
+      ],
       "options": {
         "cwd": "${fileDirname}"
       },

@@ -1,26 +1,23 @@
-#include <algorithm>
-#include <cstdarg>
-#include <iostream>
-#include <string>
-#include <typeinfo>
+#include "Test.hpp"
 
 using namespace std;
 
-int func1() {
-}
-
 int main() {
-  string input = "";
+  arrayParameter ap = arrayParameter();
+  int arr[2][2][2] = {{{1, 2}, {3, 4}}, {{5, 6}, {7, 8}}};
+  ap.printArr((int*)arr + 5, 2, 4, 3, 2, 6, 0);
 
-  int arr1[8] = {0, 1, 2, 3, 4, 5, 6, 7};
-  int arr2[3][3];
+  // string input = "";
 
-  for (int y = 0; y < 0; y++) {
-    for (int x = 0; x < 0; x++) {
-      cout << arr2[y][x] << ", ";
-    }
-    cout << "\b\b\n";
-  }
+  // int arr1[8] = {0, 1, 2, 3, 4, 5, 6, 7};
+  // int arr2[3][3] = {};
+
+  // for (int y = 0; y < 3; y++) {
+  //   for (int x = 0; x < 3; x++) {
+  //     cout << arr2[y][x] << ", ";
+  //   }
+  //   cout << "\b\b  \n";
+  // }
 
   // copy((int*)arr1, (int*)arr1 + 8, (int*)arr2);  // 사이즈가 안맞아도 복사 가능
 
