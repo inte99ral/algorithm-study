@@ -10,6 +10,26 @@ int func1() {
 }
 
 int main() {
+  {
+    // 벡터 복사
+    // vector<string> sVec1 = {"1.c", "2.h", "3.a", "4.r"};
+    // cout << "[";
+    // for (string s : sVec1) cout << s << ", ";
+    // cout << "\b\b] \n";
+
+    // vector<string> sVec2 = {"", "", "", ""};
+
+    // cout << "[5]: " << sVec2.size() << endl;
+
+    // copy(sVec1.begin() + 2, sVec1.end(), sVec2.begin());
+
+    // cout << "[6]: " << sVec2.size() << endl;
+
+    // cout << "[";
+    // for (string s : sVec2) cout << s << ", ";
+    // cout << "\b\b] \n";
+  }
+
   string input = "";
 
   int arr1[8] = {0, 1, 2, 3, 4, 5, 6, 7};

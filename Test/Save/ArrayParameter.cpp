@@ -14,6 +14,10 @@ void arrayParaneter(int size, int* x) {
 }
 
 int main() {
+  // template <typename T, size_t N>
+  // void idCheck(T (&arr)[N]) {
+  //   cout << "[" << typeid(arr).name() << "]" << endl;
+  // };
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
   cout.tie(nullptr);

@@ -2,16 +2,28 @@
 
 using namespace std;
 
-void arrayParameter::printArr(int* arr, ...) {
-  vector<int> argVec;
+void ArrayParameter::printArr(int* arr, ...) {
+  queue<int> argQue;
   va_list ap;
   va_start(ap, arr);
-  for (int arg = va_arg(ap, int); arg != 0; arg = va_arg(ap, int)) argVec.push_back(arg);
+  for (int arg = va_arg(ap, int); arg != 0; arg = va_arg(ap, int)) argQue.push(arg);
 
-  for (int i = 0; i < argVec[0]; i++) {
-    cout << *arr + i << ", ";
-  }
+  cout << "[--SAFETY--  ";
+  // printArrRecur(arr, argQue);
+  cout << "\b\b] \n";
 
-  cout << "\b\b  \n";
   return;
 }
+
+void ArrayParameter::printArrRecur(int* arr, queue<int> arrData) {
+  if (arrData.empty()) {
+    cout << *arr << ", ";
+  }
+  else {
+  }
+}
+
+// template <typename T>
+// void ArrayParameter::idCheck(T arr) {
+//   cout << "[" << typeid(arr).name() << "]" << endl;
+// }
