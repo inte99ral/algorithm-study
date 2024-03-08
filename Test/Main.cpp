@@ -42,11 +42,6 @@ int main() {
 
     char cArr[5] = ",-./";
     ap.idCheck(cArr);
-
-    cout << (char)300 << endl;
-    cout << (char)301 << endl;
-    cout << (char)302 << endl;
-    cout << (char)303 << endl;
   }
 
   // string input = "";
