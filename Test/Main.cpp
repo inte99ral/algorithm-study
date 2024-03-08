@@ -1,5 +1,6 @@
 #include <iostream>
 #include <regex>
+#include <string>
 #include <typeinfo>
 #include <vector>
 
@@ -10,18 +11,25 @@ using namespace std;
 int main() {
   cout << "[VERSION]: " << VERSION << '\n';
 
-  char cArr[] = "db-123-456-789-log.txt";
+  char test[] = "A5_A7_A8";
 
-  regex regExp1("[0-9]+", regex::optimize);
-  regex regExp2("db-\\d*-log\\.txt");
+  int iArr[2][2][20] = {{{1, 2}, {3, 4}}, {{5, 6}, {7, 8}}};
+  string temp = typeid(iArr).name();
+  cout << temp << endl;
 
-  cout << (string)cArr << " : " << sizeof(cArr) / sizeof(char) << " : " << boolalpha << regex_match(&cArr[0], &cArr[14], regExp2) << '\n';
+  char cArr[2][2][2] = {{{'1', '2'}, {'3', '4'}}, {{'5', '6'}, {'7', '8'}}};
+  cout << typeid(typeid(cArr).name()).name() << endl;
 
-  cregex_token_iterator iter(cArr, cArr + 15, regExp1), end;
+  string sArr[2][2][2] = {{{"1", "2"}, {"3", "4"}}, {{"5", "6"}, {"7", "8"}}};
+  cout << typeid(sArr).name() << endl;
 
-  while (iter != end) {
-    cout << stoi(*iter++) << '\n'
-  }
+  // regex regExp1("A[0-9]+", regex::optimize);
+
+  // cregex_token_iterator iter(cArr, cArr + 15, regExp1), end;
+
+  // while (iter != end) {
+  //   cout << ((string)(*iter++)).back() - '0' + 1000 << '\n';
+  // }
 
   return 0;
 }
