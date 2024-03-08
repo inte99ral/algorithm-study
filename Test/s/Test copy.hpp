@@ -28,4 +28,9 @@ class ArrayParameter {
   };
 };
 
+class BooleanAlphabet {
+ public:
+  void printArr(int* arr, ...);
+};
+
 #endif
