@@ -9,6 +9,8 @@
 
 using namespace std;
 
+// Prototype Declaration ==========
+
 class ArrayTool {
  private:
   void printRecur(int* arr, deque<int> arrData);
@@ -17,6 +19,8 @@ class ArrayTool {
   template <typename T, size_t N>
   void print(T (&arr)[N]);
 };
+
+// Implements Definition ==========
 
 template <typename T, size_t N>
 void ArrayTool::print(T (&arr)[N]) {
@@ -31,7 +35,7 @@ void ArrayTool::print(T (&arr)[N]) {
     arrData.push_back(stoi(token.substr(1, token.size() - 2)));
   }
 
-  for (int i : arrData) cout << i + 10000 << '\n';
+  printRecur((int*)arr, arrData);
 }
 
 #endif
