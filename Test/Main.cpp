@@ -1,8 +1,8 @@
 #include <iostream>
-#include <regex>
 #include <string>
-#include <typeinfo>
 #include <vector>
+
+#include "Test.hpp"
 
 #define VERSION 3.1f
 
@@ -11,17 +11,20 @@ using namespace std;
 int main() {
   cout << "[VERSION]: " << VERSION << '\n';
 
-  char test[] = "A5_A7_A8";
+  int iArr[2][2][30] = {{{1, 2}, {3, 4}}, {{5, 6}, {7, 8}}};
 
-  int iArr[2][2][20] = {{{1, 2}, {3, 4}}, {{5, 6}, {7, 8}}};
-  string temp = typeid(iArr).name();
-  cout << temp << endl;
+  ArrayParameter ap;
+  ap.idCheck(iArr);
 
-  char cArr[2][2][2] = {{{'1', '2'}, {'3', '4'}}, {{'5', '6'}, {'7', '8'}}};
-  cout << typeid(typeid(cArr).name()).name() << endl;
+  // int iArr[2][2][20] = {{{1, 2}, {3, 4}}, {{5, 6}, {7, 8}}};
+  // string temp = typeid(iArr).name();
+  // cout << temp << endl;
 
-  string sArr[2][2][2] = {{{"1", "2"}, {"3", "4"}}, {{"5", "6"}, {"7", "8"}}};
-  cout << typeid(sArr).name() << endl;
+  // char cArr[2][2][2] = {{{'1', '2'}, {'3', '4'}}, {{'5', '6'}, {'7', '8'}}};
+  // cout << typeid(typeid(cArr).name()).name() << endl;
+
+  // string sArr[2][2][2] = {{{"1", "2"}, {"3", "4"}}, {{"5", "6"}, {"7", "8"}}};
+  // cout << typeid(sArr).name() << endl;
 
   // regex regExp1("A[0-9]+", regex::optimize);
 
