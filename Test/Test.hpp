@@ -2,36 +2,36 @@
 #define TEST_HPP
 
 #include <cstdarg>
+#include <deque>
 #include <iostream>
-#include <queue>
 #include <regex>
 #include <typeinfo>
 
 using namespace std;
 
-class ArrayParameter {
+class ArrayTool {
  private:
-  int a;
-  void printArrRecur(int* arr, queue<int> arrData);
+  void printRecur(int* arr, deque<int> arrData);
 
  public:
-  void printArr(int* arr, ...);
-
   template <typename T, size_t N>
-  void idCheck(T (&arr)[N]);
+  void print(T (&arr)[N]);
 };
 
 template <typename T, size_t N>
-void ArrayParameter::idCheck(T (&arr)[N]) {
-  string typeName = typeid(arr).name();
-
+void ArrayTool::print(T (&arr)[N]) {
+  deque<int> arrData;
+  string arrType = typeid(arr).name();
   regex regExp("A[0-9]+_", regex::optimize);
 
-  sregex_token_iterator iter(typeName.begin(), typeName.end(), regExp), end;
+  sregex_token_iterator iter(arrType.begin(), arrType.end(), regExp), end;
 
   while (iter != end) {
-    cout << stoi(((string)*iter).substr(1, ((string)*iter++).size() - 2)) << endl;
+    string token = (string)*iter++;
+    arrData.push_back(stoi(token.substr(1, token.size() - 2)));
   }
+
+  for (int i : arrData) cout << i + 10000 << '\n';
 }
 
 #endif

@@ -1,6 +1,6 @@
-#include <iostream>
-#include <string>
-#include <vector>
+// #include <iostream>
+// #include <string>
+// #include <vector>
 
 #include "Test.hpp"
 
@@ -13,8 +13,8 @@ int main() {
 
   int iArr[2][2][30] = {{{1, 2}, {3, 4}}, {{5, 6}, {7, 8}}};
 
-  ArrayParameter ap;
-  ap.idCheck(iArr);
+  ArrayTool at;
+  at.print(iArr);
 
   // int iArr[2][2][20] = {{{1, 2}, {3, 4}}, {{5, 6}, {7, 8}}};
   // string temp = typeid(iArr).name();
