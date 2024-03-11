@@ -18,10 +18,10 @@
 - [x] 2023.12.27 | [BJ 2851 슈퍼마리오 #Bronze_1 #구현 #브루트포스 #누적합](Problem\Solved\Baekjoon\Bronze\1\BJ_2851\question\info.md)
 - [x] 2023.12.27 | [BJ 2164 카드2 #SilverⅣ #자료구조 #큐](Problem\Solved\Baekjoon\Silver\4\BJ_2164\question\info.md)
 - [x] 2023.12.29 | [BJ 15649 N과 M (1) #Silver_3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15649\question\info.md)
-- [x] 2023.01.01 | [BJ 15650 N과 M (2) #Silver_3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15650\question\info.md)
-- [x] 2023.01.02 | [BJ 15651 N과 M (3) #Silver_3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15651\question\info.md)
-- [x] 2023.01.02 | [BJ 4963 섬의 개수 #Silver_2 #그래프이론 #그래프탐색 #너비우선탐색 #깊이우선탐색](Problem\Solved\Baekjoon\Silver\2\BJ_4963\question\info.md)
-- [x] 2023.01.17 | [BJ 1992 쿼드트리 #Silver_1 #분할정복 #재귀](Problem\Solved\Baekjoon\Silver\1\BJ_1992\question\info.md)
+- [x] 2024.01.01 | [BJ 15650 N과 M (2) #Silver_3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15650\question\info.md)
+- [x] 2024.01.02 | [BJ 15651 N과 M (3) #Silver_3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15651\question\info.md)
+- [x] 2024.01.02 | [BJ 4963 섬의 개수 #Silver_2 #그래프이론 #그래프탐색 #너비우선탐색 #깊이우선탐색](Problem\Solved\Baekjoon\Silver\2\BJ_4963\question\info.md)
+- [x] 2024.01.17 | [BJ 1992 쿼드트리 #Silver_1 #분할정복 #재귀](Problem\Solved\Baekjoon\Silver\1\BJ_1992\question\info.md)
 
 <br />
 
@@ -41,6 +41,8 @@
 - [ ] PG 17680 캐시 레벨2 2018_KAKAO_BLIND_RECRUITMENT 1차
 - [ ] PG 17679 프렌즈4블록 레벨2 2018_KAKAO_BLIND_RECRUITMENT 1차
 - [ ] PG 17676 추석 트래픽 레벨3 2018_KAKAO_BLIND_RECRUITMENT 1차
+- [ ] Doc/Lang_Ref/c++/RapidJson
+- [ ] Doc/Lang_Ref/Windows/%%
 
 <br />
 
