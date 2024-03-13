@@ -1,5 +1,63 @@
 # 리눅스 Linux
 
+## Shell Script
+
+### 출력
+
+[참고링크](https://directori.tistory.com/133)
+
+- 기본 출력
+  - echo
+  - print
+
+```bash
+echo "Echo Test" # 자동 개행
+printf "printf Test" # 자동 개행X
+printf "%s %s" print test # 뒤에 오는 문자열들이 전달되는 인자라고 생각하면 됩니다.
+```
+
+<br/>
+
+- $ - arguments 전달인자 값으로 전환
+  - $# : 스크립트에 전달되는 인자들의 수(C언어에서 args)
+  - $0 : 실행하는 스크립트의 파일명으로 실행했을 때 경로를 포함한다면 경로를 포함해서 나옵니다.
+  - $1, $2 … : 스크립트로 전달된 인자들(C언어에서 argv[0], argv[1]…)
+
+```bash
+#!/bin/bash
+
+echo "Echo Test"
+printf "printf Test\n"
+printf "Name of script : %s\n" $0
+printf "%d arguments %s %s\n" $# $1 $2
+```
+
+<br/>
+
+- ${parameter} - parameter substitution 매개변수 값으로 전환
+
+```bash
+#!/bin/bash
+
+test="abc"
+num=100
+
+echo "${test}"
+echo "${num}"
+```
+
+<br/>
+
+- $(command) - command substitution 명령어 값으로 전환
+
+```bash
+echo "Echo Test" # 자동 개행
+printf "printf Test" # 자동 개행X
+printf "%s %s" print test # 뒤에 오는 문자열들이 전달되는 인자라고 생각하면 됩니다.
+```
+
+<br/>
+
 ## [터미널에 컬러로 출력해보자](https://bigbigpark.github.io/cpp_useful/color-print/)
 
 |         | foreground | background |
