@@ -1,8 +1,6 @@
 #ifndef ARRAY_TOOL_HPP
 #define ARRAY_TOOL_HPP
 
-#include <windows.h>
-
 #include <deque>
 #include <iostream>
 #include <regex>
@@ -12,7 +10,6 @@
 // ArrayTool ======================
 class ArrayTool {
  private:
-  int defaultTextColor = 15;
   void printRecur(int* arr, std::deque<int> arrData);
 
  public:
@@ -37,7 +34,6 @@ void ArrayTool::print(T (&arr)[N]) {
 
   printRecur((int*)arr, arrData);
   std::cout << "\b\b  " << std::endl;
-  SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 }
 
 #endif

@@ -58,4 +58,3 @@ void combRecur(int N, int R, vector<vector<int>> origin, vector<vector<int>> sel
   }
   return;
 }
-

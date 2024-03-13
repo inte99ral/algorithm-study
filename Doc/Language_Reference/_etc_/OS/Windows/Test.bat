@@ -9,5 +9,12 @@ Echo Hello,
 Echo.
 Echo world!
 
+Echo.
+echo "Default!!"
+@echo "\033[31m"
+echo "\033[31mRed!!"
+@echo "\033[32m"
+echo "\033[32mGreen!!"
+
 :: 다른 입력이 있을 때까지 정지. >nul 명령어가 붙으면 "계속하려면 아무 키나 누르십시오..." 출력 조차 하지 않고 정지한다.
 pause>nul

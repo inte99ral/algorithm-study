@@ -6,8 +6,6 @@
 #ifndef ARRAY_TOOL_HPP
 #define ARRAY_TOOL_HPP
 
-#include <windows.h>
-
 #include <deque>
 #include <iostream>
 #include <regex>
@@ -17,7 +15,6 @@
 // ArrayTool ======================
 class ArrayTool {
  private:
-  int defaultTextColor = 15;
   void printRecur(int* arr, std::deque<int> arrData);
 
  public:
@@ -42,7 +39,6 @@ void ArrayTool::print(T (&arr)[N]) {
 
   printRecur((int*)arr, arrData);
   std::cout << "\b\b  " << std::endl;
-  SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 }
 
 #endif
@@ -56,22 +52,20 @@ void ArrayTool::print(T (&arr)[N]) {
 // Implements Definition ====================
 // ArrayTool ======================
 void ArrayTool::printRecur(int* arr, std::deque<int> arrData) {
-  if (arrData.size() == 0) std::cout << *arr << ", ";
+  if (arrData.size() == 0) std::cout << "\033[0m" << *arr << ", ";
   else {
     int N = arrData.front();
     arrData.pop_front();
     int gap = 1;
+    int color = 31 + (arrData.size() % 6);
     for (int i : arrData) gap *= i;
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), arrData.size());
-    std::cout << "[";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), ArrayTool::defaultTextColor);
+    std::cout << "\033[" << color << "m[";
 
     for (int n = 0; n < N; n++) {
       printRecur(arr, arrData);
       arr += gap;
     }
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), arrData.size());
-    std::cout << "\b\b], ";
+    std::cout << "\033[" << color << "m\b\b]\033[0m, ";
   }
 }
 ```
