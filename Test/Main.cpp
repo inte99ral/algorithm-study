@@ -6,6 +6,7 @@
 #include <sstream>
 
 #include "Test.hpp"
+ArrayTool at;
 
 using namespace std;
 
@@ -20,37 +21,32 @@ int main() {
   int origin[N][2] = {{1, 6}, {2, 7}, {3, 8}, {4, 9}, {5, 0}};
   int fixed[R][2] = {};
 
-  {
-    ArrayTool at;
-    at.print(origin);
-  }
-
   // Input ====================================
   {
-    // deque<pair<int, int>> task;  // select, length
+    deque<pair<int, int>> task;  // select, length
 
-    // task.push_back({0, 0});
-    // while (task.size() != 0) {
-    //   int select = task.back().first;
-    //   int length = task.back().second;
-    //   task.pop_back();
+    task.push_back({0, 0});
+    while (task.size() != 0) {
+      int select = task.back().first;
+      int length = task.back().second;
+      task.pop_back();
 
-    //   if (length >= R) {
-    //     at.print(fixed);
-    //     continue;
-    //   }
+      if (length >= R) {
+        at.print(fixed);
+        continue;
+      }
 
-    //   if (select >= N) {
-    //     continue;
-    //   }
+      if (select >= N) {
+        continue;
+      }
 
-    //   task.push_back({select + 1, length});
-    //   copy((int*)origin[select], (int*)origin[select] + 2, (int*)fixed[length]);
-    //   task.push_back({select + 1, length + 1});
-    // }
+      task.push_back({select + 1, length});
+      copy((int*)origin[select], (int*)origin[select] + 2, (int*)fixed[length]);
+      task.push_back({select + 1, length + 1});
+    }
 
-    // at.print(origin);
-    // at.print(fixed);
+    at.print(origin);
+    at.print(fixed);
 
     return 0;
   }
