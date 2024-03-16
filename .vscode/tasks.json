@@ -2,14 +2,14 @@
   // task.json 에 대한 공식문서 https://go.microsoft.com/fwlink/?LinkId=733558
   "version": "2.0.0",
   // Override a task's shell on WindowsOS
-  "windows": {
-    "options": {
-      "shell": {
-        "executable": "D:\\Program Files\\Msys64\\usr\\bin\\bash.exe",
-        "args": ["--login", "-i"]
-      }
-    }
-  },
+  // "windows": {
+  //   "options": {
+  //     "shell": {
+  //       "executable": "D:\\Program Files\\Msys64\\usr\\bin\\bash.exe",
+  //       "args": ["--login", "-i"]
+  //     }
+  //   }
+  // },
   "tasks": [
     // C++ 디버그 빌드 및 세부 설명
     {
