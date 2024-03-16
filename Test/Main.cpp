@@ -67,7 +67,9 @@ int main() {
 int factorial(int x) { return (x == 1) || (x == 0) ? 1 : x * factorial(x - 1); }
 
 int combRecur() {
+  return 0;
 }
 
 int comb() {
+  return 0;
 }
