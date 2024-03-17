@@ -160,7 +160,7 @@
     "Unsolved": "Error"
   },
   // Terminal Setting
-  "terminal.integrated.defaultProfile.windows": null,
+  "terminal.integrated.defaultProfile.windows": "MSYS2",
   "terminal.integrated.profiles.windows": {
     "PowerShell": {
       "source": "PowerShell",

@@ -22,6 +22,7 @@
 - [x] 2024.01.02 | [BJ 15651 N과 M (3) #Silver_3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15651\question\info.md)
 - [x] 2024.01.02 | [BJ 4963 섬의 개수 #Silver_2 #그래프이론 #그래프탐색 #너비우선탐색 #깊이우선탐색](Problem\Solved\Baekjoon\Silver\2\BJ_4963\question\info.md)
 - [x] 2024.01.17 | [BJ 1992 쿼드트리 #Silver_1 #분할정복 #재귀](Problem\Solved\Baekjoon\Silver\1\BJ_1992\question\info.md)
+- [ ] 2024.03.17 | vscode - MSYS 세팅 문제 해결중
 
 <br />
 
