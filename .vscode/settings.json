@@ -150,6 +150,7 @@
   "editor.formatOnSave": true,
   "editor.accessibilitySupport": "off",
   "typescript.updateImportsOnFileMove.enabled": "never",
+  // material-icon-theme
   "workbench.iconTheme": "material-icon-theme",
   "material-icon-theme.folders.associations": {
     ".example": "Examples",
@@ -159,40 +160,7 @@
     "Failed": "Debug",
     "Unsolved": "Error"
   },
-  // Terminal Setting
-  "terminal.integrated.defaultProfile.windows": "MSYS2",
-  "terminal.integrated.profiles.windows": {
-    "PowerShell": {
-      "source": "PowerShell",
-      "icon": "terminal-powershell"
-    },
-    "Command Prompt": {
-      "path": ["${env:windir}\\Sysnative\\cmd.exe", "${env:windir}\\System32\\cmd.exe"],
-      "args": [],
-      "icon": "terminal-cmd"
-    },
-    "Git Bash": {
-      "source": "Git Bash"
-    },
-    // Integrate MSYS2 shell
-    "MSYS2": {
-      "path": "D:\\Program Files\\Msys64\\usr\\bin\\bash.exe",
-      "args": ["--login", "-i"],
-      "env": {
-        "MSYSTEM": "MINGW64", // [MSYS (default) | MINGW32 | MINGW64] : set the MSYSTEM environment variable to select a MinGW toolchain.
-        "CHERE_INVOKING": "1" // [0 | 1] : prevent a shell from doing a cd "${HOME}" = inhibit the working directory change from current directory
-      }
-    }
-  },
-  // Integrate MSYS2 shell
-  "terminal.integrated.automationProfile.windows": {
-    "path": "D:\\Program Files\\Msys64\\usr\\bin\\bash.exe",
-    "args": ["--login", "-i"],
-    "env": {
-      "MSYSTEM": "MINGW64", // [MSYS (default) | MINGW32 | MINGW64] : set the MSYSTEM environment variable to select a MinGW toolchain.
-      "CHERE_INVOKING": "1" // [0 | 1] : prevent a shell from doing a cd "${HOME}" = inhibit the working directory change from current directory
-    }
-  },
+  // Todo highlight
   "todohighlight.isEnable": true,
   "todohighlight.include": [
     "**/*.js",
@@ -221,5 +189,38 @@
   ],
   "todohighlight.keywords": [],
   "html.format.extraLiners": "",
-  "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, UseTab: Never, IndentWidth: 2, TabWidth: 2, BreakBeforeBraces: Custom, BraceWrapping: { BeforeElse : true, BeforeWhile : true, BeforeCatch : true }, AllowShortIfStatementsOnASingleLine: AllIfsAndElse, IndentCaseLabels: false, ColumnLimit: 0, NamespaceIndentation: All, FixNamespaceComments: false, AccessModifierOffset: -1 }"
+  "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, UseTab: Never, IndentWidth: 2, TabWidth: 2, BreakBeforeBraces: Custom, BraceWrapping: { BeforeElse : true, BeforeWhile : true, BeforeCatch : true }, AllowShortIfStatementsOnASingleLine: AllIfsAndElse, IndentCaseLabels: false, ColumnLimit: 0, NamespaceIndentation: All, FixNamespaceComments: false, AccessModifierOffset: -1 }",
+  // Terminal Setting
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell"
+    },
+    "Command Prompt": {
+      "path": ["${env:windir}\\Sysnative\\cmd.exe", "${env:windir}\\System32\\cmd.exe"],
+      "args": [],
+      "icon": "terminal-cmd"
+    },
+    "Git Bash": {
+      "source": "Git Bash"
+    },
+    // Integrate MSYS2 shell
+    "MSYS2": {
+      "path": "D:\\Program Files\\Msys64\\usr\\bin\\bash.exe",
+      "args": ["--login", "-i"],
+      "env": {
+        "MSYSTEM": "MINGW64", // [MSYS (default) | MINGW32 | MINGW64] : set the MSYSTEM environment variable to select a MinGW toolchain.
+        "CHERE_INVOKING": "1" // [0 | 1] : prevent a shell from doing a cd "${HOME}" = inhibit the working directory change from current directory
+      }
+    }
+  },
+  "terminal.integrated.automationProfile.windows": {
+    "path": "D:\\Program Files\\Msys64\\usr\\bin\\bash.exe",
+    "args": ["--login", "-i"],
+    "env": {
+      "MSYSTEM": "MINGW64", // [MSYS (default) | MINGW32 | MINGW64] : set the MSYSTEM environment variable to select a MinGW toolchain.
+      "CHERE_INVOKING": "1" // [0 | 1] : prevent a shell from doing a cd "${HOME}" = inhibit the working directory change from current directory
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "MSYS2"
 }
