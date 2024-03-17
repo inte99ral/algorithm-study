@@ -44,7 +44,16 @@
       // 추가 옵션 : 명령에 추가적인 사항
       "options": {
         // 작업 디렉터리 주소 설정 옵션
-        "cwd": "${fileDirname}"
+        "cwd": "${fileDirname}",
+        // 쉘 터미널 지정 ================================================================================
+        "shell": {
+          "executable": "D:\\Program Files\\Msys64\\usr\\bin\\bash.exe",
+          "args": ["--login", "-i"],
+          "env": {
+            "MSYSTEM": "MINGW64", // [MSYS (default) | MINGW32 | MINGW64] : set the MSYSTEM environment variable to select a MinGW toolchain.
+            "CHERE_INVOKING": "1" // [0 | 1] : prevent a shell from doing a cd "${HOME}" = inhibit the working directory change from current directory
+          }
+        }
       },
 
       // 문제 상황 및 경고 문구 매칭 : 컴파일시 컴파일러에서 발생한 문제나 경고에 대한 문구를 매칭하여 vscode 편집기에 반영. 상세 설명 링크 https://code.visualstudio.com/docs/editor/tasks#_defining-a-problem-matcher
