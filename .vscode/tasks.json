@@ -2,14 +2,14 @@
   // task.json 에 대한 공식문서 https://go.microsoft.com/fwlink/?LinkId=733558
   "version": "2.0.0",
   // Override a task's shell on WindowsOS
-  "windows": {
-    "options": {
-      "shell": {
-        "executable": "D:\\Program Files\\Msys64\\usr\\bin\\bash.exe",
-        "args": ["--login", "-i"]
-      }
-    }
-  },
+  // "windows": {
+  //   "options": {
+  //     "shell": {
+  //       "executable": "D:\\Program Files\\Msys64\\usr\\bin\\bash.exe",
+  //       "args": ["--login", "-i"]
+  //     }
+  //   }
+  // },
   "tasks": [
     // C++ 디버그 빌드 및 세부 설명
     {
@@ -189,9 +189,30 @@
       "label": "테스트 출력",
       "detail": "Hello, world! 를 출력합니다.",
       "type": "shell",
-      "group": "test",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
       "command": "echo",
       "args": ["Hello, world!"]
+    },
+
+    // 테스트용 Hello, world!
+    {
+      "label": "파워쉘1",
+      "detail": "파워파워쉘",
+      "type": "shell",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "command": "echo",
+      "args": ["Hello, world!"],
+      "options": {
+        "shell": {
+          "executable": "powershell.exe"
+        }
+      }
     }
   ]
 }
