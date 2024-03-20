@@ -222,5 +222,5 @@
       "CHERE_INVOKING": "1" // [0 | 1] : prevent a shell from doing a cd "${HOME}" = inhibit the working directory change from current directory
     }
   },
-  "terminal.integrated.defaultProfile.windows": "MSYS2"
+  "terminal.integrated.defaultProfile.windows": "PowerShell"
 }
