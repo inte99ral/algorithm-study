@@ -191,7 +191,7 @@
       "type": "shell",
       "group": {
         "kind": "test",
-        "isDefault": true
+        "isDefault": false
       },
       "command": "echo",
       "args": ["Hello, world!"]
@@ -204,7 +204,7 @@
       "type": "shell",
       "group": {
         "kind": "test",
-        "isDefault": true
+        "isDefault": false
       },
       "command": "echo",
       "args": ["Hello, world!"],
