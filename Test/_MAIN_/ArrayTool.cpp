@@ -1,7 +1,10 @@
-#include "Test.hpp"
+#include "Tool.hpp"
 
 // Implements Definition ====================
-// ArrayTool ======================
+// PermTool ============================
+int PermTool::factorial(int x) { return (x == 1) || (x == 0) ? 1 : x * factorial(x - 1); }
+
+// ArrayTool ===========================
 void ArrayTool::printRecur(int* arr, std::deque<int> arrData) {
   if (arrData.size() == 0) std::cout << "\033[0m" << *arr << ", ";
   else {

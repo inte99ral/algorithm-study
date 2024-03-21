@@ -1,5 +1,5 @@
-#ifndef ARRAY_TOOL_HPP
-#define ARRAY_TOOL_HPP
+#ifndef TOOL_HPP
+#define TOOL_HPP
 
 #include <deque>
 #include <iostream>
@@ -7,7 +7,15 @@
 #include <typeinfo>
 
 // Prototype Declaration ====================
-// ArrayTool ======================
+// PermTool ============================
+class PermTool {
+ private:
+
+ public:
+  int factorial(int x);
+};
+
+// ArrayTool ===========================
 class ArrayTool {
  private:
   void printRecur(int* arr, std::deque<int> arrData);
@@ -18,7 +26,7 @@ class ArrayTool {
 };
 
 // Implements Definition ====================
-// ArrayTool ======================
+// ArrayTool ===========================
 template <typename T, size_t N>
 void ArrayTool::print(T (&arr)[N]) {
   std::deque<int> arrData;
