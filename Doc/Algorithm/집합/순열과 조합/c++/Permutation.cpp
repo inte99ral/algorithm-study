@@ -1,11 +1,8 @@
-/**
- * 순열 테스트
- */
 #include <array>
 #include <iostream>
 #include <deque>
 
-#include "Tool.hpp"
+#include "include/_TOOL_.hpp"
 
 using namespace std;
 

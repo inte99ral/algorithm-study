@@ -1,5 +1,5 @@
-#ifndef TOOL_HPP
-#define TOOL_HPP
+#ifndef ARRAY_TOOL_HPP
+#define ARRAY_TOOL_HPP
 
 #include <deque>
 #include <iostream>
@@ -7,14 +7,6 @@
 #include <typeinfo>
 
 // Prototype Declaration ====================
-// PermTool ============================
-class PermTool {
- private:
-
- public:
-  int factorial(int x);
-};
-
 // ArrayTool ===========================
 class ArrayTool {
  private:
@@ -43,5 +35,4 @@ void ArrayTool::print(T (&arr)[N]) {
   printRecur((int*)arr, arrData);
   std::cout << "\b\b  " << std::endl;
 }
-
 #endif

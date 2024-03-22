@@ -2,28 +2,29 @@
 
 # DONE:
 
-- [x] 2023.10.27 | [BJ 1000 A+B #Bronze_5 #수학 #구현 #사칙연산](Problem\Solved\Baekjoon\Bronze\5\BJ_1000\question.md)
-- [x] 2023.11.02 | [BJ 1244 스위치 켜고 끄기 #Silver_4 #구현 #시뮬레이션](Problem\Solved\Baekjoon\Silver\4\BJ_1244\question\info.md)
-- [x] 2023.11.07 | [BJ 1592 영식이와 친구들 #Bronze_2 #구현 #시뮬레이션](Problem\Solved\Baekjoon\Bronze\2\BJ_1592\question\info.md)
-- [x] 2023.11.28 | [BJ 2292 벌집 #Bronze_2 #수학](Problem\Solved\Baekjoon\Bronze\2\BJ_2292\question\info.md)
-- [x] 2023.12.01 | [BJ 2477 참외밭 #Silver_2 #수학 #구현 #기하학](Problem\Solved\Baekjoon\Silver\2\BJ_2477\question\info.md)
-- [x] 2023.12.10 | [PG 1845 폰켓몬 #Level_1 #해시](Problem\Solved\Programmers\Level1\PG_1845\question\info.md)
-- [x] 2023.12.15 | [PG 181188 요격 시스템 #Level_2 #연습문제](Problem\Solved\Programmers\Level2\PG_181188\question\info.md)
-- [x] 2023.12.20 | [BJ 2527 직사각형 #Silver_1 #수학 #기하학 #많은조건분기](Problem\Solved\Baekjoon\Silver\1\BJ_2527\question\info.md)
-- [x] 2023.12.20 | [BJ 2941 크로아티아알파벳 #Silver_5 #구현 #문자열](Problem\Solved\Baekjoon\Silver\5\BJ_2941\question\info.md)
-- [x] 2023.12.24 | [BJ 2563 색종이 #Silver_5 #구현](Problem\Solved\Baekjoon\Silver\5\BJ_2563\question\info.md)
-- [x] 2023.12.24 | [BJ 2567 색종이2 #Silver_4 #구현](Problem\Solved\Baekjoon\Silver\4\BJ_2567\question\info.md)
-- [x] 2023.12.26 | [BJ 2798 블랙잭 #Bronze_2 #브루트포스](Problem\Solved\Baekjoon\Bronze\2\BJ_2798\question\info.md)
-- [x] 2023.12.27 | [BJ 2810 컵홀더 #Bronze_1 #구현 #문자열 #그리디](Problem\Solved\Baekjoon\Bronze\1\BJ_2810\question\info.md)
-- [x] 2023.12.27 | [BJ 2851 슈퍼마리오 #Bronze_1 #구현 #브루트포스 #누적합](Problem\Solved\Baekjoon\Bronze\1\BJ_2851\question\info.md)
-- [x] 2023.12.27 | [BJ 2164 카드2 #SilverⅣ #자료구조 #큐](Problem\Solved\Baekjoon\Silver\4\BJ_2164\question\info.md)
-- [x] 2023.12.29 | [BJ 15649 N과 M (1) #Silver_3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15649\question\info.md)
-- [x] 2024.01.01 | [BJ 15650 N과 M (2) #Silver_3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15650\question\info.md)
-- [x] 2024.01.02 | [BJ 15651 N과 M (3) #Silver_3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15651\question\info.md)
-- [x] 2024.01.02 | [BJ 4963 섬의 개수 #Silver_2 #그래프이론 #그래프탐색 #너비우선탐색 #깊이우선탐색](Problem\Solved\Baekjoon\Silver\2\BJ_4963\question\info.md)
-- [x] 2024.01.17 | [BJ 1992 쿼드트리 #Silver_1 #분할정복 #재귀](Problem\Solved\Baekjoon\Silver\1\BJ_1992\question\info.md)
+- [x] 2023.10.27 | [BJ 1000 A+B #Bronze/5 #수학 #구현 #사칙연산](Problem\Solved\Baekjoon\Bronze\5\BJ_1000\question.md)
+- [x] 2023.11.02 | [BJ 1244 스위치 켜고 끄기 #Silver/4 #구현 #시뮬레이션](Problem\Solved\Baekjoon\Silver\4\BJ_1244\question\info.md)
+- [x] 2023.11.07 | [BJ 1592 영식이와 친구들 #Bronze/2 #구현 #시뮬레이션](Problem\Solved\Baekjoon\Bronze\2\BJ_1592\question\info.md)
+- [x] 2023.11.28 | [BJ 2292 벌집 #Bronze/2 #수학](Problem\Solved\Baekjoon\Bronze\2\BJ_2292\question\info.md)
+- [x] 2023.12.01 | [BJ 2477 참외밭 #Silver/2 #수학 #구현 #기하학](Problem\Solved\Baekjoon\Silver\2\BJ_2477\question\info.md)
+- [x] 2023.12.10 | [PG 1845 폰켓몬 #Level/1 #해시](Problem\Solved\Programmers\Level1\PG_1845\question\info.md)
+- [x] 2023.12.15 | [PG 181188 요격 시스템 #Level/2 #연습문제](Problem\Solved\Programmers\Level2\PG_181188\question\info.md)
+- [x] 2023.12.20 | [BJ 2527 직사각형 #Silver/1 #수학 #기하학 #많은조건분기](Problem\Solved\Baekjoon\Silver\1\BJ_2527\question\info.md)
+- [x] 2023.12.20 | [BJ 2941 크로아티아알파벳 #Silver/5 #구현 #문자열](Problem\Solved\Baekjoon\Silver\5\BJ_2941\question\info.md)
+- [x] 2023.12.24 | [BJ 2563 색종이 #Silver/5 #구현](Problem\Solved\Baekjoon\Silver\5\BJ_2563\question\info.md)
+- [x] 2023.12.24 | [BJ 2567 색종이2 #Silver/4 #구현](Problem\Solved\Baekjoon\Silver\4\BJ_2567\question\info.md)
+- [x] 2023.12.26 | [BJ 2798 블랙잭 #Bronze/2 #브루트포스](Problem\Solved\Baekjoon\Bronze\2\BJ_2798\question\info.md)
+- [x] 2023.12.27 | [BJ 2810 컵홀더 #Bronze/1 #구현 #문자열 #그리디](Problem\Solved\Baekjoon\Bronze\1\BJ_2810\question\info.md)
+- [x] 2023.12.27 | [BJ 2851 슈퍼마리오 #Bronze/1 #구현 #브루트포스 #누적합](Problem\Solved\Baekjoon\Bronze\1\BJ_2851\question\info.md)
+- [x] 2023.12.27 | [BJ 2164 카드2 #Silver/4 #자료구조 #큐](Problem\Solved\Baekjoon\Silver\4\BJ_2164\question\info.md)
+- [x] 2023.12.29 | [BJ 15649 N과 M (1) #Silver/3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15649\question\info.md)
+- [x] 2024.01.01 | [BJ 15650 N과 M (2) #Silver/3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15650\question\info.md)
+- [x] 2024.01.02 | [BJ 15651 N과 M (3) #Silver/3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15651\question\info.md)
+- [x] 2024.01.02 | [BJ 4963 섬의 개수 #Silver/2 #그래프이론 #그래프탐색 #너비우선탐색 #깊이우선탐색](Problem\Solved\Baekjoon\Silver\2\BJ_4963\question\info.md)
+- [x] 2024.01.17 | [BJ 1992 쿼드트리 #Silver/1 #분할정복 #재귀](Problem\Solved\Baekjoon\Silver\1\BJ_1992\question\info.md)
 - [x] 2024.03.17 | vscode - MSYS 세팅 문제 해결중
 - [x] 2024.03.20 | vscode - MSYS task.json 수정 및 추가 공부
+- [ ] 2024.03.22 | + 추가학습 요구 DFS말고 일렬로 세워서 풀수 있을거같음 [BJ 15686 치킨 배달 #Gold/5 #그래프탐색](Problem\Failed\Baekjoon\Gold\5\BJ_15686\question\info.md)
 
 <br />
 
@@ -31,8 +32,7 @@
 
 # FIXME:
 
-- [ ] [BJ 15686 치킨 배달 #Gold/5 # # ](Problem\Failed\Baekjoon\Gold\5\BJ_15686\question\info.md)
-- [ ] BJ 7576 토마토 `#GoldⅤ`
+- [ ] BJ 7576 토마토 `#GoldⅤ`[BJ 7576 토마토 #Silver_1 #분할정복 #재귀](Problem\Solved\Baekjoon\Silver\1\BJ_1992\question\info.md)
 - [ ] BJ 17135 캐슬 디펜스 `#GoldⅢ`
 - [ ] BJ 2252 줄 세우기 `#GoldⅢ`
 - [ ] BJ 17472 다리 만들기 2 `#GoldⅠ`

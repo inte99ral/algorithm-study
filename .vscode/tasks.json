@@ -108,6 +108,40 @@
       }
     },
 
+    // C++ include 경로 빌드
+    {
+      "label": "C++: g++ - include",
+      "detail": "-o 옵션으로 /include 폴더를 포함하여 빌드합니다.",
+      "type": "cppbuild",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "command": "g++",
+      "args": [
+        "-std=c++17",
+        "${fileDirname}\\**.cpp",
+        "${fileDirname}\\include\\**.cpp",
+        "-o",
+        "${fileDirname}\\${fileBasenameNoExtension}.exe"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": {
+        "owner": "cpp",
+        "fileLocation": ["relative", "${workspaceRoot}"],
+        "pattern": {
+          "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        }
+      }
+    },
+
     // C++ 테스트
     {
       "label": "C++: ----------------------------------------",
