@@ -41,6 +41,7 @@ int main() {
 
   while(isRipen) {
     isRipen = false;
+    vector<pair<int, int>> nextRipeTmt;
     for(int i = ripeTmt.size() - 1; i >= 0; i--) {
       for(int j = 0; j < 4; j++) {
         int y = ripeTmt[i].first + dy[j];
@@ -48,17 +49,18 @@ int main() {
         if(matrix[y][x] == 0) {
           matrix[y][x] = 1;
           isRipen = true;
-          ripeTmt.push_back({y, x});
+          nextRipeTmt.push_back({y, x});
           unripeTmt--;
         }
       }
     }
 
+    ripeTmt = nextRipeTmt;
+
     if(isRipen) count++;
   }
 
   cout << (unripeTmt ? -1 : count) << endl;
-
 
   return 0;
 }

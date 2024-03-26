@@ -91,3 +91,9 @@ int main(int argc, char** argv)
   return 0;
 }
 ```
+
+
+# MSYS2
+
+
+[참고링크](https://wikidocs.net/219732)
