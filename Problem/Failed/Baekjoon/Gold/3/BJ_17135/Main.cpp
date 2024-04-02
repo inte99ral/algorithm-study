@@ -1,8 +1,9 @@
-// #include <iostream>
 // #include <cstdlib>
-// #include <vector>
-// #include <deque>
-#include <bits/stdc++.h>
+#include <array>
+#include <deque>
+#include <iostream>
+#include <vector>
+// #include <bits/stdc++.h>
 
 using namespace std;
 
@@ -13,69 +14,72 @@ int main() {
 
   freopen("Problem\\Failed\\Baekjoon\\Gold\\3\\BJ_17135\\question\\input.txt", "rt", stdin);
 
-  int N, M;
-  cin >> N >> M;
+  int N, M, D;
+  cin >> N >> M >> D;
 
-  vector<pair<int, int>> enemy;
+  vector<array<int, 3>> enemy;
 
-  for(int n = 0; n < N; n++) {
-    for(int m = 0; m < M; m++) {
+  for (int n = 0; n < N; n++) {
+    for (int m = 0; m < M; m++) {
       int temp;
       cin >> temp;
-      if(temp == 1) enemy.push_back({n, m});
+      if (temp == 1) {
+        enemy.push_back({1, n, m});
+      }
     }
   }
 
-  { // _TEST
-    // for(const auto& a : enemy) {
-    //   cout << a.first << ", " << a.second << '\n';
-    // }
-  }
-  
+  {  // DFS Permutation
+    int origin[M] = {};
+    int select[3] = {};
 
-  { // DFS COMB
-    int archer[3] = {0, };
+    for (int i = 0; i < M; i++) {
+      origin[i] = i;
+    }
+    deque<pair<int, int>> task{{0, 0}};  // data, size;
 
-    // 1부터 M 에서 3 개 뽑기
-    deque<pair<int, int>> task;
-    task.push_back({0, 0});
-
-    while(!task.empty()) {
-      int size = task.back().first;
-      int prev = task.back().second;
+    while (!task.empty()) {
+      const int data = task.back().first;
+      const int size = task.back().second;
       task.pop_back();
 
+      if (size == 3) {
+        {  // TODO
+          vector tempEnemy = enemy;
+          int y = N;
 
-      if(size >= 3) {
-        cout << archer[0] << " : " << archer[1] << " : " << archer[2] << endl;
-        
-        { //_ 적 잡는 연산
-          // 사수가 위로 올라가는 연산
-          
-          vector<pair<int, int>> enemyCopy = enemy;
-          for(int y = N - 1; y >= 0; y--) {
-            for(int x : archer) {
-              int min = 2 * (M + N);
-              for(const auto& a : enemyCopy) {
-                
+          while (!tempEnemy.empty()) {
+            for (int x : select) {
+              {  // 적들 중 사정거리 안에 들고 가장 가까운 적 조준
               }
             }
+
+            {  // 사격이 종료되면 맞은 적은 제거
+            }
+
+            y--;
           }
         }
-        
+
+        {  // TEST 1
+           // for (int i : select) {
+           //   cout << i << ", ";
+           // }
+           // cout << "\b\b  \n";
+        }
+
         continue;
       }
 
-      if(prev >= M) {
+      if (data == M) {
         continue;
       }
 
-      task.push_back({size, prev + 1});
-      task.push_back({size + 1, prev + 1});
-      archer[size] = prev;
+      task.push_back({data + 1, size});
+      select[size] = origin[data];
+      task.push_back({data + 1, size + 1});
     }
-
   }
-  
+
   return 0;
 }

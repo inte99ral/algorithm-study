@@ -133,4 +133,9 @@
   //   }
   // },
   "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "files.associations": {
+    "deque": "cpp",
+    "string": "cpp",
+    "vector": "cpp"
+  },
 }
