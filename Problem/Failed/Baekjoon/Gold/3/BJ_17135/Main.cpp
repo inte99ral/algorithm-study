@@ -53,10 +53,10 @@ int main() {
           int minLeft = M;
           for (int i = tempEnemy.size() - 1; i >= 0; i--) {
             int l = abs(tempEnemy[i][0] - y) + abs(tempEnemy[i][1] - x);
-            if (l < minLen || (l == minLen && x < minLeft)) {
+            if (l < minLen || (l == minLen && tempEnemy[i][1] < minLeft)) {
               minLen = l;
               minIdx = i;
-              minLeft = x;
+              minLeft = tempEnemy[i][1];
             }
           }
 
