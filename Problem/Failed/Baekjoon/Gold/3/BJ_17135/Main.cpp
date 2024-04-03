@@ -1,9 +1,8 @@
-// #include <cstdlib>
 #include <array>
+#include <cstdlib>
 #include <deque>
 #include <iostream>
 #include <vector>
-// #include <bits/stdc++.h>
 
 using namespace std;
 
@@ -29,97 +28,69 @@ int main() {
     }
   }
 
-  {  // DFS Permutation
-    int origin[M] = {};
-    int select[3] = {};
+  int origin[M] = {};
+  int select[3] = {};
 
-    for (int i = 0; i < M; i++) {
-      origin[i] = i;
-    }
-    deque<pair<int, int>> task{{0, 0}};  // data, size;
+  for (int i = 0; i < M; i++) {
+    origin[i] = i;
+  }
+  deque<pair<int, int>> task{{0, 0}};  // data, size;
 
-    while (!task.empty()) {
-      const int data = task.back().first;
-      const int size = task.back().second;
-      task.pop_back();
+  while (!task.empty()) {
+    const int data = task.back().first;
+    const int size = task.back().second;
+    task.pop_back();
 
-      if (size == 3) {
-        {  // TODO
-          vector tempEnemy = enemy;
-          int count = 0;
-          int y = N;
+    if (size == 3) {
+      vector tempEnemy = enemy;
+      int count = 0;
+      int y = N;
 
-          while (!tempEnemy.empty()) {
-            for (int x : select) {
-              {  // 적들 중 사정거리 안에 들고 가장 가까운 적 조준
-                int minLen = D + 1;
-                int minIdx = -1;
-                for (int i = tempEnemy.size() - 1; i >= 0; i--) {
-                  int l = abs(tempEnemy[i][0] - y) + abs(tempEnemy[i][1] - x);
-                  if (l <= minLen) {
-                    minLen = l;
-                    minIdx = i;
-                  }
-                }
-
-                tempEnemy[minIdx][2] = false;
-              }
-            }
-
-            // 사수 한 칸 위로
-            y--;
-
-            {  // 사격이 종료되면 맞은 적은 제거
-              for (int i = tempEnemy.size() - 1; i >= 0; i--) {
-                {  // TEST 3
-                   // cout << "loop!" << endl;
-                }
-                if (!tempEnemy[i][2]) {
-                  tempEnemy.erase(tempEnemy.begin() + i);
-                  count++;
-                  cout << "what?\n";
-                  continue;
-                }
-                if (tempEnemy[i][0] == y) {
-                  tempEnemy.erase(tempEnemy.begin() + i);
-                  continue;
-                }
-              }
-            }
-
-            {  // TEST 3
-               // cout << "loop!" << endl;
+      while (!tempEnemy.empty()) {
+        for (int x : select) {
+          int minLen = D;
+          int minIdx = -1;
+          int minLeft = M;
+          for (int i = tempEnemy.size() - 1; i >= 0; i--) {
+            int l = abs(tempEnemy[i][0] - y) + abs(tempEnemy[i][1] - x);
+            if (l < minLen || (l == minLen && x < minLeft)) {
+              minLen = l;
+              minIdx = i;
+              minLeft = x;
             }
           }
 
-          if (answer < count) answer = count;
+          if (minIdx != -1) tempEnemy[minIdx][2] = false;
+        }
 
-          {  // TEST 2
-            for (int i : select) {
-              cout << i << ", ";
-            }
-            cout << "\b\b = " << count << "\n";
+        y--;
+
+        for (int i = tempEnemy.size() - 1; i >= 0; i--) {
+          if (!tempEnemy[i][2]) {
+            tempEnemy.erase(tempEnemy.begin() + i);
+            count++;
+            continue;
+          }
+
+          if (tempEnemy[i][0] == y) {
+            tempEnemy.erase(tempEnemy.begin() + i);
+            continue;
           }
         }
-
-        {  // TEST 1
-           // for (int i : select) {
-           //   cout << i << ", ";
-           // }
-           // cout << "\b\b  \n";
-        }
-
-        continue;
       }
 
-      if (data == M) {
-        continue;
-      }
+      if (answer < count) answer = count;
 
-      task.push_back({data + 1, size});
-      select[size] = origin[data];
-      task.push_back({data + 1, size + 1});
+      continue;
     }
+
+    if (data == M) {
+      continue;
+    }
+
+    task.push_back({data + 1, size});
+    select[size] = origin[data];
+    task.push_back({data + 1, size + 1});
   }
 
   cout << answer << endl;
