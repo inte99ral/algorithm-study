@@ -4,12 +4,13 @@
 #include <regex>
 
 using namespace std;
-//# Prototype Declaration ====================
+// # Prototype Declaration ====================
 int factorial(int x);
-template <typename T, size_t N> void print(T (&arr)[N]);
+template <typename T, size_t N>
+void print(T (&arr)[N]);
 void printRecur(int* arr, std::deque<int> arrData);
 
-//# Implements Definition ====================
+// # Implements Definition ====================
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
@@ -20,19 +21,34 @@ int main() {
 
   int origin[N][3] = {{1, 11, 111}, {2, 22, 222}, {3, 33, 333}, {4, 44, 444}, {5, 55, 555}};
 
-  { //## 1. Mathematical Calculation =============
-    // // nPr = n! / (n - r)!
-    // cout << "\n[CASES]: Don't know!\n";
-    // cout << "[ANSWER]: " << factorial(N) / factorial(N - R) << '\n';
+  /* 1. Mathematical Calculation ============ *
+  {
+    // nPr = n! / (n - r)!
+    cout << "\n[CASES]: Don't know!\n";
+    cout << "[ANSWER]: " << factorial(N) / factorial(N - R) << '\n';
   }
+  /* ================== †† ================== */
+
+  /* 2. For Loop ============================ *
+  {
+    // nPr = n! / (n - r)!
+    cout << "\n[CASES]: Don't know!\n";
+    cout << "[ANSWER]: " << factorial(N) / factorial(N - R) << '\n';
+  }
+  /* ================== †† ================== */
 
   {
-    //## 2. For Loop =============================
-    //## 2. Stack ================================
+    // ## 2. For Loop =============================
+
     // N R 값 수정 불가
   }
 
-  { //## 2. Stack ================================
+  /* ## 2. For Loop ========================= *
+
+  int a;
+  /* ================== †† ================== */
+
+  {  // ## 2. Stack ================================
     int count = 0;
     int select[R][3] = {};
     deque<array<int, 3>> task = {{0, 0, -1}};
@@ -65,18 +81,18 @@ int main() {
     cout << "[ANSWER]: " << count << '\n';
   }
 
-  { 
-    //## 2. DFS With Stack =======================
-    //## 3. Swap =======================
+  {
+    // ## 2. DFS With Stack =======================
+    // ## 3. Swap =======================
   }
 
   return 0;
 }
 
-
 int factorial(int x) { return (x == 1) || (x == 0) ? 1 : x * factorial(x - 1); }
 
-template <typename T, size_t N> void print(T (&arr)[N]) {
+template <typename T, size_t N>
+void print(T (&arr)[N]) {
   std::deque<int> arrData;
   std::string arrType = typeid(arr).name();
   std::regex regExp("A[0-9]+_", std::regex::optimize);
