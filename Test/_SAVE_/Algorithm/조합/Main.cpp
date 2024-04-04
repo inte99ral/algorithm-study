@@ -9,7 +9,7 @@
 ArrayTool at;
 
 using namespace std;
-// Prototype Declaration ====================
+//# Prototype Declaration ====================
 int factorial(int x);
 
 // Implements Definition ====================

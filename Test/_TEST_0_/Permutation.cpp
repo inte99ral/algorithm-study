@@ -1,6 +1,7 @@
 #include <array>
 #include <deque>
 #include <iostream>
+#include <regex>
 
 using namespace std;
 //# Prototype Declaration ====================
@@ -17,17 +18,23 @@ int main() {
   const int N = 5;
   const int R = 2;
 
-  int origin[N][2] = {{1, 11}, {2, 22}, {3, 33}, {4, 44}, {5, 55}};
+  int origin[N][3] = {{1, 11, 111}, {2, 22, 222}, {3, 33, 333}, {4, 44, 444}, {5, 55, 555}};
 
   { //## 1. Mathematical Calculation =============
-    // nPr = n! / (n - r)!
-    cout << "\n[CASES]: Don't know!\n";
-    cout << "[ANSWER]: " << factorial(N) / factorial(N - R) << '\n';
+    // // nPr = n! / (n - r)!
+    // cout << "\n[CASES]: Don't know!\n";
+    // cout << "[ANSWER]: " << factorial(N) / factorial(N - R) << '\n';
   }
 
-  { //## 2. DFS With Stack =======================
+  {
+    //## 2. For Loop =============================
+    //## 2. Stack ================================
+    // N R 값 수정 불가
+  }
+
+  { //## 2. Stack ================================
     int count = 0;
-    int fixed[R][2] = {};
+    int select[R][3] = {};
     deque<array<int, 3>> task = {{0, 0, -1}};
 
     cout << "\n[CASES]:\n";
@@ -39,11 +46,11 @@ int main() {
       task.pop_back();
 
       if (size != 0) {
-        copy((int*)origin[prev], (int*)origin[prev + 1], (int*)fixed[size - 1]);
+        copy((int*)origin[prev], (int*)origin[prev + 1], (int*)select[size - 1]);
       }
 
       if (size == R) {
-        print(fixed);
+        print(select);
         count++;
         continue;
       }
@@ -58,7 +65,9 @@ int main() {
     cout << "[ANSWER]: " << count << '\n';
   }
 
-  {
+  { 
+    //## 2. DFS With Stack =======================
+    //## 3. Swap =======================
   }
 
   return 0;
