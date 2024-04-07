@@ -7,7 +7,8 @@ using namespace std;
 
 // # Prototype Declaration ====================
 int factorial(int x);
-template <typename T, size_t N> void printArr(T (&arr)[N]);
+template <typename T, size_t N>
+void printArr(T (&arr)[N]);
 void printArrRecur(int* arr, std::deque<int> arrData);
 
 // # Implements Definition ====================
@@ -39,11 +40,13 @@ int main() {
 
     for (int i = 0; i < N; i++) {
       copy((int*)origin[i], (int*)origin[i + 1], (int*)select[0]);
+      
       for (int j = 0; j < N; j++) {
-        if(j == i) continue;
+        if (j == i) continue;
         copy((int*)origin[j], (int*)origin[j + 1], (int*)select[1]);
+
         for (int k = 0; k < N; k++) {
-          if(k == i || k == j) continue;
+          if (k == i || k == j) continue;
           copy((int*)origin[k], (int*)origin[k + 1], (int*)select[2]);
           printArr(select);
           count++;
@@ -57,9 +60,11 @@ int main() {
 
   /* 3. Stack =============================== */
   {
-    // 뽑는 수 R 값 수정 불가 3 고정. 뽑는 수 만큼 루프
     int count = 0;
     int select[R][3] = {};
+    deque<array<int, 3>> task = {{0, 0, -1}};
+
+    cout << "\n[CASES]:\n";
   }
   /* ================== †† ================== */
 
@@ -101,7 +106,8 @@ int main() {
 
 int factorial(int x) { return (x == 1) || (x == 0) ? 1 : x * factorial(x - 1); }
 
-template <typename T, size_t N> void printArr(T (&arr)[N]) {
+template <typename T, size_t N>
+void printArr(T (&arr)[N]) {
   std::deque<int> arrData;
   std::string arrType = typeid(arr).name();
   std::regex regExp("A[0-9]+_", std::regex::optimize);
