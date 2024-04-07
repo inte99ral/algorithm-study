@@ -29,6 +29,7 @@ int main() {
   }
   /* ================== †† ================== */
 
+
   /* 2. For Loop ============================ */
   {
     // R 값 수정 불가 3개 뽑기
@@ -47,37 +48,42 @@ int main() {
   }
   /* ================== †† ================== */
 
+  /* 3. Stack =============================== */
+  {
+
+  }
+  /* ================== †† ================== */
   {  // ## 2. Stack ================================
-    int count = 0;
-    int select[R][3] = {};
-    deque<array<int, 3>> task = {{0, 0, -1}};
+    // int count = 0;
+    // int select[R][3] = {};
+    // deque<array<int, 3>> task = {{0, 0, -1}};
 
-    cout << "\n[CASES]:\n";
+    // cout << "\n[CASES]:\n";
 
-    while (!task.empty()) {
-      int data = task.back()[0];
-      int size = task.back()[1];
-      int prev = task.back()[2];
-      task.pop_back();
+    // while (!task.empty()) {
+    //   int data = task.back()[0];
+    //   int size = task.back()[1];
+    //   int prev = task.back()[2];
+    //   task.pop_back();
 
-      if (size != 0) {
-        copy((int*)origin[prev], (int*)origin[prev + 1], (int*)select[size - 1]);
-      }
+    //   if (size != 0) {
+    //     copy((int*)origin[prev], (int*)origin[prev + 1], (int*)select[size - 1]);
+    //   }
 
-      if (size == R) {
-        print(select);
-        count++;
-        continue;
-      }
+    //   if (size == R) {
+    //     print(select);
+    //     count++;
+    //     continue;
+    //   }
 
-      for (int n = N - 1; n >= 0; n--) {
-        if (!(data & (1 << n))) {
-          task.push_back({data | (1 << n), size + 1, n});
-        }
-      }
-    }
+    //   for (int n = N - 1; n >= 0; n--) {
+    //     if (!(data & (1 << n))) {
+    //       task.push_back({data | (1 << n), size + 1, n});
+    //     }
+    //   }
+    // }
 
-    cout << "[ANSWER]: " << count << '\n';
+    // cout << "[ANSWER]: " << count << '\n';
   }
 
   {
