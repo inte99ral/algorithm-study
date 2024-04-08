@@ -27,10 +27,11 @@ int main() {
   cin.tie(nullptr);
   cout.tie(nullptr);
 
-  const int N = 4;
-  const int R = 2;
+  const int N = 3;
+  const int R = 3;
 
-  int origin[N][3] = {{1, 11, 111}, {2, 22, 222}, {3, 33, 333}, {4, 44, 444}};
+  // int origin[N][3] = {{1, 11, 111}, {2, 22, 222}, {3, 33, 333}, {4, 44, 444}};
+  int origin[N][3] = {{1, 11, 111}, {2, 22, 222}, {3, 33, 333}};
 
   // ## 1. Mathematical Calculation =============
   {
@@ -181,7 +182,8 @@ void perm4(T (&origin)[N], int n, int r) {
 template <typename T, size_t N>
 void perm4Recur(T (&select)[N], int size, int n, int r) {
   if (size == r) {
-    printArr(select, r, NULL);
+    // printArr(select, r, NULL);
+    printArr(select);
     return;
   }
 
