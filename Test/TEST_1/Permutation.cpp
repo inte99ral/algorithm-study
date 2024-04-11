@@ -16,15 +16,15 @@ template <typename T, size_t N>
 void swapArr(T (&arr1)[N], T (&arr2)[N]);
 
 // ## 4. Recursive & Bitwise Operator =========
-template <typename T, size_t N> 
+template <typename T, size_t N>
 int perm4(T (&origin)[N], int n, int r);
-template <typename T1, size_t N1, typename T2, size_t N2> 
-void perm4Recur(T1 (&origin)[N1], T2 (&select)[N2], int n, int r, int data, int size, int *count);
+template <typename T1, size_t N1, typename T2, size_t N2>
+void perm4Recur(T1 (&origin)[N1], T2 (&select)[N2], int n, int r, int data, int size, int* count);
 
 template <typename T, size_t N>
 int perm00(T (&origin)[N], int n, int r);
 template <typename T, size_t N>
-void perm00Recur(T (&select)[N], int size, int n, int r, int *count);
+void perm00Recur(T (&select)[N], int size, int n, int r, int* count);
 
 // # Implements Definition ====================
 
@@ -136,7 +136,7 @@ int factorial(int x) {
   return (x == 1) || (x == 0) ? 1 : x * factorial(x - 1);
 }
 
-template <typename T, size_t N> 
+template <typename T, size_t N>
 void printArr(T (&arr)[N], int begin, ...) {
   deque<int> arrData;
   string arrType = typeid(arr).name();
@@ -183,7 +183,7 @@ void printArrRecur(int* arr, deque<int> arrData) {
   }
 }
 
-template <typename T, size_t N> 
+template <typename T, size_t N>
 void swapArr(T (&arr1)[N], T (&arr2)[N]) {
   T temp[N] = {};
   copy((int*)arr1, (int*)arr1 + size(arr1), (int*)temp);
@@ -194,7 +194,7 @@ void swapArr(T (&arr1)[N], T (&arr2)[N]) {
 
 // ## 4. Recursive & Bitwise Operator =========
 
-template <typename T, size_t N> 
+template <typename T, size_t N>
 int perm4(T (&origin)[N], int n, int r) {
   int count;
   T select[r] = {};
@@ -203,8 +203,8 @@ int perm4(T (&origin)[N], int n, int r) {
   return count;
 }
 
-template <typename T1, size_t N1, typename T2, size_t N2> 
-void perm4Recur(T1 (&origin)[N1], T2 (&select)[N2], int n, int r, int data, int size, int *count) {
+template <typename T1, size_t N1, typename T2, size_t N2>
+void perm4Recur(T1 (&origin)[N1], T2 (&select)[N2], int n, int r, int data, int size, int* count) {
   if (size == r) {
     printArr(select);
     *count++;
@@ -213,24 +213,26 @@ void perm4Recur(T1 (&origin)[N1], T2 (&select)[N2], int n, int r, int data, int 
 
   for (int i = 0; i < n; i++) {
     if ((data >> i) & 1) continue;
-    permRecur(origin, select, n, r, data | (i << i), size + 1);
+    perm4Recur(origin, select, n, r, data | (i << i), size + 1);
   }
 
   return;
 }
 
-template <typename T, size_t N> int perm00(T (&origin)[N], int n, int r) {
+template <typename T, size_t N>
+int perm00(T (&origin)[N], int n, int r) {
   // int count;
   // T select[N] = {};
   // copy((int*)origin[0], (int*)origin[size(origin)], (int*)select);
 
-  // perm4Recur(select, 0, n, r, &count);
+  // perm00Recur(select, 0, n, r, &count);
   // return count;
 
   return 0;
 }
 
-template <typename T, size_t N> void perm00Recur(T (&select)[N], int size, int n, int r, int* count) {
+template <typename T, size_t N>
+void perm00Recur(T (&select)[N], int size, int n, int r, int* count) {
   // if (size == r) {
   //   printArr(select, r, NULL);
   //   *count++;
