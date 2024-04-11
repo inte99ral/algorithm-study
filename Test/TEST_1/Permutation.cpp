@@ -9,16 +9,22 @@ using namespace std;
 // # Prototype Declaration ====================
 
 int factorial(int x);
-template <typename T, size_t N> 
+template <typename T, size_t N>
 void printArr(T (&arr)[N], int begin = 0, ...);
 void printArrRecur(int* arr, deque<int> arrData);
-template <typename T, size_t N> 
+template <typename T, size_t N>
 void swapArr(T (&arr1)[N], T (&arr2)[N]);
-template <typename T, size_t N>
-void perm4(T (&origin)[N], int n, int r);
-template <typename T, size_t N>
-void perm4Recur(T (&select)[N], int size, int n, int r);
 
+// ## 4. Recursive & Bitwise Operator =========
+template <typename T, size_t N> 
+int perm4(T (&origin)[N], int n, int r);
+template <typename T1, size_t N1, typename T2, size_t N2> 
+void perm4Recur(T1 (&origin)[N1], T2 (&select)[N2], int n, int r, int data, int size, int *count);
+
+template <typename T, size_t N>
+int perm00(T (&origin)[N], int n, int r);
+template <typename T, size_t N>
+void perm00Recur(T (&select)[N], int size, int n, int r, int *count);
 
 // # Implements Definition ====================
 
@@ -68,7 +74,7 @@ int main() {
 
   // ## 3. Inline Stack & Bitwise Operator ======
   {
-    // // 선택한 데이터를 저장하기 위하여 비트 연산자를 사용하기 때문에 Int = 32bit, 32개 이상 선택 불가
+    // // 비트 연산자를 사용하기 때문에 Int = 32bit, 32개 이상 선택 불가. bool 배열로 대체 가능
     // int count = 0;
     // int select[R][3] = {};
     // deque<array<int, 3>> task = {{0, 0, 0}};
@@ -101,19 +107,36 @@ int main() {
     // cout << "[ANSWER]: " << count << '\n';
   }
 
-  // ## 4. Recursive Function & Swap ============
+  // ## 4. Recursive & Bitwise Operator =========
   {
-    perm4(origin, N, R);
+    cout << "\n[CASES]:\n";
+    int count = perm4(origin, N, R);
+    cout << "[ANSWER]: " << count << '\n';
+  }
+
+  // ## 5. Iterative ============================
+  {
+    // cout << "\n[CASES]:\n";
+    // int count = perm5(origin, N, R);
+    // cout << "[ANSWER]: " << count << '\n';
+  }
+
+  // ## 00. Recursive Function & Swap ============
+  {
+    //   // 구현과 계산속도가 빠른 대신 오름차순이 아님
+    //   cout << "\n[CASES]:\n";
+    //   int count = perm4(origin, N, R);
+    //   cout << "[ANSWER]: " << count << '\n';
   }
 
   return 0;
 }
 
-int factorial(int x) { 
-  return (x == 1) || (x == 0) ? 1 : x * factorial(x - 1); 
+int factorial(int x) {
+  return (x == 1) || (x == 0) ? 1 : x * factorial(x - 1);
 }
 
-template <typename T, size_t N>
+template <typename T, size_t N> 
 void printArr(T (&arr)[N], int begin, ...) {
   deque<int> arrData;
   string arrType = typeid(arr).name();
@@ -133,7 +156,7 @@ void printArr(T (&arr)[N], int begin, ...) {
     }
     else {
       arrData.push_back(stoi(token.substr(1, token.size() - 2)));
-    } 
+    }
   }
 
   va_end(ap);
@@ -160,7 +183,7 @@ void printArrRecur(int* arr, deque<int> arrData) {
   }
 }
 
-template <typename T, size_t N>
+template <typename T, size_t N> 
 void swapArr(T (&arr1)[N], T (&arr2)[N]) {
   T temp[N] = {};
   copy((int*)arr1, (int*)arr1 + size(arr1), (int*)temp);
@@ -169,28 +192,55 @@ void swapArr(T (&arr1)[N], T (&arr2)[N]) {
   return;
 }
 
+// ## 4. Recursive & Bitwise Operator =========
 
-template <typename T, size_t N>
-void perm4(T (&origin)[N], int n, int r) {
-  T select[N] = {};
-  copy((int*)origin[0], (int*)origin[size(origin)], (int*)select);
+template <typename T, size_t N> 
+int perm4(T (&origin)[N], int n, int r) {
+  int count;
+  T select[r] = {};
+  perm4Recur(origin, select, n, r, 0, 0, &count);
 
-  perm4Recur(select, 0, n, r);
-  return;
+  return count;
 }
 
-template <typename T, size_t N>
-void perm4Recur(T (&select)[N], int size, int n, int r) {
+template <typename T1, size_t N1, typename T2, size_t N2> 
+void perm4Recur(T1 (&origin)[N1], T2 (&select)[N2], int n, int r, int data, int size, int *count) {
   if (size == r) {
-    // printArr(select, r, NULL);
     printArr(select);
+    *count++;
     return;
   }
 
-  for(int i = size; i < n; i++) {
-    swapArr(select[size], select[i]);
-    perm4Recur(select, size + 1, n, r);
-    swapArr(select[size], select[i]);
+  for (int i = 0; i < n; i++) {
+    if ((data >> i) & 1) continue;
+    permRecur(origin, select, n, r, data | (i << i), size + 1);
   }
+
   return;
+}
+
+template <typename T, size_t N> int perm00(T (&origin)[N], int n, int r) {
+  // int count;
+  // T select[N] = {};
+  // copy((int*)origin[0], (int*)origin[size(origin)], (int*)select);
+
+  // perm4Recur(select, 0, n, r, &count);
+  // return count;
+
+  return 0;
+}
+
+template <typename T, size_t N> void perm00Recur(T (&select)[N], int size, int n, int r, int* count) {
+  // if (size == r) {
+  //   printArr(select, r, NULL);
+  //   *count++;
+  //   return;
+  // }
+
+  // for (int i = size; i < n; i++) {
+  //   swapArr(select[size], select[i]);
+  //   perm4Recur(select, size + 1, n, r, count);
+  //   swapArr(select[size], select[i]);
+  // }
+  // return;
 }

@@ -1,4 +1,3 @@
-#include <array>
 #include <cstdarg>
 #include <deque>
 #include <iostream>
@@ -12,12 +11,6 @@ int factorial(int x);
 template <typename T, size_t N>
 void printArr(T (&arr)[N], int begin = 0, ...);
 void printArrRecur(int* arr, deque<int> arrData);
-template <typename T, size_t N>
-void swapArr(T (&arr1)[N], T (&arr2)[N]);
-template <typename T, size_t N>
-int perm00(T (&origin)[N], int n, int r);
-template <typename T, size_t N>
-void perm00Recur(T (&select)[N], int size, int n, int r, int *count);
 
 // # Implements Definition ====================
 
@@ -29,8 +22,7 @@ int main() {
   const int N = 3;
   const int R = 3;
 
-  // int origin[N][3] = {{1, 11, 111}, {2, 22, 222}, {3, 33, 333}, {4, 44, 444}};
-  int origin[N][3] = {{1, 11, 111}, {2, 22, 222}, {3, 33, 333}};
+  int origin[N][3] = {{1, 11, 111}, {2, 22, 222}, {3, 33, 333}, {4, 44, 444}, {5, 55, 555}};
 
   // ## 1. Mathematical Calculation =============
   {
@@ -102,9 +94,9 @@ int main() {
 
   // ## 4. Recursive & Bitwise Operator =========
   {
-  //   cout << "\n[CASES]:\n";
-  //   int count = perm5(origin, N, R);
-  //   cout << "[ANSWER]: " << count << '\n';
+    //   cout << "\n[CASES]:\n";
+    //   int count = perm5(origin, N, R);
+    //   cout << "[ANSWER]: " << count << '\n';
   }
 
   // ## 5. Iterative ============================
@@ -112,14 +104,6 @@ int main() {
     cout << "\n[CASES]:\n";
     int count = perm5(origin, N, R);
     cout << "[ANSWER]: " << count << '\n';
-  }
-
-  // ## 00. Recursive Function & Swap ============
-  {
-  //   // 구현과 계산속도가 빠른 대신 오름차순이 아님
-  //   cout << "\n[CASES]:\n";
-  //   int count = perm4(origin, N, R);
-  //   cout << "[ANSWER]: " << count << '\n';
   }
 
   return 0;
@@ -174,39 +158,4 @@ void printArrRecur(int* arr, deque<int> arrData) {
     }
     cout << "\033[" << color << "m\b\b]\033[0m, ";
   }
-}
-
-template <typename T, size_t N>
-void swapArr(T (&arr1)[N], T (&arr2)[N]) {
-  T temp[N] = {};
-  copy((int*)arr1, (int*)arr1 + size(arr1), (int*)temp);
-  copy((int*)arr2, (int*)arr2 + size(arr2), (int*)arr1);
-  copy((int*)temp, (int*)temp + size(temp), (int*)arr2);
-  return;
-}
-
-template <typename T, size_t N>
-int perm00(T (&origin)[N], int n, int r) {
-  int count;
-  T select[N] = {};
-  copy((int*)origin[0], (int*)origin[size(origin)], (int*)select);
-
-  perm4Recur(select, 0, n, r, &count);
-  return count;
-}
-
-template <typename T, size_t N>
-void perm00Recur(T (&select)[N], int size, int n, int r, int *count) {
-  if (size == r) {
-    printArr(select, r, NULL);
-    *count++;
-    return;
-  }
-
-  for (int i = size; i < n; i++) {
-    swapArr(select[size], select[i]);
-    perm4Recur(select, size + 1, n, r, count);
-    swapArr(select[size], select[i]);
-  }
-  return;
 }
