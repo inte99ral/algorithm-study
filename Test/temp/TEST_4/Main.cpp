@@ -30,7 +30,6 @@ int main() {
   const int R = 3;
 
   int origin[N][3] = {{1, 11, 111}, {2, 22, 222}, {3, 33, 333}, {4}, {5}};
-  // int origin[N][3] = {{1, 11, 111}, {2, 22, 222}, {3, 33, 333}};
 
   // ## 1. Mathematical Calculation =============
   {

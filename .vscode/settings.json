@@ -135,5 +135,9 @@
   // },
   "terminal.integrated.defaultProfile.windows": "PowerShell",
   "cmake.configureOnOpen": false,
-  "cmake.showOptionsMovedNotification": false
+  "cmake.showOptionsMovedNotification": false,
+  "files.associations": {
+    "iostream": "cpp",
+    "deque": "cpp"
+  }
 }
