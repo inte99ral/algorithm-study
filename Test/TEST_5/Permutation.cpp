@@ -26,92 +26,12 @@ int main() {
 
   int origin[N][3] = {{1, 11, 111}, {2, 22, 222}, {3, 33, 333}, {4, 44, 444}, {5, 55, 555}};
 
-  // ## 3. Inline : While Loop ===================
-  goto section3end;
+  // ## 5. Iterative =============================
   {
-    int select[R][3] = {};
-    int count = 0;
-    int size = 0;
-    int data[R] = {0, -1, -1};
-    bool isSelected = false;
-
-    cout << "\n[CASES]:\n";
-
-    while (data[0] != N) {
-      if (size == R) {
-        printArr(select);
-        count++;
-        size--;
-        data[size]++;
-        continue;
-      }
-
-      copy((int*)origin[data[size]], (int*)origin[data[size] + 1], (int*)select[size]);
-
-      if (data[size] == N) {
-        data[size] = 0;
-        size--;
-        data[size]++;
-        continue;
-      }
-
-      isSelected = false;
-
-      for (int i = 0; i < size; i++) {
-        if (data[i] == data[size]) {
-          isSelected = true;
-          continue;
-        }
-      }
-
-      if (isSelected) {
-        data[size]++;
-      }
-      else {
-        size++;
-        data[size] = 0;
-      }
-    }
-
-    cout << "[ANSWER]: " << count << '\n';
+    // cout << "\n[CASES]:\n";
+    // int count = perm5(origin, N, R);
+    // cout << "[ANSWER]: " << count << '\n';
   }
-  section3end:
-
-  // ## 4. Inline Stack & Bitwise Operator =======
-  // goto section4end;
-
-  {
-    // 비트 연산자를 사용하기 때문에 Int = 32bit, 32개 이상 선택 불가. bool 배열로 대체 가능
-    int count = 0;
-    int select[R][3] = {};
-    deque<array<int, 3>> task = {{0, 0, 0}};
-
-    cout << "\n[CASES]:\n";
-
-    while (!task.empty()) {
-      int data = task.back()[0];
-      int size = task.back()[1];
-      int curr = task.back()[2];
-
-      task.pop_back();
-
-      if (size == R) {
-        printArr(select);
-        count++;
-        continue;
-      }
-
-      if (curr == N) {
-        continue;
-      }
-
-      task.push_back({data, size, curr + 1});
-      if (data & (1 << curr)) continue;
-      copy((int*)origin[curr], (int*)origin[curr + 1], (int*)select[size]);
-      task.push_back({data | (1 << curr), size + 1, 0});
-  }
-  section4end:
-
 
 
   return 0;
@@ -164,3 +84,5 @@ void printArrRecur(int* arr, deque<int> arrData) {
     cout << "\033[" << color << "m\b\b]\033[0m, ";
   }
 }
+
+// ## 5. Iterative =============================
