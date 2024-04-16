@@ -36,7 +36,10 @@ int main() {
     // cout << "\n[CASES]:\n";
     // int count = perm5(origin, N, R);
     // cout << "[ANSWER]: " << count << '\n';
-    next_permutation(origin, origin + 5);
+
+    printArr(origin);
+    next_permutation(origin, origin + 5, );
+    printArr(origin);
   }
 
 
