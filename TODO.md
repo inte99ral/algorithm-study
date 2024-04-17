@@ -32,7 +32,7 @@
 
 # FIXME:
 
-- [ ] [BJ 2252]() 줄 세우기 `#GoldⅢ` `#`
+- [ ] [BJ 2252](Problem\Failed\Baekjoon\Gold\3\BJ_2252\question\info.md) 줄 세우기 `#GoldⅢ` `#`
 - [ ] BJ 17472 다리 만들기 2 `#GoldⅠ`
 - [ ] PG 42579 베스트앨범 레벨3 해시
 - [ ] PG 42576 완주하지 못한 선수 레벨1 해시
