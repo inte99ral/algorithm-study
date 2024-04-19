@@ -138,6 +138,7 @@
   "cmake.showOptionsMovedNotification": false,
   "files.associations": {
     "iostream": "cpp",
-    "deque": "cpp"
+    "deque": "cpp",
+    "sstream": "cpp"
   }
 }
