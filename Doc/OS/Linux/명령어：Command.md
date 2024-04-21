@@ -1,4 +1,4 @@
-# 리눅스 Linux
+# 명령어：Command
 
 ## Shell Script
 
@@ -92,8 +92,6 @@ int main(int argc, char** argv)
 }
 ```
 
-
 # MSYS2
-
 
 [참고링크](https://wikidocs.net/219732)

@@ -1,10 +1,3 @@
-
-/**
- * 1 → 2 → 3 → 4
- *  ↘       ↙
- *     5 → 6 → 7
-*/
-
 #include <deque>
 #include <iostream>
 #include <sstream>
@@ -71,7 +64,9 @@ int main() {
     int target = task.front();
     task.pop_front();
 
-
+    for(const auto& a : graph[target]) {
+      
+    }
   }
 
   delete[] indegree;
