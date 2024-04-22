@@ -19,3 +19,83 @@
 3. 대기열에서 들어온 순서에 맞게 원소 하나를 꺼내어 방문 노드로 설정합니다.
 4. 방문 노드와 인접한 정점들의 진입차수를 낮춘다. 이후 진입차수가 0이 된 노드는 대기열에 넣습니다.
 5. 3 ~ 4의 과정을 대기열이 없을 때까지 반복합니다.
+
+```cpp
+#include <deque>
+#include <iostream>
+#include <sstream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
+
+  int N;
+  int M;
+  vector<vector<int>> graph;
+  int* indegree;
+  deque<int> task;
+
+  { //_INPUT
+    /**
+     * 1 → 2 → 3 → 4
+     *  ↘       ↙
+     *     5 → 6 → 7
+     */
+
+    string input =
+        "7 7\n"
+        "1 2 "
+        "1 5 "
+        "2 3 "
+        "5 6 "
+        "3 4 "
+        "4 6 "
+        "6 7";
+
+    stringbuf sb(input);
+    streambuf *backup = cin.rdbuf(&sb);
+
+    cin >> N >> M;
+
+    indegree = new int[N + 1]();
+
+    for (int n = 0; n < N; n++) {
+      graph.push_back({});
+    }
+
+    for (int m = 0; m < M; m++) {
+      int forward;
+      int backward;
+
+      cin >> forward >> backward;
+
+      graph[forward].push_back(backward);
+      indegree[backward]++;
+    }
+
+    cin.clear();
+    cin.rdbuf(backup);
+  }
+
+  for (int n = 1; n <= N; n++) if(indegree[n] == 0) task.push_back(n);
+
+  while (task.size() != 0) {
+    int target = task.front();
+    cout << target << " : ";
+    task.pop_front();
+
+    for(const auto& a : graph[target]) {
+      if(--indegree[a] == 0) {
+        task.push_back(a);
+      }
+    }
+  }
+
+  delete[] indegree;
+  return 0;
+}
+```

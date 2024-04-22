@@ -139,6 +139,7 @@
   "files.associations": {
     "iostream": "cpp",
     "deque": "cpp",
-    "sstream": "cpp"
+    "sstream": "cpp",
+    "new": "cpp"
   }
 }
