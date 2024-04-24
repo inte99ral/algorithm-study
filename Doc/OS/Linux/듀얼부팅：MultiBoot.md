@@ -1,10 +1,17 @@
 # 듀얼부팅：MultiBoot
 
+[참고 링크](https://snowdeer.github.io/mac-os/2020/10/27/how-to-install-ubuntu-20p04-on-surface-pro-7/)
+
 ## 목차
 
 ## 순서
 
 ### 기본 디바이스 세팅
+
+- UEFI 해제
+
+  - UEFI 옵션은 Surface Pro에 Windows가 아닌 다른 OS가 설치되었을 경우 해당 부팅되지 않도록 해주는 보안 옵션입니다. 우리는 Ubuntu를 사용할 것이기 때문에 UEFI 옵션을 해제시켜줍니다.
+  - BIOS에서 해제할 수 있는데, 들어가는 방법은 Surface Pro 전원이 꺼진 상태에서 전원 + Volume Up 키를 오래동안 누르고 있으면 됩니다.
 
 - SSD의 BitLocker 해제
 
