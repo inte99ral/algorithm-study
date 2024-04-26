@@ -33,7 +33,7 @@
 
 # FIXME:
 
-- [ ] BJ 17472 다리 만들기 2 `#GoldⅠ`
+- [ ] [BJ 17472](Problem\Failed\Baekjoon\Gold\1\BJ_17472\question\info.md) 다리 만들기 2 `#GoldⅠ`
 - [ ] PG 42579 베스트앨범 레벨3 해시
 - [ ] PG 42576 완주하지 못한 선수 레벨1 해시
 - [ ] PG 42578 의상 레벨 2 해시
