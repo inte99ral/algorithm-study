@@ -1,5 +1,11 @@
 # [다리 만들기 2](https://www.acmicpc.net/problem/17472)
 
+<style>
+  .example * {text-align: center;}
+  .example td {width: 30vw; border: solid 1px lightgray}
+  .output td {width: 30vw; padding: 1em}
+</style>
+
 <br />
 <center>
 
@@ -37,10 +43,7 @@
 <br />
 <center>
 
-<style>
-  table * {text-align: center;} td {max-width: 20vw; border: solid 1px}
-</style>
-<table>
+<table class="example">
   <tr>
     <td><img src="./asset/2.avif" style="width:20vw; aspect-ratio: 1 / 1"/></td>
     <td><img src="./asset/3.avif" style="width:20vw; aspect-ratio: 1 / 1"/></td>
@@ -63,10 +66,7 @@
 <br />
 <center>
 
-<style>
-  table * {text-align: center;} td {max-width: 20vw; border: solid 1px}
-</style>
-<table>
+<table class="example">
   <tr>
     <td><img src="./asset/4.avif" style="width:20vw; aspect-ratio: 1 / 1"/></td>
     <td><img src="./asset/5.avif" style="width:20vw; aspect-ratio: 1 / 1"/></td>
@@ -82,8 +82,35 @@
 </center>
 <br />
 
-&nbsp; 다음은 올바르지 않은 3가지 방법이다
-&nbsp; 다음은 올바르지 않은 3가지 방법이다
+&nbsp; 다리가 교차하는 경우가 있을 수도 있다. 교차하는 다리의 길이를 계산할 때는 각 칸이 각 다리의 길이에 모두 포함되어야 한다. 아래는 다리가 교차하는 경우와 기타 다른 경우에 대한 2가지 예시이다.
+
+<br />
+<center>
+
+<table class="example">
+  <tr>
+    <td><img src="./asset/7.avif" style="width:20vw; aspect-ratio: 1 / 1"/></td>
+    <td><img src="./asset/8.avif" style="width:20vw; aspect-ratio: 1 / 1"/></td>
+  </tr>
+  <tr>
+    <td>A의 길이는 4이고, B의 길이도 4이다.</td>
+    <td>
+      다리 A: 2와 3을 연결 (길이 2)<br />
+      다리 B: 3과 4를 연결 (길이 3)<br />
+      다리 C: 2와 5를 연결 (길이 5)<br />
+      다리 D: 1과 2를 연결 (길이 2)
+    </td>
+  </tr>
+  <tr>
+    <td>총 다리의 총 길이: 4 + 4 + 2 = 10</td>
+    <td>총 길이: 12</td>
+  </tr>
+</table>
+
+</center>
+<br />
+
+&nbsp; 나라의 정보가 주어졌을 때, 모든 섬을 연결하는 다리 길이의 최솟값을 구해보자.
 
 <br />
 
@@ -91,7 +118,7 @@
 
 <br />
 
-&nbsp; 첫째 줄에 N, M, L이 입력으로 들어온다. N은 3보다 크거나 같고, 50보다 작거나 같은 자연수이고, M은 50보다 작거나 같은 자연수이다. L은 N-1보다 작거나 같은 자연수이다.
+&nbsp; 첫째 줄에 지도의 세로 크기 N과 가로 크기 M이 주어진다. 둘째 줄부터 N개의 줄에 지도의 정보가 주어진다. 각 줄은 M개의 수로 이루어져 있으며, 수는 0 또는 1이다. 0은 바다, 1은 땅을 의미한다.
 
 <br />
 
@@ -99,43 +126,136 @@
 
 <br />
 
-&nbsp; 첫째 줄에 공을 몇 번 던지는지 횟수를 출력한다.
+&nbsp; 모든 섬을 연결하는 다리 길이의 최솟값을 출력한다. 모든 섬을 연결하는 것이 불가능하면 -1을 출력한다.
+
+<br />
+
+## 제한
+
+<br />
+
+- 1 ≤ N, M ≤ 10
+- 3 ≤ N × M ≤ 100
+- 2 ≤ 섬의 개수 ≤ 6
 
 <br />
 <center>
-<style>th {width: 30vw; text-align: center;} td {padding: 1em;}</>
-<table><tr><th>예제 입력 1</th><th>예제 출력 1</th></tr><tr><td>
+<table class="output"><tr><th>예제 입력 1</th><th>예제 출력 1</th></tr><tr><td>
 
 ```
-5 3 2
+7 8
+0 0 0 0 0 0 1 1
+1 1 0 0 0 0 1 1
+1 1 0 0 0 0 0 0
+1 1 0 0 0 1 1 0
+0 0 0 0 0 1 1 0
+0 0 0 0 0 0 0 0
+1 1 1 1 1 1 1 1
+```
+
+</td><td>
+
+```
+9
+
+
+
+
+
+
+
+```
+
+</td></tr></table>
+<table class="output"><tr><th>예제 입력 2</th><th>예제 출력 2</th></tr><tr><td>
+
+```
+7 8
+0 0 0 1 1 0 0 0
+0 0 0 1 1 0 0 0
+1 1 0 0 0 0 1 1
+1 1 0 0 0 0 1 1
+1 1 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+1 1 1 1 1 1 1 1
 ```
 
 </td><td>
 
 ```
 10
+
+
+
+
+
+
+
+```
+
+</td></tr></table>
+<table class="output"><tr><th>예제 입력 3</th><th>예제 출력 3</th></tr><tr><td>
+
+```
+7 8
+1 0 0 1 1 1 0 0
+0 0 1 0 0 0 1 1
+0 0 1 0 0 0 1 1
+0 0 1 1 1 0 0 0
+0 0 0 0 0 0 0 0
+0 1 1 1 0 0 0 0
+1 1 1 1 1 1 0 0
+```
+
+</td><td>
+
+```
+9
+
+
+
+
+
+
+
+```
+
+</td></tr></table>
+<table class="output"><tr><th>예제 입력 4</th><th>예제 출력 4</th></tr><tr><td>
+
+```
+7 7
+1 1 1 0 1 1 1
+1 1 1 0 1 1 1
+1 1 1 0 1 1 1
+0 0 0 0 0 0 0
+1 1 1 0 1 1 1
+1 1 1 0 1 1 1
+1 1 1 0 1 1 1
+```
+
+</td><td>
+
+```
+-1
+
+
+
+
+
+
+
 ```
 
 </td></tr></table>
 </center>
 <br />
 
-## 힌트
-
-<br />
-
-&nbsp; 예제 1의 경우 일단 1번이 공을 잡는다. 1번은 공을 한 번 잡았기 때문에, 공을 3번에게 던진다. 3번은 공을 한 번 잡았기 때문에, 공을 5번에게 던진다. 5번은 2번에게 던지고, 2번은 4번에게 던진다. 4번은 1번에게 던진다. 1번은 이제 공을 두 번 잡았기 때문에, 공을 4번에게 던진다. 4번은 2번에게 던지고, 2번은 5번에게 던지고, 5번은 3번에게 던지고, 마지막으로 3번은 1번에게 던진다. 1번은 이제 공을 세 번 잡았기 때문에, 게임은 끝난다.
-
-<br />
-
 ## 출처
 
 <br />
 
-- 문제를 번역한 사람: baekjoon
-- 문제의 오타를 찾은 사람: chatterboy, chsun0303, dtc03012, hello70825
-- 어색한 표현을 찾은 사람: djm03178
-- 문제를 다시 작성한 사람: jh05013
+-
 
 <br />
 
@@ -143,5 +263,4 @@
 
 <br />
 
-- 구현
-- 시뮬레이션
+-

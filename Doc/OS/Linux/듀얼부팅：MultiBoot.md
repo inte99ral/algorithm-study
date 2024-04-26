@@ -2,6 +2,8 @@
 
 [참고 링크](https://snowdeer.github.io/mac-os/2020/10/27/how-to-install-ubuntu-20p04-on-surface-pro-7/)
 
+[참고 동영상](https://www.youtube.com/watch?v=mXyN1aJYefc)
+
 ## 목차
 
 ## 순서

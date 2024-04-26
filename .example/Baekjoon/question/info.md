@@ -1,5 +1,11 @@
 # [문제 제목](https://www.google.co.kr)
 
+<style>
+  .example * {text-align: center;}
+  .example td {width: 20vw; border: solid 1px lightgray}
+  .output td {width: 30vw; padding: 1em}
+</style>
+
 <br />
 <center>
 
@@ -47,21 +53,18 @@
 <br />
 <center>
 
-<style>
-  table * {text-align: center;} td {border: solid 1px}
-</style>
-<table>
+<table class="example">
   <tr>
     <td><img src="./asset/2.avif" style="width:20vw; aspect-ratio: 1 / 1"/></td>
     <td><img src="./asset/3.avif" style="width:20vw; aspect-ratio: 1 / 1"/></td>
   </tr>
   <tr>
     <td>다리의 총 길이: 13</td>
-    <td>다리의 총 길이: 13</td>
+    <td>다리의 총 길이: 9</td>
   </tr>
   <tr>
     <td>D는 2와 4를 연결하는 다리이고, 3과는 연결되어 있지 않다.</td>
-    <td>D는 2와 4를 연결하는 다리이고, 3과는 연결되어 있지 않다.</td>
+    <td>&nbsp;</td>
   </tr>
 </table>
 
@@ -88,8 +91,7 @@
 
 <br />
 <center>
-<style>th {width: 30vw; text-align: center;} td {padding: 1em;}</style>
-<table><tr><th>예제 입력 1</th><th>예제 출력 1</th></tr><tr><td>
+<table class="output"><tr><th>예제 입력 1</th><th>예제 출력 1</th></tr><tr><td>
 
 ```
 5 3 2
