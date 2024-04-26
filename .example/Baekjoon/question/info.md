@@ -24,7 +24,7 @@
 </center>
 <br />
 
-&nbsp; 문제의 표 예시 `<표 1>`
+&nbsp; 문제의 입력 예시 `<입력 1>`
 
 <br />
 <center>
@@ -38,6 +38,32 @@
 ```
 
 0은 빈 칸, 1은 집, 2는 치킨집이다.
+
+</center>
+<br />
+
+&nbsp; 문제의 표 예시 `<표 1>`
+
+<br />
+<center>
+
+<style>
+  table * {text-align: center;} td {border: solid 1px}
+</style>
+<table>
+  <tr>
+    <td><img src="./asset/2.avif" style="width:20vw; aspect-ratio: 1 / 1"/></td>
+    <td><img src="./asset/3.avif" style="width:20vw; aspect-ratio: 1 / 1"/></td>
+  </tr>
+  <tr>
+    <td>다리의 총 길이: 13</td>
+    <td>다리의 총 길이: 13</td>
+  </tr>
+  <tr>
+    <td>D는 2와 4를 연결하는 다리이고, 3과는 연결되어 있지 않다.</td>
+    <td>D는 2와 4를 연결하는 다리이고, 3과는 연결되어 있지 않다.</td>
+  </tr>
+</table>
 
 </center>
 <br />
