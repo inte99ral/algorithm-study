@@ -1,6 +1,101 @@
+<style>
+ .example { width: 90vw; & > tbody > tr > td { border: solid 1px lightgray; }; }
+ .center { text-align: center; & * { text-align: center; }; }
+</style>
+
 # 명령어：Command
 
+## Linux Command
+
+### 목록
+
+<center>
+<table class="example">
+  <tr class="center">
+    <th>명령어</th><th>유래</th><th>동작</th><th>예시</th>
+  </tr>
+  <tr>
+    <td>$</td>
+    <td>-</td>
+    <td>명령 처리 준비 상황 표기
+    </td>
+    <td>
+
+```bash
+$ #means you are a normal user.
+# #means you are the system administrator
+% #In the C shell, the prompt ends with percentage sign
+```
+
+  </td>
+  </tr>
+  <tr>
+    <td>sudo</td>
+    <td>▶ Super User DO<br />▶ Substitute User DO</td>
+    <td>관리자 권한으로 실행</td>
+    <td>
+
+```bash
+sudo "명령어"
+```
+
+  </td>
+  </tr>
+  <tr>
+    <td>cd</td>
+    <td>Change Directory</td>
+    <td>디렉토리 이동</td>
+    <td>
+
+```bash
+#현재 위치한 디렉토리를 표시합니다.
+pwd
+
+#해당 디렉토리로 이동.
+cd "디렉토리명"
+
+#최상위 디렉토리로 이동.
+cd /
+
+#한 단계 상위 디렉토리로 이동.
+cd ..
+
+#현 사용자 홈 디렉토리로 이동.
+cd ~
+
+#계정명의 홈 디렉토리로 이동.
+cd ~ "계정명"
+
+#바로 이전 경로의 디렉토리로 이동.
+cd -
+```
+
+  </td>
+  </tr>
+  <tr>
+  </tr>
+</table>
+</center>
+
+- ls : 현재 디렉토리에 있는 파일 및 폴더를 출력
+
+- cp <파일1> <파일2>: 파일1과 동일한 파일2를 만든다.
+
+- mkdir <디렉토리이름>: <디렉토리이름>의 폴더를 만든다.
+
+- rmdir <디렉토리이름>: <디렉토리이름>의 폴더를 삭제한다.
+
+- pwd: 현재 경로 출력
+
+- touch <파일명>: <파일명> 파일 생성
+
+### vi
+
 ## Shell Script
+
+### 목록
+
+- 출력
 
 ### 출력
 
