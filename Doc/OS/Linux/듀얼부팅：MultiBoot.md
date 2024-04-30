@@ -48,5 +48,53 @@
 - 리눅스 설치
   - 서드파티 프로그램 설치 허가
   - Windows 나란히 설치 선택
-- Grub 설치
-  - Ctrl + Alt + T 터미널 열기
+- Grub 설치 및 조정
+
+  - sudo update-grub
+  - Ctrl + Alt + T 터미널 열고 vi /etc/default/grub 또는 텍스트 에디터로 수정
+  - 부팅 선택 메뉴의 대기 시간 부여
+
+    ```bash
+    GRUB_DEFAULT=0
+    GRUB_TIMEOUT_STYLE=menu
+    GRUB_TIMEOUT=10
+    GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
+    GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
+    GRUB_CMDLINE_LINUX=""
+    ```
+
+  - 노트북에서 fn키 화면밝기 조절이 안될 때
+
+    ```bash
+    GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
+    GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_backlight=vendor acpi_osi=Linux"
+    ```
+
+  - 설정이 끝나면 터미널에서 업데이트
+    ```bash
+    $ sudo update-grub
+    $ sudo reboot
+    ```
+
+- 언어팩 설치
+  - [참고 링크](https://staraube.tistory.com/105)
+
+# 정리필요
+
+<br />
+<center>
+
+<img src="./asset/듀얼부팅：MultiBoot/0.png" style="width:80vw; aspect-ratio: 4 / 1"/>
+
+</center>
+<br />
+
+설치 가능한 드라이버 확인 $ ubuntu-drivers devices
+
+드라이버 설치 $sudo apt-get install nvidia-390
+
+그래픽카드 확인 $ cat /proc/driver/nvidia/version
+
+[키보드 세팅](https://staraube.tistory.com/105)
+
+[멀티제스처](https://steady-hello.tistory.com/122)

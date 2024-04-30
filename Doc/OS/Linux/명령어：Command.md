@@ -31,7 +31,7 @@ $ #means you are a normal user.
   </tr>
   <tr>
     <td>sudo</td>
-    <td>▶ Super User DO<br />▶ Substitute User DO</td>
+    <td>Super User DO<br />or<br />Substitute User DO</td>
     <td>관리자 권한으로 실행</td>
     <td>
 
@@ -73,6 +73,35 @@ cd -
   </td>
   </tr>
   <tr>
+    <td>vi</td>
+    <td>VI text editor</td>
+    <td>파일 텍스트 수정</td>
+    <td>
+
+```bash
+i #커서 앞부터 입력
+a #커서 뒤부터 입력
+왼쪽으로 이동 - h
+아래로 이동 - j
+위로 이동 - k
+오른쪽으로 이동 - l
+한 글자 삭제 - x
+한 단어 삭제 - dw
+한 줄 삭제 - ddn
+번째 줄 삭제 - ndd
+현재 커서 위치부터 끝까지 : D
+검색 - /(내용)
+현재줄 복사하기 - yyn
+번째 줄 복사하기 - nyy
+붙여넣기 - p
+undo(실행취소) - u
+변경 사항을 저장하지 않고 종료 - :q!
+저장 - :w
+저장 후 종료 - :wq
+저장 후 종료 - :ZZ
+```
+
+  </td>
   </tr>
 </table>
 </center>

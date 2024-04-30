@@ -19,29 +19,45 @@ int main() {
   cin >> N >> M;
 
   matrix = new int*[N + 2]();
+  matrix[0] = new int[M + 2]();
 
-  for (int n = 1; n < N + 2; n++) {
+  for (int n = 1; n < N + 1; n++) {
     matrix[n] = new int[M + 2]();
-    for (int m = 1; m < M + 2; m++) {
-      int temp;
-      cin >> temp;
-      goto ACT_1;
-      { //_ACT_1 서로소 알고리즘
-        if (int i = 0; i < 2; i++) {
-          if(matrix[n + dy[i]][m + dx[i]] != 0) {
 
+    for (int m = 1; m < M + 1; m++) {
+      cin >> matrix[n][m];
+      if(matrix[n][m] == 0) continue;
+
+      matrix[n][m] = (n * (M + 2)) + m;
+
+
+      // goto ACT_1;
+      {
+        for (int i = 0; i < 2; i++) {
+          int y = n + dy[i];
+          int x = m + dx[i];
+          if (matrix[y][x] == 0) continue;
+
+          while ((y != matrix[y][x] / M) && (x != matrix[y][x] % M)) {
+            y = n + dy[i];
+            x = m + dx[i];
           }
+          
+          
         }
       }
       ACT_1:
-      matrix[n][m] = temp;
+
+      continue;
     }
   }
 
+  matrix[N + 1] = new int[M + 2]();
+
   goto TEST_0;
   { //_TEST_0
-    for (int n = 0; n < N; n++) {
-      for (int m = 0; m < M; m++) {
+    for (int n = 0; n < N + 2; n++) {
+      for (int m = 0; m < M + 2; m++) {
         cout << matrix[n][m] << ", ";
       }
       cout << "\b\b  \n";
