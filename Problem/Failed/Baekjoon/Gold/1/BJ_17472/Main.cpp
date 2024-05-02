@@ -42,7 +42,8 @@ int main() {
             y = n + dy[i];
             x = m + dx[i];
           }
-          
+
+          matrix[y][x] = 1;
           
         }
       }

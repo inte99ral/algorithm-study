@@ -12,6 +12,7 @@
 
 - UEFI 해제
 
+  - mbr2gpt 등을 사용하였거나 파티션 테이블이 MBR(Master Boot Record)이 아니라 GPT(GUID Partition Table) 유형일 경우 UEFI 옵션이 켜있을 확률이 높습니다.
   - UEFI (Unified Extensible Firmware Interface) 옵션은 바이오스의 플랫폼에 의존적인 제약 사항을 극복하고 하드웨어를 더 유연하게 지원하는 옵션입니다. 해당 옵션으로 다른 OS가 설치되어도 하드웨어 진단없이 곧바로 C드라이브 Windows로 부팅될 수 있습니다. 우리는 Ubuntu를 사용할 것이기 때문에 UEFI 옵션을 해제시켜 주어야 합니다.
   - BIOS에서 해제할 수 있는데, BIOS 진입 방법은 각 기기 별로 다르기 때문에 찾아보셔야 합니다.
     - 레노버 아이디어 패드의 경우 부팅용 버튼 구멍에 핀을 꽂아 넣으셔야합니다.
@@ -26,6 +27,7 @@
 
   - 별도의 드라이브 없이 한 드라이브에서 리눅스 운영체제를 설치하려고 한다면, 리눅스 OS가 사용할 공간을 분할하여 줍니다.
   - 이 화면에서도 BitLocker가 정상적으로 적용/해제되었는지 여부를 확인할 수도 있습니다.
+  - [파티션 생성 없이 우툰투 설치과정에서 할당해야합니다.](https://velog.io/@whattsup_kim/Linux-%EC%9C%88%EB%8F%84%EC%9A%B0-%EB%A6%AC%EB%88%85%EC%8A%A4%EC%9A%B0%EB%B6%84%ED%88%AC-%EB%93%80%EC%96%BC%EB%B6%80%ED%8C%85-%EC%84%B8%ED%8C%85%ED%95%98%EA%B8%B0)
 
     <br />
 
@@ -47,6 +49,7 @@
 
 - 리눅스 설치
   - 서드파티 프로그램 설치 허가
+  - swap 파티션 지정
   - Windows 나란히 설치 선택
 - Grub 설치 및 조정
 
@@ -63,7 +66,7 @@
     GRUB_CMDLINE_LINUX=""
     ```
 
-  - 노트북에서 fn키 화면밝기 조절이 안될 때
+  - 노트북에서 fn키 화면밝기 조절이 안될 때 (인텔 그래픽 설정 먼저 다룰것)
 
     ```bash
     GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
@@ -78,6 +81,11 @@
 
 - 언어팩 설치
   - [참고 링크](https://staraube.tistory.com/105)
+
+## 제거 루틴
+
+- GRUB 부팅 제거
+  - [참고링크](https://youtu.be/5Rq4zovHiWk)
 
 # 정리필요
 
