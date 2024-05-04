@@ -30,38 +30,54 @@ int main() {
 
       matrix[n][m] = (n * (M + 2)) + m;
 
+      for (int i = 0; i < 2; i++) {
+        int y = n + dy[i];
+        int x = m + dx[i];
+        if (matrix[y][x] == 0) continue;
 
-      // goto ACT_1;
-      {
-        for (int i = 0; i < 2; i++) {
-          int y = n + dy[i];
-          int x = m + dx[i];
-          if (matrix[y][x] == 0) continue;
-
-          while ((y != matrix[y][x] / M) && (x != matrix[y][x] % M)) {
-            y = n + dy[i];
-            x = m + dx[i];
-          }
-
-          matrix[y][x] = 1;
-          
+        while ((y != matrix[y][x] / (M + 2)) || (x != matrix[y][x] % (M + 2))) {
+          y = matrix[y][x] / (M + 2);
+          x = matrix[y][x] % (M + 2);
         }
-      }
-      ACT_1:
 
-      continue;
+        if (matrix[matrix[n][m] / (M + 2)][matrix[n][m] % (M + 2)] < matrix[y][x]) matrix[y][x] = matrix[matrix[n][m] / (M + 2)][matrix[n][m] % (M + 2)];
+        else matrix[matrix[n][m] / (M + 2)][matrix[n][m] % (M + 2)] = matrix[y][x];
+      }
     }
   }
 
   matrix[N + 1] = new int[M + 2]();
 
-  goto TEST_0;
+  // goto ACT_0;
+  { // ACT_0
+    int count = 0;
+
+    for (int n = 1; n < N + 1; n++) {
+      for (int m = 1; m < M + 1; m++) {
+        if (matrix[n][m] == 0) continue;
+        if ((n == matrix[n][m] / (M + 2)) && (m == matrix[n][m] % (M + 2))) continue;
+      }
+    }
+
+  }
+  ACT_0:
+
+
+
+  // goto TEST_0;
   { //_TEST_0
     for (int n = 0; n < N + 2; n++) {
       for (int m = 0; m < M + 2; m++) {
-        cout << matrix[n][m] << ", ";
+        if (matrix[n][m] == 0) {
+          cout << "-- ";
+          continue;
+        }
+
+        cout.width(2);
+        cout.fill('-');
+        cout << matrix[n][m] << " ";
       }
-      cout << "\b\b  \n";
+      cout << "\b \n";
     }
   }
   TEST_0:
