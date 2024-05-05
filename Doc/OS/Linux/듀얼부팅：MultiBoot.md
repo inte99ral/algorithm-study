@@ -85,12 +85,28 @@
     ```
 
 - 언어팩 설치
+
   - [참고 링크](https://staraube.tistory.com/105)
+
+- 크롬 설치
 
 ## 제거 루틴
 
-- GRUB 부팅 제거
-  - [참고링크](https://youtu.be/5Rq4zovHiWk)
+- 특정 프로그램 제거
+  - [참고 링크](https://velog.io/@coral2cola/Ubuntu-%ED%8C%A8%ED%82%A4%EC%A7%80-%EC%82%AD%EC%A0%9C%ED%95%98%EA%B8%B0)
+  - apt list --installed `or`
+- 우분투 + GRUB 부팅 제거
+  - 윈도우 OS 로 컴퓨터 키고 작업표시줄 윈도우 버튼 우클릭 <br/>`-⇀` 디스크 관리 <br/>`-⇀` 우분투가 깔려있는 파티션 포맷
+  - 쉬프트 + 다시시작 으로 윈도우 OS 안전모드에 진입
+  - 파란 안전모드 화면에서 문제해결(Troubleshoot) 클릭 <br/>`-⇀` Advanced option <br/>`-⇀` Command Prompt 클릭 <br/>`-⇀` 관리자 계정(본인 계정) 선택
+  - X:\Sources> 라고 뜨는 윈도우의 가상드라이브 X로 된 명령 프롬프트 창이 열립니다. bootrec 을 이용하여 부팅 환경을 윈도우에 기준으로 복구 해줍시다.
+    - X:\Sources>bootrec /fixmbr
+    - X:\Sources>bootrec /fixboot
+    - X:\Sources>bootrec /scanos <br/>`-⇀` OS 스캔 명령이라 조금 기다리셔야 합니다.
+    - X:\Sources>bootrec /rebuildbcd <br/>`-⇀` 부트레코드를 복구하는 명령이기에 스캔한 뒤 그 정도를 물어봅니다. <br/>`-⇀` Add installation to boot list? Yes(Y)/No(N)/All(A): <br/>`-⇀` A 를 입력해줍니다.
+    - X:\Sources>exit
+  - 끝났습니다. 처음의 파란 안전모드 화면에서 Continue 를 선택하여 윈도우OS 부팅을 확인해줍시다.
+  - 디스크 MBR or GPT 상태나 디스크 조각 상태, 배드섹터 확인 등 복구 과정에서 윈도우 OS 환경에 혹시라도 문제가 생기지 않았는 지 돌아봐 소중한 윈도우를 챙겨줍시다.
 
 # 정리필요
 

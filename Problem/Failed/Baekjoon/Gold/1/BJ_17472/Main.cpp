@@ -55,10 +55,10 @@ int main() {
     for (int n = 1; n < N + 1; n++) {
       for (int m = 1; m < M + 1; m++) {
         if (matrix[n][m] == 0) continue;
-        if ((n == matrix[n][m] / (M + 2)) && (m == matrix[n][m] % (M + 2))) continue;
+        if ((n == matrix[n][m] / (M + 2)) && (m == matrix[n][m] % (M + 2))) matrix[n][m] = ++count;
+        else matrix[n][m] = matrix[matrix[n][m] / (M + 2)][matrix[n][m] % (M + 2)];
       }
     }
-
   }
   ACT_0:
 
