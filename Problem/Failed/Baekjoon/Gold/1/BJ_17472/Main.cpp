@@ -48,7 +48,7 @@ int main() {
 
   matrix[N + 1] = new int[M + 2]();
 
-  // goto ACT_0;
+  goto ACT_0;
   { // ACT_0
     int count = 0;
 
