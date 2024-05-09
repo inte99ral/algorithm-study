@@ -196,7 +196,7 @@ $ sudo reboot
   ```bash
   $ sudo apt update #설치 가능한 패키지 리스트를 최신화
 
-  $ sudo apt install software-properties-common apt-transport-https wget #의존성 패키지 wget 설치
+  $ sudo apt install software-properties-common apt-transport-https wget #HTTP/FTP 통신 파일 다운로드 소프트웨어 wget 설치
 
   $ wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add - #wget을 이용해서 마이크로소프트의 GPG 키를 다운로드합니다. GPG 키는 비공개키 알고리즘의 형태이며 설치 프로그램의 무결성을 판단하기 위해서 필요합니다.
 
@@ -220,9 +220,26 @@ $ sudo reboot
   ```bash
   sudo apt install git #git 설치
   git --version #git 버전 확인
+
+  #깃에 push했을때 올라갈 정보
+  git config --global user.name [이름]
+  git config --global user.mail [메일 주소]
   ```
 
 - Github Desktop
+
+  - [공식 문서](https://gist.github.com/berkorbay/6feda478a00b0432d13f1fc0a50467f1)
+  - 설치 커맨드
+
+    ```bash
+    $ wget -qO - https://apt.packages.shiftkey.dev/gpg.key | gpg --dearmor | sudo tee /usr/share/keyrings/shiftkey-packages.gpg > /dev/null
+
+    $ sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/shiftkey-packages.gpg] https://apt.packages.shiftkey.dev/ubuntu/ any main" > /etc/apt/sources.list.d/shiftkey-packages.list'
+
+    #적용 안되면 다시시작 후 다시해보기
+
+    $ sudo apt update && sudo apt install github-desktop
+    ```
 
 ### Visual Studio Code 설치
 
@@ -234,7 +251,7 @@ $ sudo reboot
         ```bash
         $ sudo apt update #설치 가능한 패키지 리스트를 최신화
 
-        $ sudo apt install software-properties-common apt-transport-https wget #의존성 패키지 wget 설치
+        $ sudo apt install software-properties-common apt-transport-https wget #HTTP/FTP 통신 파일 다운로드 소프트웨어 wget 설치
 
         $ wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add - #wget을 이용해서 마이크로소프트의 GPG 키를 다운로드합니다. GPG 키는 비공개키 알고리즘의 형태이며 설치 프로그램의 무결성을 판단하기 위해서 필요합니다.
 
@@ -253,9 +270,11 @@ $ sudo reboot
         $ sudo apt upgrade #Edge 패키지를 업데이트
         ```
 
-### Surface Pro 7 Error
+### Surface Pro 7 커널
 
+- 서피스는 마이크로소프트의 태블릿이다보니 리눅스-서피스라는 커널로 업데이트해야 보안처리된 하드웨어 컨트롤이 가능합니다.
 - [참고링크](https://snowdeer.github.io/mac-os/2020/10/27/how-to-install-ubuntu-20p04-on-surface-pro-7/)
+- [linux-surface의 깃허브 주소](https://github.com/linux-surface/linux-surface/wiki/Installation-and-Setup)
 
 <br/>
 
