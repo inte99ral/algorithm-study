@@ -232,13 +232,9 @@ $ sudo reboot
   - 설치 커맨드
 
     ```bash
-    $ wget -qO - https://apt.packages.shiftkey.dev/gpg.key | gpg --dearmor | sudo tee /usr/share/keyrings/shiftkey-packages.gpg > /dev/null
+    $ sudo wget https://github.com/shiftkey/desktop/releases/download/release-3.3.3-linux1/GitHubDesktop-linux-amd64-3.3.3-linux1.deb
 
-    $ sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/shiftkey-packages.gpg] https://apt.packages.shiftkey.dev/ubuntu/ any main" > /etc/apt/sources.list.d/shiftkey-packages.list'
-
-    #적용 안되면 다시시작 후 다시해보기
-
-    $ sudo apt update && sudo apt install github-desktop
+    $ sudo apt install ./GitHubDesktop-linux-amd64-3.3.3-linux1.deb -y
     ```
 
 ### Visual Studio Code 설치
@@ -277,6 +273,30 @@ $ sudo reboot
 - [linux-surface의 깃허브 주소](https://github.com/linux-surface/linux-surface/wiki/Installation-and-Setup)
 
 <br/>
+
+### 우분투 테마 꾸미기
+
+- 사전 준비
+
+  - 예시용 테마
+    - [WhiteSur-gtk-theme](https://github.com/vinceliuice/WhiteSur-gtk-theme)
+    - [영상 자료](https://www.youtube.com/watch?v=hQDhTIX4k7s&t=491s)
+
+- 다운로드
+
+  ```bash
+  #gnome
+  $ sudo apt install gnome-shell-extension-manager
+  $ sudo apt install gnome-tweaks
+
+  #예시용 테마
+  $ cd "theme 폴더 위치 경로"
+  $ ./install.sh -m -t all -l -N stable --normal --round #./install.sh -h 로 옵션 검색가능
+  ```
+
+- 확장 관리자(extension manager) 앱을 켜서 확장 검색 탭에서 User Themes 를 검색 후 설치
+- 설치된 확장 탭에서 User Themes 가 켜있는지 확인
+- 기능 개선(tweaks)
 
 ## OS 관리 및 제거
 
