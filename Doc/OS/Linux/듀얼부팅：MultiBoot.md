@@ -97,6 +97,7 @@
 
   #다음은 패키지 삭제시 삭제 됐을 폴더이나 한번 더 확인
 
+  rm -rf snap
   rm -rf /snap
   rm -rf /var/snap
   rm -rf /var/lib/snapd
@@ -294,6 +295,7 @@ $ sudo reboot
   $ ./install.sh -m -t all -l -N stable --normal --round #./install.sh -h 로 옵션 검색가능
   ```
 
+- 마우스 커서 변경 [참고링크](https://blog.naver.com/sto0750/10167757885)
 - 확장 관리자(extension manager) 앱을 켜서 확장 검색 탭에서 User Themes 를 검색 후 설치
 - 설치된 확장 탭에서 User Themes 가 켜있는지 확인
 - 기능 개선(tweaks)
