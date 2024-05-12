@@ -277,14 +277,21 @@ $ sudo reboot
 - 터미널 명령어
 
   ```bash
-  #Install pre-requisites
+  #방법 1. Curl 로 받아오기
+  #Curl 설치
   $ sudo apt install curl ca-certificates -y
-
-  #Add the official repository
   $ curl https://repo.waydro.id | sudo bash
 
-  #Install waydroid
+  #방법 2. wget 으로 받아오기
+  # -q 로깅을 하지 않는다
+  # -O 다운로드 출력을 stdout으로 리다이렉팅 한다
+  $ wget -q -O- https://repo.waydro.id | sudo bash
+
+  #waydroid 설치
   $ sudo apt install waydroid -y
+
+  #waydroid-container service 구동
+  sudo systemctl enable --now waydroid-container
   ```
 
 <br/>
