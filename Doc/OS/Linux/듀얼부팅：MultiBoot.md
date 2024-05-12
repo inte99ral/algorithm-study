@@ -238,6 +238,8 @@ $ sudo reboot
     $ sudo apt install ./GitHubDesktop-linux-amd64-3.3.3-linux1.deb -y
     ```
 
+<br/>
+
 ### Visual Studio Code 설치
 
 - VS code 설치
@@ -267,6 +269,26 @@ $ sudo reboot
         $ sudo apt upgrade #Edge 패키지를 업데이트
         ```
 
+<br/>
+
+### Waydroid 안드로이드 OS 에뮬레이터
+
+- [공식 문서](https://docs.waydro.id/usage/install-on-desktops)
+- 터미널 명령어
+
+  ```bash
+  #Install pre-requisites
+  $ sudo apt install curl ca-certificates -y
+
+  #Add the official repository
+  $ curl https://repo.waydro.id | sudo bash
+
+  #Install waydroid
+  $ sudo apt install waydroid -y
+  ```
+
+<br/>
+
 ### Surface Pro 7 커널
 
 - 서피스는 마이크로소프트의 태블릿이다보니 리눅스-서피스라는 커널로 업데이트해야 보안처리된 하드웨어 컨트롤이 가능합니다.
@@ -290,9 +312,13 @@ $ sudo reboot
   $ sudo apt install gnome-shell-extension-manager
   $ sudo apt install gnome-tweaks
 
-  #예시용 테마
+  #예시용 테마 설치
   $ cd "theme 폴더 위치 경로"
   $ ./install.sh -m -t all -l -N stable --normal --round #./install.sh -h 로 옵션 검색가능
+
+  #마우스 테마
+  #입력 후 원하는 마우스 테마 번호 입력 엔터
+  $ sudo update-alternative --config x-cursor-theme
   ```
 
 - 마우스 커서 변경 [참고링크](https://blog.naver.com/sto0750/10167757885)
