@@ -142,28 +142,56 @@
 
 ### Nvidia 그래픽 드라이버
 
-[추가사항](https://omnil.tistory.com/154)
+- 주의 사항
+- Nouveau 드라이버 비활성화
 
-```bash
-#인텔 그래픽은 소프트웨어 업데이터(Software and Updates) 앱이 자동관리합니다.
-#그래픽카드에 엔비디아 gforce가 있는지 확인
-$ sudo lshw -c display
+  ```bash
+  $ sudo lsmod | grep nouveau #Nouveau 드라이버 확인
 
-#엔비디아 그래픽카드 드라이버 확인.
-$ cat /proc/driver/nvidia/version #없으면 No such file or directory
+  # 1. 아래 파일을 찾거나 생성
+  sudo vi /etc/modprobe.d/blacklist-nouveau.conf
 
-#설치가능한 NVIDIA 그래픽 카드 드라이버 확인
-$ sudo ubuntu-drivers devices
+  # 2. 아래 내용 blacklist-nouveau.conf에 추가
+  blacklist nouveau
+  options nouveau modeset=0
 
-#선택 1. 드라이버 목록 중에서 "nvidia-driver-525" 수동설치
-$ sudo apt install nvidia-driver-525
+  # 3. 초기 램 파일 시스템 업데이트
+  sudo update-initramfs -u
 
-#선택 2. 권장 드라이버 자동설치
-$ sudo ubuntu-drivers autoinstall
+  # 4. 리부트
+  sudo reboot
+  ```
 
-#드라이버는 재부팅 후에 적용됩니다
-$ sudo reboot
-```
+- Nvidia 드라이버 설치
+
+  ```bash
+  #인텔 그래픽은 소프트웨어 업데이터(Software and Updates) 앱이 자동관리합니다.
+  #다음 명령으로 엔비디아 gforce가 있는지 확인
+  $ sudo lshw -c display #그래픽 전체 사양
+  $ sudo lspci | grep VGA #그래픽카드 사양 확인
+
+  #엔비디아 그래픽카드 드라이버 확인
+  $ cat /proc/driver/nvidia/version #없으면 No such file or directory
+
+  #선택 1. 드라이버 목록 중에서 "nvidia-driver-<>" 수동설치
+  # 주의사항!! : 호환성 문제로 X11이 기본 디스플레이 서버입니다.
+  # Wayland 는 엔비디아드라이버 470 이상의 버전과 충돌합니다.
+  # Wayland 로 렌더링하는 상황이 필요하다면 470 이하의 드라이버를 받거나 호환성 nouveau 드라이버를 사용해야합니다.
+  $ sudo ubuntu-drivers devices #설치가능한 드라이버 목록
+  $ sudo apt install nvidia-driver-470
+
+  #선택 2. 권장 드라이버 자동설치
+  $ sudo add-apt-repository ppa:graphics-drivers/ppa
+  $ sudo ubuntu-drivers autoinstall
+
+  #드라이버는 재부팅 후에 적용됩니다
+  $ sudo reboot
+
+  #정상적으로 설치되었나 확인
+  $ cat /proc/driver/nvidia/version
+  $ sudo nvidia-settings
+  $ nvidia-smi
+  ```
 
 <br/>
 
@@ -274,7 +302,26 @@ $ sudo reboot
 ### Waydroid 안드로이드 OS 에뮬레이터
 
 - [공식 문서](https://docs.waydro.id/usage/install-on-desktops)
-- 터미널 명령어
+- 디스플레이 서버를 X11에서 Wayland 로 변경하기
+
+  - Waydroid는 Wayland를 기반으로 돌아갑니다.
+  - 터미널에 echo $XDG_SESSION_TYPE 를 입력하면 확인이 가능합니다.
+  - 로그오프하여 로그인 화면으로 돌아가면 우측하단에 톱니바퀴가 있습니다. 클릭하면 바꿀 수 있습니다.
+  - 바꾸고 나서 오류가 나거나 아예 켜지지 않고 로그인 화면으로 돌아가는 경우도 있습니다.<br/>
+    wayland 는 최신 nvidia 드라이버와 충돌하는 이슈가 있기 때문입니다.<br/>
+    세 가지 방법 중 하나로 해결해야 합니다.
+    1. nouveau 오픈소스 그래픽 드라이버로 바꾼다.
+    2. nvidia 드라이버의 버전을 470 이하로 낮춘다.
+    3. nvidia 드라이버의 Wayland 호환 라이브러리를 설치한다.
+       ```bash
+       $ sudo apt install libnvidia-egl-wayland1
+       $ sudo nano /etc/gdm3/custom.conf #해당 파일에서 WaylandEnable=true 설정
+       $ sudo systemctl restart gdm3 #리스타트
+       ```
+
+<br/>
+
+- Waydroid 설치
 
   ```bash
   #방법 1. Curl 로 받아오기
@@ -287,12 +334,21 @@ $ sudo reboot
   # -O 다운로드 출력을 stdout으로 리다이렉팅 한다
   $ wget -q -O- https://repo.waydro.id | sudo bash
 
-  #waydroid 설치
+  #Waydroid 설치
   $ sudo apt install waydroid -y
 
-  #waydroid-container service 구동
+  #Waydroid-container service 서비스 제어 명령으로 시스템에 등록
   sudo systemctl enable --now waydroid-container
+
+  #앱을 처음 키면 initializer VANILLA GAPPA
   ```
+
+- 처음
+- Google Play Certification
+
+  - [링크](https://docs.waydro.id/faq/google-play-certification)
+
+- [문제해결 공식문서](https://docs.waydro.id/usage/install-on-desktops)
 
 <br/>
 
@@ -329,7 +385,7 @@ $ sudo reboot
   ```
 
 - 마우스 커서 변경 [참고링크](https://blog.naver.com/sto0750/10167757885)
-- 확장 관리자(extension manager) 앱을 켜서 확장 검색 탭에서 User Themes 를 검색 후 설치
+- 확장 관리자(extension manager) 앱을 켜서 확장 검색 탭에서 User Themes, Blur my Shell 를 검색 후 설치
 - 설치된 확장 탭에서 User Themes 가 켜있는지 확인
 - 기능 개선(tweaks)
 
