@@ -75,7 +75,8 @@
 - 사실 딱히 제거해야 할 이유는 없습니다. 다만 사용 공간도 많이 차지 하고 (sudo fdisk -l 등을 써보면 패키지 의존성 격리를 위한 dev/loop 파티션이 수두룩하게 나옵니다.) , 자유로운 배포 환경에서 패키지 통합 시스템의 존재의의 자체가 부정적으로 받아들여지는 부분이 있습니다.
 
   ```bash
-  $ sudo apt-mark hold snapd # 앞으로 apt에서 snap 자동설치를 막습니다
+  $ sudo apt-mark hold snapd #앞으로 apt에서 snap 자동설치를 막습니다
+  $ sudo apt-mark showhold #홀드 목록 확인
   $ sudo apt update
   $ sudo apt upgrade
 
@@ -193,6 +194,43 @@
   $ nvidia-smi
   ```
 
+- Nvidia 드라이버 제거
+
+  - Grub에서 recovery 모드로 진입 - root shell 엔터치고 한 후 커맨드 라인으로 들어간다
+  - 명령어 입력
+
+    ```bash
+    $ sudo nvidia-uninstall
+    $ sudo apt-get purge *nvidia*
+    $ sudo apt autoremove
+    $ sudo apt autoclean
+
+    #nouveau 블랙리스트 해제 및 복구
+    $ sudo rm /etc/modprobe.d/blacklist-nouveau.conf
+    $ echo 'nouveau' | sudo tee -a /etc/modules
+
+    $ sudo apt-get install xserver-xorg-video-nouveau
+    #잘 안되면 $ sudo apt-get install --reinstall xserver-xorg-core libgl1-mesa-glx
+
+    #xorg.conf 디스플레이 서버 세션 복구를 위한 삭제
+    $ sudo rm /etc/X11/xorg.conf
+
+    $ sudo update-initramfs -u
+    $ sudo update-initramfs -k all -u #커널 재빌드
+
+    #우분투 데스크탑 세팅 복구
+    $ sudo apt-mark showhold
+    $ sudo apt-mark hold snap
+    $ sudo apt-mark hold snapd # 앞으로 apt에서 snap 자동설치를 막습니다
+    $ sudo apt-get install ubuntu-desktop
+    $ sudo apt-get install ubuntu-session
+
+    $ sudo apt autoremove
+    $ sudo apt autoclean
+
+    lsmod | grep nouveau
+    ```
+
 <br/>
 
 ### 키보드 & 언어팩 설정
@@ -275,27 +313,27 @@
   - 난 곧 죽어도 vscode로 코딩을 하겠다
   - 엣지 설치와 크게 다르지 않습니다.
 
-        ```bash
-        $ sudo apt update #설치 가능한 패키지 리스트를 최신화
+    ```bash
+    $ sudo apt update #설치 가능한 패키지 리스트를 최신화
 
-        $ sudo apt install software-properties-common apt-transport-https wget #HTTP/FTP 통신 파일 다운로드 소프트웨어 wget 설치
+    $ sudo apt install software-properties-common apt-transport-https wget #HTTP/FTP 통신 파일 다운로드 소프트웨어 wget 설치
 
-        $ wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add - #wget을 이용해서 마이크로소프트의 GPG 키를 다운로드합니다. GPG 키는 비공개키 알고리즘의 형태이며 설치 프로그램의 무결성을 판단하기 위해서 필요합니다.
+    $ wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add - #wget을 이용해서 마이크로소프트의 GPG 키를 다운로드합니다. GPG 키는 비공개키 알고리즘의 형태이며 설치 프로그램의 무결성을 판단하기 위해서 필요합니다.
 
-        $ sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" #vscode 레포지토리 활성화
+    $ sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" #vscode 레포지토리 활성화
 
-        $ sudo apt install code #vscode 패키지 다운로드
+    $ sudo apt install code #vscode 패키지 다운로드
 
-        $ code #vscode 실행 명령어
+    $ code #vscode 실행 명령어
 
-        $ sudo code --user-data-dir="열 폴더 따옴표 포함" #관리자 권한으로 실행
+    $ sudo code --user-data-dir="열 폴더 따옴표 포함" #관리자 권한으로 실행
 
-        #새 버전이 릴리즈 됬을 경우
+    #새 버전이 릴리즈 됬을 경우
 
-        $ sudo apt update #업데이트 리스트 최신화
+    $ sudo apt update #업데이트 리스트 최신화
 
-        $ sudo apt upgrade #Edge 패키지를 업데이트
-        ```
+    $ sudo apt upgrade #Edge 패키지를 업데이트
+    ```
 
 <br/>
 
@@ -307,6 +345,16 @@
   - Waydroid는 Wayland를 기반으로 돌아갑니다.
   - 터미널에 echo $XDG_SESSION_TYPE 를 입력하면 확인이 가능합니다.
   - 로그오프하여 로그인 화면으로 돌아가면 우측하단에 톱니바퀴가 있습니다. 클릭하면 바꿀 수 있습니다.
+  - 오류 해결 1. 설정에서 Wayland가 막혀있는 지 확인
+
+    ```bash
+    $ sudo vi /etc/gdm3/custom.conf
+    #해당 파일에서 WaylandEnable=true 주석 해제 및 true 설정
+
+    $ sudo systemctl restart gdm3 #적용된 gdm3
+    ```
+
+  - update-alternatives --config x-session-manager
   - 바꾸고 나서 오류가 나거나 아예 켜지지 않고 로그인 화면으로 돌아가는 경우도 있습니다.<br/>
     wayland 는 최신 nvidia 드라이버와 충돌하는 이슈가 있기 때문입니다.<br/>
     세 가지 방법 중 하나로 해결해야 합니다.
@@ -315,9 +363,14 @@
     3. nvidia 드라이버의 Wayland 호환 라이브러리를 설치한다.
        ```bash
        $ sudo apt install libnvidia-egl-wayland1
-       $ sudo nano /etc/gdm3/custom.conf #해당 파일에서 WaylandEnable=true 설정
+       $ sudo nano /etc/gdm3/custom.conf #파일에서 WaylandEnable=true 설정
        $ sudo systemctl restart gdm3 #리스타트
        ```
+
+<br/>
+
+- 폴더 정리
+  - ㄴㅇㄴㅇ
 
 <br/>
 
@@ -340,10 +393,11 @@
   #Waydroid-container service 서비스 제어 명령으로 시스템에 등록
   sudo systemctl enable --now waydroid-container
 
-  #앱을 처음 키면 initializer VANILLA GAPPA
+  #앱을 처음 키면 initializer VANILLA GAPPS 중 하나 선택
+  #VANILLA = 안드로이드 에뮬레이터만 설치
+  #GAPPS = 구글 생태계 앱 설치
   ```
 
-- 처음
 - Google Play Certification
 
   - [링크](https://docs.waydro.id/faq/google-play-certification)
@@ -352,11 +406,13 @@
 
 <br/>
 
-### Surface Pro 7 커널
+### Surface Pro 보조 세팅
 
-- 서피스는 마이크로소프트의 태블릿이다보니 리눅스-서피스라는 커널로 업데이트해야 보안처리된 하드웨어 컨트롤이 가능합니다.
-- [참고링크](https://snowdeer.github.io/mac-os/2020/10/27/how-to-install-ubuntu-20p04-on-surface-pro-7/)
-- [linux-surface의 깃허브 주소](https://github.com/linux-surface/linux-surface/wiki/Installation-and-Setup)
+- 커널 업데이트
+  - 서피스는 마이크로소프트의 태블릿이다보니 리눅스-서피스라는 커널로 업데이트해야 보안처리된 하드웨어 컨트롤이 가능합니다.
+  - [참고링크](https://snowdeer.github.io/mac-os/2020/10/27/how-to-install-ubuntu-20p04-on-surface-pro-7/)
+  - [linux-surface의 깃허브 주소](https://github.com/linux-surface/linux-surface/wiki/Installation-and-Setup)
+- [가상키보드 한글](https://syudal.tistory.com/m/6) + https://discourse.ubuntu-kr.org/t/topic/13831
 
 <br/>
 
@@ -423,6 +479,15 @@
   - 방법 ① : 직접 UEFI에서 Ubuntu 부팅 옵션 제거하기
 
     ```bash
+    #파티션 우분투 제거 확인
+    diskpart
+    list disk
+    select disk <NUMBER>
+    list partition
+    select partition <NUMBER>
+    delete partition
+    ctrl+c
+
     #EFI 시스템 파티션을 임의의 S 드라이브에 마운트 합니다. 드라이브 이름으로 사용되지 않은 알파벳이면 아무거나 상관없습니다. 여기선 S를 예시로 사용합니다.
     mountvol S: /S
 
