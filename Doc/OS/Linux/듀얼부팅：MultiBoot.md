@@ -62,17 +62,28 @@
 ### 리눅스 설치
 
 - 저는 서드파티 설치 허용 안하고 후에 별도로 설치하는 편 입니다.
+- 먼저 영어로 설치하고 한국어로 바꾸는게 편합니다
 - 어디에 설치하냐는 질문에 Manual installation 선택
 - swap 파티션 지정 (스왑 파티션은 일반적으로는 램 크기의 1.5 ~ 2배, 대강 10~20GB 정도로 잡는다.)
 - Ext4 파티션 지정 (Mount point는 '/' 로 지정합니다.)
 
 <br/>
 
-### snap 제거
+### snap
 
 - snap은 우분투 개발사 캐노니컬이 밀고있는 패키지 의존성 관리 체계입니다. 자유로운 배포환경에서 서로 의존성을 가진 패키지들이 너무 많아지자 얽히고 섞인 모든 프로그램들을 일일히 설치하고 업데이트하는 상황을 근절하기 위해서 설계되었습니다.
 
-- 사실 딱히 제거해야 할 이유는 없습니다. 다만 사용 공간도 많이 차지 하고 (sudo fdisk -l 등을 써보면 패키지 의존성 격리를 위한 dev/loop 파티션이 수두룩하게 나옵니다.) , 자유로운 배포 환경에서 패키지 통합 시스템의 존재의의 자체가 부정적으로 받아들여지는 부분이 있습니다.
+#### snap 사용법
+
+- sudo snap refresh APLICACIÓN # 특정 요소 업데이트
+- sudo snap refresh # 전부 업데이트
+- sudo snap refresh --list # 설치하지 않고 업데이트 나열
+
+#### snap 제거
+
+- 사실 딱히 제거해야 할 이유는 없습니다. 오히려 놔두는 쪽을 추천합니다.
+
+- snap이 사용하는 사용 공간이나 (sudo fdisk -l 등을 써보면 패키지 의존성 격리를 위한 dev/loop 파티션이 수두룩하게 나옵니다.) , 자유로운 배포 환경에서 패키지 통합 시스템의 존재 자체가 부정적으로 받아들여지는 부분이 있습니다.
 
   ```bash
   $ sudo apt-mark hold snapd #앞으로 apt에서 snap 자동설치를 막습니다
@@ -412,7 +423,6 @@
   - 서피스는 마이크로소프트의 태블릿이다보니 리눅스-서피스라는 커널로 업데이트해야 보안처리된 하드웨어 컨트롤이 가능합니다.
   - [참고링크](https://snowdeer.github.io/mac-os/2020/10/27/how-to-install-ubuntu-20p04-on-surface-pro-7/)
   - [linux-surface의 깃허브 주소](https://github.com/linux-surface/linux-surface/wiki/Installation-and-Setup)
-- [가상키보드 한글](https://syudal.tistory.com/m/6) + https://discourse.ubuntu-kr.org/t/topic/13831
 
 <br/>
 
@@ -512,6 +522,8 @@
     bootrec /fixboot
     bootrec /scanos #OS 스캔 명령이라 조금 기다리셔야 합니다.
     bootrec /rebuildbcd #부트레코드를 복구하는 명령이기에 복구 정도를 물어봅니다. Add installation to boot list? Yes(Y)/No(N)/All(A) 질문이 뜬다면 A 를 입력해주면 됩니다.
+
+    sfc /scannow #윈도우 System File Checker 무결성 검사
     exit
     ```
 

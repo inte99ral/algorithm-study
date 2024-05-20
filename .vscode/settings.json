@@ -140,6 +140,8 @@
     "iostream": "cpp",
     "deque": "cpp",
     "sstream": "cpp",
-    "new": "cpp"
+    "new": "cpp",
+    "*.tcc": "cpp",
+    "ostream": "cpp"
   }
 }
