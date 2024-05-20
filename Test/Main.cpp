@@ -1,13 +1,13 @@
 /**
 붙어있는 원소끼리 묶어서 출력
 
--- -- -- -- -- -- 17 17
-21 21 -- -- -- -- 17 17
-21 21 -- -- -- -- -- --
-21 21 -- -- -- 46 46 --
--- -- -- -- -- 46 46 --
--- -- -- -- -- -- -- --
-71 71 71 71 71 71 71 71
+                   1  1 
+ 2  2              1  1
+ 2  2
+ 2  2           3  3
+                3  3
+
+ 4  4  4  4  4  4  4  4
 */
 
 #include <iostream>
@@ -17,24 +17,14 @@ using namespace std;
 
 const int dy[4] = {-1, 0, 0, 1};
 const int dx[4] = {0, -1, 1, 0};
-// const string input = 
-//   "7 8\n"
-//   "0 0 0 0 0 0 1 1\n"
-//   "1 1 0 0 0 0 1 1\n"
-//   "1 1 0 0 0 0 0 0\n"
-//   "1 1 0 0 0 1 1 0\n"
-//   "0 0 0 0 0 1 1 0\n"
-//   "0 0 0 0 0 0 0 0\n"
-//   "1 1 1 1 1 1 1 1\n";
-
 const string input = 
   "7 8\n"
-  "1 0 0 0 0 0 1 1\n"
-  "1 0 0 0 0 0 1 1\n"
-  "1 0 0 0 0 0 0 1\n"
-  "1 0 0 0 0 1 1 1\n"
-  "1 0 0 0 0 1 1 1\n"
-  "1 0 0 0 0 0 0 1\n"
+  "0 0 0 0 0 0 1 1\n"
+  "1 1 0 0 0 0 1 1\n"
+  "1 1 0 0 0 0 0 0\n"
+  "1 1 0 0 0 1 1 0\n"
+  "0 0 0 0 0 1 1 0\n"
+  "0 0 0 0 0 0 0 0\n"
   "1 1 1 1 1 1 1 1\n";
 
 int main() {
@@ -67,25 +57,26 @@ int main() {
         for (int i = 0; i < 2; i++) {
           int prevY = matrix[y][x] / (X + 2);
           int prevX = matrix[y][x] % (X + 2);
+          int currY = 0;
+          int currX = 0;
           int nextY = y + dy[i];
           int nextX = x + dx[i];
 
           if(matrix[nextY][nextX] == 0) continue;
 
           while ((nextY != matrix[nextY][nextX] / (X + 2)) || (nextX != matrix[nextY][nextX] % (X + 2))) {
-            cout << (y * (X + 2)) + x << " <==> " << matrix[nextY][nextX] << "\n";
-            nextY = matrix[nextY][nextX] / (X + 2);
-            nextX = matrix[nextY][nextX] % (X + 2);
+            currY = nextY;
+            currX = nextX;
+            nextY = matrix[currY][currX] / (X + 2);
+            nextX = matrix[currY][currX] % (X + 2);
           }
 
 
 
           if (matrix[prevY][prevX] < matrix[nextY][nextX]) {
-            cout << (y * (X + 2)) + x << " -> " << matrix[nextY][nextX] << "\n";
             matrix[nextY][nextX] = matrix[prevY][prevX];
           }
           else {
-            cout << (y * (X + 2)) + x << " <- " << matrix[nextY][nextX] << "\n";
             matrix[prevY][prevX] = matrix[nextY][nextX];
           }
         }
@@ -97,27 +88,30 @@ int main() {
     cin.rdbuf(backup);
   }
 
-  // # OUTPUT
+  // # DEFRAG
   {
-    cout << "\nNUMBER:\n";
+    int count = 0;
+
     for (int y = 1; y < Y + 1; y++) {
       for (int x = 1; x < X + 1; x++) {
-        cout.width(2);
-        cout.fill('-');
-        cout << y * (X + 2) + x << ' ';
+        if (matrix[y][x] == 0) continue;
+        if ((y == matrix[y][x] / (X + 2)) && (x == matrix[y][x] % (X + 2))) matrix[y][x] = ++count;
+        else matrix[y][x] = matrix[matrix[y][x] / (X + 2)][matrix[y][x] % (X + 2)];
       }
-      cout << '\n';
     }
-    cout << "\nOUTPUT:\n";
+  }
+
+  // # OUTPUT
+  {
     for (int y = 1; y < Y + 1; y++) {
       for (int x = 1; x < X + 1; x++) {
         if (matrix[y][x] == 0) {
-          cout << "-- ";
+          cout << "   ";
           continue;
         }
 
         cout.width(2);
-        cout.fill('-');
+        cout.fill(' ');
         cout << matrix[y][x] << ' ';
       }
       cout << endl;
