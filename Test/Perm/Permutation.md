@@ -8,19 +8,19 @@
 
 - N 개를 순서대로 나열하는 모든 경우의 수 N! 에서 R 개만을 뽑는다면, 뽑지 않은 것들을 나열하는 경우의 수 (N - R)! 만큼이 중복되므로 나누어 해당 경우의 수를 제거
 
+### c++
+
 ```cpp
 #include <iostream>
 
 using namespace std;
 
 // # Prototype Declaration ====================
-// ## 0. Default ===============================
 // ## 1. Math : Factorial Calculation ==========
 int factorial(int x);
 
 
 // # Implements Definition ====================
-// ## 0. Default ===============================
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
@@ -31,7 +31,7 @@ int main() {
 
   int origin[N][3] = {{1, 11, 111}, {2, 22, 222}, {3, 33, 333}, {4, 44, 444}, {5, 55, 555}};
 
-  // ## 1. Math : Factorial Calculation ==========
+  // 1. Math : Factorial Calculation
   {
     // nPr = n! / (n - r)!
     cout << "\n[CASES]: Don't know!\n";
@@ -53,6 +53,8 @@ int factorial(int x) {
 
 - 지역적으로 뽑을 수 만큼 일일히 For 루프 코드를 작성하여 중복되지 않는 경우의 수를 모두 구현한다.
 
+### c++
+
 ```cpp
 #include <array>
 #include <cstdarg>
@@ -70,7 +72,6 @@ void printArrRecur(int* arr, deque<int> arrData);
 
 
 // # Implements Definition ====================
-// ## 0. Default ===============================
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
@@ -81,11 +82,12 @@ int main() {
 
   int origin[N][3] = {{1, 11, 111}, {2, 22, 222}, {3, 33, 333}, {4, 44, 444}, {5, 55, 555}};
 
-  // ## 2. Inline : For Loop =====================
+  // 2. Inline : For Loop
   {
+    int count = 0;
+
     // R 고정. 뽑을 수 만큼 FOR 루프를 돌면 된다.
     int select[3][3] = {};
-    int count = 0;
 
     cout << "\n[CASES]:\n";
 
@@ -111,6 +113,7 @@ int main() {
   return 0;
 }
 
+// ## 0. Default ===============================
 template <typename T, size_t N>
 void printArr(T (&arr)[N], int begin, ...) {
   deque<int> arrData;
@@ -167,6 +170,8 @@ void printArrRecur(int* arr, deque<int> arrData) {
 - 정보를 남겨 N R 값을 유동적으로 바꿀 수 있다.
 - i 루프, j 루프... 루프 안으로 들어가는 상황과 나오는 상황을 if 문으로 구현한다.
 
+### c++
+
 ```cpp
 #include <array>
 #include <cstdarg>
@@ -184,7 +189,6 @@ void printArrRecur(int* arr, deque<int> arrData);
 
 
 // # Implements Definition ====================
-// ## 0. Default ===============================
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
@@ -195,10 +199,11 @@ int main() {
 
   int origin[N][3] = {{1, 11, 111}, {2, 22, 222}, {3, 33, 333}, {4, 44, 444}, {5, 55, 555}};
 
-  // ## 3. Inline : While Loop ===================
+  // 3. Inline : While Loop
   {
-    int select[R][3] = {};
     int count = 0;
+
+    int select[R][3] = {};
     int size = 0;
     int data[R] = {};
     bool isSelected = false;
@@ -303,6 +308,8 @@ void printArrRecur(int* arr, deque<int> arrData) {
 - 스택을 활용하여 한 요소를 다루는 상황 당, 해당 순서의 요소를 선택하지 않는 경우의 수와 선택하는 경우의 수를 스택에 쌓고, 쌓인 순서의 역순으로 빼내며 작업을 처리하면 코드 구조가 단순해진다.
 - 비트 연산자를 활용하여 int 값 하나로 32 가지의 참거짓 여부를 기록할 수 있다.
 
+### c++
+
 ```cpp
 #include <array>
 #include <cstdarg>
@@ -320,8 +327,6 @@ void printArrRecur(int* arr, deque<int> arrData);
 
 
 // # Implements Definition ====================
-// ## 0. Default ===============================
-
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
@@ -332,9 +337,10 @@ int main() {
 
   int origin[N][3] = {{1, 11, 111}, {2, 22, 222}, {3, 33, 333}, {4, 44, 444}, {5, 55, 555}};
 
-  // ## 4. Inline Stack & Bitwise Operator =======
+  // 4. Inline : Stack & Bitwise Operator
   {
     int count = 0;
+
     int select[R][3] = {};
     deque<array<int, 3>> task = {{0, 0, 0}};
 
@@ -427,3 +433,19 @@ void printArrRecur(int* arr, deque<int> arrData) {
 - 2 ~ 4 번의 출력값들을 자세히 보면 순열 데이터의 오름차순 출력 과정은 원본 배열이 오름차순 배열에서 시작하여 내림차순으로 정렬되는 과정과 같다는 것을 눈치챌 수 있다.
 - (시작은 오름차순) 1 - 2 - 3 >>> (끝은 내림차순) 3 - 2 - 1
 - 이를 응용하여 오름차순 정렬이 확실하다면 내림차순으로 바꾸는 알고리즘 만으로 모든 순열 경우를 얻을 수 있다.
+
+### c++
+
+```cpp
+
+```
+
+## 6. 재귀적 풀이 : 비트 연산자
+
+- ㄴㅇㄴㅇ
+
+### c++
+
+```cpp
+
+```
