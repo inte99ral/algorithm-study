@@ -23,6 +23,9 @@
 ```cpp
 // 나눗셈의 람다식
 [x2](int x1) -> int { return x1 % x2; }
+
+// compare 람다식
+[](int* o1, int* o2) -> bool { return o1[2] < o2[2]; }
 ```
 
 </center>
