@@ -37,13 +37,195 @@ https://gmlwjd9405.github.io/2018/08/29/algorithm-kruskal-mst.html
 #### C++
 
 ```cpp
+#include <algorithm>
+#include <iostream>
+#include <sstream>
+#include <string>
 
+using namespace std;
+
+// Prototype Declaration ====================
+void makeSet(int x);
+int findSet(int x);
+void unionSet(int x, int y);
+
+// Global Variable & Constant================
+const string input =
+  "10 21\n"
+  "0 1 9\n"
+  "0 2 9\n"
+  "0 9 8\n"
+  "0 8 18\n"
+  "1 2 3\n"
+  "1 4 6\n"
+  "2 3 2\n"
+  "2 4 4\n"
+  "2 9 9\n"
+  "3 4 2\n"
+  "3 5 9\n"
+  "3 9 8\n"
+  "4 5 9\n"
+  "5 6 4\n"
+  "5 7 5\n"
+  "5 9 7\n"
+  "6 7 1\n"
+  "6 8 4\n"
+  "7 8 3\n"
+  "7 9 9\n"
+  "8 9 10\n"
+  "8 10 18\n"
+  "9 10 8\n";
+
+int* nodes;
+int** edges;
+
+// Implements Definition ====================
+int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
+
+  int size = 0;
+
+  int V; // The Number of Vertices(Nodes)
+  int E; // The Number of Edges
+
+  // INPUT
+  {
+    stringbuf inputbuf(input);
+    streambuf *backup = cin.rdbuf(&inputbuf);
+
+    cin >> V >> E;
+    nodes = new int[V];
+    edges = new int*[E];
+
+    for (int e = 0; e < E; e++) {
+      edges[e] = new int[3];
+      cin >> edges[e][0] >> edges[e][1] >> edges[e][2];
+    }
+
+    cin.clear();
+    cin.rdbuf(backup);
+  }
+
+  sort(edges, edges + E,[](int* o1, int* o2) -> bool { return o1[2] < o2[2]; });
+
+  // 자기 자신을 뿌리로 가리키도록 초기화
+  for (int v = 0; v < V; v++) makeSet(v);
+
+  for (int e = 0; e < E; e++) {
+    int nodeX = findSet(edges[e][0]);
+    int nodeY = findSet(edges[e][1]);
+
+    // 뿌리가 같은 노드끼리 연결하는 간선이다 = 사이클을 형성하는 간선
+    if (nodeX == nodeY) continue;
+
+    unionSet(nodeX, nodeY);
+    size += edges[e][2];
+  }
+
+  cout << "[MST SIZE] : " << size;
+
+  delete[] nodes;
+  delete[] edges;
+  return 0;
+}
+
+void makeSet(int x) {
+  nodes[x] = x;
+}
+
+int findSet(int x) {
+  if (x == nodes[x]) return x;
+  return nodes[x] = findSet(nodes[x]); // Path compression
+}
+
+void unionSet(int x, int y) {
+  nodes[findSet(y)] = findSet(x);
+}
 ```
+
+<br/>
 
 #### Java
 
 ```java
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Scanner;
 
+// 간선을 선택해서 가중치 순서대로 정리
+public class Kruskal {
+  private static String input =
+    "7 11\r\n" +
+    "0 1 32\r\n" +
+    "0 2 31\r\n" +
+    "0 5 60\r\n" +
+    "0 6 51\r\n" +
+    "1 2 21\r\n" +
+    "2 4 46\r\n" +
+    "2 6 25\r\n" +
+    "3 4 34\r\n" +
+    "4 6 51\r\n" +
+    "5 3 18\r\n" +
+    "5 4 40";
+
+  static int[] nodes;
+
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(input);
+
+    int V = sc.nextInt(); // 정점의 갯수 0부터 시작
+    int E = sc.nextInt(); // 간선 갯수
+
+    int[][] edges = new int[E][3];
+
+    for(int i = 0; i < E; i++) {
+      edges[i][0] = sc.nextInt();
+      edges[i][1] = sc.nextInt();
+      edges[i][2] = sc.nextInt();
+    }
+
+    Arrays.sort(edges, new Comparator<int[]>() {
+      @Override
+      public int compare(int[] o1, int[] o2) {
+        return o1[2] - o2[2];
+      }
+    });
+
+    nodes = new int[V];
+    for(int i = 0; i < V; i++) {
+      makeSet(i);
+    }
+
+    int ans = 0;
+
+    for(int i = 0; i < E; i++) {
+      int px = findSet(edges[i][0]);
+      int py = findSet(edges[i][1]);
+
+      if(px != py) {
+        unionSet(px, py);
+        ans += edges[i][2];
+      }
+    }
+
+    System.out.println(ans);
+  }
+
+  static void makeSet(int x) {
+    nodes[x] = x;
+  }
+
+  static int findSet(int x) {
+    if(x == nodes[x]) return x;
+    return nodes[x] = findSet(nodes[x]); // Path compression
+  }
+
+  static void unionSet(int x, int y) {
+    nodes[findSet(y)] = findSet(x);
+  }
+}
 ```
 
 ### 2. Prim 알고리즘

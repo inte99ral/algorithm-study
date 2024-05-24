@@ -12,18 +12,30 @@ void unionSet(int x, int y);
 
 // Global Variable & Constant================
 const string input = 
-  "7 11\n"
-  "0 1 32\n" 
-  "0 2 31\n"
-  "0 5 60\n"
-  "0 6 51\n"
-  "1 2 21\n"
-  "2 4 46\n"
-  "2 6 25\n"
-  "3 4 34\n"
-  "4 6 51\n"
-  "5 3 18\n"
-  "5 4 40";
+  "10 21\n"
+  "0 1 9\n" 
+  "0 2 9\n"
+  "0 9 8\n"
+  "0 8 18\n"
+  "1 2 3\n"
+  "1 4 6\n"
+  "2 3 2\n"
+  "2 4 4\n"
+  "2 9 9\n"
+  "3 4 2\n"
+  "3 5 9\n"
+  "3 9 8\n"
+  "4 5 9\n"
+  "5 6 4\n"
+  "5 7 5\n"
+  "5 9 7\n"
+  "6 7 1\n"
+  "6 8 4\n"
+  "7 8 3\n"
+  "7 9 9\n"
+  "8 9 10\n"
+  "8 10 18\n"
+  "9 10 8\n";
 
 int* nodes;
 int** edges;
@@ -34,7 +46,7 @@ int main() {
   cin.tie(nullptr);
   cout.tie(nullptr);
 
-  int sum = 0;
+  int size = 0;
 
   int V; // The Number of Vertices(Nodes)
   int E; // The Number of Edges
@@ -59,12 +71,21 @@ int main() {
 
   sort(edges, edges + E,[](int* o1, int* o2) -> bool { return o1[2] < o2[2]; });
 
-  // 자기 자신으로 초기화
+  // 자기 자신을 뿌리로 가리키도록 초기화
   for (int v = 0; v < V; v++) makeSet(v);
 
-  cout << findSet(999) << "--\n";
+  for (int e = 0; e < E; e++) {
+    int nodeX = findSet(edges[e][0]);
+    int nodeY = findSet(edges[e][1]);
 
-  cout << nodes[0];
+    // 뿌리가 같은 노드끼리 연결하는 간선이다 = 사이클을 형성하는 간선
+    if (nodeX == nodeY) continue;
+
+    unionSet(nodeX, nodeY);
+    size += edges[e][2];
+  }
+
+  cout << "[MST SIZE] : " << size;
 
   delete[] nodes;
   delete[] edges;
@@ -77,7 +98,7 @@ void makeSet(int x) {
 
 int findSet(int x) {
   if (x == nodes[x]) return x;
-  return nodes[x] = findSet(nodes[x]);
+  return nodes[x] = findSet(nodes[x]); // Path compression
 }
 
 void unionSet(int x, int y) { 

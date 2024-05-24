@@ -1,5 +1,3 @@
-package 그래프.최소신장트리_MST;
-
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -20,7 +18,7 @@ public class Kruskal {
 			"5 3 18\r\n" + 
 			"5 4 40";
 	
-	static int[] p;
+	static int[] nodes;
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(input);
@@ -43,9 +41,9 @@ public class Kruskal {
 			}
 		});
 		
-		p = new int[V];
+		nodes = new int[V];
 		for(int i = 0; i < V; i++) {
-			p[i] = i;
+			makeSet(i);
 		}
 		
 		int ans = 0;
@@ -55,7 +53,7 @@ public class Kruskal {
 			int py = findSet(edges[i][1]);
 			
 			if(px != py) {
-				union(px, py);
+				unionSet(px, py);
 				ans += edges[i][2];
 			}
 		}
@@ -64,16 +62,15 @@ public class Kruskal {
 	}
 	
 	static void makeSet(int x) {
-		p[x] = x;
+		nodes[x] = x;
 	}
 	
 	static int findSet(int x) {
-		if(x == p[x]) return x;
-		return p[x] = findSet(p[x]); // Path compression
+		if(x == nodes[x]) return x;
+		return nodes[x] = findSet(nodes[x]); // Path compression
 	}
 	
-	static void union(int x, int y) {
-		p[findSet(y)] = findSet(x);
+	static void unionSet(int x, int y) {
+		nodes[findSet(y)] = findSet(x);
 	}
-
 }
