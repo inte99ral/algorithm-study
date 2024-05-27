@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
-public class Test {
+public class BR {
 	private static String input1 =
 			"7 8\r\n" + 
 			"0 0 0 0 0 0 1 1\r\n" + 

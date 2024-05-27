@@ -1,14 +1,16 @@
 #include <iostream>
+#include <map>
 #include <sstream>
+#include <vector>
 
 using namespace std;
 
-// Prototype Declaration ====================
+// # Prototype Declaration ====================
 void makeSet(int x);
 int findSet(int x);
 void unionSet(int x, int y);
 
-// Global Variable & Constant================
+// # Global Variable & Constant================
 const string input =
   "9 8\n"
   "1 2\n"
@@ -21,9 +23,8 @@ const string input =
   "8 9\n";
 
 int *nodes;
-int **edges;
   
-// Implements Definition ====================
+// # Implements Definition ====================
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
@@ -32,25 +33,65 @@ int main() {
   int V;
   int E;
 
+  // * INPUT
   {
     stringbuf inputbuf(input);
     streambuf *backup = cin.rdbuf(&inputbuf);
 
     cin >> V >> E;
 
-    nodes = new int[V];
-    edges = new int*[E];
+    nodes = new int[V + 1]();
+
+    for (int v = 1; v <= V; v++) {
+      makeSet(v);
+    }
 
     for (int e = 0; e < E; e++) {
-      cin >> edges[e][0] >> edges[e][1] >> edges[e][2];
+      int x, y;
+      cin >> x >> y;
+
+      unionSet(x, y);
     }
 
     cin.clear();
     cin.rdbuf(backup);
   }
 
-  
+  // * OUTPUT_1
+  {
+    cout << "[NODE NUM] : ";
+    for (int v = 1; v <= V; v++) {
+      cout << v << ", ";
+    }
+    cout << "\b\b \n";
 
+    cout << "[ROOT NUM] : ";
+    for (int v = 1; v <= V; v++) {
+      cout << nodes[v] << ", ";
+    }
+    cout << "\b\b \n\n";
+  }
+
+  // * OUTPUT_2
+  {
+    map<int, vector<int>> sets;
+
+    for (int v = 1; v <= V; v++) {
+      sets[nodes[v]].push_back(v);
+    }
+
+    for (pair<int, vector<int>> set : sets) {
+      cout << "[ROOT NUM " << set.first << "] : {";
+      for (int i : set.second) {
+        cout << i << ", ";
+      }
+      cout << "\b\b}\n";
+    }
+    cout << "\b\b \n";
+
+  }
+
+  delete[] nodes;
   return 0;
 }
 
