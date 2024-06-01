@@ -61,6 +61,7 @@
 
 ### 리눅스 설치
 
+- 리눅스답게 설정이 제멋대로인 부분이 있어서 처음부터 한국어로 설치하고 필요한 부분을 영어로 수정하는 편이 편합니다.
 - 어디에 설치하냐는 질문에 Manual installation 선택
 - swap 파티션 지정 (스왑 파티션은 일반적으로는 램 크기의 1.5 ~ 2배, 대강 10~20GB 정도로 잡는다.)
 - Ext4 파티션 지정 (Mount point는 '/' 로 지정합니다.)
@@ -72,22 +73,94 @@
 #### 폴더명 영어로 변경
 
 - 바탕화면, 문서등 시스템 폴더 명은 항상 영어로 유지하는 편이 좋습니다.
-- https://phantom.tistory.com/26
+- 한글 폴더명은 console 등에서 입력하기 불편해서 다음과 같은 방법으로 영어 이름으로 변경해서 사용합니다.
+- `Ctrl + h` 를 누르면 GUI 탐색기에서 숨김폴더 .config 를 볼 수 있습니다.
+- .config/user-dirs.dirs 파일 안의 내용을 다음과 같이 수정해줍시다. 해당 파일이 없을 경우 직접 만들어주세요
+
+  ```bash
+  # 수정전
+  XDG_DESKTOP_DIR=”$HOME/바탕화면”
+  XDG_DOWNLOAD_DIR=”$HOME/다운로드”
+  XDG_TEMPLATES_DIR=”$HOME/서식”
+  XDG_TEMPLATES_DIR=”$HOME/공개”
+  XDG_TEMPLATES_DIR=”$HOME/문서”
+  XDG_TEMPLATES_DIR=”$HOME/음악”
+  XDG_TEMPLATES_DIR=”$HOME/사진”
+  XDG_TEMPLATES_DIR=”$HOME/비디오”
+
+  # 수정후
+  XDG_DESKTOP_DIR=”$HOME/Desktop”
+  XDG_DOWNLOAD_DIR=”$HOME/Downloads”
+  XDG_TEMPLATES_DIR=”$HOME/Templates”
+  XDG_DESKTOP_DIR=”$HOME/Public”
+  XDG_DOWNLOAD_DIR=”$HOME/Documents”
+  XDG_TEMPLATES_DIR=”$HOME/Music”
+  XDG_DOWNLOAD_DIR=”$HOME/Pictures”
+  XDG_TEMPLATES_DIR=”$HOME/Videos”
+  ```
+
+- 위와 같이 실제 한글명 폴더들도 모두 영어로 수정해주세요. 아예 삭제하시고 새로 영어명 폴더를 만들어주셔도 괜찮습니다.
+- 로그오프 후 다시 로그인하면 수정이 끝납니다.
 
 #### 한글 키보드 문제 수정
+
+##### 시스템 한국어 미적용 문제
 
 - 우분투 상단바 우측을 클릭하면 톱니바퀴 모양의 설정 버튼이 있습니다.
 - 설정 <br/>`-⇀` 시스템 <br/>`-⇀` 지역 및 언어(Region & Language) <br/>`-⇀` 설치된 언어 관리(Manage Installed languages)
 - \[ Install / Remove Language... \] 클릭하여 한국어와 영어를 선택하고 apply를 눌러주세요.
-- 그래그하여 한국어를 영어보다 최상단으로 올려주세요.
+- 드래그하여 한국어를 영어보다 최상단으로 올려주세요.
 - \[ Apply System-Wide \] 를 클릭하여 전역적으로 설정을 맞춰주세요.
 - 해당 창의 Regional Formats 탭으로 넘어가서 시간표기 포맷도 한국어로 바꿔줄 수 있습니다.
 - 변경된 언어 설정은 Restart 다시시작 후에 적용됩니다.
 - 다시시작하면 폴더명을 한글 이름에 맞춰 바꿀 것인지 물어보는데 영어로 유지하는 편이 좋습니다. 한글명 폴더에서는 문제가 생기는 경우가 있어요.
+
+##### 한영키 작동안함
+
 - 설정 `-⇀` 키보드 항목에서 \[입력 소스 추가\] 버튼을 클릭해주세요.
 - 한국어 `-⇀` 한국어(Hangul) 을 추가해준 다음 다른 키보드를 전부 삭제해주세요.
 - 한국어(Hangul) 키보드 칸 우측의 ⁝ 버튼을 클릭하시면 기본 설정 창을 킬 수 있습니다.
 - 한영전환키 항목에 추가를 누르시고 현 키보드의 한영키를 눌러주세요. 보통은 Alt_R(오른쪽 알트키) 입니다. 추가하고 싶은 한영키 동작 버튼이 있으시면 추가하셔도 됩니다.
+
+##### On-Screen Keyboard Layout
+
+##### 한글 자모음 분리
+
+1. ibus 해결안 https://jhoplin7259.tistory.com/69
+2. nimf 한글입력기 https://blog.naver.com/tinz6461/221870269557
+3. uim 한글입력기 https://blog.naver.com/tinz6461/221870269557
+4. fcitx 한글입력기 https://wscode.tistory.com/121
+
+##### kr.archive.ubuntu.com'의 주소를 알아낼 수 없습니다
+
+1. DNS 주소 변경
+
+   - 새로운 Ubuntu를 설치하거나, 네트워크 설정이 변경되었을때, apt 명령어를 이용하다보면 해당 오류가 발생할 때가 있습니다. 고정 IP를 사용하는 경우에 DNS 설정이 제대로 되어있지 않으면 발생합니다. 특정 DNS 등을 넣어주면 해결됩니다.
+   - 보통 나 자신을 의미하는 로컬호스트 NameServer인 127.0.0.53 일 것입니다. 대표적인 DNS NameServer인 8.8.8.8 (Google) 1.1.1.1 (Cloudflare) 로 변경해주면 해결됩니다.
+   - /etc/systemd/resolved.conf
+
+     ```bash
+     sudo vi /etc/systemd/resolved.conf
+     # DNS= 항목 주석 없애고 DNS=8.8.8.8 입력 후 저장
+
+     systemctl restart systemd-resolved.service
+
+     systemd-resolve --status #우분투 22 이전
+     resolvectl status #우분투 22 이후
+     ```
+
+2. 미러 사이트 변경
+
+   - /etc/apt/sources.list 은 /etc/apt/sources.list.d/ubuntu.sources 로 위치가 바뀌었습니다.
+   - [참고링크](https://sh1r0hacker.tistory.com/124)
+
+### 우클릭으로 새 파일 만들기 옵션
+
+- 터미널 열고 $ 에서 다음의 명령어를 입력해주세요
+  ```bash
+  $ mkdir -p ~/Templates/Text # Templates 폴더에 Text 서식 추가
+  $ touch ~/Templates/Text/document # Templates 폴더에 빈 파일 서식 생성
+  ```
 
 <br/>
 
@@ -358,6 +431,7 @@
 
 ### Waydroid 안드로이드 OS 에뮬레이터
 
+- [동영상](https://www.youtube.com/watch?v=tJ-Mna_zi0o)
 - [공식 문서](https://docs.waydro.id/usage/install-on-desktops)
 - 디스플레이 서버를 X11에서 Wayland 로 변경하기
 
