@@ -124,9 +124,15 @@
 
 ##### On-Screen Keyboard Layout
 
+- 우분투 상단바 우측을 클릭하면 톱니바퀴 모양의 설정 버튼이 있습니다.
+
 ##### 한글 자모음 분리
 
 1. ibus 해결안 https://jhoplin7259.tistory.com/69
+
+- ibus 한글 패치 설치를 위해 PPA(Personal Package Archive) 를 추가해주어야합니다. 리눅스의 업데이트는 각 프로그램이 직접하지 않고 패키지 저장소를 통해서 진행됩니다. 공식적인 패키지 저장소에서는 대중적인 프로그램들만 주로 담겨있습니다. PPA는 Third Party Software에 대한 패키지를 위해서 런치패드에서 제공하는 개인용 소프트웨어 패키지 저장소입니다.
+- $ sudo add-apt-repository ppa:createsc/3beol
+
 2. nimf 한글입력기 https://blog.naver.com/tinz6461/221870269557
 3. uim 한글입력기 https://blog.naver.com/tinz6461/221870269557
 4. fcitx 한글입력기 https://wscode.tistory.com/121

@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class Main {
@@ -30,8 +29,7 @@ public class Main {
     "8 10 18\n" +
     "9 10 8\n";
 
-  static int[] nodes;
-  static int[][] edges;
+		private static int[][] graph;
 
   // # Implements Definition ====================
   public static void main(String[] args) {
@@ -41,20 +39,25 @@ public class Main {
 
     int size = 0;
 
+		// 1. 시작하면서 시작 정점을 비어있는 정점 집합에 추가합니다.
+		// 2. 앞에서 만들어진 정점 집합에 인접한 정점들 중에서 가장 낮은 가중치의 간선으로 연결된 정점을 선택하여 정점 집합에 추가합니다.
+		// 3. 2번 과정을 가능하다면 V-1 번 반복합니다.
+
     // * INPUT
     {
       Scanner sc = new Scanner(input);
       V = sc.nextInt(); // 정점의 갯수 0부터 시작
       E = sc.nextInt(); // 간선 갯수
-
-      nodes = new int[V];
-      edges = new int[E][3];
+			graph = new int[V][V];
 
       for(int i = 0; i < E; i++) {
-        edges[i][0] = sc.nextInt();
-        edges[i][1] = sc.nextInt();
-        edges[i][2] = sc.nextInt();
+        int v1 = sc.nextInt();
+        int v2 = sc.nextInt();
+        int w = sc.nextInt();
+
+				graph[v1][v2] = graph[v2][v1] = w; 
       }
+			
       sc.close();
     }
 

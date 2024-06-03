@@ -51,6 +51,10 @@ int main() {
   int V; // The Number of Vertices(Nodes)
   int E; // The Number of Edges
 
+  // 1. 시작하면서 시작 정점을 비어있는 정점 집합에 추가합니다.
+  // 2. 앞에서 만들어진 정점 집합에 인접한 정점들 중에서 가장 낮은 가중치의 간선으로 연결된 정점을 선택하여 정점 집합에 추가합니다.
+  // 3. 2번 과정을 가능하다면 V-1 번 반복합니다.
+  
   // INPUT
   {
     stringbuf inputbuf(input);
