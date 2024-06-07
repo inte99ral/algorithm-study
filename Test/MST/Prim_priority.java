@@ -1,5 +1,3 @@
-package 그래프.최소신장트리_MST;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

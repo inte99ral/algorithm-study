@@ -4,9 +4,20 @@
 
 [참고 동영상](https://www.youtube.com/watch?v=mXyN1aJYefc)
 
+<!-- [테스트](Doc\OS\Linux\듀얼부팅：MultiBoot.md#정리필요) -->
+
 ## 목차
 
-## 순서
+- [사전 준비](./듀얼부팅：MultiBoot.md#사전-준비)
+  - [기본 디바이스 세팅](./듀얼부팅：MultiBoot.md#기본-디바이스-세팅)
+- [우분투 OS 설치 및 환경설정](./듀얼부팅：MultiBoot.md#우분투-os-설치-및-환경설정)
+  - [리눅스 설치](./듀얼부팅：MultiBoot.md#리눅스-설치)
+  - [키보드 & 언어팩 설정](./듀얼부팅：MultiBoot.md#키보드--언어팩-설정)
+    - [폴더명 영어로 변경](./듀얼부팅：MultiBoot.md#폴더명-영어로-변경)
+    - [한글 키보드 문제 수정](./듀얼부팅：MultiBoot.md#한글-키보드-문제-수정)
+  - [snap](./듀얼부팅：MultiBoot.md#snap)
+
+## 사전 준비
 
 ### 기본 디바이스 세팅
 
@@ -39,7 +50,7 @@
 
   - mbr2gpt 등을 사용하였거나 파티션 테이블이 MBR(Master Boot Record)이 아니라 GPT(GUID Partition Table) 유형일 경우 UEFI 옵션이 켜있을 확률이 높습니다.
   - UEFI (Unified Extensible Firmware Interface) 옵션은 바이오스의 플랫폼에 의존적인 제약 사항을 극복하고 하드웨어를 더 유연하게 지원하는 옵션입니다. 해당 옵션으로 다른 OS가 설치되어도 하드웨어 진단없이 곧바로 C드라이브 Windows로 부팅될 수 있습니다. 우리는 Ubuntu를 사용할 것이기 때문에 UEFI 옵션을 해제시켜 주어야 합니다.
-  - UERI 메뉴 또는 BIOS에서 해제할 수 있는데, 진입 방법은 각 기기 별로 다르기 때문에 찾아보셔야 합니다.
+  - UEFI 메뉴 또는 BIOS에서 해제할 수 있는데, 진입 방법은 각 기기 별로 다르기 때문에 찾아보셔야 합니다.
     - 레노버 아이디어 패드의 경우 부팅용 버튼 구멍에 핀을 꽂아 넣으셔야합니다.
     - 서피스의 경우 들어가는 방법은 전원이 꺼진 상태에서 전원 + Volume Up 키를 오래동안 누르고 있으면 됩니다.
     - [참고링크](https://www.linux.org/threads/ubuntu-22-04-on-surface-pro-7.43071/)
@@ -103,6 +114,8 @@
 - 로그오프 후 다시 로그인하면 수정이 끝납니다.
 
 #### 한글 키보드 문제 수정
+
+- [Improved OSK GNOME extension](https://www.omglinux.com/improved-gnome-on-screen-keyboard/)
 
 ##### 시스템 한국어 미적용 문제
 

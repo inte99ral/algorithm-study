@@ -48,7 +48,7 @@ public class Main {
       Scanner sc = new Scanner(input);
       V = sc.nextInt(); // 정점의 갯수 0부터 시작
       E = sc.nextInt(); // 간선 갯수
-			graph = new int[V][V];
+			graph = new int[V][V]; // 양방향으로 접근가능한 V² 크기 데이터
 
       for(int i = 0; i < E; i++) {
         int v1 = sc.nextInt();
@@ -57,16 +57,11 @@ public class Main {
 
 				graph[v1][v2] = graph[v2][v1] = w; 
       }
-			
+
       sc.close();
     }
 
-    Arrays.sort(edges, new Comparator<int[]>() {
-      @Override
-      public int compare(int[] o1, int[] o2) {
-        return o1[2] - o2[2];
-      }
-    });
+    boolean[] selected = new boolean[V];
 
     for(int i = 0; i < V; i++) {
       mainInstance.makeSet(i);
