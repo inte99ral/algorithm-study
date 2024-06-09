@@ -12,10 +12,12 @@
   - [기본 디바이스 세팅](./듀얼부팅：MultiBoot.md#기본-디바이스-세팅)
 - [우분투 OS 설치 및 환경설정](./듀얼부팅：MultiBoot.md#우분투-os-설치-및-환경설정)
   - [리눅스 설치](./듀얼부팅：MultiBoot.md#리눅스-설치)
+    - [Snap](./듀얼부팅：MultiBoot.md#snap)
+  - [보조 프로그램 설치](./듀얼부팅：MultiBoot.md#보조-프로그램-설치)
   - [키보드 & 언어팩 설정](./듀얼부팅：MultiBoot.md#키보드--언어팩-설정)
     - [폴더명 영어로 변경](./듀얼부팅：MultiBoot.md#폴더명-영어로-변경)
     - [한글 키보드 문제 수정](./듀얼부팅：MultiBoot.md#한글-키보드-문제-수정)
-  - [snap](./듀얼부팅：MultiBoot.md#snap)
+- [OS 관리 및 제거](./듀얼부팅：MultiBoot.md#os-관리-및-제거)
 
 ## 사전 준비
 
@@ -76,6 +78,136 @@
 - 어디에 설치하냐는 질문에 Manual installation 선택
 - swap 파티션 지정 (스왑 파티션은 일반적으로는 램 크기의 1.5 ~ 2배, 대강 10~20GB 정도로 잡는다.)
 - Ext4 파티션 지정 (Mount point는 '/' 로 지정합니다.)
+
+<br/>
+
+#### Snap
+
+- snap은 우분투 개발사 캐노니컬이 밀고있는 패키지 의존성 관리 체계입니다. 자유로운 배포환경에서 서로 의존성을 가진 패키지들이 너무 많아지자 얽히고 섞인 모든 프로그램들을 일일히 설치하고 업데이트하는 상황을 근절하기 위해서 설계되었습니다.
+
+##### snap 사용법
+
+- sudo snap refresh "앱이름" # 특정 요소 업데이트
+- sudo snap refresh # 전부 업데이트
+- sudo snap refresh --list # 설치하지 않고 업데이트 나열
+
+##### snap 제거
+
+- 사실 딱히 제거해야 할 이유는 없습니다. 오히려 놔두는 쪽을 추천합니다.
+
+- snap이 사용하는 사용 공간이나 (sudo fdisk -l 등을 써보면 패키지 의존성 격리를 위한 dev/loop 파티션이 수두룩하게 나옵니다.) , 자유로운 패키지 배포 환경에서 패키지 통합 시스템의 존재 자체가 부정적으로 받아들여지는 부분이 있습니다. (윈도우 내에서 마이크로소프트 스토어 사용을 강제하는 느낌이라고 이해하시면 될 것 같습니다.)
+
+  ```bash
+  $ sudo apt-mark hold snapd #앞으로 apt에서 snap 자동설치를 막습니다
+  $ sudo apt-mark showhold #홀드 목록 확인
+  $ sudo apt update
+  $ sudo apt upgrade
+
+  # 귀찮다면
+  $ sudo apt autoremove --purge snapd # 빠르게 전체삭제 - 문제 생길 수 있음
+
+  # 정석 방법
+  $ snap list # snap 이 관리하는 패키지 목록
+  $ snap remove --purge "패키지명" # 해당 패키지 snap 에서 완전제거
+
+  # 영향을 덜 받는 순서대로 삭제하는 쪽이 더 안정적입니다.
+  # snap-store >> gtk-common-themes >> gnome >> bare >> core22
+  # core 삭제는 snapd에서 사용 중이라 실패할 수 있습니다.
+  # 우분투 20.04 이전 $ sudo umount /snap/core"넘버"/"사용자 아이디"
+  # 우분투 20.10 이상 $ sudo umount /var/snap
+
+  $ sudo snap remove snapd
+  $ sudo apt autoremove --purge snapd
+
+  #다음은 패키지 삭제시 삭제 됐을 폴더이나 한번 더 확인
+
+  rm -rf snap
+  rm -rf /snap
+  rm -rf /var/snap
+  rm -rf /var/lib/snapd
+  ```
+
+<br/>
+
+#### Grub 설치 및 조정
+
+- GRUB(GRand Unified Bootloader) 는 멀티부트로더 입니다.
+- 디폴트 값을 변경하고 싶다면 Ctrl + Alt + T 터미널 열고 vi /etc/default/grub 또는 해당 위치에 직접 가서 텍스트 에디터로 수정
+- 화면 크기
+  ```bash
+  #grub 파일 잘 보면 #로 주석 처리된 해당 항목이 있을 겁니다.
+  #입력할 값은 우분투, 윈도우를 고르는 GRUB 부팅 화면에서 c 입력
+  #grub-efi 명령창으로 넘어가고 여기서 videoinfo 입력
+  #grub이 지원하는 해상도가 뜹니다.
+  #텍스트 크기는 고정이므로 해상도 값을 낮출수록 텍스트 크기가 커집니다.
+  GRUB_GFXMODE=1280x1024
+  ```
+- 부팅 선택 메뉴의 대기 시간 조정
+
+  ```bash
+  GRUB_TIMEOUT=10
+  ```
+
+- 노트북에서 fn키 화면밝기 조절이 안될 때 (인텔 그래픽 설정 먼저 다룰것)
+
+  ```bash
+  GRUB_CMDLINE_LINUX_DEFAULT="quiet splash" #BEFORE
+  GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_backlight=vendor"
+  ```
+
+- 설정이 끝나면 터미널에서 업데이트
+
+  ```bash
+  $ sudo update-grub
+  $ sudo reboot
+  ```
+
+<br/>
+
+### 보조 프로그램 설치
+
+#### Surface Pro 보조 세팅
+
+- 커널 업데이트
+  - 서피스는 마이크로소프트의 태블릿이다보니 리눅스-서피스라는 커널로 업데이트해야 보안처리된 하드웨어 컨트롤이 가능합니다.
+  - [참고링크](https://snowdeer.github.io/mac-os/2020/10/27/how-to-install-ubuntu-20p04-on-surface-pro-7/)
+  - [linux-surface의 깃허브 주소](https://github.com/linux-surface/linux-surface/wiki/Installation-and-Setup)
+
+<br/>
+
+#### GIT 설치
+
+- git 설치
+
+  ```bash
+  sudo apt install git #git 설치
+  git --version #git 버전 확인
+
+  #깃에 push했을때 올라갈 정보
+  git config --global user.name [이름]
+  git config --global user.mail [메일 주소]
+  ```
+
+- Github Desktop
+
+  - [공식 문서](https://gist.github.com/berkorbay/6feda478a00b0432d13f1fc0a50467f1)
+  - 설치 커맨드
+
+    ```bash
+    $ sudo wget https://github.com/shiftkey/desktop/releases/download/release-3.3.3-linux1/GitHubDesktop-linux-amd64-3.3.3-linux1.deb
+
+    $ sudo apt install ./GitHubDesktop-linux-amd64-3.3.3-linux1.deb -y
+    ```
+
+<br/>
+
+#### Wget
+
+```bash
+$ sudo apt install software-properties-common apt-transport-https wget #software-properties-common : add-apt-repository 추가
+#apt-transport-https : https를 통해 데이터 및 패키지에 접근
+#wget : HTTP/FTP 통신 파일 다운로드 소프트웨어
+```
 
 <br/>
 
@@ -179,89 +311,6 @@
   ```bash
   $ mkdir -p ~/Templates/Text # Templates 폴더에 Text 서식 추가
   $ touch ~/Templates/Text/document # Templates 폴더에 빈 파일 서식 생성
-  ```
-
-<br/>
-
-### snap
-
-- snap은 우분투 개발사 캐노니컬이 밀고있는 패키지 의존성 관리 체계입니다. 자유로운 배포환경에서 서로 의존성을 가진 패키지들이 너무 많아지자 얽히고 섞인 모든 프로그램들을 일일히 설치하고 업데이트하는 상황을 근절하기 위해서 설계되었습니다.
-
-#### snap 사용법
-
-- sudo snap refresh APLICACIÓN # 특정 요소 업데이트
-- sudo snap refresh # 전부 업데이트
-- sudo snap refresh --list # 설치하지 않고 업데이트 나열
-
-#### snap 제거
-
-- 사실 딱히 제거해야 할 이유는 없습니다. 오히려 놔두는 쪽을 추천합니다.
-
-- snap이 사용하는 사용 공간이나 (sudo fdisk -l 등을 써보면 패키지 의존성 격리를 위한 dev/loop 파티션이 수두룩하게 나옵니다.) , 자유로운 배포 환경에서 패키지 통합 시스템의 존재 자체가 부정적으로 받아들여지는 부분이 있습니다.
-
-  ```bash
-  $ sudo apt-mark hold snapd #앞으로 apt에서 snap 자동설치를 막습니다
-  $ sudo apt-mark showhold #홀드 목록 확인
-  $ sudo apt update
-  $ sudo apt upgrade
-
-  # 귀찮다면
-  $ sudo apt autoremove --purge snapd # 빠르게 전체삭제 - 문제 생길 수 있음
-
-  # 정석 방법
-  $ snap list # snap 이 관리하는 패키지 목록
-  $ snap remove --purge "패키지명" # 해당 패키지 snap 에서 완전제거
-
-  # 영향을 덜 받는 순서대로 삭제하는 쪽이 더 안정적입니다.
-  # snap-store >> gtk-common-themes >> gnome >> bare >> core22
-  # core 삭제는 snapd에서 사용 중이라 실패할 수 있습니다.
-  # 우분투 20.04 이전 $ sudo umount /snap/core"넘버"/"사용자 아이디"
-  # 우분투 20.10 이상 $ sudo umount /var/snap
-
-  $ sudo snap remove snapd
-  $ sudo apt autoremove --purge snapd
-
-  #다음은 패키지 삭제시 삭제 됐을 폴더이나 한번 더 확인
-
-  rm -rf snap
-  rm -rf /snap
-  rm -rf /var/snap
-  rm -rf /var/lib/snapd
-  ```
-
-<br/>
-
-### Grub 설치 및 조정
-
-- GRUB(GRand Unified Bootloader) 는 멀티부트로더 입니다.
-- 디폴트 값을 변경하고 싶다면 Ctrl + Alt + T 터미널 열고 vi /etc/default/grub 또는 해당 위치에 직접 가서 텍스트 에디터로 수정
-- 화면 크기
-  ```bash
-  #grub 파일 잘 보면 #로 주석 처리된 해당 항목이 있을 겁니다.
-  #입력할 값은 우분투, 윈도우를 고르는 GRUB 부팅 화면에서 c 입력
-  #grub-efi 명령창으로 넘어가고 여기서 videoinfo 입력
-  #grub이 지원하는 해상도가 뜹니다.
-  #텍스트 크기는 고정이므로 해상도 값을 낮출수록 텍스트 크기가 커집니다.
-  GRUB_GFXMODE=1280x1024
-  ```
-- 부팅 선택 메뉴의 대기 시간 조정
-
-  ```bash
-  GRUB_TIMEOUT=10
-  ```
-
-- 노트북에서 fn키 화면밝기 조절이 안될 때 (인텔 그래픽 설정 먼저 다룰것)
-
-  ```bash
-  GRUB_CMDLINE_LINUX_DEFAULT="quiet splash" #BEFORE
-  GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_backlight=vendor"
-  ```
-
-- 설정이 끝나면 터미널에서 업데이트
-
-  ```bash
-  $ sudo update-grub
-  $ sudo reboot
   ```
 
 <br/>
@@ -374,7 +423,9 @@
   ```bash
   $ sudo apt update #설치 가능한 패키지 리스트를 최신화
 
-  $ sudo apt install software-properties-common apt-transport-https wget #HTTP/FTP 통신 파일 다운로드 소프트웨어 wget 설치
+  $ sudo apt install software-properties-common apt-transport-https wget #software-properties-common : add-apt-repository 추가
+  #apt-transport-https : https를 통해 데이터 및 패키지에 접근
+  #wget : HTTP/FTP 통신 파일 다운로드 소프트웨어
 
   $ wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add - #wget을 이용해서 마이크로소프트의 GPG 키를 다운로드합니다. GPG 키는 비공개키 알고리즘의 형태이며 설치 프로그램의 무결성을 판단하기 위해서 필요합니다.
 
@@ -390,32 +441,6 @@
 
   $ sudo apt upgrade #Edge 패키지를 업데이트
   ```
-
-### GIT 설치
-
-- git 설치
-
-  ```bash
-  sudo apt install git #git 설치
-  git --version #git 버전 확인
-
-  #깃에 push했을때 올라갈 정보
-  git config --global user.name [이름]
-  git config --global user.mail [메일 주소]
-  ```
-
-- Github Desktop
-
-  - [공식 문서](https://gist.github.com/berkorbay/6feda478a00b0432d13f1fc0a50467f1)
-  - 설치 커맨드
-
-    ```bash
-    $ sudo wget https://github.com/shiftkey/desktop/releases/download/release-3.3.3-linux1/GitHubDesktop-linux-amd64-3.3.3-linux1.deb
-
-    $ sudo apt install ./GitHubDesktop-linux-amd64-3.3.3-linux1.deb -y
-    ```
-
-<br/>
 
 ### Visual Studio Code 설치
 
@@ -518,15 +543,6 @@
 
 <br/>
 
-### Surface Pro 보조 세팅
-
-- 커널 업데이트
-  - 서피스는 마이크로소프트의 태블릿이다보니 리눅스-서피스라는 커널로 업데이트해야 보안처리된 하드웨어 컨트롤이 가능합니다.
-  - [참고링크](https://snowdeer.github.io/mac-os/2020/10/27/how-to-install-ubuntu-20p04-on-surface-pro-7/)
-  - [linux-surface의 깃허브 주소](https://github.com/linux-surface/linux-surface/wiki/Installation-and-Setup)
-
-<br/>
-
 ### 우분투 테마 꾸미기
 
 - 사전 준비
@@ -579,8 +595,6 @@
 
 ### 우분투 제거
 
-- [참고 링크](https://askubuntu.com/questions/429610/uninstall-grub-and-use-windows-bootloader)
-- 윈도우 OS
 - 윈도우 OS 로 컴퓨터 키고 작업표시줄 윈도우 버튼 우클릭 <br/>`-⇀` 디스크 관리 <br/>`-⇀` 우분투가 깔려있는 파티션 포맷
 - 쉬프트 + 다시시작 으로 윈도우 OS 안전모드에 진입 [참고링크](https://askubuntu.com/questions/429610/uninstall-grub-and-use-windows-bootloader)
   - GRUB 화면으로 넘어간다면 다음의 해결책이 있습니다.
@@ -598,7 +612,7 @@
     list partition
     select partition <NUMBER>
     delete partition
-    ctrl+c
+    #[ctrl + c] 입력해서 나가기
 
     #EFI 시스템 파티션을 임의의 S 드라이브에 마운트 합니다. 드라이브 이름으로 사용되지 않은 알파벳이면 아무거나 상관없습니다. 여기선 S를 예시로 사용합니다.
     mountvol S: /S
@@ -615,6 +629,9 @@
     rmdir /s /q Ubuntu #옵션 s : 안에 전부 삭제, 옵션 q : 묻지마
     #2. 파워쉘 기준 명령어 (.net 기반이라 윈도우 부팅 USB에선 구동 X)
     Remove-Item -Recurse Ubuntu
+
+    # X:\sources> 경로로 복귀
+    X:
     ```
 
   - 방법 ② : Windows 의 부팅옵션 복구 기능으로 Ubuntu 부팅 옵션 제거
@@ -629,7 +646,7 @@
     exit
     ```
 
-- 끝났습니다. 처음의 파란 안전모드 화면에서 Continue 를 선택하여 윈도우OS 부팅을 확인해줍시다.
+- 끝났습니다. 창을 닫고 처음의 파란 안전모드 화면에서 Continue 를 선택하여 윈도우OS 부팅을 확인해줍시다.
 - 디스크 MBR or GPT 상태나 디스크 조각 상태, 배드섹터 확인 등 복구 과정에서 윈도우 OS 환경에 혹시라도 문제가 생기지 않았는 지 돌아봐 소중한 윈도우를 챙겨줍시다.
 
 # 정리필요

@@ -1,4 +1,7 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class Main {
@@ -29,72 +32,97 @@ public class Main {
     "8 10 18\n" +
     "9 10 8\n";
 
-		private static int[][] graph;
+  private static class Edge implements Comparable<Edge>{
+		int v1;
+		int v2;
+		int w;
+		
+		public Edge(int v1, int v2, int w) {
+			this.v1 = v1;
+			this.v2 = v2;
+			this.w = w;
+		}
+
+		@Override
+		public int compareTo(Edge o) {
+			return this.w - o.w;
+		}
+	}	
 
   // # Implements Definition ====================
   public static void main(String[] args) {
-    Main mainInstance = new Main(); 
     int V;
     int E;
 
     int size = 0;
-
-		// 1. 시작하면서 시작 정점을 비어있는 정점 집합에 추가합니다.
-		// 2. 앞에서 만들어진 정점 집합에 인접한 정점들 중에서 가장 낮은 가중치의 간선으로 연결된 정점을 선택하여 정점 집합에 추가합니다.
-		// 3. 2번 과정을 가능하다면 V-1 번 반복합니다.
+		
+    boolean[] selected;
+    List<List<Edge>> edges;
+    PriorityQueue<Edge> task;
 
     // * INPUT
     {
       Scanner sc = new Scanner(input);
       V = sc.nextInt(); // 정점의 갯수 0부터 시작
       E = sc.nextInt(); // 간선 갯수
-			graph = new int[V][V]; // 양방향으로 접근가능한 V² 크기 데이터
 
-      for(int i = 0; i < E; i++) {
+      selected = new boolean[V];
+      edges = new ArrayList<>();
+
+      for (int v = 0; v < V; v++) {
+        edges.add(new ArrayList<>());
+      }
+
+      for (int e = 0; e < E; e++) {
         int v1 = sc.nextInt();
         int v2 = sc.nextInt();
         int w = sc.nextInt();
 
-				graph[v1][v2] = graph[v2][v1] = w; 
+        // 양방향에서 접근
+				edges.get(v1).add(new Edge(v1, v2, w));
+        edges.get(v2).add(new Edge(v2, v1, w));
       }
 
       sc.close();
     }
 
-    boolean[] selected = new boolean[V];
+    selected = new boolean[V];
+    task = new PriorityQueue<>();
 
-    for(int i = 0; i < V; i++) {
-      mainInstance.makeSet(i);
+    // 1. 시작하면서 임의의 정점(여기선 0번) 정점 집합에 추가합니다.
+    selected[0] = true;
+    task.addAll(edges.get(0));
+
+    System.out.println("[MST EDGE] :");
+
+    // ** TEST
+    {
+      
     }
 
-    for(int i = 0; i < E; i++) {
-      int rootX = mainInstance.findSet(edges[i][0]);
-      int rootY = mainInstance.findSet(edges[i][1]);
+    // ** WAIT
+    {
+      // 2. 3번 과정을 가능하다면 V-1 번 반복합니다.
+      for (int i = 0; i < V; i++) {
+        // 3. 앞에서 만들어진 정점 집합에 인접한 정점들 중에서 가장 낮은 가중치의 간선으로 연결된 정점을 선택하여 정점 집합에 추가합니다.
+        // 우선순위 큐(Priority Queue)에선 자동으로 가중치순으로 정렬되기 때문에 맨 앞만 보면 됩니다.
+        // if(selected[task.peek().v2]) continue;
 
-      if(rootX != rootY) {
-        mainInstance.unionSet(rootX, rootY);
-        size += edges[i][2];
+        System.out.printf("%d <--%d--> %d\n", task.peek().v1, task.peek().w, task.peek().v2);
+
+        // size += task.peek().w;
+        task.addAll(edges.get(task.peek().v2));
+        // selected[task.peek().v2] = true;
+
+        task.poll();
       }
     }
-
-    // * OUTPUR
+      
+    // * OUTPUT
     {
-      System.out.printf("[MST SIZE] : %d",size);
+      System.out.printf("\n[MST SIZE] : %d",size);
     }
 
     return;
-  }
-
-  void makeSet(int x) {
-    nodes[x] = x;
-  }
-
-  int findSet(int x) {
-    if(x == nodes[x]) return x;
-    return nodes[x] = findSet(nodes[x]); // Path compression
-  }
-
-  void unionSet(int x, int y) {
-    nodes[findSet(y)] = findSet(x);
   }
 }

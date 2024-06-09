@@ -50,12 +50,12 @@
 
 using namespace std;
 
-// # Prototype Declaration ====================
+// Prototype Declaration ====================
 void makeSet(int x);
 int findSet(int x);
 void unionSet(int x, int y);
 
-// # Global Variable & Constant================
+// Global Variable & Constant================
 const string input =
   "10 21\n"
   "0 1 9\n"
@@ -85,7 +85,7 @@ const string input =
 int* nodes;
 int** edges;
 
-// # Implements Definition ====================
+// Implements Definition ====================
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
@@ -96,7 +96,11 @@ int main() {
   int V; // The Number of Vertices(Nodes)
   int E; // The Number of Edges
 
-  // * INPUT
+  // 1. 시작하면서 시작 정점을 비어있는 정점 집합에 추가합니다.
+  // 2. 앞에서 만들어진 정점 집합에 인접한 정점들 중에서 가장 낮은 가중치의 간선으로 연결된 정점을 선택하여 정점 집합에 추가합니다.
+  // 3. 2번 과정을 가능하다면 V-1 번 반복합니다.
+
+  // INPUT
   {
     stringbuf inputbuf(input);
     streambuf *backup = cin.rdbuf(&inputbuf);
@@ -114,33 +118,25 @@ int main() {
     cin.rdbuf(backup);
   }
 
-  // 1. 간선들을 비용에 따라 오름차순으로 정렬합니다.
   sort(edges, edges + E,[](int* o1, int* o2) -> bool { return o1[2] < o2[2]; });
-
-  4. 모든 간선을 돌아보고 나면 MST를 얻을 수 있습니다.
-
 
   // 자기 자신을 뿌리로 가리키도록 초기화
   for (int v = 0; v < V; v++) makeSet(v);
 
-  // 2. 간선을 순서대로 하나씩 확인하며 현재의 간선을 MST의 경로로 포함시킬 때 서로소 알고리즘(Union-find Algorithm)을 토대로 사이클을 발생시키는지 확인합니다.
+  cout << "[MST EDGE] :\n";
   for (int e = 0; e < E; e++) {
-    int rootX = findSet(edges[e][0]);
-    int rootY = findSet(edges[e][1]);
+    int nodeX = findSet(edges[e][0]);
+    int nodeY = findSet(edges[e][1]);
 
-    // 3. 사이클 발생이 없다면 해당 간선을 MST에 추가합니다.
-    // 뿌리가 같은 노드끼리 연결하는 간선 = 사이클을 형성하는 간선
-    if (rootX == rootY) continue;
+    // 뿌리가 같은 노드끼리 연결하는 간선이다 = 사이클을 형성하는 간선
+    if (nodeX == nodeY) continue;
 
-    unionSet(rootX, rootY);
+    unionSet(nodeX, nodeY);
+    cout << edges[e][0] << " <--" << edges[e][2] << "--> " << edges[e][1] << "\n";
     size += edges[e][2];
   }
 
-  // * OUTPUT
-  {
-    // 4. 모든 간선을 돌아보고 나면 MST를 얻을 수 있습니다.
-    cout << "[MST SIZE] : " << size;
-  }
+  cout << "\n[MST SIZE] : " << size << endl;
 
   delete[] nodes;
   delete[] edges;
@@ -280,8 +276,8 @@ https://gmlwjd9405.github.io/2018/08/30/algorithm-prim-mst.html
 - Prim 알고리즘은 다음과 같은 순서로 작동합니다.
 
   1. 시작하면서 시작 정점을 비어있는 정점 집합에 추가합니다.
-  2. 앞에서 만들어진 정점 집합에 인접한 정점들 중에서 가장 낮은 가중치의 간선으로 연결된 정점을 선택하여 정점 집합에 추가합니다.
-  3. 2번 과정을 가능하다면 V-1 번 반복합니다.
+  2. 3번 과정을 가능하다면 V-1 번 반복합니다.
+  3. 앞에서 만들어진 정점 집합에 인접한 정점들 중에서 가장 낮은 가중치의 간선으로 연결된 정점을 선택하여 정점 집합에 추가합니다.
 
 - 반복문이 정점의 수 V 만큼 반복하고, 다시 내부의 반복문이 V 만큼 반복하기 때문에 정점의 수 V에 대한 기산 복잡도는 O(V²) 입니다.
 - 그래프에 정점의 수보다 간선이 매우 많이 존재하는 밀집 그래프(Dense Graph)의 경우는 Prim 알고리즘이 적합합니다.
@@ -297,7 +293,223 @@ int main() {
 #### Java
 
 ```java
-class Main {
+import java.util.Arrays;
+import java.util.Scanner;
 
+public class Main {
+  // # Global Variable & Constant================
+  private static String input =
+    "10 21\n" +
+    "0 1 9\n" +
+    "0 2 9\n" +
+    "0 9 8\n" +
+    "0 8 18\n" +
+    "1 2 3\n" +
+    "1 4 6\n" +
+    "2 3 2\n" +
+    "2 4 4\n" +
+    "2 9 9\n" +
+    "3 4 2\n" +
+    "3 5 9\n" +
+    "3 9 8\n" +
+    "4 5 9\n" +
+    "5 6 4\n" +
+    "5 7 5\n" +
+    "5 9 7\n" +
+    "6 7 1\n" +
+    "6 8 4\n" +
+    "7 8 3\n" +
+    "7 9 9\n" +
+    "8 9 10\n" +
+    "8 10 18\n" +
+    "9 10 8\n";
+
+		private static int[][] graph;
+
+  // # Implements Definition ====================
+  public static void main(String[] args) {
+    int V;
+    int E;
+
+    int size = 0;
+
+    // * INPUT
+    {
+      Scanner sc = new Scanner(input);
+      V = sc.nextInt(); // 정점의 갯수 0부터 시작
+      E = sc.nextInt(); // 간선 갯수
+			graph = new int[V][V]; // 양방향으로 접근가능한 V² 크기 데이터
+
+      for(int e = 0; e < E; e++) {
+        int v1 = sc.nextInt();
+        int v2 = sc.nextInt();
+        int w = sc.nextInt();
+
+				graph[v1][v2] = graph[v2][v1] = w;
+      }
+
+      sc.close();
+    }
+
+    boolean[] selected = new boolean[V];
+    int[] dist = new int[V]; // 키
+    int[] p = new int[V]; // 부모
+
+    // 1. 시작하면서 임의의 시작 정점을 비어있는 정점 집합에 추가합니다.
+    Arrays.fill(dist, Integer.MAX_VALUE);
+    dist[0] = 0;
+
+    // 2. 3번 과정을 가능하다면 V-1 번 반복합니다.
+    for (int i = 0; i < V - 1; i++) {
+      int min = Integer.MAX_VALUE;
+      int idx = -1;
+
+      // 3. 앞에서 만들어진 정점 집합에 인접한 정점들 중에서 가장 낮은 가중치의 간선으로 연결된 정점을 선택하여 정점 집합에 추가합니다.
+      for(int j = 0; j < V; j++) {
+				if(!selected[j] && (dist[j] < min)) {
+					min = dist[j];
+					idx = j;
+				}
+			}
+
+      selected[idx] = true;
+
+      // 인접한 노드들의 정점 집합과의 거리 갱신
+			for(int j = 0; j < V; j++) {
+				if(!selected[j] && (graph[idx][j] != 0) && (dist[j] > graph[idx][j])) {
+          p[j] = idx;
+					dist[j] = graph[idx][j];
+				}
+			}
+    }
+
+    // * OUTPUT
+    {
+      System.out.println("[MST EDGE] :");
+      for(int v1 = 0; v1 < V; v1++) {
+        System.out.printf("%d <--%d--> %d\n", v1, dist[v1], p[v1]);
+        size += dist[v1];
+      }
+      System.out.printf("\n[MST SIZE] : %d",size);
+    }
+
+    return;
+  }
+}
+```
+
+### 3. Prim 알고리즘 + Priority Queue
+
+- Priority Queue를 사용하면 알고리즘 개선이 가능합니다.
+- 우선순위 큐(Priority Queue) 란 기존의 큐와 같이 선형 자료구조를 따르지 않고 비선형 자료 구조입니다. 우선순위 큐 안에서 데이터들은 들어가는 순서대로 배열되지 않으며 사전에 정해둔 우선순위에 조건에 맞춰서 큐에서 꺼내집니다.
+- 예를들어 A,B,C가 있을 때, A < B < C 로 우선순위를 정했다면 B, C, A 순으로 넣어도 A, B, C 오름차순으로 나오게 됩니다.
+- 기존의 큐나 배열, 리스트는 순서대로 나열되어 있기 때문에 데이터 삽입은 즉시 가능하나, 데이터 탐색 시 최악의 경우 n 개 원소를 전부 읽어야 데이터를 찾을 수 있습니다. 따라서 데이터 삽입의 시간복잡도는 O(1), 데이터 탐색의 시간복잡도는 O(n) 입니다.
+- 우선순위 큐는 트리구조를 응용한 힙 구조를 통해 구현되며 힙은 이진탐색트리 구조에 기반하기 때문에 데이터 삽입할 때와 탐색할 때 모두 해당 데이터의 우선순위를 큐 안에서 추적하는 과정을 거칩니다. 따라서 큐 안의 원소 n개에 대하여 데이터 삽입과 탐색 모두 시간복잡도는 O(log₂n) 이 됩니다.
+
+#### Java
+
+```java
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+  // # Global Variable & Constant================
+  private static String input =
+    "10 21\n" +
+    "0 1 9\n" +
+    "0 2 9\n" +
+    "0 9 8\n" +
+    "0 8 18\n" +
+    "1 2 3\n" +
+    "1 4 6\n" +
+    "2 3 2\n" +
+    "2 4 4\n" +
+    "2 9 9\n" +
+    "3 4 2\n" +
+    "3 5 9\n" +
+    "3 9 8\n" +
+    "4 5 9\n" +
+    "5 6 4\n" +
+    "5 7 5\n" +
+    "5 9 7\n" +
+    "6 7 1\n" +
+    "6 8 4\n" +
+    "7 8 3\n" +
+    "7 9 9\n" +
+    "8 9 10\n" +
+    "8 10 18\n" +
+    "9 10 8\n";
+
+		private static int[][] graph;
+
+  // # Implements Definition ====================
+  public static void main(String[] args) {
+    int V;
+    int E;
+
+    int size = 0;
+
+    // * INPUT
+    {
+      Scanner sc = new Scanner(input);
+      V = sc.nextInt(); // 정점의 갯수 0부터 시작
+      E = sc.nextInt(); // 간선 갯수
+			graph = new int[V][V]; // 양방향으로 접근가능한 V² 크기 데이터
+
+      for(int e = 0; e < E; e++) {
+        int v1 = sc.nextInt();
+        int v2 = sc.nextInt();
+        int w = sc.nextInt();
+
+				graph[v1][v2] = graph[v2][v1] = w;
+      }
+
+      sc.close();
+    }
+
+    boolean[] selected = new boolean[V];
+    int[] dist = new int[V]; // 키
+    int[] p = new int[V]; // 부모
+
+    // 1. 시작하면서 임의의 시작 정점을 비어있는 정점 집합에 추가합니다.
+    Arrays.fill(dist, Integer.MAX_VALUE);
+    dist[0] = 0;
+
+    // 2. 3번 과정을 가능하다면 V-1 번 반복합니다.
+    for (int i = 0; i < V - 1; i++) {
+      int min = Integer.MAX_VALUE;
+      int idx = -1;
+
+      // 3. 앞에서 만들어진 정점 집합에 인접한 정점들 중에서 가장 낮은 가중치의 간선으로 연결된 정점을 선택하여 정점 집합에 추가합니다.
+      for(int j = 0; j < V; j++) {
+				if(!selected[j] && (dist[j] < min)) {
+					min = dist[j];
+					idx = j;
+				}
+			}
+
+      selected[idx] = true;
+
+      // 인접한 노드들의 정점 집합과의 거리 갱신
+			for(int j = 0; j < V; j++) {
+				if(!selected[j] && (graph[idx][j] != 0) && (dist[j] > graph[idx][j])) {
+          p[j] = idx;
+					dist[j] = graph[idx][j];
+				}
+			}
+    }
+
+    // * OUTPUT
+    {
+      System.out.println("[MST EDGE] :");
+      for(int v1 = 0; v1 < V; v1++) {
+        System.out.printf("%d <--%d--> %d\n", v1, dist[v1], p[v1]);
+        size += dist[v1];
+      }
+      System.out.printf("\n[MST SIZE] : %d",size);
+    }
+
+    return;
+  }
 }
 ```

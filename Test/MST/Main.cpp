@@ -78,6 +78,7 @@ int main() {
   // 자기 자신을 뿌리로 가리키도록 초기화
   for (int v = 0; v < V; v++) makeSet(v);
 
+  cout << "[MST EDGE] :\n";
   for (int e = 0; e < E; e++) {
     int nodeX = findSet(edges[e][0]);
     int nodeY = findSet(edges[e][1]);
@@ -86,10 +87,11 @@ int main() {
     if (nodeX == nodeY) continue;
 
     unionSet(nodeX, nodeY);
+    cout << edges[e][0] << " <--" << edges[e][2] << "--> " << edges[e][1] << "\n";
     size += edges[e][2];
   }
 
-  cout << "[MST SIZE] : " << size;
+  cout << "\n[MST SIZE] : " << size << endl;
 
   delete[] nodes;
   delete[] edges;

@@ -1,23 +1,53 @@
-package 그래프.최소신장트리_MST;
-
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
-// 정점을 선택해서 연결된 정점들을 뽑아낸다
 public class Prim {
-	private static String input = 
-		"7 11\r\n" + 
-		"0 1 32\r\n" +
-		"0 2 31\r\n" +
-		"0 5 60\r\n" +
-		"0 6 51\r\n" +
-		"1 2 21\r\n" +
-		"2 4 46\r\n" +
-		"2 6 25\r\n" +
-		"3 4 34\r\n" +
-		"4 6 51\r\n" +
-		"5 3 18\r\n" +
-		"5 4 40\r\n";
+	// # Global Variable & Constant================
+		private static String input =
+    "10 21\n" +
+    "0 1 9\n" +
+    "0 2 9\n" +
+    "0 9 8\n" +
+    "0 8 18\n" +
+    "1 2 3\n" +
+    "1 4 6\n" +
+    "2 3 2\n" +
+    "2 4 4\n" +
+    "2 9 9\n" +
+    "3 4 2\n" +
+    "3 5 9\n" +
+    "3 9 8\n" +
+    "4 5 9\n" +
+    "5 6 4\n" +
+    "5 7 5\n" +
+    "5 9 7\n" +
+    "6 7 1\n" +
+    "6 8 4\n" +
+    "7 8 3\n" +
+    "7 9 9\n" +
+    "8 9 10\n" +
+    "8 10 18\n" +
+    "9 10 8\n";
+		
+	private static class Edge implements Comparable<Edge>{
+		int st;
+		int ed;
+		int cost;
+		
+		public Edge(int st, int ed, int cost) {
+			this.st = st;
+			this.ed = ed;
+			this.cost = cost;
+		}
+
+		@Override
+		public int compareTo(Edge o) {
+			return this.cost - o.cost;
+		}
+	}	
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(input);
@@ -25,54 +55,40 @@ public class Prim {
 		int V = sc.nextInt();
 		int E = sc.nextInt();
 		
-		int[][] adjArr = new int[V][V];
+		List<Edge>[] adjList = new ArrayList[V];
+		//Arrays.fill(adjList, new ArrayList<Edge>());
+		for (int i = 0; i < V; i++)
+			adjList[i] = new ArrayList<Edge>();
 		
 		for(int i = 0; i < E; i++) {
 			int st = sc.nextInt();
 			int ed = sc.nextInt();
 			int w = sc.nextInt();
 			
-			adjArr[st][ed] = adjArr[ed][st] = w;
+			adjList[st].add(new Edge(st, ed, w));
+			adjList[ed].add(new Edge(ed, st, w));
 		}
 		
 		boolean[] visited = new boolean[V];
-		int[] dist = new int[V]; // 키
-		int[] p = new int[V]; // 부모
 		
-		Arrays.fill(dist, Integer.MAX_VALUE);
-		dist[0] = 0;
-		p[0] = -1;
+		PriorityQueue<Edge> pq = new PriorityQueue<>();
 		
-		int min, idx, ans = 0;
-		for(int i = 0; i < V - 1; i++) {
-			min = Integer.MAX_VALUE;
-			idx = -1;
+		visited[0] = true;
+		pq.addAll(adjList[0]);
+		
+		int cnt = 1;
+		int ans = 0;
+		
+		while(cnt != V) {
+			Edge edge = pq.poll();
+			if(visited[edge.ed]) continue;
 			
-			// 가장 작은 값 찾기
-			for(int j = 0; j < V; j++) {
-				if(!visited[j] && dist[j] < min) {
-					min = dist[j];
-					idx = j;
-				}
-			}
-			
-			visited[idx] = true;
-			
-			// 방문하면서 갱신
-			for(int j = 0; j < V; j++) {
-				if(!visited[j] && adjArr[idx][j] != 0 && dist[j] > adjArr[idx][j]) {
-					p[j] = idx;
-					dist[j] = adjArr[idx][j];
-				}
-			}
+			ans += edge.cost;
+			pq.addAll(adjList[edge.ed]);
+			visited[edge.ed] = true;
+			cnt++;
 		}
-		
-		for(int i = 0; i < V; i++) {
-			ans += dist[i];
-		}
-		
+		System.out.println(pq.size());
 		System.out.println(ans);
 	}
-	
-	
 }

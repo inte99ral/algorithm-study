@@ -100,6 +100,10 @@
   // "editor.defaultFormatter": "ms-vscode.cpptools",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, UseTab: Never, IndentWidth: 2, TabWidth: 2, BreakBeforeBraces: Custom, BraceWrapping: { BeforeElse : true, BeforeWhile : true, BeforeCatch : true }, AllowShortIfStatementsOnASingleLine: AllIfsAndElse, IndentCaseLabels: false, ColumnLimit: 0, NamespaceIndentation: All, FixNamespaceComments: false, AccessModifierOffset: -1 }",
+  "markdownlint.config": {
+    "MD031": false, // Fenced code blocks should be surrounded by blank lines
+    "MD033": false // Inline HTML
+  },
 
   //# Terminal =================================
   "terminal.integrated.profiles.windows": {
