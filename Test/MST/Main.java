@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
@@ -57,7 +55,7 @@ public class Main {
     int size = 0;
 		
     boolean[] selected;
-    List<List<Edge>> edges;
+    ArrayList<ArrayList<Edge>> edges;
     PriorityQueue<Edge> task;
 
     // * INPUT
@@ -78,6 +76,8 @@ public class Main {
         int v2 = sc.nextInt();
         int w = sc.nextInt();
 
+        // System.out.printf("%d <--%d--> %d\n", v1, w, v2);
+
         // 양방향에서 접근
 				edges.get(v1).add(new Edge(v1, v2, w));
         edges.get(v2).add(new Edge(v2, v1, w));
@@ -95,29 +95,23 @@ public class Main {
 
     System.out.println("[MST EDGE] :");
 
-    // ** TEST
-    {
+    // 2. 3번 과정을 가능하다면 V-1 개의 간선을 찾을 때까지 반복합니다.
+    int count = 1;
+    while (count < V) {
+      // 3. 앞에서 만들어진 정점 집합에 인접한 정점들 중에서 가장 낮은 가중치의 간선으로 연결된 정점을 선택하여 정점 집합에 추가합니다.
+      // 우선순위 큐(Priority Queue)에선 자동으로 가중치순으로 정렬됩니다.
+      Edge target = task.poll();
+
+      if (selected[target.v2]) continue;
       
+      System.out.printf("%d <--%d--> %d\n", target.v1, target.w, target.v2);
+
+      size += target.w;
+      selected[target.v2] = true;
+      task.addAll(edges.get(target.v2));
+      count++;
     }
 
-    // ** WAIT
-    {
-      // 2. 3번 과정을 가능하다면 V-1 번 반복합니다.
-      for (int i = 0; i < V; i++) {
-        // 3. 앞에서 만들어진 정점 집합에 인접한 정점들 중에서 가장 낮은 가중치의 간선으로 연결된 정점을 선택하여 정점 집합에 추가합니다.
-        // 우선순위 큐(Priority Queue)에선 자동으로 가중치순으로 정렬되기 때문에 맨 앞만 보면 됩니다.
-        // if(selected[task.peek().v2]) continue;
-
-        System.out.printf("%d <--%d--> %d\n", task.peek().v1, task.peek().w, task.peek().v2);
-
-        // size += task.peek().w;
-        task.addAll(edges.get(task.peek().v2));
-        // selected[task.peek().v2] = true;
-
-        task.poll();
-      }
-    }
-      
     // * OUTPUT
     {
       System.out.printf("\n[MST SIZE] : %d",size);

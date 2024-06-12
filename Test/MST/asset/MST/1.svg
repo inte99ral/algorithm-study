@@ -8,10 +8,9 @@
 	<!ENTITY st1 "opacity:0.39;">
 	<!ENTITY st2 "fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;">
 	<!ENTITY st3 "fill:#969595;stroke:#969595;stroke-width:0.86;">
-	
-		<!ENTITY st4 "clip-path:url(#XMLID_2_);fill:none;stroke:#000000;stroke-width:7.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;">
+	<!ENTITY st4 "clip-path:url(#XMLID_2_);fill:none;stroke:#000000;stroke-width:7.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;">
 	<!ENTITY st5 "fill:none;stroke:#969595;stroke-width:0.86;">
-	<!ENTITY st6 "fill:none;stroke:#000000;stroke-width:3;">
+	<!ENTITY st6 "fill:none;stroke:#FFA500;stroke-width:3;">
 	<!ENTITY st7 "font-size:14;">
 ]>
 <svg  xmlns="&ns_svg;" xmlns:xlink="&ns_xlink;" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
@@ -36,11 +35,10 @@
   <xap:MetadataDate>2005-07-03T22:15:15-07:00</xap:MetadataDate>
  </rdf:Description>
 
-</rdf:RDF>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <?xpacket end='w'?>
+</rdf:RDF>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 <?xpacket end='w'?>
 			</metadata>
 		<g id="Layer_1">
-			<path style="&st3;" d="M12.927,150.076l37.334-72.933"/>
+			<path style="&st5;" d="M12.927,150.076l37.334-72.933"/>
 			<path style="&st5;" d="M50.01,77.21l-0.75,53.125"/>
 			<path style="&st5;" d="M12.927,150.076l109.167,79.884"/>
 			<path style="&st5;" d="M122.093,229.96l-72.5-98.5"/>
@@ -52,32 +50,7 @@
 			<path style="&st5;" d="M284.093,41.626L122.426,226.96"/>
 			<path style="&st5;" d="M285.76,39.293L178.427,133.96"/>
 			<path style="&st5;" d="M178.427,133.96l64.1-103.516"/>
-			<g>
-				<g>
-					<defs>
-						<path id="XMLID_1_" d="M0,241.92h299.52V0H0V241.92z"/>
-					</defs>
-					<clipPath id="XMLID_2_">
-						<use xlink:href="#XMLID_1_" />
-					</clipPath>
-					<path style="&st4;" d="M121.967,228.365 M173.254,31.868 M232.912,13.555 M51.732,77.545 M285.906,40.763 M243.078,31.271
-						 M50.724,131 M178.499,134.737 M64.355,102.402 M13.613,150.242"/>
-				</g>
-				<path style="&st2;" d="M121.967,228.365l56.532-93.628 M173.254,31.868l59.658-18.313 M173.254,31.868l5.245,102.869
-					 M232.912,13.555l-59.658,18.313 M232.912,13.555l10.166,17.716 M51.732,77.545l12.623,24.857 M285.906,40.763l-42.828-9.493
-					 M243.078,31.271l-10.166-17.716 M243.078,31.271l42.828,9.493 M50.724,131l13.631-28.598 M50.724,131l-37.111,19.242
-					 M178.499,134.737l-56.532,93.628 M178.499,134.737l-5.245-102.869 M178.499,134.737L64.355,102.402 M64.355,102.402
-					L51.732,77.545 M64.355,102.402L50.724,131 M64.355,102.402l114.144,32.335 M13.613,150.242L50.724,131"/>
-			</g>
-			<path style="&st6;" d="M12.927,150.076l36.32-18.984"/>
-			<path style="&st6;" d="M64.602,101.139L50.724,131"/>
-			<path style="&st6;" d="M64.355,102.402L51.732,77.545"/>
-			<path style="&st6;" d="M64.355,102.402l114.144,32.335"/>
-			<path style="&st6;" d="M178.499,134.737l-56.532,93.628"/>
-			<path style="&st6;" d="M178.499,134.737l-5.245-102.869"/>
-			<path style="&st6;" d="M173.254,31.868l59.658-18.313"/>
-			<path style="&st6;" d="M232.314,12.565l10.584,19.445"/>
-			<path style="&st6;" d="M243.078,31.271l42.828,9.493"/>
+
 			<g style="&st1;">
 				<path d="M53.438,198.106c0.266,0.014,0.574,0,0.994-0.057c0.714-0.084,1.386-0.378,1.904-0.882
 					c0.602-0.546,1.036-1.344,1.204-2.422h-0.042c-0.504,0.616-1.232,0.979-2.156,0.979c-1.638,0-2.688-1.231-2.688-2.8
@@ -94,7 +67,6 @@
 					c-1.036,0-1.778,0.925-1.778,2.213c0,1.134,0.686,1.932,1.75,1.932c0.826,0,1.47-0.406,1.806-0.952
 					c0.056-0.112,0.098-0.252,0.098-0.448c0.014-1.567-0.574-2.744-1.862-2.744H91.996z"/>
 			</g>
-			<text transform="matrix(1 0 0 1 138.0933 179.959)"><tspan x="0" y="0" style="&st0; &st7;">8</tspan></text>
 			<g style="&st1;">
 				<path d="M217.063,127.675h-0.027l-1.582,0.854l-0.238-0.938l1.988-1.063h1.05v9.1h-1.19V127.675z"/>
 				<path d="M224.623,126.373c1.765,0,2.66,1.092,2.66,2.24c0,0.77-0.392,1.609-1.512,2.128v0.042
@@ -104,7 +76,6 @@
 					c-0.042,0.91,0.658,1.722,1.806,1.722H224.554z M224.582,127.255c-1.022,0-1.582,0.672-1.582,1.456
 					c-0.015,0.91,0.686,1.4,1.735,1.68c0.784-0.266,1.386-0.825,1.386-1.651c0-0.729-0.434-1.484-1.525-1.484H224.582z"/>
 			</g>
-			<text transform="matrix(1 0 0 1 33.0933 152.96)"><tspan x="0" y="0" style="&st0; &st7;">3</tspan></text>
 			<g style="&st1;">
 				<path d="M24.584,106.381c-0.252-0.014-0.574,0.014-0.924,0.07c-1.946,0.308-2.954,1.722-3.164,3.234h0.028
 					c0.434-0.588,1.204-1.064,2.212-1.064c1.61,0,2.744,1.176,2.744,2.94c0,1.68-1.134,3.22-3.038,3.22
@@ -128,7 +99,6 @@
 					c-1.036,0-1.778,0.925-1.778,2.213c0,1.134,0.686,1.932,1.75,1.932c0.826,0,1.47-0.406,1.806-0.952
 					c0.056-0.112,0.098-0.252,0.098-0.448c0.014-1.567-0.574-2.744-1.862-2.744H110.663z"/>
 			</g>
-			<text transform="matrix(1 0 0 1 119.7598 112.9595)"><tspan x="0" y="0" style="&st0; &st7;">8</tspan></text>
 			<g style="&st1;">
 				<path d="M120.438,79.106c0.266,0.014,0.574,0,0.994-0.056c0.714-0.084,1.386-0.378,1.904-0.882
 					c0.602-0.546,1.036-1.344,1.204-2.422h-0.042c-0.504,0.616-1.232,0.98-2.156,0.98c-1.638,0-2.688-1.232-2.688-2.8
@@ -137,14 +107,11 @@
 					c-1.036,0-1.778,0.924-1.778,2.212c0,1.134,0.686,1.932,1.75,1.932c0.826,0,1.47-0.406,1.806-0.952
 					c0.056-0.112,0.098-0.252,0.098-0.448c0.014-1.568-0.574-2.744-1.862-2.744H122.663z"/>
 			</g>
-			<text transform="matrix(1 0 0 1 162.4258 89.627)"><tspan x="0" y="0" style="&st0; &st7;">7</tspan></text>
-			<text transform="matrix(1 0 0 1 61.7598 123.96)"><tspan x="0" y="0" style="&st0; &st7;">2</tspan></text>
+
 			<g style="&st1;">
 				<path d="M44.198,116.96v-2.478H39.97v-0.798l4.06-5.824h1.33v5.67h1.274v0.952H45.36v2.478H44.198z M44.198,113.53v-3.052
 					c0-0.476,0.014-0.952,0.042-1.428h-0.042c-0.28,0.532-0.504,0.924-0.756,1.358l-2.226,3.094v0.028H44.198z"/>
 			</g>
-			<text transform="matrix(1 0 0 1 62.0928 88.96)"><tspan x="0" y="0" style="&st0; &st7;">2</tspan></text>
-			<text transform="matrix(1 0 0 1 194.7607 16.6265)"><tspan x="0" y="0" style="&st0; &st7;">4</tspan></text>
 			<g style="&st1;">
 				<path d="M263.863,22.959v-2.478h-4.228v-0.798l4.06-5.824h1.33v5.67h1.274v0.952h-1.274v2.478H263.863z M263.863,19.529v-3.052
 					c0-0.476,0.015-0.952,0.043-1.428h-0.043c-0.279,0.532-0.504,0.924-0.756,1.358l-2.226,3.094v0.028H263.863z"/>
@@ -169,27 +136,63 @@
 					c-1.036,0-1.778,0.924-1.778,2.212c0,1.134,0.686,1.932,1.75,1.932c0.826,0,1.47-0.406,1.806-0.952
 					c0.057-0.112,0.099-0.252,0.099-0.448c0.014-1.568-0.574-2.744-1.862-2.744H205.997z"/>
 			</g>
-			<text transform="matrix(1 0 0 1 251.0938 47.6265)"><tspan x="0" y="0" style="&st0; &st7;">3</tspan></text>
-			<text transform="matrix(1 0 0 1 227.3311 28.9146)"><tspan x="0" y="0" style="&st0; &st7;">1</tspan></text>
-			<path d="M67.936,102.438c0-2.059-1.668-3.727-3.727-3.727s-3.727,1.668-3.727,3.727s1.668,3.727,3.727,3.727
-				S67.936,104.496,67.936,102.438z"/>
-			<path d="M55.311,77.438c0-2.059-1.668-3.727-3.727-3.727s-3.727,1.668-3.727,3.727s1.668,3.728,3.727,3.728
-				S55.311,79.496,55.311,77.438z"/>
-			<path d="M54.311,130.938c0-2.059-1.668-3.728-3.727-3.728s-3.727,1.669-3.727,3.728s1.668,3.728,3.727,3.728
-				S54.311,132.996,54.311,130.938z"/>
-			<path d="M17.186,150.188c0-2.059-1.668-3.728-3.727-3.728s-3.727,1.669-3.727,3.728s1.668,3.728,3.727,3.728
-				S17.186,152.246,17.186,150.188z"/>
-			<path d="M182.061,134.688c0-2.059-1.668-3.728-3.727-3.728s-3.728,1.669-3.728,3.728s1.669,3.728,3.728,3.728
-				S182.061,136.746,182.061,134.688z"/>
-			<path d="M125.686,228.438c0-2.059-1.668-3.728-3.727-3.728s-3.728,1.669-3.728,3.728s1.669,3.728,3.728,3.728
-				S125.686,230.496,125.686,228.438z"/>
-			<path d="M176.936,31.688c0-2.059-1.668-3.727-3.727-3.727s-3.728,1.668-3.728,3.727s1.669,3.727,3.728,3.727
-				S176.936,33.746,176.936,31.688z"/>
-			<path d="M236.561,13.563c0-2.059-1.668-3.727-3.727-3.727s-3.728,1.668-3.728,3.727s1.669,3.727,3.728,3.727
-				S236.561,15.621,236.561,13.563z"/>
-			<path d="M246.811,31.188c0-2.059-1.668-3.727-3.727-3.727s-3.728,1.668-3.728,3.727s1.669,3.727,3.728,3.727
-				S246.811,33.246,246.811,31.188z"/>
-			<path d="M289.686,40.688c0-2.059-1.668-3.727-3.727-3.727s-3.728,1.668-3.728,3.727s1.669,3.727,3.728,3.727
-				S289.686,42.746,289.686,40.688z"/>
+
+			<g id="edge-0-9"><text fill="#FFA500" transform="translate(140,178)" font-weight="bold"><tspan x="0" y="0" style="&st0; &st7;">8</tspan></text><path style="&st6;" d="M178.499,134.737l-56.532,93.628"/></g>
+			<g id="edge-1-2"><path style="&st6;" d="M12.927,150.076l36.32-18.984"/><text fill="#FFA500" transform="translate(032,154)" font-weight="bold"><tspan x="0" y="0" style="&st0; &st7;">3</tspan></text></g>
+			<g id="edge-2-3"><path style="&st6;" d="M64.602,101.139L50.724,131"/><text id="edge-2-3-w" fill="#FFA500" transform="translate(062,124)" font-weight="bold"><tspan x="0" y="0" style="&st0; &st7;">2</tspan></text></g>
+			<g id="edge-3-4"><path style="&st6;" d="M64.355,102.402L51.732,77.545"/><text fill="#FFA500" transform="translate(062,088)" font-weight="bold"><tspan x="0" y="0" style="&st0; &st7;">2</tspan></text></g>
+			<g id="edge-3-9"><path style="&st6;" d="M64.355,102.402l114.144,32.335"/><text fill="#FFA500" transform="translate(120,112)" font-weight="bold"><tspan x="0" y="0" style="&st0; &st7;">8</tspan></text></g>
+			<g id="edge-5-6"><path style="&st6;" d="M173.254,31.868l59.658-18.313"/><text fill="#FFA500" transform="translate(196,016)" font-weight="bold"><tspan x="0" y="0" style="&st0; &st7;">4</tspan></text></g>
+			<g id="edge-5-9"><path style="&st6;" d="M178.499,134.737l-5.245-102.869"/><text fill="#FFA500" transform="translate(162,090)" font-weight="bold"><tspan x="0" y="0" style="&st0; &st7;">7</tspan></text></g>
+			<g id="edge-6-7"><path style="&st6;" d="M232.314,12.565l10.584,19.445"/><text fill="#FFA500" transform="translate(224,032)" font-weight="bold"><tspan x="0" y="0" style="&st0; &st7;">1</tspan></text></g>
+			<g id="edge-7-8"><path style="&st6;" d="M243.078,31.271l42.828,9.493"/><text fill="#FFA500" transform="translate(255,050)" font-weight="bold"><tspan x="0" y="0" style="&st0; &st7;">3</tspan></text></g>
+			
+			
+			<g id="vertex-0" transform="translate(122,228)"><circle fill="#FFFFFF" stroke="#FFA500" stroke-width="2" r="8"/><text transform="translate(-3.5,4.5)" font-family="'Helvetica'" font-size="12" font-weight="bold">0</text></g>
+			<g id="vertex-1" transform="translate(012,148)"><circle fill="#FFFFFF" stroke="#FFA500" stroke-width="2" r="8"/><text transform="translate(-3.6,4.5)" font-family="'Helvetica'" font-size="12" font-weight="bold">1</text></g>
+			<g id="vertex-2" transform="translate(049,130)"><circle fill="#FFFFFF" stroke="#FFA500" stroke-width="2" r="8"/><text transform="translate(-3.5,4.5)" font-family="'Helvetica'" font-size="12" font-weight="bold">2</text></g>
+			<g id="vertex-3" transform="translate(064,100)"><circle fill="#FFFFFF" stroke="#FFA500" stroke-width="2" r="8"/><text transform="translate(-3.5,4.5)" font-family="'Helvetica'" font-size="12" font-weight="bold">3</text></g>
+			<g id="vertex-4" transform="translate(49,77)">
+				<circle fill="#FFFFFF" stroke="#FFA500" stroke-width="2" r="8"/>
+				<text transform="translate(-3.5,4.5)" font-family="'Helvetica'" font-size="12" font-weight="bold">
+					4
+				</text>
+			</g>
+
+			<g transform="translate(172,32)">
+				<circle fill="#FFFFFF" stroke="#FFA500" stroke-width="2" r="8"/>
+				<text transform="translate(-3.5,4.5)" font-family="'Helvetica'" font-size="12" font-weight="bold">
+					5
+				</text>
+			</g>
+
+			<g transform="translate(232,10)">
+				<circle fill="#FFFFFF" stroke="#FFA500" stroke-width="2" r="8"/>
+				<text transform="translate(-3.5,4.5)" font-family="'Helvetica'" font-size="12" font-weight="bold">
+					6
+				</text>
+			</g>
+
+			<g transform="translate(244,32)">
+				<circle fill="#FFFFFF" stroke="#FFA500" stroke-width="2" r="8"/>
+				<text transform="translate(-3.5,4.5)" font-family="'Helvetica'" font-size="12" font-weight="bold">
+					7
+				</text>
+			</g>
+
+			<g transform="translate(288,40)">
+				<circle fill="#FFFFFF" stroke="#FFA500" stroke-width="2" r="8"/>
+				<text transform="translate(-3.5,4.5)" font-family="'Helvetica'" font-size="12" font-weight="bold">
+					8
+				</text>
+			</g>
+
+			<g transform="translate(178,134)">
+				<circle fill="#FFFFFF" stroke="#FFA500" stroke-width="2" r="8"/>
+				<text transform="translate(-3.5,4.5)" font-family="'Helvetica'" font-size="12" font-weight="bold">
+					9
+				</text>
+			</g>
+		
 		</g>
 	</svg>

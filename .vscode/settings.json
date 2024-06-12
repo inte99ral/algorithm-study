@@ -146,6 +146,12 @@
     "sstream": "cpp",
     "new": "cpp",
     "*.tcc": "cpp",
-    "ostream": "cpp"
+    "ostream": "cpp",
+    "format": "cpp",
+    "list": "cpp",
+    "string": "cpp",
+    "vector": "cpp",
+    "array": "cpp",
+    "iosfwd": "cpp"
   }
 }
