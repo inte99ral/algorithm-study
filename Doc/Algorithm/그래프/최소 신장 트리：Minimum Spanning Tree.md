@@ -6,11 +6,11 @@
 - 이산수학에서 그래프이론으로 접근할 때는 그래프의 모든 간선 중에서 모든 정점들이 연결되는 최소한의 간선만 선택한 부분그래프(Subgraph)로 볼 수 있습니다. 따라서, 신장 부분 그래프(Spanning Subgraph)라고도 부릅니다.
 - 필연적으로 모든 정점이 연결되어 있는 n 개의 정점을 가지는 신장 트리의 간선의 수는 n-1 개 입니다. <br/> <center>`(정점1) <-(간선1)-> (정점2) ... <-(간선 N-1)-> (정점 N)`</center>
 - 필연적으로 순환(循環, Cycle)이 존재하지 않습니다. 여기서 사이클이란 임의의 정점를 시작점으로 두고 간선을 따라 일방향으로 이동할 때, 시작점으로 다시 돌아올 수 있는 경우를 의미합니다.
-- 하나의 그래프에는 여러 개의 신장 트리가 존재할 수 있습니다.<br/><center><img src="./asset/MST/0.svg" title="From https://ko.wikipedia.org/wiki/%EC%8B%A0%EC%9E%A5_%EB%B6%80%EB%B6%84_%EA%B7%B8%EB%9E%98%ED%94%84 By Quartl CC BY-SA 3.0" style="width:50vw; aspect-ratio: 2 / 1"/><br/>다음의 그래프 조건은 8개의 신장부분그래프를 가집니다.</center>
+- 하나의 그래프에는 여러 개의 신장 트리가 존재할 수 있습니다.<br/><center><img src="../asset/Graph/Minimum Spanning Tree/0.svg" title="From https://ko.wikipedia.org/wiki/%EC%8B%A0%EC%9E%A5_%EB%B6%80%EB%B6%84_%EA%B7%B8%EB%9E%98%ED%94%84 By Quartl CC BY-SA 3.0" style="width:50vw; aspect-ratio: 2 / 1"/><br/>다음의 그래프 조건은 8개의 신장부분그래프를 가집니다.</center>
 
 <br/>
 
-- <b>최소 신장 트리(Minimum Spanning Tree)</b>란, 각 간선 마다 비용, 시간, 길이 등의 가중치 값이 존재할 경우, 신장 트리 중에서 가장 가중치 합계를 가진 신장 트리를 말합니다.<br/><center><img src="./asset/MST/1.svg" title="From https://ko.wikipedia.org/wiki/%EC%8B%A0%EC%9E%A5_%EB%B6%80%EB%B6%84_%EA%B7%B8%EB%9E%98%ED%94%84 By No machine-readable author provided" style="width:50vw; aspect-ratio: 2 / 1"/><br/>다음의 그래프 조건에서 신장 트리의 최소 비용은 38 입니다.</center>
+- <b>최소 신장 트리(Minimum Spanning Tree)</b>란, 각 간선 마다 비용, 시간, 길이 등의 가중치 값이 존재할 경우, 신장 트리 중에서 가장 가중치 합계를 가진 신장 트리를 말합니다.<br/><center><img src="../asset/Graph/Minimum Spanning Tree/1.svg" title="From https://ko.wikipedia.org/wiki/%EC%8B%A0%EC%9E%A5_%EB%B6%80%EB%B6%84_%EA%B7%B8%EB%9E%98%ED%94%84 By No machine-readable author provided" style="width:50vw; aspect-ratio: 2 / 1"/><br/>다음의 그래프 조건에서 신장 트리의 최소 비용은 38 입니다.</center>
 
 <br/>
 
@@ -282,6 +282,8 @@ public class Main {
 - 반복문이 정점의 수 V 만큼 반복하고, 다시 내부의 반복문이 V 만큼 반복하기 때문에 정점의 수 V에 대한 시간 복잡도는 O(V²) 입니다.
 - 그래프에 정점의 수보다 간선이 매우 많이 존재하는 밀집 그래프(Dense Graph)의 경우는 Prim 알고리즘이 적합합니다.
 
+<br/>
+
 #### C++
 
 ```cpp
@@ -406,6 +408,8 @@ int main() {
 }
 ```
 
+<br/>
+
 #### Java
 
 ```java
@@ -515,6 +519,8 @@ public class Main {
 }
 ```
 
+<br/>
+
 ### 3. Prim 알고리즘 + Priority Queue
 
 - Priority Queue를 사용하면 알고리즘 개선이 가능합니다.
@@ -532,6 +538,8 @@ public class Main {
   5. 가장 가까운 정점의 간선을 모두 큐에 집어넣습니다.
 
 - 우선순위 큐의 힙정렬 덕분에 V 만큼 탐색하지 않아도 ElogE 안에 가장 짧은 간선을 찾아냅니다.
+
+<br/>
 
 #### C++
 
@@ -654,6 +662,8 @@ int main() {
   return 0;
 }
 ```
+
+<br/>
 
 #### Java
 

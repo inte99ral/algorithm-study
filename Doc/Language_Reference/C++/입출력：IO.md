@@ -57,3 +57,24 @@ int main() {
 ```
 
 </br>
+
+## 채우기
+
+```cpp
+// # OUTPUT
+  {
+    for (int y = 1; y < Y + 1; y++) {
+      for (int x = 1; x < X + 1; x++) {
+        if (matrix[y][x] == 0) {
+          cout << "   ";
+          continue;
+        }
+
+        cout.width(2);
+        cout.fill(' ');
+        cout << matrix[y][x] << ' ';
+      }
+      cout << endl;
+    }
+  }
+```

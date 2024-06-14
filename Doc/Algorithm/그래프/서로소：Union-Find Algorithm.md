@@ -24,7 +24,7 @@
 <br/>
 
 <center>
-<img src="..\asset\Union-Find\0.svg" title="From I" style="width:20vw; aspect-ratio: 1 / 1"/>
+<img src="..\asset\Graph\Union-Find\0.svg" title="From I" style="width:20vw; aspect-ratio: 1 / 1"/>
 
 <br/>
 
