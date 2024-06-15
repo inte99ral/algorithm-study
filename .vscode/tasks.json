@@ -108,6 +108,44 @@
       }
     },
 
+    // 백준 채점용 C++ 컴파일
+    {
+      "label": "C++: 백준 풀이 빌드",
+      "detail": "백준 C++17 표준옵션으로 컴파일합니다.",
+      "type": "cppbuild",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "command": "g++",
+      // g++ Main.cc -o Main -O2 -Wall -lm -static -std=gnu++17 -DONLINE_JUDGE -DBOJ
+      "args": [
+        "${fileDirname}\\**.cpp",
+        "-o",
+        "${fileDirname}\\${fileBasenameNoExtension}.exe",
+        "-O2", // loop unrolling, function inlining, 메모리 및 속도희생을 제외한 모든 범위 최적화
+        "-Wall", // 모든 모호한 코딩에 대해서 경고를 보내는 옵션
+        "-lm", // math libarary 사용
+        "-static", // 정적 라이브러리와 공유 라이브러리 중 정적을 우선한다. 속도는 빠르지만 파일 사이즈가 커짐
+        "-std=gnu++17" // C++17 Clang GNU 확장기능 유효
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": {
+        "owner": "cpp",
+        "fileLocation": ["relative", "${workspaceRoot}"],
+        "pattern": {
+          "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        }
+      }
+    },
+
     // C++ include 경로 빌드
     {
       "label": "C++: g++ - include",

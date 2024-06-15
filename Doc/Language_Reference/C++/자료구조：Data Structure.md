@@ -2,6 +2,8 @@
 
 ## 큐 queue
 
+### 덱：Deque (Double-Ended Queue)
+
 ### 우선순위 큐
 
 https://learn.microsoft.com/ko-kr/cpp/standard-library/priority-queue-class?view=msvc-170
