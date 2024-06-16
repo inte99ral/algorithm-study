@@ -7,26 +7,20 @@ int main() {
   cin.tie(nullptr);
   cout.tie(nullptr);
 
-  int arr[5] = {5, 4, 6, 2, 1};
+  map<int, int> iMap;
 
-  priority_queue<int> pq;
+  iMap[2] = 5;
+  iMap[2] = -5;
 
-  for (int i : arr) {
-    pq.push(i);
+  iMap[2]++;
+
+  vector<string> t = {"1", "1", "1", "1", "1", "1"};
+
+  for (string s : t) {
+    cout << s << " ";
   }
-
-  while (!pq.empty()) {
-    cout << pq.top();
-    pq.pop();
-  }
-
-  // sort(arr, arr + 5, [](int o1, int o2) -> bool { return o1 < o2; });
-
-  // for (int i : arr) {
-  //   cout << i << "\n";
-  // }
-
   
+  // cout << iMap[2];
 
   return 0;
 }

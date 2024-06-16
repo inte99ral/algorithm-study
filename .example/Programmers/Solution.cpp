@@ -2,10 +2,12 @@
 
 using namespace std;
 
-// -- Header =========================
+// # Prototype Declaration ====================
 int solution(vector<vector<int>> targets);
+// # Global Variable & Constant================
 
-// -- Local Input ====================
+// # Implements Definition ====================
+// ## Main
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
@@ -16,7 +18,6 @@ int main() {
     string rawInput;
     string buffer;
     regex regExp("[0-9]+");
-
 
     freopen(".example\\Programmers\\question\\input.txt", "rt", stdin);
     getline(cin, rawInput);
@@ -33,21 +34,17 @@ int main() {
     }
   }
 
-  cout << "[answer]: " + to_string(solution(input)) << '\n';
+  cout << solution(input) << '\n';
   return 0;
 }
 
-// -- Solution =======================
-/**
- * 2차원 배열 데이터 전용
- */
+// ## Solution
 int solution(vector<vector<int>> targets) {
-  int answer = 0;
+  int answer = -1;
 
   for(vector<int> target : targets) {
-    cout << "[" << target[0] << ", " << target[1] << "]" << "\n";
+    cout << "[" << target[0] << ", " << target[1] << "]\n";
   }
 
   return answer;
 }
-

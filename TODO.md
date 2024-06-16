@@ -28,6 +28,7 @@
 - [x] 2024.04.04 | [BJ 17135](Problem\Solved\Baekjoon\Gold\3\BJ_17135\question\info.md) 캐슬 디펜스 `#GoldⅢ` `#구현` `#그래프` `#브루트포스` `#너비우선탐색`
 - [x] 2024.04.23 | [BJ 2252](Problem\Solved\Baekjoon\Gold\3\BJ_2252\question\info.md) 줄 세우기 `#GoldⅢ` `#그래프` `#위상 정렬` `#방향 비순환 그래프`
 - [x] 2024.06.16 | [BJ 17472](Problem\Solved\Baekjoon\Gold\1\BJ_17472\question\info.md) 다리 만들기 2 `#GoldⅠ` `#구현` `#그래프` `#최소 스패닝 트리`
+- [x] 2024.06.16 | [PG 42576](Problem\Solved\Programmers\Level_1\PG_42576\question\info.md) 완주하지 못한 선수 `#Level 1` `#해시`
 
 <br />
 
@@ -35,7 +36,6 @@
 
 # FIXME:
 
-- [ ] [PG 42576](Problem\Failed\Programmers\Hash\Level_1\PG_42576\question\info.md) 완주하지 못한 선수 `Level 1` `해시`
 - [ ] PG 42579 베스트앨범 레벨3 해시
 - [ ] PG 42578 의상 레벨 2 해시
 - [ ] PG 17677 뉴스 클러스터링 레벨2 2018_KAKAO_BLIND_RECRUITMENT 1차
