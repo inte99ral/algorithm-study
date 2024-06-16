@@ -22,10 +22,12 @@
 - [x] 2024.01.02 | [BJ 15651 N과 M (3) #Silver/3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15651\question\info.md)
 - [x] 2024.01.02 | [BJ 4963 섬의 개수 #Silver/2 #그래프이론 #그래프탐색 #너비우선탐색 #깊이우선탐색](Problem\Solved\Baekjoon\Silver\2\BJ_4963\question\info.md)
 - [x] 2024.01.17 | [BJ 1992 쿼드트리 #Silver/1 #분할정복 #재귀](Problem\Solved\Baekjoon\Silver\1\BJ_1992\question\info.md)
-- [x] 2024.03.22 | + 추가학습 요구 DFS말고 일렬로 세워서 풀수 있을거같음 [BJ 15686 치킨 배달 #Gold/5 #그래프탐색](Problem\Failed\Baekjoon\Gold\5\BJ_15686\question\info.md)
-- [x] 2024.03.22 | + 시간 아슬아슬했음 [BJ 7576](Problem\Failed\Baekjoon\Gold\5\BJ_7576\question\info.md) 토마토 `#GoldⅤ` `#그래프` `#그래프 탐색` `#너비 우선 탐색`
+- [x] 2024.03.22 | [BJ 15686 치킨 배달 #Gold/5 #그래프탐색](Problem\Failed\Baekjoon\Gold\5\BJ_15686\question\info.md)
+
+- [x] 2024.03.22 | [BJ 7576](Problem\Failed\Baekjoon\Gold\5\BJ_7576\question\info.md) 토마토 `#GoldⅤ` `#그래프` `#그래프 탐색` `#너비 우선 탐색`
 - [x] 2024.04.04 | [BJ 17135](Problem\Solved\Baekjoon\Gold\3\BJ_17135\question\info.md) 캐슬 디펜스 `#GoldⅢ` `#구현` `#그래프` `#브루트포스` `#너비우선탐색`
 - [x] 2024.04.23 | [BJ 2252](Problem\Solved\Baekjoon\Gold\3\BJ_2252\question\info.md) 줄 세우기 `#GoldⅢ` `#그래프` `#위상 정렬` `#방향 비순환 그래프`
+- [x] 2024.06.16 | [BJ 17472](Problem\Solved\Baekjoon\Gold\1\BJ_17472\question\info.md) 다리 만들기 2 `#GoldⅠ` `#구현` `#그래프` `#최소 스패닝 트리`
 
 <br />
 
@@ -33,9 +35,8 @@
 
 # FIXME:
 
-- [ ] [BJ 17472](Problem\Failed\Baekjoon\Gold\1\BJ_17472\question\info.md) 다리 만들기 2 `#GoldⅠ`
+- [ ] [PG 42576](Problem\Failed\Programmers\Hash\Level_1\PG_42576\question\info.md) 완주하지 못한 선수 `Level 1` `해시`
 - [ ] PG 42579 베스트앨범 레벨3 해시
-- [ ] PG 42576 완주하지 못한 선수 레벨1 해시
 - [ ] PG 42578 의상 레벨 2 해시
 - [ ] PG 17677 뉴스 클러스터링 레벨2 2018_KAKAO_BLIND_RECRUITMENT 1차
 - [ ] PG 17680 캐시 레벨2 2018_KAKAO_BLIND_RECRUITMENT 1차
