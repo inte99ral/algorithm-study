@@ -7,20 +7,34 @@ int main() {
   cin.tie(nullptr);
   cout.tie(nullptr);
 
-  map<int, int> iMap;
+  int N = 2;
+  int R = 3;
+  int size = 0;
+  int data[R] = {};
 
-  iMap[2] = 5;
-  iMap[2] = -5;
+  while (data[0] != N) {
+    if (size == R) {
+      for (int r = 0; r < R; r++) {
+        cout << data[r] << ", ";
+      }
+      cout << "\b\b \n";
 
-  iMap[2]++;
+      size--;
+      data[size]++;
+      continue;
+    }
 
-  vector<string> t = {"1", "1", "1", "1", "1", "1"};
-
-  for (string s : t) {
-    cout << s << " ";
+    // * 커서 후퇴
+    if (data[size] == N) {
+      data[size] = 0;
+      size--;
+      data[size]++;
+    }
+    // * 커서 전진
+    else {
+      size++;
+    }
   }
-  
-  // cout << iMap[2];
 
   return 0;
 }

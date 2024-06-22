@@ -1,5 +1,38 @@
 # 자료구조：Data Structure
 
+## 맵：Map
+
+### 원소 삭제 map.erase
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
+
+  map<int, int> iMap;
+
+  iMap[2] = 5;
+  iMap[2] = -5;
+
+  iMap[2]++;
+
+  vector<string> t = {"1", "2", "3", "4", "5", "6"};
+
+  t.erase(t.begin() + 2, t.begin() + 4);
+
+  for (string s : t) {
+    cout << s << " ";
+  }
+
+  return 0;
+}
+```
+
 ## 큐 queue
 
 ### 덱：Deque (Double-Ended Queue)

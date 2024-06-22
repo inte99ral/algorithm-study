@@ -52,12 +52,12 @@
 
 using namespace std;
 
-// Prototype Declaration ====================
+// # Prototype Declaration ====================
 void makeSet(int x);
 int findSet(int x);
 void unionSet(int x, int y);
 
-// Global Variable & Constant================
+// # Global Variable & Constant================
 const string input =
   "10 21\n"
   "0 1 9\n"
@@ -87,7 +87,7 @@ const string input =
 int* nodes;
 int** edges;
 
-// Implements Definition ====================
+// # Implements Definition ====================
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);

@@ -72,7 +72,7 @@
 
 ## 우분투 OS 설치 및 환경설정
 
-### 리눅스 설치
+### 우분투 설치
 
 - 리눅스답게 설정이 제멋대로인 부분이 있어서 처음부터 한국어로 설치하고 필요한 부분을 영어로 수정하는 편이 편합니다.
 - 어디에 설치하냐는 질문에 Manual installation 선택
@@ -201,13 +201,137 @@
 
 <br/>
 
-#### Wget
+#### Microsoft Edge 설치
 
-```bash
-$ sudo apt install software-properties-common apt-transport-https wget #software-properties-common : add-apt-repository 추가
-#apt-transport-https : https를 통해 데이터 및 패키지에 접근
-#wget : HTTP/FTP 통신 파일 다운로드 소프트웨어
-```
+- 난 곧 죽어도 엣지를 쓰겠다
+- 파이어폭스 삭제
+
+  ```bash
+  $ sudo apt purge firefox
+  ```
+
+- 엣지 설치
+
+  ```bash
+  $ sudo apt update #설치 가능한 패키지 리스트를 최신화
+
+  $ sudo apt install software-properties-common apt-transport-https wget #software-properties-common : add-apt-repository 추가
+  #apt-transport-https : https를 통해 데이터 및 패키지에 접근
+  #wget : HTTP/FTP 통신 파일 다운로드 소프트웨어
+
+  $ wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add - #wget을 이용해서 마이크로소프트의 GPG 키를 다운로드합니다. GPG 키는 비공개키 알고리즘의 형태이며 설치 프로그램의 무결성을 판단하기 위해서 필요합니다.
+
+  $ sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" #엣지 브라우저 레포지토리 활성화
+
+  $ sudo apt install microsoft-edge-dev #엣지 패키지 다운로드
+
+  $ microsoft-edge #엣지 실행 명령어
+
+  #새 버전이 릴리즈 됬을 경우
+
+  $ sudo apt update #업데이트 리스트 최신화
+
+  $ sudo apt upgrade #Edge 패키지를 업데이트
+  ```
+
+#### Visual Studio Code 설치
+
+- VS code 설치
+
+  - 난 곧 죽어도 vscode로 코딩을 하겠다
+  - 엣지 설치와 크게 다르지 않습니다.
+
+    ```bash
+    $ sudo apt update #설치 가능한 패키지 리스트를 최신화
+
+    $ sudo apt install software-properties-common apt-transport-https wget #HTTP/FTP 통신 파일 다운로드 소프트웨어 wget 설치
+
+    $ wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add - #wget을 이용해서 마이크로소프트의 GPG 키를 다운로드합니다. GPG 키는 비공개키 알고리즘의 형태이며 설치 프로그램의 무결성을 판단하기 위해서 필요합니다.
+
+    $ sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" #vscode 레포지토리 활성화
+
+    $ sudo apt install code #vscode 패키지 다운로드
+
+    $ code #vscode 실행 명령어
+
+    $ sudo code --user-data-dir="열 폴더 따옴표 포함" #관리자 권한으로 실행
+
+    #새 버전이 릴리즈 됬을 경우
+
+    $ sudo apt update #업데이트 리스트 최신화
+
+    $ sudo apt upgrade #Edge 패키지를 업데이트
+    ```
+
+<br/>
+
+#### Waydroid 안드로이드 OS 에뮬레이터
+
+- [동영상](https://www.youtube.com/watch?v=tJ-Mna_zi0o)
+- [공식 문서](https://docs.waydro.id/usage/install-on-desktops)
+- 디스플레이 서버를 X11에서 Wayland 로 변경하기
+
+  - Waydroid는 Wayland를 기반으로 돌아갑니다.
+  - 터미널에 echo $XDG_SESSION_TYPE 를 입력하면 확인이 가능합니다.
+  - 로그오프하여 로그인 화면으로 돌아가면 우측하단에 톱니바퀴가 있습니다. 클릭하면 바꿀 수 있습니다.
+  - 오류 해결 1. 설정에서 Wayland가 막혀있는 지 확인
+
+    ```bash
+    $ sudo vi /etc/gdm3/custom.conf
+    #해당 파일에서 WaylandEnable=true 주석 해제 및 true 설정
+
+    $ sudo systemctl restart gdm3 #적용된 gdm3
+    ```
+
+  - update-alternatives --config x-session-manager
+  - 바꾸고 나서 오류가 나거나 아예 켜지지 않고 로그인 화면으로 돌아가는 경우도 있습니다.<br/>
+    wayland 는 최신 nvidia 드라이버와 충돌하는 이슈가 있기 때문입니다.<br/>
+    세 가지 방법 중 하나로 해결해야 합니다.
+    1. nouveau 오픈소스 그래픽 드라이버로 바꾼다.
+    2. nvidia 드라이버의 버전을 470 이하로 낮춘다.
+    3. nvidia 드라이버의 Wayland 호환 라이브러리를 설치한다.
+       ```bash
+       $ sudo apt install libnvidia-egl-wayland1
+       $ sudo nano /etc/gdm3/custom.conf #파일에서 WaylandEnable=true 설정
+       $ sudo systemctl restart gdm3 #리스타트
+       ```
+
+<br/>
+
+- 폴더 정리
+  - ㄴㅇㄴㅇ
+
+<br/>
+
+- Waydroid 설치
+
+  ```bash
+  #방법 1. Curl 로 받아오기
+  #Curl 설치
+  $ sudo apt install curl ca-certificates -y
+  $ curl https://repo.waydro.id | sudo bash
+
+  #방법 2. wget 으로 받아오기
+  # -q 로깅을 하지 않는다
+  # -O 다운로드 출력을 stdout으로 리다이렉팅 한다
+  $ wget -q -O- https://repo.waydro.id | sudo bash
+
+  #Waydroid 설치
+  $ sudo apt install waydroid -y
+
+  #Waydroid-container service 서비스 제어 명령으로 시스템에 등록
+  sudo systemctl enable --now waydroid-container
+
+  #앱을 처음 키면 initializer VANILLA GAPPS 중 하나 선택
+  #VANILLA = 안드로이드 에뮬레이터만 설치
+  #GAPPS = 구글 생태계 앱 설치
+  ```
+
+- Google Play Certification
+
+  - [링크](https://docs.waydro.id/faq/google-play-certification)
+
+- [문제해결 공식문서](https://docs.waydro.id/usage/install-on-desktops)
 
 <br/>
 
@@ -282,7 +406,39 @@ $ sudo apt install software-properties-common apt-transport-https wget #software
 3. uim 한글입력기 https://blog.naver.com/tinz6461/221870269557
 4. fcitx 한글입력기 https://wscode.tistory.com/121
 
-##### kr.archive.ubuntu.com'의 주소를 알아낼 수 없습니다
+### 우분투 테마 꾸미기
+
+- 사전 준비
+
+  - 예시용 테마
+    - [WhiteSur-gtk-theme](https://github.com/vinceliuice/WhiteSur-gtk-theme)
+    - [영상 자료](https://www.youtube.com/watch?v=hQDhTIX4k7s&t=491s)
+
+- 다운로드
+
+  ```bash
+  #gnome
+  $ sudo apt install gnome-shell-extensions
+  $ sudo apt install gnome-shell-extension-manager
+  $ sudo apt install gnome-tweaks
+
+  #예시용 테마 설치
+  $ cd "theme 폴더 위치 경로"
+  $ ./install.sh -m -t all -l -N stable --normal --round #./install.sh -h 로 옵션 검색가능
+
+  #마우스 테마
+  #입력 후 원하는 마우스 테마 번호 입력 엔터
+  $ sudo update-alternative --config x-cursor-theme
+  ```
+
+- 마우스 커서 변경 [참고링크](https://blog.naver.com/sto0750/10167757885)
+- 확장 관리자(extension manager) 앱을 켜서 확장 검색 탭에서 User Themes, Blur my Shell 를 검색 후 설치
+- 설치된 확장 탭에서 User Themes 가 켜있는지 확인
+- 기능 개선(tweaks)
+
+## 에러 대응책
+
+### kr.archive.ubuntu.com'의 주소를 알아낼 수 없습니다
 
 1. DNS 주소 변경
 
@@ -305,17 +461,7 @@ $ sudo apt install software-properties-common apt-transport-https wget #software
    - /etc/apt/sources.list 은 /etc/apt/sources.list.d/ubuntu.sources 로 위치가 바뀌었습니다.
    - [참고링크](https://sh1r0hacker.tistory.com/124)
 
-### 우클릭으로 새 파일 만들기 옵션
-
-- 터미널 열고 $ 에서 다음의 명령어를 입력해주세요
-  ```bash
-  $ mkdir -p ~/Templates/Text # Templates 폴더에 Text 서식 추가
-  $ touch ~/Templates/Text/document # Templates 폴더에 빈 파일 서식 생성
-  ```
-
-<br/>
-
-### Nvidia 그래픽 드라이버
+### Nvidia 그래픽 드라이버 문제
 
 - 주의 사항
 - Nouveau 드라이버 비활성화
@@ -349,11 +495,11 @@ $ sudo apt install software-properties-common apt-transport-https wget #software
   $ cat /proc/driver/nvidia/version #없으면 No such file or directory
 
   #선택 1. 드라이버 목록 중에서 "nvidia-driver-<>" 수동설치
-  # 주의사항!! : 호환성 문제로 X11이 기본 디스플레이 서버입니다.
-  # Wayland 는 엔비디아드라이버 470 이상의 버전과 충돌합니다.
-  # Wayland 로 렌더링하는 상황이 필요하다면 470 이하의 드라이버를 받거나 호환성 nouveau 드라이버를 사용해야합니다.
+  # 주의사항!! : 엔비디아 칩과 호환성 문제로 X11이 기본 디스플레이 서버일 수 있습니다.
+  # Wayland 는 엔비디아드라이버 535 이전의 버전과 충돌합니다.
+  # Wayland 로 렌더링하는 상황이 필요하다면 535 이상의 드라이버를 받거나 호환성 nouveau 드라이버를 사용해야합니다.
   $ sudo ubuntu-drivers devices #설치가능한 드라이버 목록
-  $ sudo apt install nvidia-driver-470
+  $ sudo apt install nvidia-driver-535
 
   #선택 2. 권장 드라이버 자동설치
   $ sudo add-apt-repository ppa:graphics-drivers/ppa
@@ -407,172 +553,6 @@ $ sudo apt install software-properties-common apt-transport-https wget #software
 
 <br/>
 
-<br/>
-
-### Microsoft Edge 설치
-
-- 난 곧 죽어도 엣지를 쓰겠다
-- 파이어폭스 삭제
-
-  ```bash
-  $ sudo apt purge firefox
-  ```
-
-- 엣지 설치
-
-  ```bash
-  $ sudo apt update #설치 가능한 패키지 리스트를 최신화
-
-  $ sudo apt install software-properties-common apt-transport-https wget #software-properties-common : add-apt-repository 추가
-  #apt-transport-https : https를 통해 데이터 및 패키지에 접근
-  #wget : HTTP/FTP 통신 파일 다운로드 소프트웨어
-
-  $ wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add - #wget을 이용해서 마이크로소프트의 GPG 키를 다운로드합니다. GPG 키는 비공개키 알고리즘의 형태이며 설치 프로그램의 무결성을 판단하기 위해서 필요합니다.
-
-  $ sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" #엣지 브라우저 레포지토리 활성화
-
-  $ sudo apt install microsoft-edge-dev #엣지 패키지 다운로드
-
-  $ microsoft-edge #엣지 실행 명령어
-
-  #새 버전이 릴리즈 됬을 경우
-
-  $ sudo apt update #업데이트 리스트 최신화
-
-  $ sudo apt upgrade #Edge 패키지를 업데이트
-  ```
-
-### Visual Studio Code 설치
-
-- VS code 설치
-
-  - 난 곧 죽어도 vscode로 코딩을 하겠다
-  - 엣지 설치와 크게 다르지 않습니다.
-
-    ```bash
-    $ sudo apt update #설치 가능한 패키지 리스트를 최신화
-
-    $ sudo apt install software-properties-common apt-transport-https wget #HTTP/FTP 통신 파일 다운로드 소프트웨어 wget 설치
-
-    $ wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add - #wget을 이용해서 마이크로소프트의 GPG 키를 다운로드합니다. GPG 키는 비공개키 알고리즘의 형태이며 설치 프로그램의 무결성을 판단하기 위해서 필요합니다.
-
-    $ sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" #vscode 레포지토리 활성화
-
-    $ sudo apt install code #vscode 패키지 다운로드
-
-    $ code #vscode 실행 명령어
-
-    $ sudo code --user-data-dir="열 폴더 따옴표 포함" #관리자 권한으로 실행
-
-    #새 버전이 릴리즈 됬을 경우
-
-    $ sudo apt update #업데이트 리스트 최신화
-
-    $ sudo apt upgrade #Edge 패키지를 업데이트
-    ```
-
-<br/>
-
-### Waydroid 안드로이드 OS 에뮬레이터
-
-- [동영상](https://www.youtube.com/watch?v=tJ-Mna_zi0o)
-- [공식 문서](https://docs.waydro.id/usage/install-on-desktops)
-- 디스플레이 서버를 X11에서 Wayland 로 변경하기
-
-  - Waydroid는 Wayland를 기반으로 돌아갑니다.
-  - 터미널에 echo $XDG_SESSION_TYPE 를 입력하면 확인이 가능합니다.
-  - 로그오프하여 로그인 화면으로 돌아가면 우측하단에 톱니바퀴가 있습니다. 클릭하면 바꿀 수 있습니다.
-  - 오류 해결 1. 설정에서 Wayland가 막혀있는 지 확인
-
-    ```bash
-    $ sudo vi /etc/gdm3/custom.conf
-    #해당 파일에서 WaylandEnable=true 주석 해제 및 true 설정
-
-    $ sudo systemctl restart gdm3 #적용된 gdm3
-    ```
-
-  - update-alternatives --config x-session-manager
-  - 바꾸고 나서 오류가 나거나 아예 켜지지 않고 로그인 화면으로 돌아가는 경우도 있습니다.<br/>
-    wayland 는 최신 nvidia 드라이버와 충돌하는 이슈가 있기 때문입니다.<br/>
-    세 가지 방법 중 하나로 해결해야 합니다.
-    1. nouveau 오픈소스 그래픽 드라이버로 바꾼다.
-    2. nvidia 드라이버의 버전을 470 이하로 낮춘다.
-    3. nvidia 드라이버의 Wayland 호환 라이브러리를 설치한다.
-       ```bash
-       $ sudo apt install libnvidia-egl-wayland1
-       $ sudo nano /etc/gdm3/custom.conf #파일에서 WaylandEnable=true 설정
-       $ sudo systemctl restart gdm3 #리스타트
-       ```
-
-<br/>
-
-- 폴더 정리
-  - ㄴㅇㄴㅇ
-
-<br/>
-
-- Waydroid 설치
-
-  ```bash
-  #방법 1. Curl 로 받아오기
-  #Curl 설치
-  $ sudo apt install curl ca-certificates -y
-  $ curl https://repo.waydro.id | sudo bash
-
-  #방법 2. wget 으로 받아오기
-  # -q 로깅을 하지 않는다
-  # -O 다운로드 출력을 stdout으로 리다이렉팅 한다
-  $ wget -q -O- https://repo.waydro.id | sudo bash
-
-  #Waydroid 설치
-  $ sudo apt install waydroid -y
-
-  #Waydroid-container service 서비스 제어 명령으로 시스템에 등록
-  sudo systemctl enable --now waydroid-container
-
-  #앱을 처음 키면 initializer VANILLA GAPPS 중 하나 선택
-  #VANILLA = 안드로이드 에뮬레이터만 설치
-  #GAPPS = 구글 생태계 앱 설치
-  ```
-
-- Google Play Certification
-
-  - [링크](https://docs.waydro.id/faq/google-play-certification)
-
-- [문제해결 공식문서](https://docs.waydro.id/usage/install-on-desktops)
-
-<br/>
-
-### 우분투 테마 꾸미기
-
-- 사전 준비
-
-  - 예시용 테마
-    - [WhiteSur-gtk-theme](https://github.com/vinceliuice/WhiteSur-gtk-theme)
-    - [영상 자료](https://www.youtube.com/watch?v=hQDhTIX4k7s&t=491s)
-
-- 다운로드
-
-  ```bash
-  #gnome
-  $ sudo apt install gnome-shell-extensions
-  $ sudo apt install gnome-shell-extension-manager
-  $ sudo apt install gnome-tweaks
-
-  #예시용 테마 설치
-  $ cd "theme 폴더 위치 경로"
-  $ ./install.sh -m -t all -l -N stable --normal --round #./install.sh -h 로 옵션 검색가능
-
-  #마우스 테마
-  #입력 후 원하는 마우스 테마 번호 입력 엔터
-  $ sudo update-alternative --config x-cursor-theme
-  ```
-
-- 마우스 커서 변경 [참고링크](https://blog.naver.com/sto0750/10167757885)
-- 확장 관리자(extension manager) 앱을 켜서 확장 검색 탭에서 User Themes, Blur my Shell 를 검색 후 설치
-- 설치된 확장 탭에서 User Themes 가 켜있는지 확인
-- 기능 개선(tweaks)
-
 ## OS 관리 및 제거
 
 ### 배드섹터 검사
@@ -580,7 +560,6 @@ $ sudo apt install software-properties-common apt-transport-https wget #software
 - [참고 링크](https://sharkmino.tistory.com/1543)
 - OS가 설치된 디스크를 검사하려면 USB 부팅을 통해서 접근해야 합니다.
 - $ sudo fdisk -l `# 디스크 목록 확인`
-- $
 
 ### 특정 프로그램 제거
 
@@ -638,7 +617,7 @@ $ sudo apt install software-properties-common apt-transport-https wget #software
 
     ```bash
     bootrec /fixmbr
-    bootrec /fixboot
+    bootrec /fixboot #액세스가 거부되었으면 다음으로 넘어가세요.
     bootrec /scanos #OS 스캔 명령이라 조금 기다리셔야 합니다.
     bootrec /rebuildbcd #부트레코드를 복구하는 명령이기에 복구 정도를 물어봅니다. Add installation to boot list? Yes(Y)/No(N)/All(A) 질문이 뜬다면 A 를 입력해주면 됩니다.
 

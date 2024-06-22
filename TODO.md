@@ -23,7 +23,6 @@
 - [x] 2024.01.02 | [BJ 4963 섬의 개수 #Silver/2 #그래프이론 #그래프탐색 #너비우선탐색 #깊이우선탐색](Problem\Solved\Baekjoon\Silver\2\BJ_4963\question\info.md)
 - [x] 2024.01.17 | [BJ 1992 쿼드트리 #Silver/1 #분할정복 #재귀](Problem\Solved\Baekjoon\Silver\1\BJ_1992\question\info.md)
 - [x] 2024.03.22 | [BJ 15686 치킨 배달 #Gold/5 #그래프탐색](Problem\Failed\Baekjoon\Gold\5\BJ_15686\question\info.md)
-
 - [x] 2024.03.22 | [BJ 7576](Problem\Failed\Baekjoon\Gold\5\BJ_7576\question\info.md) 토마토 `#GoldⅤ` `#그래프` `#그래프 탐색` `#너비 우선 탐색`
 - [x] 2024.04.04 | [BJ 17135](Problem\Solved\Baekjoon\Gold\3\BJ_17135\question\info.md) 캐슬 디펜스 `#GoldⅢ` `#구현` `#그래프` `#브루트포스` `#너비우선탐색`
 - [x] 2024.04.23 | [BJ 2252](Problem\Solved\Baekjoon\Gold\3\BJ_2252\question\info.md) 줄 세우기 `#GoldⅢ` `#그래프` `#위상 정렬` `#방향 비순환 그래프`
@@ -45,6 +44,7 @@
 - [ ] Doc/Lang_Ref/c++/RapidJson
 - [ ] Doc/Lang_Ref/Windows/%%
 - [ ] https://www.acmicpc.net/problem/5397
+- [ ] [SWEA 20671](Problem\Unsolved\SWEA\D5\SWEA_19118\Solution.cpp) 숫자 카드 `#D5`
 
 <br />
 
