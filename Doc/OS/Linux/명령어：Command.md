@@ -12,6 +12,48 @@
 <center>
 <table class="example">
   <tr class="center">
+    <th>동작</th>
+    <th>명령어</th>
+  </tr>
+  <tr>
+    <td>명령처리<br />준비상황</td>
+    <td>
+
+```bash
+# 명령어 줄 가장 앞에 표기되는 지표입니다.
+"$" #means you are a normal user.
+"#" #means you are the system administrator
+"%" #In the C shell, the prompt ends with percentage sign
+```
+
+  </td>
+  </tr>
+  <tr>
+    <td>압축</td>
+    <td>
+
+```bash
+#zip 파일 압축
+$ sudo apt-get install zip #zip 패키지를 필요로 합니다.
+$ zip {압축 파일명}.zip ./* #모든 파일(./*)을 {압축파일명}.zip 으로 압축합니다.
+
+#zip 파일 압축 풀기
+$ sudo apt-get install unzip #unzip 패키지를 필요로 합니다.
+
+$ unzip {압축 파일명}.zip #zip 압축 풀기
+$ unzip {압축 파일명}.zip -d /home/{디렉토리} #특정 디렉토리에 압축풀기
+```
+
+  </td>
+  </tr>
+</table>
+</center>
+
+### 목록
+
+<center>
+<table class="example">
+  <tr class="center">
     <th>명령어</th><th>유래</th><th>동작</th><th>예시</th>
   </tr>
   <tr>

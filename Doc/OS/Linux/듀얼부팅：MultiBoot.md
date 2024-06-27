@@ -98,7 +98,8 @@
 - snap이 사용하는 사용 공간이나 (sudo fdisk -l 등을 써보면 패키지 의존성 격리를 위한 dev/loop 파티션이 수두룩하게 나옵니다.) , 자유로운 패키지 배포 환경에서 패키지 통합 시스템의 존재 자체가 부정적으로 받아들여지는 부분이 있습니다. (윈도우 내에서 마이크로소프트 스토어 사용을 강제하는 느낌이라고 이해하시면 될 것 같습니다.)
 
   ```bash
-  $ sudo apt-mark hold snapd #앞으로 apt에서 snap 자동설치를 막습니다
+  $ sudo apt-mark hold snap #앞으로 apt에서 snap 자동설치를 막습니다
+  $ sudo apt-mark hold snapd #앞으로 apt에서 snapd 자동설치를 막습니다
   $ sudo apt-mark showhold #홀드 목록 확인
   $ sudo apt update
   $ sudo apt upgrade
@@ -165,6 +166,66 @@
 <br/>
 
 ### 보조 프로그램 설치
+
+#### 그놈 쉘 확장：Gnome Shell Extensions
+
+- 명령어
+
+  ```bash
+  $ sudo apt install gnome-shell-extensions #확장 묶음
+  $ sudo apt install gnome-shell-extension-manager #확장 관리자
+  $ sudo apt install gnome-tweaks #기능 개선
+  ```
+
+- 사용법
+
+  - 앱 서랍에서 확장 관리자 검색 후 실행
+    - `확장 관리자 - 확장 검색`에서 확장 검색
+    - `확장 관리자 - 설치된 확장`에서 적용 및 설정
+  - 앱 서랍에서 기능 개선(또는 gnome-tweak) 에서 테마 세부 조정
+
+- 자주 쓰이는 확장
+
+  - Blur my shell
+
+    - Overview(앱 서랍)과 Panel(상단 바)에 반투명 디자인을 적용
+    - Ubuntu 24 이후 dash board(작업 표시줄) 에는 이미 투명 디자인이 적용되었기 때문에 충돌함. `확장 관리자 - 설치된 확장` 에서 톱니바퀴 모양 설정에 들어가 대시보드에 적용은 해제할 것
+
+  - User Themes
+
+    - 각종 유저 테마를 적용합니다.
+
+      ```bash
+      #WhiteSur-gtk-theme
+      #https://github.com/vinceliuice/WhiteSur-gtk-theme
+      $ cd "theme 폴더 위치 경로"
+      #./install.sh -h 로 다른 옵션 검색가능
+      $ ./install.sh -m -t all -l -N stable --normal --round
+
+      #마우스 테마 변경
+      #방법 1 - 세션 위에서만 적용
+      # /home/{사용자이름}/.icons 폴더가 없다면 만들어주세요.
+      # .icons 폴더 안에 테마폴더를 집어넣으세요.
+      # 기능개선(tweaks) 모양새에서 커서를 바꿀 수 있습니다.
+      # 커서 크기는 설정-접근성-보기 항목에 커서 크기가 있습니다.
+
+      #방법 2 - 시스템 전체 적용
+      # 다운로드 받은 테마폴더를 /usr/share/icons로 옮깁니다.
+      sudo mv ./{테마폴더명} /usr/share/icons
+
+      # 테마폴더 index.theme 파일에 "inherits={고유이름}" 을 적습니다.
+      # 다음 명령어를 기입합니다.
+      # sudo update-alternatives --install <link> <name> <path> <priority>
+      sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme /usr/share/icons/ComixCursors-LH-White-Small/index.theme 91
+
+      # 터미널에서 해당 명령어 입력 후 원하는 마우스 테마 번호 입력 엔터
+      $ sudo update-alternatives --config x-cursor-theme
+      ```
+
+  - Compiz alike magic lamp effect
+    - MacOS 처럼 지니 요술램프 효과를 적용합니다.
+
+<br />
 
 #### Surface Pro 보조 세팅
 
@@ -238,7 +299,6 @@
 
 - VS code 설치
 
-  - 난 곧 죽어도 vscode로 코딩을 하겠다
   - 엣지 설치와 크게 다르지 않습니다.
 
     ```bash
@@ -337,6 +397,17 @@
 
 ### 키보드 & 언어팩 설정
 
+#### 시스템 한국어 미적용 문제
+
+- 우분투 상단바 우측을 클릭하면 톱니바퀴 모양의 설정 버튼이 있습니다.
+- 설정 <br/>`-⇀` 시스템 <br/>`-⇀` 지역 및 언어(Region & Language) <br/>`-⇀` 설치된 언어 관리(Manage Installed languages)
+- \[ Install / Remove Language... \] 클릭하여 한국어를 선택하고 apply를 눌러주세요.
+- 드래그하여 한국어를 영어보다 최상단으로 올려주세요.
+- \[ Apply System-Wide \] 를 클릭하여 전역적으로 설정을 맞춰주세요.
+- 해당 창의 Regional Formats 탭으로 넘어가서 시간표기 포맷도 한국어로 바꿔줄 수 있습니다.
+- 변경된 언어 설정은 Restart 다시시작 후에 적용됩니다.
+- 다시시작하면 폴더명을 한글 이름에 맞춰 바꿀 것인지 물어보는데 영어로 유지하는 편이 좋습니다. 한글명 폴더에서는 문제가 생기는 경우가 있어요.
+
 #### 폴더명 영어로 변경
 
 - 바탕화면, 문서등 시스템 폴더 명은 항상 영어로 유지하는 편이 좋습니다.
@@ -369,74 +440,105 @@
 - 위와 같이 실제 한글명 폴더들도 모두 영어로 수정해주세요. 아예 삭제하시고 새로 영어명 폴더를 만들어주셔도 괜찮습니다.
 - 로그오프 후 다시 로그인하면 수정이 끝납니다.
 
-#### 한글 키보드 문제 수정
-
-- [Improved OSK GNOME extension](https://www.omglinux.com/improved-gnome-on-screen-keyboard/)
-
-##### 시스템 한국어 미적용 문제
-
-- 우분투 상단바 우측을 클릭하면 톱니바퀴 모양의 설정 버튼이 있습니다.
-- 설정 <br/>`-⇀` 시스템 <br/>`-⇀` 지역 및 언어(Region & Language) <br/>`-⇀` 설치된 언어 관리(Manage Installed languages)
-- \[ Install / Remove Language... \] 클릭하여 한국어와 영어를 선택하고 apply를 눌러주세요.
-- 드래그하여 한국어를 영어보다 최상단으로 올려주세요.
-- \[ Apply System-Wide \] 를 클릭하여 전역적으로 설정을 맞춰주세요.
-- 해당 창의 Regional Formats 탭으로 넘어가서 시간표기 포맷도 한국어로 바꿔줄 수 있습니다.
-- 변경된 언어 설정은 Restart 다시시작 후에 적용됩니다.
-- 다시시작하면 폴더명을 한글 이름에 맞춰 바꿀 것인지 물어보는데 영어로 유지하는 편이 좋습니다. 한글명 폴더에서는 문제가 생기는 경우가 있어요.
-
-##### 한영키 작동안함
+#### 한영키 작동안함
 
 - 설정 `-⇀` 키보드 항목에서 \[입력 소스 추가\] 버튼을 클릭해주세요.
 - 한국어 `-⇀` 한국어(Hangul) 을 추가해준 다음 다른 키보드를 전부 삭제해주세요.
 - 한국어(Hangul) 키보드 칸 우측의 ⁝ 버튼을 클릭하시면 기본 설정 창을 킬 수 있습니다.
 - 한영전환키 항목에 추가를 누르시고 현 키보드의 한영키를 눌러주세요. 보통은 Alt_R(오른쪽 알트키) 입니다. 추가하고 싶은 한영키 동작 버튼이 있으시면 추가하셔도 됩니다.
 
-##### On-Screen Keyboard Layout
+#### 한글 자모음 분리
 
-- 우분투 상단바 우측을 클릭하면 톱니바퀴 모양의 설정 버튼이 있습니다.
+- 우분투는 기본적으로 ibus 를 입력기로 사용합니다. ibus는 다국어 입력을 지원은 하지만 영어 외의 언어에서 문제가 발생하기도 합니다.
+- 첫번째 방법은 다른 입력기를 사용하는 것입니다.
+- 두번째 방법은 ibus 한글 지원버전인 ibus-hangul이 제대로 적용되고 있는지 확인하는 것 입니다.
 
-##### 한글 자모음 분리
+1. ibus 해결안
 
-1. ibus 해결안 https://jhoplin7259.tistory.com/69
+   ```bash
+   #우분투 최신버전에서는 이미 ibus-hangul을 지원합니다.
+   $ apt list --installed ibus* #ibus-hangul 있는지 확인
+
+   #없다면 패키지 리스트 직접 추가 후 설치
+   $ sudo add-apt-repository ppa:createsc/3beol
+   $ sudo apt-get update
+   $ sudo apt-get install ibus ibus-hangul
+
+   #있다면 최신화
+   $ sudo apt-get install --only-upgrade ibus-hangul
+
+   ibus-setup #Ibus 기본 설정창
+   #입력기에서 한국어 추가하기
+   ```
 
 - ibus 한글 패치 설치를 위해 PPA(Personal Package Archive) 를 추가해주어야합니다. 리눅스의 업데이트는 각 프로그램이 직접하지 않고 패키지 저장소를 통해서 진행됩니다. 공식적인 패키지 저장소에서는 대중적인 프로그램들만 주로 담겨있습니다. PPA는 Third Party Software에 대한 패키지를 위해서 런치패드에서 제공하는 개인용 소프트웨어 패키지 저장소입니다.
 - $ sudo add-apt-repository ppa:createsc/3beol
 
-2. nimf 한글입력기 https://blog.naver.com/tinz6461/221870269557
-3. uim 한글입력기 https://blog.naver.com/tinz6461/221870269557
-4. fcitx 한글입력기 https://wscode.tistory.com/121
+1. nimf 한글입력기 https://blog.naver.com/tinz6461/221870269557
+2. uim 한글입력기 https://blog.naver.com/tinz6461/221870269557
+3. fcitx 한글입력기 https://wscode.tistory.com/121
 
-### 우분투 테마 꾸미기
+#### 화면 키보드 문제
 
-- 사전 준비
+- [Improved OSK GNOME extension](https://www.omglinux.com/improved-gnome-on-screen-keyboard/)
+- [수정 중](https://github.com/inte99ral/IMPROVED_OSK_KR)
 
-  - 예시용 테마
-    - [WhiteSur-gtk-theme](https://github.com/vinceliuice/WhiteSur-gtk-theme)
-    - [영상 자료](https://www.youtube.com/watch?v=hQDhTIX4k7s&t=491s)
+##### On-Screen Keyboard Layout
 
-- 다운로드
+- 우분투 상단바 우측을 클릭하면 톱니바퀴 모양의 설정 버튼이 있습니다.
 
-  ```bash
-  #gnome
-  $ sudo apt install gnome-shell-extensions
-  $ sudo apt install gnome-shell-extension-manager
-  $ sudo apt install gnome-tweaks
+## 에러 대응책 및 조언
 
-  #예시용 테마 설치
-  $ cd "theme 폴더 위치 경로"
-  $ ./install.sh -m -t all -l -N stable --normal --round #./install.sh -h 로 옵션 검색가능
+### APT 패키지 설치 문제
 
-  #마우스 테마
-  #입력 후 원하는 마우스 테마 번호 입력 엔터
-  $ sudo update-alternative --config x-cursor-theme
-  ```
+#### 소프트웨어 및 업데이트 설정
 
-- 마우스 커서 변경 [참고링크](https://blog.naver.com/sto0750/10167757885)
-- 확장 관리자(extension manager) 앱을 켜서 확장 검색 탭에서 User Themes, Blur my Shell 를 검색 후 설치
-- 설치된 확장 탭에서 User Themes 가 켜있는지 확인
-- 기능 개선(tweaks)
+- 소프트웨어 및 업데이트 앱 클릭
+- 인터넷에서 다운로드 가능한 소프트웨어 항목 체크 상태 확인
 
-## 에러 대응책
+#### 미러링 주소로 변경
+
+기본적으로 패키지 목록은 https://archive.ubuntu.com/ubuntu 주소에서 받아옵니다.
+
+```bash
+# 현재 패키지 목록을 받아오는 주소 확인
+apt-add-repository -L
+
+#source.list 파일 수정
+sudo vi /etc/apt/sources.list
+
+#파일 내에는 주소가 한 줄마다 다음의 법칙을 따라 작성되어 있습니다.
+# <package version> <mirror site url> <release code> <repository component1, component2, ...>
+
+#<Repository Component> 는 다음과 같습니다.
+# Main : Ubuntu 무료 및 오픈소스 소프트웨어
+# Universe : Linux 커뮤니티의 무료 및 오픈소스 소프트웨어
+# Restricted : Vender 장치 드라이버 및 소프트웨어
+# Multiverse : 법적 제한(저작권 등)이 있는 소프트웨어
+#(예시) deb http://archive.ubuntu.com/ubuntu jammy-backports main restricted
+
+
+```
+
+#### E: Package {패키지명} has no installation candidate
+
+- E: Package {패키지명} has no installation candidate
+  Ubuntu 가 설치되면 기본적으로 아래와 같이 /etc/apt/sources.list 파일로 Repository 가 관리됩니다.
+
+### 우클릭을 해도 새 파일을 만들 수가 없습니다.
+
+- 터미널에서 `vi {파일명}` 이나 `gedit {파일명}` 명령어로 생성하실 수 있습니다.
+- /home/{사용자이름}/Templates 폴더 안에 예시용 빈 파일을 넣으시면 우클릭으로 생성하는 서식으로 취급됩니다.
+
+### 시스템 폴더나 숨긴 파일들이 안보입니다
+
+- 탐색기에서 `Ctrl + H` 단축키를 입력하시면 숨긴 파일들이 보입니다.
+- Linux 체계에선 .으로 시작하는 폴더나 파일은 숨긴 파일로 취급합니다.
+
+### apt 패키지 주소 중복
+
+- 여러 패키지를 받는 과정에서 같은 패키지를 중복으로 요청할 경우에 발생합니다.
+- 중복되는 패키지 주소 중 하나만 남기고 rm 명령어로 삭제해주시면 됩니다.
 
 ### kr.archive.ubuntu.com'의 주소를 알아낼 수 없습니다
 
