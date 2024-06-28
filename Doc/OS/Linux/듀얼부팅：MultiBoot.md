@@ -169,7 +169,9 @@
 
 #### 그놈 쉘 확장：Gnome Shell Extensions
 
-- 명령어
+##### 설치 과정
+
+- 명령어 입력
 
   ```bash
   $ sudo apt install gnome-shell-extensions #확장 묶음
@@ -177,53 +179,72 @@
   $ sudo apt install gnome-tweaks #기능 개선
   ```
 
-- 사용법
+##### 사용법
 
-  - 앱 서랍에서 확장 관리자 검색 후 실행
-    - `확장 관리자 - 확장 검색`에서 확장 검색
-    - `확장 관리자 - 설치된 확장`에서 적용 및 설정
-  - 앱 서랍에서 기능 개선(또는 gnome-tweak) 에서 테마 세부 조정
+- 앱 서랍에서 확장 관리자 검색 후 실행
+  - `확장 관리자 - 확장 검색`에서 확장 검색
+  - `확장 관리자 - 설치된 확장`에서 적용 및 설정
+- 앱 서랍에서 기능 개선(또는 gnome-tweak) 에서 테마 세부 조정
 
-- 자주 쓰이는 확장
+##### 주로 쓰이는 확장
 
-  - Blur my shell
+- Blur my shell
 
-    - Overview(앱 서랍)과 Panel(상단 바)에 반투명 디자인을 적용
-    - Ubuntu 24 이후 dash board(작업 표시줄) 에는 이미 투명 디자인이 적용되었기 때문에 충돌함. `확장 관리자 - 설치된 확장` 에서 톱니바퀴 모양 설정에 들어가 대시보드에 적용은 해제할 것
+  - Overview(앱 서랍)과 Panel(상단 바)에 반투명 디자인을 적용
+  - Ubuntu 24 이후 dash board(작업 표시줄) 에는 이미 투명 디자인이 적용되었기 때문에 충돌함. `확장 관리자 - 설치된 확장` 에서 톱니바퀴 모양 설정에 들어가 대시보드에 적용은 해제할 것
 
-  - User Themes
+- User Themes
 
-    - 각종 유저 테마를 적용합니다.
+  - 각종 유저 테마를 적용합니다.
 
-      ```bash
-      #WhiteSur-gtk-theme
-      #https://github.com/vinceliuice/WhiteSur-gtk-theme
-      $ cd "theme 폴더 위치 경로"
-      #./install.sh -h 로 다른 옵션 검색가능
-      $ ./install.sh -m -t all -l -N stable --normal --round
+    ```bash
+    #WhiteSur-gtk-theme
+    #https://github.com/vinceliuice/WhiteSur-gtk-theme
+    $ cd "theme 폴더 위치 경로"
+    #./install.sh -h 로 다른 옵션 검색가능
+    $ ./install.sh -m -t all -l -N stable --normal --round
 
-      #마우스 테마 변경
-      #방법 1 - 세션 위에서만 적용
-      # /home/{사용자이름}/.icons 폴더가 없다면 만들어주세요.
-      # .icons 폴더 안에 테마폴더를 집어넣으세요.
-      # 기능개선(tweaks) 모양새에서 커서를 바꿀 수 있습니다.
-      # 커서 크기는 설정-접근성-보기 항목에 커서 크기가 있습니다.
+    #마우스 테마 변경
+    #방법 1 - 세션 위에서만 적용
+    # /home/{사용자이름}/.icons 폴더가 없다면 만들어주세요.
+    # .icons 폴더 안에 테마폴더를 집어넣으세요.
+    # 기능개선(tweaks) 모양새에서 커서를 바꿀 수 있습니다.
+    # 커서 크기는 설정-접근성-보기 항목에 커서 크기가 있습니다.
 
-      #방법 2 - 시스템 전체 적용
-      # 다운로드 받은 테마폴더를 /usr/share/icons로 옮깁니다.
-      sudo mv ./{테마폴더명} /usr/share/icons
+    #방법 2 - 시스템 전체 적용
+    # 다운로드 받은 테마폴더를 /usr/share/icons로 옮깁니다.
+    sudo mv ./{테마폴더명} /usr/share/icons
 
-      # 테마폴더 index.theme 파일에 "inherits={고유이름}" 을 적습니다.
-      # 다음 명령어를 기입합니다.
-      # sudo update-alternatives --install <link> <name> <path> <priority>
-      sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme /usr/share/icons/ComixCursors-LH-White-Small/index.theme 91
+    # 테마폴더 index.theme 파일에 "inherits={고유이름}" 을 적습니다.
+    # 다음 명령어를 기입합니다.
+    # sudo update-alternatives --install <link> <name> <path> <priority>
+    sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme /usr/share/icons/ComixCursors-LH-White-Small/index.theme 91
 
-      # 터미널에서 해당 명령어 입력 후 원하는 마우스 테마 번호 입력 엔터
-      $ sudo update-alternatives --config x-cursor-theme
-      ```
+    # 터미널에서 해당 명령어 입력 후 원하는 마우스 테마 번호 입력 엔터
+    $ sudo update-alternatives --config x-cursor-theme
+    ```
 
-  - Compiz alike magic lamp effect
-    - MacOS 처럼 지니 요술램프 효과를 적용합니다.
+- Compiz alike magic lamp effect
+  - MacOS 처럼 지니 요술램프 효과를 적용합니다.
+
+##### 제거 방법
+
+- 명령어 입력
+
+  ```bash
+  sudo gnome-extensions uninstall
+
+  # 특정 확장 기능은 uninstall 이 안되는 경우가 있습니다.
+  # System extension should be uninstalled using package manager
+  # 시스템 확장 기능은 설치를 제거할 수 없습니다
+
+  # ~/.local/share/gnome-shell/extensions 같은 개인 설정이 아니라
+  # /usr/share/gnome-shell/extensions 시스템 설정에 있기 때문에 그렇습니다.
+  # 직접 해당 확장 기능의 폴더를 삭제해주시면 됩니다.
+
+  cd /usr/share/gnome-shell/extensions
+  sudo rm -rf "예시용 확장 기능 폴더 이름@예시용.com"
+  ```
 
 <br />
 
@@ -450,8 +471,8 @@
 #### 한글 자모음 분리
 
 - 우분투는 기본적으로 ibus 를 입력기로 사용합니다. ibus는 다국어 입력을 지원은 하지만 영어 외의 언어에서 문제가 발생하기도 합니다.
-- 첫번째 방법은 다른 입력기를 사용하는 것입니다.
-- 두번째 방법은 ibus 한글 지원버전인 ibus-hangul이 제대로 적용되고 있는지 확인하는 것 입니다.
+- 첫번째 방법은 ibus 한글 지원버전인 ibus-hangul이 제대로 적용되고 있는지 확인하는 것 입니다.
+- 두번째 방법은 다른 입력기를 사용하는 것입니다.
 
 1. ibus 해결안
 
@@ -471,17 +492,47 @@
    #입력기에서 한국어 추가하기
    ```
 
-- ibus 한글 패치 설치를 위해 PPA(Personal Package Archive) 를 추가해주어야합니다. 리눅스의 업데이트는 각 프로그램이 직접하지 않고 패키지 저장소를 통해서 진행됩니다. 공식적인 패키지 저장소에서는 대중적인 프로그램들만 주로 담겨있습니다. PPA는 Third Party Software에 대한 패키지를 위해서 런치패드에서 제공하는 개인용 소프트웨어 패키지 저장소입니다.
-- $ sudo add-apt-repository ppa:createsc/3beol
-
-1. nimf 한글입력기 https://blog.naver.com/tinz6461/221870269557
-2. uim 한글입력기 https://blog.naver.com/tinz6461/221870269557
-3. fcitx 한글입력기 https://wscode.tistory.com/121
+2. 다른 입력기 설치
+   1. nimf 한글입력기 https://blog.naver.com/tinz6461/221870269557
+   2. uim 한글입력기 https://blog.naver.com/tinz6461/221870269557
+   3. fcitx 한글입력기 https://wscode.tistory.com/121
 
 #### 화면 키보드 문제
 
 - [Improved OSK GNOME extension](https://www.omglinux.com/improved-gnome-on-screen-keyboard/)
 - [수정 중](https://github.com/inte99ral/IMPROVED_OSK_KR)
+- edfdf
+
+```bash
+
+# 시스템 전역 적용 ====================
+
+# dconf user profile 생성
+# 참고링크 : https://docs.redhat.com/ko/documentation/red_hat_enterprise_linux/7/html/desktop_migration_and_administration_guide/profiles
+# /etc/dconf/profile/ 에 user 라는 파일 생성
+# /etc/dconf/profile/user 파일 내부에 다음의 내용 기입
+"
+user-db:user #~/.config/dconf에 있는 사용자 데이터베이스의 이름
+system-db:local #/etc/dconf/db/에 있는 시스템 데이터베이스
+"
+
+# Create a local database for machine-wide settings
+# /etc/dconf/db/local.d/ 에 00-extensions 라는 파일 생성
+# /etc/dconf/db/local.d/00-extensions 파일 내부에 다음의 내용 기입
+"
+[org/gnome/shell]
+# List all extensions that you want to have enabled for all users
+# The enabled-extensions key specifies the enabled extensions using the extensions’ uuid
+# (예시 : improvedosk@nick-shmyrev.dev)
+enabled-extensions=['myextension1@myname.example.com', 'myextension2@myname.example.com']
+"
+
+# Update the system databases
+sudo dconf update
+
+## .sh 쉘 스크립트 파일이 허가 거부받을 경우
+chmod +x filename #파일에게 x(special excute) 권한을 +(추가)
+```
 
 ##### On-Screen Keyboard Layout
 

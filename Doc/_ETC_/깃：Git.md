@@ -41,7 +41,7 @@ git config --global user.email "사용자 이메일" #사용자 이메일 설정
   </td>
   </tr>
   <tr>
-    <td>저장소 생성</td>
+    <td>저장소 <br />신규 생성</td>
     <td>
 
 ```bash

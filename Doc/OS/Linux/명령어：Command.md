@@ -46,6 +46,38 @@ $ unzip {압축 파일명}.zip -d /home/{디렉토리} #특정 디렉토리에 �
 
   </td>
   </tr>
+  <tr>
+    <td>패키지 다운로드</td>
+    <td>
+
+```bash
+# apt : Advanced Packaging Tool
+# ★ : 관리자 권한 필요
+# apt-get 은 더 low 한 단계의 명령입니다.
+
+apt update #★패키지를 다운로드 할 수 있는 저장소를 업데이트한다.
+
+apt list --upgradable #업그레이드가 가능한 패키지 목록을 출력한다.
+
+apt upgrade #★전체 패키지를 업그레이드한다.
+
+apt install 패키지 이름 #★특정 패키지를 설치한다
+apt install --only-upgrade 패키지 이름 #★특정 패키지만 업그레이드한다.
+
+apt list *패키지이름* #이름이 포함된 패키지 모두 검색
+apt list --installed #설치된 패키지 목록을 출력한다.
+apt search 검색어 #패키지를 검색한다.
+apt show 패키지 이름 #특정 패키지에 대한 정보를 확인한다.
+
+apt remove 패키지 이름 #★특정 패키지를 삭제합니다.
+apt purge 패키지 이름 #★특정 패키지와 관계된 모든 의존성을 숙청합니다.
+
+# PPA는 Third Party Software에 대한 패키지를 위해서 런치패드에서 제공하는 개인용 소프트웨어 패키지 저장소를 말합니다.
+add-apt-repository ppa:{개인용 패키지 저장소 (예시 : createsc/3beol)}
+```
+
+  </td>
+  </tr>
 </table>
 </center>
 
@@ -141,36 +173,6 @@ undo(실행취소) - u
 저장 - :w
 저장 후 종료 - :wq
 저장 후 종료 - :ZZ
-```
-
-  </td>
-  </tr>
-  <tr>
-    <td>apt</td>
-    <td>Advanced Packaging Tool</td>
-    <td>패키지 다운로드</td>
-    <td>
-
-```bash
-#★ : 관리자 권한 필요
-# apt-get 은 더 low 한 단계의 명령입니다.
-
-apt update #★패키지를 다운로드 할 수 있는 저장소를 업데이트한다.
-
-apt list --upgradable #업그레이드가 가능한 패키지 목록을 출력한다.
-
-apt upgrade #★전체 패키지를 업그레이드한다.
-
-apt install 패키지 이름 #★특정 패키지를 설치한다
-apt install --only-upgrade 패키지 이름 #★특정 패키지만 업그레이드한다.
-
-apt list *패키지이름* #이름이 포함된 패키지 모두 검색
-apt list --installed #설치된 패키지 목록을 출력한다.
-apt search 검색어 #패키지를 검색한다.
-apt show 패키지 이름 #특정 패키지에 대한 정보를 확인한다.
-
-apt remove 패키지 이름 #★특정 패키지를 삭제합니다.
-apt purge 패키지 이름 #★특정 패키지와 관계된 모든 의존성을 숙청합니다.
 ```
 
   </td>
