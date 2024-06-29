@@ -504,9 +504,16 @@
 - edfdf
 
 ```bash
+# 기본 적용 ===========================
+
+./package-extension.sh
+gnome-extensions install improvedosk@nick-shmyrev.dev.shell-extension.zip
+gnome-extensions enable improvedosk@nick-shmyrev.dev
+
 
 # 시스템 전역 적용 ====================
 
+# 1. dconf 데이터 베이스 설정 =========
 # dconf user profile 생성
 # 참고링크 : https://docs.redhat.com/ko/documentation/red_hat_enterprise_linux/7/html/desktop_migration_and_administration_guide/profiles
 # /etc/dconf/profile/ 에 user 라는 파일 생성
@@ -516,7 +523,7 @@ user-db:user #~/.config/dconf에 있는 사용자 데이터베이스의 이름
 system-db:local #/etc/dconf/db/에 있는 시스템 데이터베이스
 "
 
-# Create a local database for machine-wide settings
+# local database for machine-wide settings 생성
 # /etc/dconf/db/local.d/ 에 00-extensions 라는 파일 생성
 # /etc/dconf/db/local.d/00-extensions 파일 내부에 다음의 내용 기입
 "
@@ -527,11 +534,33 @@ system-db:local #/etc/dconf/db/에 있는 시스템 데이터베이스
 enabled-extensions=['myextension1@myname.example.com', 'myextension2@myname.example.com']
 "
 
-# Update the system databases
+# 시스템 데이터베이스 업데이트
 sudo dconf update
 
-## .sh 쉘 스크립트 파일이 허가 거부받을 경우
-chmod +x filename #파일에게 x(special excute) 권한을 +(추가)
+
+# 2. improved osk 확장 설치 ==========
+
+git clone https://github.com/nick-shmyrev/improved-osk-gnome-ext.git #깃 복제
+git clone https://github.com/inte99ral/IMPROVED_OSK_KR.git #깃 복제
+cd ./improved-osk-gnome-ext #복제한 폴더 로 이동
+
+#src/metadata.json 내용 수정
+"
+{
+  // gnome-extensions --version 으로 본인 버전 확인 후 추가
+  "shell-version": ["43", "44", "46"],
+  // 세션모드에 대한 서술 추가
+  "session-modes": ["user", "gdm", "unlock-dialog"]
+}
+"
+
+#그놈 쉘 버전과 맞지 않다면 그놈 쉘의 버전체크 거절
+gsettings set org.gnome.shell disable-extension-version-validation true
+
+./package-extension.sh
+./install-as-global-extension.sh
+## sh 쉘 스크립트 파일이 허가 거부받을 경우
+chmod +x install-as-global-extension.sh #파일에게 x(special excute) 권한을 +(추가)
 ```
 
 ##### On-Screen Keyboard Layout
