@@ -3,7 +3,8 @@
 using namespace std;
 
 // # Prototype Declaration ====================
-int solution(vector<vector<int>> targets);
+vector<int> solution(vector<string> genres, vector<int> plays);
+
 // # Global Variable & Constant================
 
 // # Implements Definition ====================
@@ -12,39 +13,73 @@ int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
   cout.tie(nullptr);
-  vector<vector<int>> input;
+
+  vector<string> genres;
+  vector<int> plays;
+  vector<int> output;
 
   {
     string rawInput;
     string buffer;
-    regex regExp("[0-9]+");
+    regex regExp("[0-9a-zA-Z]+");
 
-    freopen(".example\\Programmers\\question\\input.txt", "rt", stdin);
+    freopen("Problem/Failed/Programmers/Level_3/PG_42579/question/input.txt", "rt", stdin);
+    
     getline(cin, rawInput);
 
-    sregex_token_iterator iter(
+    // sregex_token_iterator iter(
+    //   rawInput.begin(),
+    //   rawInput.end(),
+    //   regExp
+    // ), end;
+
+    sregex_token_iterator iter;
+    sregex_token_iterator end;
+
+    iter = sregex_token_iterator(
       rawInput.begin(),
       rawInput.end(),
       regExp
-    ), end;
+    );
 
     while(iter != end) {
-      vector<int> tempVec = {stoi(*iter++), stoi(*iter++)};
-      input.push_back(tempVec);
+      genres.push_back(*iter++);
+    }
+
+    getline(cin, rawInput);
+
+    iter = sregex_token_iterator(
+      rawInput.begin(),
+      rawInput.end(),
+      regExp
+    );
+
+    while(iter != end) {
+      plays.push_back(stoi(*iter++));
     }
   }
 
-  cout << solution(input) << '\n';
+  
+  solution(genres, plays);
+
   return 0;
 }
 
 // ## Solution
-int solution(vector<vector<int>> targets) {
-  int answer = -1;
+vector<int> solution(vector<string> genres, vector<int> plays) {
+  vector<int> answer;
 
-  for(vector<int> target : targets) {
-    cout << "[" << target[0] << ", " << target[1] << "]\n";
+  cout << "[genres] :\n";
+  for (string s : genres) {
+    cout << s << ", ";
   }
+  cout << "\b\b \n\n";
+
+  cout << "[plays] :\n";
+  for (int i : plays) {
+    cout << i << ", ";
+  }
+  cout << "\b\b \n\n";
 
   return answer;
 }

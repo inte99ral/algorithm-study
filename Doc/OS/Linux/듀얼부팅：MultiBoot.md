@@ -76,8 +76,8 @@
 
 - 리눅스답게 설정이 제멋대로인 부분이 있어서 처음부터 한국어로 설치하고 필요한 부분을 영어로 수정하는 편이 편합니다.
 - 어디에 설치하냐는 질문에 Manual installation 선택
-- swap 파티션 지정 (스왑 파티션은 일반적으로는 램 크기의 1.5 ~ 2배, 대강 10~20GB 정도로 잡는다.)
-- Ext4 파티션 지정 (Mount point는 '/' 로 지정합니다.)
+- swap 논리 파티션 지정 (스왑 파티션은 일반적으로는 램 크기의 1.5 ~ 2배, 대강 10~20GB 정도로 잡는다.)
+- Ext4 주 파티션 지정 (Mount point는 '/' 로 지정합니다.)
 
 <br/>
 
@@ -167,96 +167,6 @@
 
 ### 보조 프로그램 설치
 
-#### 그놈 쉘 확장：Gnome Shell Extensions
-
-##### 설치 과정
-
-- 명령어 입력
-
-  ```bash
-  $ sudo apt install gnome-shell-extensions #확장 묶음
-  $ sudo apt install gnome-shell-extension-manager #확장 관리자
-  $ sudo apt install gnome-tweaks #기능 개선
-  ```
-
-##### 사용법
-
-- 앱 서랍에서 확장 관리자 검색 후 실행
-  - `확장 관리자 - 확장 검색`에서 확장 검색
-  - `확장 관리자 - 설치된 확장`에서 적용 및 설정
-- 앱 서랍에서 기능 개선(또는 gnome-tweak) 에서 테마 세부 조정
-
-##### 주로 쓰이는 확장
-
-- Blur my shell
-
-  - Overview(앱 서랍)과 Panel(상단 바)에 반투명 디자인을 적용
-  - Ubuntu 24 이후 dash board(작업 표시줄) 에는 이미 투명 디자인이 적용되었기 때문에 충돌함. `확장 관리자 - 설치된 확장` 에서 톱니바퀴 모양 설정에 들어가 대시보드에 적용은 해제할 것
-
-- User Themes
-
-  - 각종 유저 테마를 적용합니다.
-
-    ```bash
-    #WhiteSur-gtk-theme
-    #https://github.com/vinceliuice/WhiteSur-gtk-theme
-    $ cd "theme 폴더 위치 경로"
-    #./install.sh -h 로 다른 옵션 검색가능
-    $ ./install.sh -m -t all -l -N stable --normal --round
-
-    #마우스 테마 변경
-    #방법 1 - 세션 위에서만 적용
-    # /home/{사용자이름}/.icons 폴더가 없다면 만들어주세요.
-    # .icons 폴더 안에 테마폴더를 집어넣으세요.
-    # 기능개선(tweaks) 모양새에서 커서를 바꿀 수 있습니다.
-    # 커서 크기는 설정-접근성-보기 항목에 커서 크기가 있습니다.
-
-    #방법 2 - 시스템 전체 적용
-    # 다운로드 받은 테마폴더를 /usr/share/icons로 옮깁니다.
-    sudo mv ./{테마폴더명} /usr/share/icons
-
-    # 테마폴더 index.theme 파일에 "inherits={고유이름}" 을 적습니다.
-    # 다음 명령어를 기입합니다.
-    # sudo update-alternatives --install <link> <name> <path> <priority>
-    sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme /usr/share/icons/ComixCursors-LH-White-Small/index.theme 91
-
-    # 터미널에서 해당 명령어 입력 후 원하는 마우스 테마 번호 입력 엔터
-    $ sudo update-alternatives --config x-cursor-theme
-    ```
-
-- Compiz alike magic lamp effect
-  - MacOS 처럼 지니 요술램프 효과를 적용합니다.
-
-##### 제거 방법
-
-- 명령어 입력
-
-  ```bash
-  sudo gnome-extensions uninstall
-
-  # 특정 확장 기능은 uninstall 이 안되는 경우가 있습니다.
-  # System extension should be uninstalled using package manager
-  # 시스템 확장 기능은 설치를 제거할 수 없습니다
-
-  # ~/.local/share/gnome-shell/extensions 같은 개인 설정이 아니라
-  # /usr/share/gnome-shell/extensions 시스템 설정에 있기 때문에 그렇습니다.
-  # 직접 해당 확장 기능의 폴더를 삭제해주시면 됩니다.
-
-  cd /usr/share/gnome-shell/extensions
-  sudo rm -rf "예시용 확장 기능 폴더 이름@예시용.com"
-  ```
-
-<br />
-
-#### Surface Pro 보조 세팅
-
-- 커널 업데이트
-  - 서피스는 마이크로소프트의 태블릿이다보니 리눅스-서피스라는 커널로 업데이트해야 보안처리된 하드웨어 컨트롤이 가능합니다.
-  - [참고링크](https://snowdeer.github.io/mac-os/2020/10/27/how-to-install-ubuntu-20p04-on-surface-pro-7/)
-  - [linux-surface의 깃허브 주소](https://github.com/linux-surface/linux-surface/wiki/Installation-and-Setup)
-
-<br/>
-
 #### GIT 설치
 
 - git 설치
@@ -266,8 +176,8 @@
   git --version #git 버전 확인
 
   #깃에 push했을때 올라갈 정보
-  git config --global user.name [이름]
-  git config --global user.mail [메일 주소]
+  git config --global user.name {이름}
+  git config --global user.mail {이메일 주소}
   ```
 
 - Github Desktop
@@ -343,6 +253,102 @@
 
     $ sudo apt upgrade #Edge 패키지를 업데이트
     ```
+
+<br/>
+
+#### 그놈 쉘 확장：Gnome Shell Extensions
+
+##### 설치 과정
+
+- 명령어 입력
+
+  ```bash
+  $ sudo apt install gnome-shell-extension-manager #확장 관리자
+  $ sudo apt install gnome-tweaks #기능 개선
+
+  # 웹 브라우저에서 확장 검색 및 설치
+  sudo apt install chrome-gnome-shell #우분투 23 미만 과거버전용
+  sudo apt install gnome-browser-connector #우분투 23 이후 최신버전용
+  ```
+
+##### 사용법
+
+- 앱 서랍에서 확장 관리자 검색 후 실행
+  - `확장 관리자 - 확장 검색`에서 확장 검색
+  - `확장 관리자 - 설치된 확장`에서 적용 및 설정
+- https://extensions.gnome.org/ 에서 웹 브라우저의 확장기능을 통하여 원활하게 그놈쉘 확장 추가 삭제가 가능합니다.
+- 앱 서랍에서 기능 개선(또는 gnome-tweak) 에서 테마 세부 조정
+
+##### 주로 쓰이는 확장
+
+- Blur my shell
+
+  - "Blur me"나 "Control Blur Effect On Lockscreen" 확장이 가지던 반투명 디자인 확장기능을 통합적으로 가지고 있음
+  - Overview(앱 서랍)과 Panel(상단 바)에 반투명 디자인을 적용
+  - Ubuntu 24 이후 dash board(작업 표시줄) 에는 이미 투명 디자인이 적용되었기 때문에 충돌함. `확장 관리자 - 설치된 확장` 에서 톱니바퀴 모양 설정에 들어가 대시보드에 적용은 해제할 것
+
+- User Themes
+
+  - 각종 유저 테마를 적용합니다.
+
+    ```bash
+    #WhiteSur-gtk-theme
+    #https://github.com/vinceliuice/WhiteSur-gtk-theme
+    $ cd "theme 폴더 위치 경로"
+    #./install.sh -h 로 다른 옵션 검색가능
+    $ ./install.sh -m -t all -l -N stable --normal --round
+
+    #마우스 테마 변경
+    #방법 1 - 세션 위에서만 적용
+    # /home/{사용자이름}/.icons 폴더가 없다면 만들어주세요.
+    # .icons 폴더 안에 테마폴더를 집어넣으세요.
+    # 기능개선(tweaks) 모양새에서 커서를 바꿀 수 있습니다.
+    # 커서 크기는 설정-접근성-보기 항목에 커서 크기가 있습니다.
+
+    #방법 2 - 시스템 전체 적용
+    # 다운로드 받은 테마폴더를 /usr/share/icons로 옮깁니다.
+    sudo mv ./{테마폴더명} /usr/share/icons
+
+    # 테마폴더 index.theme 파일에 "inherits={고유이름}" 을 적습니다.
+    # 다음 명령어를 기입합니다.
+    # sudo update-alternatives --install <link> <name> <path> <priority>
+    sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme /usr/share/icons/ComixCursors-LH-White-Small/index.theme 91
+
+    # 터미널에서 해당 명령어 입력 후 원하는 마우스 테마 번호 입력 엔터
+    $ sudo update-alternatives --config x-cursor-theme
+    ```
+
+- Compiz alike magic lamp effect
+  - MacOS 처럼 지니 요술램프 효과를 적용합니다.
+
+##### 제거 방법
+
+- 명령어 입력
+
+  ```bash
+  sudo gnome-extensions list #설치된 확장 기능들의 목록 확인
+  sudo gnome-extensions uninstall {확장 기능 이름}
+
+  # 특정 확장 기능은 uninstall 이 안되는 경우가 있습니다.
+  # System extension should be uninstalled using package manager
+  # 시스템 확장 기능은 설치를 제거할 수 없습니다
+
+  # ~/.local/share/gnome-shell/extensions 같은 개인 설정이 아니라
+  # /usr/share/gnome-shell/extensions 시스템 설정에 있기 때문에 그렇습니다.
+  # 직접 해당 확장 기능의 폴더를 삭제해주시면 됩니다.
+
+  cd /usr/share/gnome-shell/extensions
+  sudo rm -rf "예시용 확장 기능 폴더 이름@예시용.com"
+  ```
+
+<br />
+
+#### Surface Pro 보조 세팅
+
+- 커널 업데이트
+  - 서피스는 마이크로소프트의 태블릿이다보니 리눅스-서피스라는 커널로 업데이트해야 보안처리된 하드웨어 컨트롤이 가능합니다.
+  - [참고링크](https://snowdeer.github.io/mac-os/2020/10/27/how-to-install-ubuntu-20p04-on-surface-pro-7/)
+  - [linux-surface의 깃허브 주소](https://github.com/linux-surface/linux-surface/wiki/Installation-and-Setup)
 
 <br/>
 
@@ -499,9 +505,9 @@
 
 #### 화면 키보드 문제
 
-- [Improved OSK GNOME extension](https://www.omglinux.com/improved-gnome-on-screen-keyboard/)
+- [원조](https://github.com/luebke-dev/improved-osk-gnome-ext)
+- [Improved OSK GNOME extension](https://github.com/nick-shmyrev/improved-osk-gnome-ext)
 - [수정 중](https://github.com/inte99ral/IMPROVED_OSK_KR)
-- edfdf
 
 ```bash
 # 기본 적용 ===========================
@@ -561,6 +567,9 @@ gsettings set org.gnome.shell disable-extension-version-validation true
 ./install-as-global-extension.sh
 ## sh 쉘 스크립트 파일이 허가 거부받을 경우
 chmod +x install-as-global-extension.sh #파일에게 x(special excute) 권한을 +(추가)
+
+gnome-extensions install improvedosk@nick-shmyrev.dev.shell-extension.zip
+gnome-extensions enable improvedosk@nick-shmyrev.dev
 ```
 
 ##### On-Screen Keyboard Layout
@@ -569,11 +578,36 @@ chmod +x install-as-global-extension.sh #파일에게 x(special excute) 권한�
 
 ## 에러 대응책 및 조언
 
+### 탐색기 관리자 권한 문제
+
+```bash
+# 우분투에서는 nautilus를 기본 탐색기로 사용합니다.
+# 탐색기를 gksudo(루트 계정의 루트 권한)으로 실행합니다.
+gksudo nautilus
+```
+
 ### APT 패키지 설치 문제
+
+#### 업데이트가 안됬을 경우 ... not upgraded
+
+```bash
+sudo apt-get update
+sudo apt-get upgrade
+
+# 이후 어떤 패키지가 업데이트가 안되는지 표기됩니다.
+# 이를 직접 install 해줍시다.
+sudo apt-get install {패키지명}
+```
+
+#### 패키지 무결성 확인
+
+```
+sudo apt-get update --fix-missing
+```
 
 #### 소프트웨어 및 업데이트 설정
 
-- 소프트웨어 및 업데이트 앱 클릭
+- 소프트웨어 및 업데이트(Software & Updates) 앱 클릭
 - 인터넷에서 다운로드 가능한 소프트웨어 항목 체크 상태 확인
 
 #### 미러링 주소로 변경

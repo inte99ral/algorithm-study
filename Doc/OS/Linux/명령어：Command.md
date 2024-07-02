@@ -16,14 +16,27 @@
     <th>명령어</th>
   </tr>
   <tr>
-    <td>명령처리<br />준비상황</td>
+    <td>계정 및<br />권한</td>
     <td>
 
 ```bash
+# 루트 계정 비밀번호 설정
+sudo passwd root
+
+# 현재 계정 확인
+whoami
+
+# switch user 계정 변경(권한 변경)
+su {계정명} #현재 계정의 환경변수를 유지하고 전환
+su - {계정명} #환경변수까지 root 계정으로 전환
+
+# 전환 취소 원 계정으로 복귀
+exit
+
 # 명령어 줄 가장 앞에 표기되는 지표입니다.
-"$" #means you are a normal user.
-"#" #means you are the system administrator
-"%" #In the C shell, the prompt ends with percentage sign
+"$" #유저 계정(사용자 권한)에서 명령을 받습니다.
+"#" #루트 계정(관리자 권한)에서 명령을 받습니다.
+"%" #C 쉘 명령프롬프트
 ```
 
   </td>
