@@ -22,11 +22,14 @@ int main() {
     freopen(".example\\Programmers\\question\\input.txt", "rt", stdin);
     getline(cin, rawInput);
 
-    sregex_token_iterator iter(
+    sregex_token_iterator iter;
+    sregex_token_iterator end;
+
+    iter = sregex_token_iterator(
       rawInput.begin(),
       rawInput.end(),
       regExp
-    ), end;
+    );
 
     while(iter != end) {
       vector<int> tempVec = {stoi(*iter++), stoi(*iter++)};

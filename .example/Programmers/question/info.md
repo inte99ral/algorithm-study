@@ -42,7 +42,7 @@
 
 <table class="example">
   <tr>
-    <td><img src="./asset/2.avif" style="width:20vw; aspect-ratio: 1 / 1"/></td>
+    <td><img src="./asset/1.png" style="width:20vw; aspect-ratio: 1 / 1"/></td>
     <td><img src="./asset/3.avif" style="width:20vw; aspect-ratio: 1 / 1"/></td>
   </tr>
   <tr>

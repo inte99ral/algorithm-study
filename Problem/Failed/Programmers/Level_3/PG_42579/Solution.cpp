@@ -27,12 +27,6 @@ int main() {
     
     getline(cin, rawInput);
 
-    // sregex_token_iterator iter(
-    //   rawInput.begin(),
-    //   rawInput.end(),
-    //   regExp
-    // ), end;
-
     sregex_token_iterator iter;
     sregex_token_iterator end;
 
@@ -69,17 +63,17 @@ int main() {
 vector<int> solution(vector<string> genres, vector<int> plays) {
   vector<int> answer;
 
-  cout << "[genres] :\n";
-  for (string s : genres) {
-    cout << s << ", ";
-  }
-  cout << "\b\b \n\n";
+  map<string, array<int, 2>> gMap;
 
-  cout << "[plays] :\n";
-  for (int i : plays) {
-    cout << i << ", ";
+  int N = genres.size();
+
+  for (int n = 0; n < N; n++) {
+    if(gMap.count(genres[n])) gMap[genres[n]] = {};
+
+    gMap[genres[n]][0] += plays[n];
+
+    if(gMap[genres[n]][1] < plays[n]) gMap[genres[n]][1] = n;
   }
-  cout << "\b\b \n\n";
 
   return answer;
 }
