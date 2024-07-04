@@ -1,5 +1,21 @@
 # 자료구조：Data Structure
 
+## 목차
+
+<br />
+
+## 개요
+
+<br />
+
+## 함수：Function
+
+### C++
+
+- `#include <functional>`
+
+<br />
+
 ## 맵：Map
 
 ### 원소 삭제 map.erase
@@ -41,7 +57,7 @@ int main() {
 
 https://learn.microsoft.com/ko-kr/cpp/standard-library/priority-queue-class?view=msvc-170
 
-- #include <queue> 라이브러리에서 지원
+- `#include <queue>` 라이브러리에서 지원
 - 힙정렬
 - 디폴트는 우선 순위가 높은 순서대로 정리되며 하나씩 빼면 맨 앞으로 내림차순 정렬된다.
 - Sort 디폴트는 오름차순이므로 햇갈림에 주의하세요

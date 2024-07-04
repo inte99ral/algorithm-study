@@ -38,6 +38,16 @@ int main() {
   }
 
   cout << solution(input) << '\n';
+
+  // * TEST_00
+  {
+    // cout << "[";
+    // for (const auto& i : answer) {
+    //   cout << i << ", ";
+    // }
+    // cout << "\b\b]\n";
+  }
+
   return 0;
 }
 
