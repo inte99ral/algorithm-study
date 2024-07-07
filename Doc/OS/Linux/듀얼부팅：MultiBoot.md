@@ -258,9 +258,56 @@
 
 #### 그놈 쉘 확장：Gnome Shell Extensions
 
-##### 설치 과정
+##### 설치
 
-- 명령어 입력
+- dconf 환경설정
+
+  - gnome의 사용자 설정을 시스템 전역에 저장(machine-wide settings)하기 위해선 dconf 데이터베이스 설정이 필요합니다.
+  - dconf 는 낮은 수준의 사용자 설정을 관리하는 키 기반 구성 시스템입니다. 설정 정보가 준비되기 전 사용자 설정을 정리합니다.
+  - 과거의 gconf를 대체하는 사용자 데이터 저장체계입니다.
+  - [red hat 문서](https://docs.redhat.com/ko/documentation/red_hat_enterprise_linux/7/html/desktop_migration_and_administration_guide/configuration-overview-gsettings-dconf#terminology-explained)
+  - [위키피디아 링크](https://en.wikipedia.org/wiki/Dconf)
+  - [dconf 프로필이란](https://docs.redhat.com/ko/documentation/red_hat_enterprise_linux/7/html/desktop_migration_and_administration_guide/profiles)
+  - &nbsp;
+
+    ```bash
+    # ● 0. dconf GUI 편집기 설치 ==============================
+    sudo apt-get install dconf-tools # 우분투 18 이전
+    sudo apt-get install dconf-editor # 우분투 18 보다 상위버전
+
+    # ● 1. dconf user profile 생성 ============================
+    ## ○ /etc/dconf/profile/ 에 user 라는 파일 생성
+    ## ○ /etc/dconf/profile/user 파일 내부에 다음의 내용 기입
+    "
+    user-db:user #~/.config/dconf에 있는 사용자 데이터베이스의 이름
+    system-db:local #/etc/dconf/db/에 있는 시스템 데이터베이스
+    "
+
+    # ● 2. dconf 데이터 베이스 설정 ============================
+    ## ○ /etc/dconf/db/local.d/ 에 00-extensions 라는 파일 생성
+    ## ○ /etc/dconf/db/local.d/00-extensions 파일 내부에 다음의 내용 기입
+    "
+    [org/gnome/shell]
+    # List all extensions that you want to have enabled for all users
+    # The enabled-extensions key specifies the enabled extensions using the extensions’ uuid
+    # (예시 : improvedosk@nick-shmyrev.dev)
+    enabled-extensions=['myextension1@myname.example.com', 'myextension2@myname.example.com']
+    "
+
+    # ● 3. dconf 시스템 데이터베이스 업데이트 ===================
+    sudo dconf update
+    ```
+
+- GLib 설치
+
+  - GLib은 GTK+ 프로젝트의 일부로 시작된 크로스 플랫폼 소프트웨어 유틸리티 라이브러리입니다.
+  - 프로그래밍 전반에 대해 다루는 매우 방대한 라이브러리이며 기본적으로 설치되어 있으나 여러 gnome 확장 기능을 설치하고 만지다 보면 설치 시 컴파일에 glib-compile-resources 를 쓰는 등 개발자용 라이브러리를 추가로 요구할 때가 있습니다.
+  - &nbsp;
+    ```bash
+    sudo apt install libglib2.0-dev
+    ```
+
+- Gnome Shell Extension 설치
 
   ```bash
   $ sudo apt install gnome-shell-extension-manager #확장 관리자
@@ -321,7 +368,7 @@
 - Compiz alike magic lamp effect
   - MacOS 처럼 지니 요술램프 효과를 적용합니다.
 
-##### 제거 방법
+##### 제거
 
 - 명령어 입력
 
@@ -519,29 +566,9 @@ gnome-extensions enable improvedosk@nick-shmyrev.dev
 
 # 시스템 전역 적용 ====================
 
-# 1. dconf 데이터 베이스 설정 =========
-# dconf user profile 생성
-# 참고링크 : https://docs.redhat.com/ko/documentation/red_hat_enterprise_linux/7/html/desktop_migration_and_administration_guide/profiles
-# /etc/dconf/profile/ 에 user 라는 파일 생성
-# /etc/dconf/profile/user 파일 내부에 다음의 내용 기입
-"
-user-db:user #~/.config/dconf에 있는 사용자 데이터베이스의 이름
-system-db:local #/etc/dconf/db/에 있는 시스템 데이터베이스
-"
-
-# local database for machine-wide settings 생성
-# /etc/dconf/db/local.d/ 에 00-extensions 라는 파일 생성
-# /etc/dconf/db/local.d/00-extensions 파일 내부에 다음의 내용 기입
-"
-[org/gnome/shell]
-# List all extensions that you want to have enabled for all users
-# The enabled-extensions key specifies the enabled extensions using the extensions’ uuid
-# (예시 : improvedosk@nick-shmyrev.dev)
-enabled-extensions=['myextension1@myname.example.com', 'myextension2@myname.example.com']
-"
-
-# 시스템 데이터베이스 업데이트
-sudo dconf update
+# 기존 improvedosk@nick-shmyrev.dev 는 삭제해야합니다.
+# 앞서서 dconf 와 glib 환경을 만들어놔야 합니다.
+# gnome-extensions / 설치 부분을 먼저 확인해주세요.
 
 
 # 2. improved osk 확장 설치 ==========
@@ -554,7 +581,7 @@ cd ./improved-osk-gnome-ext #복제한 폴더 로 이동
 "
 {
   // gnome-extensions --version 으로 본인 버전 확인 후 추가
-  "shell-version": ["43", "44", "46"],
+  "shell-version": ["43", "44"],
   // 세션모드에 대한 서술 추가
   "session-modes": ["user", "gdm", "unlock-dialog"]
 }
@@ -578,12 +605,40 @@ gnome-extensions enable improvedosk@nick-shmyrev.dev
 
 ## 에러 대응책 및 조언
 
+### 하위 프로세스 "dbus-launch"을(를) 실행하기 실패 Failed to execute child process "dbus-launch"
+
+- Cannot autolaunch D-Bus without X11 $DISPLAY`
+- X11 $DISPLAY 없이 D-Bus 자동 실행할 수 없습니다.
+- X11 Display 없이는 실행할 수 없는 경우가 있습니다.
+
+```bash
+
+# 루트 권한으로
+apt install dbus-x11
+```
+
+### 탐색기 주소창 path bar / location bar
+
+```bash
+# 주소창을 검색창으로
+gsettings set org.gnome.nautilus.preferences always-use-location-entry  true
+
+# 주소창을 버튼식으로
+gsettings set org.gnome.nautilus.preferences always-use-location-entry  false
+
+# 위 사항은 GUI인 dconf-editor 에서 org/gnome/nautilus/preferences/always-use-location-entry 항목에서 ON OFF 가능
+```
+
 ### 탐색기 관리자 권한 문제
 
 ```bash
 # 우분투에서는 nautilus를 기본 탐색기로 사용합니다.
 # 탐색기를 gksudo(루트 계정의 루트 권한)으로 실행합니다.
 gksudo nautilus
+
+# 또는
+sudo apt-get install nautilus-admin
+nautilus -q
 ```
 
 ### APT 패키지 설치 문제
