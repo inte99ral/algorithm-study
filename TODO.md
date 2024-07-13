@@ -43,7 +43,7 @@
 
 # FIXME:
 
-- [ ] PG 42578 의상 레벨 2 해시
+- [ ] xxxx.xx.xx | [PG 42578](Problem\Unsolved\Programmers\Level2\PG_42578\question\info.md) 의상 레벨 2 해시
 - [ ] PG 17677 뉴스 클러스터링 레벨2 2018_KAKAO_BLIND_RECRUITMENT 1차
 - [ ] PG 17680 캐시 레벨2 2018_KAKAO_BLIND_RECRUITMENT 1차
 - [ ] PG 17679 프렌즈4블록 레벨2 2018_KAKAO_BLIND_RECRUITMENT 1차

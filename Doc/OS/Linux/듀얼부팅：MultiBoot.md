@@ -262,7 +262,7 @@
 
 - dconf 환경설정
 
-  - gnome의 사용자 설정을 시스템 전역에 저장(machine-wide settings)하기 위해선 dconf 데이터베이스 설정이 필요합니다.
+  - gnome의 사용자 설정을 시스템 전역에 통제(machine-wide settings)하기 위해선 dconf 데이터베이스 설정이 필요합니다.
   - dconf 는 낮은 수준의 사용자 설정을 관리하는 키 기반 구성 시스템입니다. 설정 정보가 준비되기 전 사용자 설정을 정리합니다.
   - 과거의 gconf를 대체하는 사용자 데이터 저장체계입니다.
   - [red hat 문서](https://docs.redhat.com/ko/documentation/red_hat_enterprise_linux/7/html/desktop_migration_and_administration_guide/configuration-overview-gsettings-dconf#terminology-explained)
@@ -396,6 +396,98 @@
   - 서피스는 마이크로소프트의 태블릿이다보니 리눅스-서피스라는 커널로 업데이트해야 보안처리된 하드웨어 컨트롤이 가능합니다.
   - [참고링크](https://snowdeer.github.io/mac-os/2020/10/27/how-to-install-ubuntu-20p04-on-surface-pro-7/)
   - [linux-surface의 깃허브 주소](https://github.com/linux-surface/linux-surface/wiki/Installation-and-Setup)
+
+<br/>
+
+#### Nvidia 드라이버 업데이트
+
+- 주의 사항
+- Nouveau 드라이버 비활성화
+
+  ```bash
+  $ sudo lsmod | grep nouveau #Nouveau 드라이버 확인
+
+  # 1. 아래 파일을 찾거나 생성
+  sudo vi /etc/modprobe.d/blacklist-nouveau.conf
+
+  # 2. 아래 내용 blacklist-nouveau.conf에 추가
+  blacklist nouveau
+  options nouveau modeset=0
+
+  # 3. 초기 램 파일 시스템 업데이트
+  sudo update-initramfs -u
+
+  # 4. 리부트
+  sudo reboot
+  ```
+
+- Nvidia 드라이버 설치
+
+  ```bash
+  #인텔 그래픽은 소프트웨어 업데이터(Software and Updates) 앱이 자동관리합니다.
+  #다음 명령으로 엔비디아 gforce가 있는지 확인
+  $ sudo lshw -c display #그래픽 전체 사양
+  $ sudo lspci | grep VGA #그래픽카드 사양 확인
+
+  #엔비디아 그래픽카드 드라이버 확인
+  $ cat /proc/driver/nvidia/version #없으면 No such file or directory
+
+  #선택 1. 드라이버 목록 중에서 "nvidia-driver-<>" 수동설치
+  # 주의사항!! : 엔비디아 칩과 호환성 문제로 X11이 기본 디스플레이 서버일 수 있습니다.
+  # Wayland 는 엔비디아드라이버 535 이전의 버전과 충돌합니다.
+  # Wayland 로 렌더링하는 상황이 필요하다면 535 이상의 드라이버를 받거나 호환성 nouveau 드라이버를 사용해야합니다.
+  $ sudo ubuntu-drivers devices #설치가능한 드라이버 목록
+  $ sudo apt install nvidia-driver-535
+
+  #선택 2. 권장 드라이버 자동설치
+  $ sudo add-apt-repository ppa:graphics-drivers/ppa
+  $ sudo ubuntu-drivers autoinstall
+
+  #드라이버는 재부팅 후에 적용됩니다
+  $ sudo reboot
+
+  #정상적으로 설치되었나 확인
+  $ cat /proc/driver/nvidia/version
+  $ sudo nvidia-settings
+  $ nvidia-smi
+  ```
+
+- Nvidia 드라이버 제거
+
+  - Grub에서 recovery 모드로 진입 - root shell 엔터치고 한 후 커맨드 라인으로 들어간다
+  - 명령어 입력
+
+    ```bash
+    $ sudo nvidia-uninstall
+    $ sudo apt-get purge *nvidia*
+    $ sudo apt autoremove
+    $ sudo apt autoclean
+
+    #nouveau 블랙리스트 해제 및 복구
+    $ sudo rm /etc/modprobe.d/blacklist-nouveau.conf
+    $ echo 'nouveau' | sudo tee -a /etc/modules
+
+    $ sudo apt-get install xserver-xorg-video-nouveau
+    #잘 안되면 $ sudo apt-get install --reinstall xserver-xorg-core libgl1-mesa-glx
+
+    #xorg.conf 디스플레이 서버 세션 복구를 위한 삭제
+    $ sudo rm /etc/X11/xorg.conf
+
+    $ sudo update-initramfs -u
+    $ sudo update-initramfs -k all -u #커널 재빌드
+
+    #우분투 데스크탑 세팅 복구
+    $ sudo apt-mark showhold
+    $ sudo apt-mark hold snap
+    $ sudo apt-mark hold snapd # 앞으로 apt에서 snap 자동설치를 막습니다
+    $ sudo apt-get install ubuntu-desktop
+    $ sudo apt-get install ubuntu-session
+
+    $ sudo apt autoremove
+    $ sudo apt autoclean
+
+    lsmod | grep nouveau
+    ```
 
 <br/>
 
@@ -731,98 +823,6 @@ sudo vi /etc/apt/sources.list
 
    - /etc/apt/sources.list 은 /etc/apt/sources.list.d/ubuntu.sources 로 위치가 바뀌었습니다.
    - [참고링크](https://sh1r0hacker.tistory.com/124)
-
-### Nvidia 그래픽 드라이버 문제
-
-- 주의 사항
-- Nouveau 드라이버 비활성화
-
-  ```bash
-  $ sudo lsmod | grep nouveau #Nouveau 드라이버 확인
-
-  # 1. 아래 파일을 찾거나 생성
-  sudo vi /etc/modprobe.d/blacklist-nouveau.conf
-
-  # 2. 아래 내용 blacklist-nouveau.conf에 추가
-  blacklist nouveau
-  options nouveau modeset=0
-
-  # 3. 초기 램 파일 시스템 업데이트
-  sudo update-initramfs -u
-
-  # 4. 리부트
-  sudo reboot
-  ```
-
-- Nvidia 드라이버 설치
-
-  ```bash
-  #인텔 그래픽은 소프트웨어 업데이터(Software and Updates) 앱이 자동관리합니다.
-  #다음 명령으로 엔비디아 gforce가 있는지 확인
-  $ sudo lshw -c display #그래픽 전체 사양
-  $ sudo lspci | grep VGA #그래픽카드 사양 확인
-
-  #엔비디아 그래픽카드 드라이버 확인
-  $ cat /proc/driver/nvidia/version #없으면 No such file or directory
-
-  #선택 1. 드라이버 목록 중에서 "nvidia-driver-<>" 수동설치
-  # 주의사항!! : 엔비디아 칩과 호환성 문제로 X11이 기본 디스플레이 서버일 수 있습니다.
-  # Wayland 는 엔비디아드라이버 535 이전의 버전과 충돌합니다.
-  # Wayland 로 렌더링하는 상황이 필요하다면 535 이상의 드라이버를 받거나 호환성 nouveau 드라이버를 사용해야합니다.
-  $ sudo ubuntu-drivers devices #설치가능한 드라이버 목록
-  $ sudo apt install nvidia-driver-535
-
-  #선택 2. 권장 드라이버 자동설치
-  $ sudo add-apt-repository ppa:graphics-drivers/ppa
-  $ sudo ubuntu-drivers autoinstall
-
-  #드라이버는 재부팅 후에 적용됩니다
-  $ sudo reboot
-
-  #정상적으로 설치되었나 확인
-  $ cat /proc/driver/nvidia/version
-  $ sudo nvidia-settings
-  $ nvidia-smi
-  ```
-
-- Nvidia 드라이버 제거
-
-  - Grub에서 recovery 모드로 진입 - root shell 엔터치고 한 후 커맨드 라인으로 들어간다
-  - 명령어 입력
-
-    ```bash
-    $ sudo nvidia-uninstall
-    $ sudo apt-get purge *nvidia*
-    $ sudo apt autoremove
-    $ sudo apt autoclean
-
-    #nouveau 블랙리스트 해제 및 복구
-    $ sudo rm /etc/modprobe.d/blacklist-nouveau.conf
-    $ echo 'nouveau' | sudo tee -a /etc/modules
-
-    $ sudo apt-get install xserver-xorg-video-nouveau
-    #잘 안되면 $ sudo apt-get install --reinstall xserver-xorg-core libgl1-mesa-glx
-
-    #xorg.conf 디스플레이 서버 세션 복구를 위한 삭제
-    $ sudo rm /etc/X11/xorg.conf
-
-    $ sudo update-initramfs -u
-    $ sudo update-initramfs -k all -u #커널 재빌드
-
-    #우분투 데스크탑 세팅 복구
-    $ sudo apt-mark showhold
-    $ sudo apt-mark hold snap
-    $ sudo apt-mark hold snapd # 앞으로 apt에서 snap 자동설치를 막습니다
-    $ sudo apt-get install ubuntu-desktop
-    $ sudo apt-get install ubuntu-session
-
-    $ sudo apt autoremove
-    $ sudo apt autoclean
-
-    lsmod | grep nouveau
-    ```
-
-<br/>
 
 ## OS 관리 및 제거
 
