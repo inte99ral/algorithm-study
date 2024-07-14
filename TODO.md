@@ -36,6 +36,7 @@
 - [x] 2024.06.16 | [BJ 17472](Problem\Solved\Baekjoon\Gold\1\BJ_17472\question\info.md) 다리 만들기 2 `#GoldⅠ` `#구현` `#그래프` `#최소 스패닝 트리`
 - [x] 2024.06.16 | [PG 42576](Problem\Solved\Programmers\Level_1\PG_42576\question\info.md) 완주하지 못한 선수 `#Level 1` `#해시`
 - [x] 2024.07.04 | [PG 42579](Problem\Solved\Programmers\Level_3\PG_42579\question\info.md) 베스트앨범 `#Level 3` `#해시`
+- [x] 2024-07-14 | [PG 42578](Problem\Solved\Programmers\Level_2\PG_42578\question\info.md) 의상 `#Level 2` `#해시`
 
 <br />
 
@@ -43,7 +44,6 @@
 
 # FIXME:
 
-- [ ] xxxx.xx.xx | [PG 42578](Problem\Unsolved\Programmers\Level2\PG_42578\question\info.md) 의상 레벨 2 해시
 - [ ] PG 17677 뉴스 클러스터링 레벨2 2018_KAKAO_BLIND_RECRUITMENT 1차
 - [ ] PG 17680 캐시 레벨2 2018_KAKAO_BLIND_RECRUITMENT 1차
 - [ ] PG 17679 프렌즈4블록 레벨2 2018_KAKAO_BLIND_RECRUITMENT 1차

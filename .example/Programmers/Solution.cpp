@@ -17,7 +17,7 @@ int main() {
   {
     string rawInput;
     string buffer;
-    regex regExp("[0-9]+");
+    regex regExp("[0-9A-Za-z_]+");
 
     freopen(".example\\Programmers\\question\\input.txt", "rt", stdin);
     getline(cin, rawInput);
