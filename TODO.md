@@ -5,6 +5,8 @@
 1. 첫 입력시, 초기화를 0으로 했으면, null 값이 아니라 인덱스 0을 가르킨다.
 2. 스택이나 우선순위 큐에서 pop 이나 push 행동을 취하면 당연히 순서가 바뀐다.
 
+<br />
+
 <!-- Solved -->
 
 # DONE:
@@ -30,12 +32,12 @@
 - [x] 2024.01.02 | [BJ 4963 섬의 개수 #Silver/2 #그래프이론 #그래프탐색 #너비우선탐색 #깊이우선탐색](Problem\Solved\Baekjoon\Silver\2\BJ_4963\question\info.md)
 - [x] 2024.01.17 | [BJ 1992 쿼드트리 #Silver/1 #분할정복 #재귀](Problem\Solved\Baekjoon\Silver\1\BJ_1992\question\info.md)
 - [x] 2024.03.22 | [BJ 15686 치킨 배달 #Gold/5 #그래프탐색](Problem\Failed\Baekjoon\Gold\5\BJ_15686\question\info.md)
-- [x] 2024.03.22 | [BJ 7576](Problem\Failed\Baekjoon\Gold\5\BJ_7576\question\info.md) 토마토 `#GoldⅤ` `#그래프` `#그래프 탐색` `#너비 우선 탐색`
-- [x] 2024.04.04 | [BJ 17135](Problem\Solved\Baekjoon\Gold\3\BJ_17135\question\info.md) 캐슬 디펜스 `#GoldⅢ` `#구현` `#그래프` `#브루트포스` `#너비우선탐색`
-- [x] 2024.04.23 | [BJ 2252](Problem\Solved\Baekjoon\Gold\3\BJ_2252\question\info.md) 줄 세우기 `#GoldⅢ` `#그래프` `#위상 정렬` `#방향 비순환 그래프`
-- [x] 2024.06.16 | [BJ 17472](Problem\Solved\Baekjoon\Gold\1\BJ_17472\question\info.md) 다리 만들기 2 `#GoldⅠ` `#구현` `#그래프` `#최소 스패닝 트리`
-- [x] 2024.06.16 | [PG 42576](Problem\Solved\Programmers\Level_1\PG_42576\question\info.md) 완주하지 못한 선수 `#Level 1` `#해시`
-- [x] 2024.07.04 | [PG 42579](Problem\Solved\Programmers\Level_3\PG_42579\question\info.md) 베스트앨범 `#Level 3` `#해시`
+- [x] 2024-03-22 | [BJ 7576](Problem\Failed\Baekjoon\Gold\5\BJ_7576\question\info.md) 토마토 `#GoldⅤ` `#그래프` `#그래프 탐색` `#너비 우선 탐색`
+- [x] 2024-04-04 | [BJ 17135](Problem\Solved\Baekjoon\Gold\3\BJ_17135\question\info.md) 캐슬 디펜스 `#GoldⅢ` `#구현` `#그래프` `#브루트포스` `#너비우선탐색`
+- [x] 2024-04-23 | [BJ 2252](Problem\Solved\Baekjoon\Gold\3\BJ_2252\question\info.md) 줄 세우기 `#GoldⅢ` `#그래프` `#위상 정렬` `#방향 비순환 그래프`
+- [x] 2024-06-16 | [BJ 17472](Problem\Solved\Baekjoon\Gold\1\BJ_17472\question\info.md) 다리 만들기 2 `#GoldⅠ` `#구현` `#그래프` `#최소 스패닝 트리`
+- [x] 2024-06-16 | [PG 42576](Problem\Solved\Programmers\Level_1\PG_42576\question\info.md) 완주하지 못한 선수 `#Level 1` `#해시`
+- [x] 2024-07-04 | [PG 42579](Problem\Solved\Programmers\Level_3\PG_42579\question\info.md) 베스트앨범 `#Level 3` `#해시`
 - [x] 2024-07-14 | [PG 42578](Problem\Solved\Programmers\Level_2\PG_42578\question\info.md) 의상 `#Level 2` `#해시`
 
 <br />
@@ -44,7 +46,7 @@
 
 # FIXME:
 
-- [ ] PG 17677 뉴스 클러스터링 레벨2 2018_KAKAO_BLIND_RECRUITMENT 1차
+- [ ] 2024-xx-xx | [PG 17677](Problem\Unsolved\Programmers\Level2\PG_17677_뉴스_클러스터링\question\info.md) 뉴스 클러스터링 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
 - [ ] PG 17680 캐시 레벨2 2018_KAKAO_BLIND_RECRUITMENT 1차
 - [ ] PG 17679 프렌즈4블록 레벨2 2018_KAKAO_BLIND_RECRUITMENT 1차
 - [ ] PG 17676 추석 트래픽 레벨3 2018_KAKAO_BLIND_RECRUITMENT 1차
