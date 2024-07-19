@@ -76,20 +76,30 @@
 <br />
 
 <center>
-<table class="output"><tr><th>예제 입력 1</th><th>예제 출력 1</th></tr><tr><td>
+<table class="output">
+<tr>
+  <th>예제 입력 1</th>
+  <th>예제 출력 1</th>
+</tr>
+<tr>
+  <td>
 
 ```
 5 3 2
 ```
 
-</td><td>
+  </td>
+  <td>
 
 ```
 10
 ```
 
-</td></tr></table>
+  </td>
+</tr>
+</table>
 </center>
+
 <br />
 
 ## 입출력 예 설명
