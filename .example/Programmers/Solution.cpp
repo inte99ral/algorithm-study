@@ -4,6 +4,7 @@ using namespace std;
 
 // # Prototype Declaration ====================
 int solution(vector<vector<int>> targets);
+
 // # Global Variable & Constant================
 
 // # Implements Definition ====================
@@ -14,10 +15,12 @@ int main() {
   cout.tie(nullptr);
   vector<vector<int>> input;
 
+  // * Input
   {
     string rawInput;
     string buffer;
     regex regExp("[0-9A-Za-z_]+");
+    //[A-Za-z0-9가-힣]+ or [\uAC00-\uD7A3]
 
     freopen(".example\\Programmers\\question\\input.txt", "rt", stdin);
     getline(cin, rawInput);
