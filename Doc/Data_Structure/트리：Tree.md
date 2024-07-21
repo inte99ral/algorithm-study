@@ -1,4 +1,4 @@
-# 자료구조：Data Structure
+# 트리：Tree
 
 ## 목차
 
@@ -8,7 +8,7 @@
 
 <br />
 
-## 함수：Function
+## 이진 탐색 트리：Binary Search Tree
 
 ### C++
 

@@ -25,7 +25,7 @@
 <br />
 <center>
 
-<img src="./asset/1.png" style="width:50vw; aspect-ratio: 2 / 1"/>
+<img src="./asset/1.png" alt="1" style="width:50vw; aspect-ratio: 2 / 1"/>
 
 </center>
 <br />
@@ -55,8 +55,8 @@
 
 <table class="example">
   <tr>
-    <td><img src="./asset/2.avif" style="width:20vw; aspect-ratio: 1 / 1"/></td>
-    <td><img src="./asset/3.avif" style="width:20vw; aspect-ratio: 1 / 1"/></td>
+    <td><img src="./asset/2.avif" alt="2" style="width:20vw; aspect-ratio: 1 / 1"/></td>
+    <td><img src="./asset/3.avif" alt="3" style="width:20vw; aspect-ratio: 1 / 1"/></td>
   </tr>
   <tr>
     <td>다리의 총 길이: 13</td>
@@ -93,13 +93,13 @@
 <center>
 <table class="output"><tr><th>예제 입력 1</th><th>예제 출력 1</th></tr><tr><td>
 
-```
+```txt
 5 3 2
 ```
 
 </td><td>
 
-```
+```txt
 10
 ```
 

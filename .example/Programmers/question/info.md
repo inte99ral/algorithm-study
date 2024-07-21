@@ -42,8 +42,8 @@
 
 <table class="example">
   <tr>
-    <td><img src="./asset/1.png" style="width:20vw; aspect-ratio: 1 / 1"/></td>
-    <td><img src="./asset/3.avif" style="width:20vw; aspect-ratio: 1 / 1"/></td>
+    <td><img src="./asset/1.png" alt="1" style="width:20vw; aspect-ratio: 1 / 1"/></td>
+    <td><img src="./asset/3.avif" alt="3" style="width:20vw; aspect-ratio: 1 / 1"/></td>
   </tr>
   <tr>
     <td>다리의 총 길이: 13</td>
@@ -84,14 +84,14 @@
 <tr>
   <td>
 
-```
+```txt
 5 3 2
 ```
 
   </td>
   <td>
 
-```
+```txt
 10
 ```
 
@@ -106,7 +106,7 @@
 
 <br />
 <center>
-<img src="./asset/1.png" style="width:50vw; aspect-ratio: 3 / 1"/>
+<img src="./asset/1.png" alt="1" style="width:50vw; aspect-ratio: 3 / 1"/>
 </center>
 
 위 그림과 같이 최소 세 번의 요격 미사일 발사로 전부 방어할 수 있습니다.
