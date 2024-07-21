@@ -46,6 +46,23 @@
 
 - `find`
 
+```cpp
+set <int>s;
+
+
+// 전체 출력
+for (it = s.begin(); it != s.end(); ++it){
+      cout << *it << " ";
+  }
+  cout << endl;
+
+// 찾기
+if(s.find(n)==s.end())
+cout << "내가 찾는 원소가 없습니다" <<endl;
+else
+cout << "내가 찾는 원소가 있습니다" <<endl;
+```
+
 - Update：`insert & emplace`
 
 C++에서는 모든 컨테이너( vector , stack , queue , set , map 등)가 insert 및 emplace 작업을 모두 지원합니다.
@@ -135,6 +152,11 @@ int main(void) {
     for_each(s.begin(), s.end(), [](int n) {
         cout << n << endl;        //output : 1, 2, 8, 9, 10
         });
+
+
+    // 단일 제거
+    it = s.find(30);
+    s.erase(it);
 
     return 0;
 }​

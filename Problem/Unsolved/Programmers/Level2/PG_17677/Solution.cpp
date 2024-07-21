@@ -33,13 +33,10 @@ int main() {
 }
 
 int solution(string str1, string str2) {
-  int answer = 0;
+  unordered_map<string, int> jMap;
 
-  unordered_map<string, int> jMap1;
-  unordered_map<string, int> jMap2;
-
-  set<string> jSet1;
-  set<string> jSet2;
+  double interCount = 0;
+  double unionCount = 0;
 
   for (int i = 1; i < (int) str1.size(); i++) {
     string temp;
@@ -56,10 +53,35 @@ int solution(string str1, string str2) {
     else if (str1.at(i) <= 'z') temp.push_back(str1.at(i) - 32);
     else continue;
 
-    jSet1.insert(temp);
-
-    cout << temp << "\n";
+    jMap[temp]++;
+    unionCount++;
   }
 
-  return answer;
+  for (int i = 1; i < (int) str2.size(); i++) {
+    string temp;
+
+    if (str2.at(i - 1) < 'A') continue;
+    else if (str2.at(i - 1) <= 'Z') temp.push_back(str2.at(i - 1));
+    else if (str2.at(i - 1) < 'a') continue;
+    else if (str2.at(i - 1) <= 'z') temp.push_back(str2.at(i - 1) - 32);
+    else continue;
+
+    if (str2.at(i) < 'A') continue;
+    else if (str2.at(i) <= 'Z') temp.push_back(str2.at(i));
+    else if (str2.at(i) < 'a') continue;
+    else if (str2.at(i) <= 'z') temp.push_back(str2.at(i) - 32);
+    else continue;
+
+    unionCount++;
+
+    if(jMap[temp] > 0) {
+      jMap[temp]--;
+      unionCount--;
+      interCount++;
+    }
+  }
+
+  if (unionCount == 0) return 65536;
+
+  return (interCount / unionCount) * 65536;
 }
