@@ -24,25 +24,30 @@
 
 키와 값을 이용하여 요소들에 대한 빠른 접근을 제공해줍니다.
 
-대표적인 예로, 세트(set), 멀티세트(multiset), 맵(map), 멀티맵(multimap) 가 있습니다.
+균형 이진탐색 트리 기반인 집합(set), 맵(map),
+
+해시 테이블 기반인 해시집합(unordered set), 해시맵(unordered map),
+
+중복을 허용하는 멀티세트(multiset), 멀티맵(multimap) 들이 이에 속합니다.
+
 ​
 
 ## Set
 
 ### 집합：Set
 
-- set 컨테이너는 밸런스 트리로 Red-Black 트리를 기반으로 합니다.
+- set 컨테이너는 균형 이진탐색 트리(Balanced Binary Search Tree)인 Red-Black 트리를 기반으로 합니다.
 
 - set 컨테이너가 구현하는 집합의 내부는 다음의 규칙을 유지합니다.
 
   1. 내부 원소들은 중복되지 않는다.
   2. 삽입하는 순서에 상관없이 정렬되서 입력이 된다.
 
-#### 집합：Create
+#### 집합：Set：Create
 
 - `set<T>`
 
-#### 집합：Read
+#### 집합：Set：Read
 
 - `find`
 
@@ -63,7 +68,11 @@ else
 cout << "내가 찾는 원소가 있습니다" <<endl;
 ```
 
+#### 집합：Set：Update
+
 - Update：`insert & emplace`
+
+- 언급했듯 균형 이진 트리 기반이기에 insert를 한 값들이 정렬 되어서 들어갑니다.
 
 C++에서는 모든 컨테이너( vector , stack , queue , set , map 등)가 insert 및 emplace 작업을 모두 지원합니다.
 
@@ -123,7 +132,9 @@ int main()
 }
 ```
 
-- Delete：`insert & emplace`
+#### 집합：Set：Delete
+
+- Delete：`erase`
 
 ```cpp
 #include <set>
@@ -169,3 +180,5 @@ int main(void) {
 ### Map
 
 ### Multimap
+
+https://learn.microsoft.com/ko-kr/cpp/standard-library/multiset-class?view=msvc-170&viewFallbackFrom=vs-2019

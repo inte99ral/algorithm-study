@@ -15,3 +15,5 @@
 - `#include <functional>`
 
 <br />
+
+[참고 링크](https://jeonyoungho.github.io/posts/Balanced-Binary-Search-Tree/)
