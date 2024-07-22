@@ -46,8 +46,8 @@
 
 # FIXME:
 
-- [ ] 2024-xx-xx | [PG 17677](Problem\Unsolved\Programmers\Level2\PG_17677\question\info.md) 뉴스 클러스터링 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
-- [ ] PG 17680 캐시 레벨2 2018_KAKAO_BLIND_RECRUITMENT 1차
+- [x] 2024-07-22 | [PG 17677](Problem\Unsolved\Programmers\Level2\PG_17677\question\info.md) 뉴스 클러스터링 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
+- [ ] 2024-0x-xx | [PG 17680](Problem\Unsolved\Programmers\Level2\PG_17680\question\info.md) 캐시 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
 - [ ] PG 17679 프렌즈4블록 레벨2 2018_KAKAO_BLIND_RECRUITMENT 1차
 - [ ] PG 17676 추석 트래픽 레벨3 2018_KAKAO_BLIND_RECRUITMENT 1차
 - [ ] Doc/Lang_Ref/c++/RapidJson
