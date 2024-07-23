@@ -78,3 +78,7 @@ int main() {
     }
   }
 ```
+
+## 소수점 출력
+
+https://nextcoder.tistory.com/22
