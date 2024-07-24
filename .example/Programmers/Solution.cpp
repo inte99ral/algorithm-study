@@ -2,12 +2,12 @@
 
 using namespace std;
 
-// # Prototype Declaration ====================
+// # Prototype Declaration ==============================
 int solution(vector<vector<int>> targets);
 
-// # Global Variable & Constant================
+// # Global Variable & Constant==========================
 
-// # Implements Definition ====================
+// # Implements Definition ==============================
 // ## Main
 int main() {
   ios_base::sync_with_stdio(false);
