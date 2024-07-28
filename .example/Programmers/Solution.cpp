@@ -14,26 +14,48 @@ int main() {
   cin.tie(nullptr);
   cout.tie(nullptr);
 
-  int input1;
-  vector<string> input2;
+  int input1; // Number
+  vector<string> input2; // Korean Words
+  vector<string> input3; // Sentences between double quotation marks
+  vector<pair<int, int>> input4; // Multi-Dimensional Array
 
   // * Input
   {
-    string rawInput;
-    regex regExp("\\\"[^\\[\\\"\\,\\]]+"); // "로 시작하되 [",] 기호가 없는 가장 긴 문자열 = "" 내부 글자
+    regex regExp4("[0-9]+"); // Number
 
     freopen(".example\\Programmers\\question\\input.txt", "rt", stdin);
-    
-    cin >> input1;
-    cin.ignore(); // 입력 버퍼 초기화 \n 제거
- 
-    getline(cin, rawInput);
 
-    sregex_token_iterator iter;
-    sregex_token_iterator end;
-    iter = sregex_token_iterator(rawInput.begin(), rawInput.end(), regExp);
+    // * Input 1: Number
+    {
+      cin >> input1;
+      cin.ignore(); // input buffer "\n" release
+    }
 
-    while (iter != end) input2.push_back(((string) *iter++).substr(1));
+    // * Input 2: Korean Words
+    {
+      string rawInput2;
+      regex regExp2("[A-Za-z]+"); // Korean Words
+      sregex_token_iterator iter;
+      sregex_token_iterator end;
+
+      getline(cin, rawInput2);
+      iter = sregex_token_iterator(rawInput2.begin(), rawInput2.end(), regExp2);
+
+      while (iter != end) input2.push_back(*iter++);
+    }
+
+    // * Input 3: Sentences between double quotation marks
+    {
+      string rawInput3;
+      regex regExp3("\\\"[^\\[\\\"\\,\\]]+"); // Sentences between double quotation marks
+      sregex_token_iterator iter;
+      sregex_token_iterator end;
+
+      getline(cin, rawInput3);
+      iter = sregex_token_iterator(rawInput3.begin(), rawInput3.end(), regExp3);
+
+      while (iter != end) input3.push_back(((string) *iter++).substr(1));
+    }
   }
 
   // * Output
