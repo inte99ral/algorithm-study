@@ -3,7 +3,7 @@
 using namespace std;
 
 // # Prototype Declaration ==============================
-int solution(int cacheSize, vector<string> cities);
+int solution(int input1, vector<string> input2, vector<string> input3, vector<pair<int, int>> input4);
 
 // # Global Variable & Constant =========================
 
@@ -21,8 +21,6 @@ int main() {
 
   // * Input
   {
-    regex regExp4("[0-9]+"); // Number
-
     freopen(".example\\Programmers\\question\\input.txt", "rt", stdin);
 
     // * Input 1: Number
@@ -55,6 +53,21 @@ int main() {
       iter = sregex_token_iterator(rawInput3.begin(), rawInput3.end(), regExp3);
 
       while (iter != end) input3.push_back(((string) *iter++).substr(1));
+    }
+
+    // * Input 3: Numbers
+    {
+      string rawInput4;
+      regex regExp4("[0-9]+"); // Numbers
+      sregex_token_iterator iter;
+      sregex_token_iterator end;
+
+      getline(cin, rawInput4);
+      iter = sregex_token_iterator(rawInput4.begin(), rawInput4.end(), regExp4);
+
+      while (iter != end) {
+        input4.push_back({stoi(*iter++), stoi(*iter++)});
+      }
     }
   }
 
