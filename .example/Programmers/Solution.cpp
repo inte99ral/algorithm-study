@@ -11,8 +11,8 @@ int solution(int input1, vector<string> input2, vector<string> input3, vector<pa
 // ## Main
 int main() {
   ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
-  cout.tie(nullptr);
+  // cin.tie(nullptr);
+  // cout.tie(nullptr);
 
   int input1; // Number
   vector<string> input2; // Korean Words
@@ -32,7 +32,7 @@ int main() {
     // * Input 2: Korean Words
     {
       string rawInput2;
-      regex regExp2("[A-Za-z]+"); // Korean Words
+      regex regExp2("[0-9A-Za-z가-힣\\s]+"); // Korean Words
       sregex_token_iterator iter;
       sregex_token_iterator end;
 
@@ -73,40 +73,41 @@ int main() {
 
   // * Output
   {
-    int answer = solution(input1, input2);
-    cout << "[output] : " << answer << "\n";
+    int answer = solution(input1, input2, input3, input4);
+    cout << "[OUTPUT] : " << answer << "\n";
   }
 
   return 0;
 }
 
 // ## Solution
-#include <algorithm>
-#include <string>
+#include <iostream>
 #include <vector>
 
 using namespace std;
 
-int solution(int cacheSize, vector<string> cities) {
-  int answer = 0;
+int solution(int input1, vector<string> input2, vector<string> input3, vector<pair<int, int>> input4) {
+  int answer = 99;
 
-  vector<string> cache;
+  cout << "[INPUT 1]: " << input1 << endl;
 
-  for (string& city : cities) {
-    transform(city.begin(), city.end(), city.begin(), ::toupper);
-    answer += 5;
-    for (int i = 0; i < (int) cache.size(); i++) {
-      if (cache[i] == city) {
-        cache.erase(cache.begin() + i);
-        answer -= 4;
-        break;
-      }
-    }
-
-    cache.push_back(city);
-    
-    if ((int) cache.size() > cacheSize) cache.erase(cache.begin());
+  cout << "[INPUT 2]: ";
+  for (string s : input2) {
+    cout << s << ", ";
   }
+  cout << "\b\b " << endl;
+
+  cout << "[INPUT 3]: ";
+  for (string s : input3) {
+    cout << s << ", ";
+  }
+  cout << "\b\b " << endl;
+
+  cout << "[INPUT 4]: [";
+  for (const auto& p : input4) {
+    cout << "[" << p.first << ", " << p.second << "], ";
+  }
+  cout << "\b\b]" << endl;
 
   return answer;
 }
