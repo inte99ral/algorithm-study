@@ -6,11 +6,7 @@
   .output td {width: 30vw; padding: 1em}
 </style>
 
-<br />
-
 ## 문제 설명
-
-<br />
 
 &nbsp; A 나라가 B 나라를 침공하였습니다. B 나라의 대부분의 전략 자원은 아이기스 군사 기지에 집중되어 있기 때문에 A 나라는 B 나라의 아이기스 군사 기지에 융단폭격을 가했습니다.
 
@@ -58,11 +54,7 @@
 </center>
 <br />
 
-<br />
-
 ## 제한 사항
-
-<br />
 
 - 1 ≤ targets의 길이 ≤ 500,000
 - targets의 각 행은 [s,e] 형태입니다.
@@ -104,7 +96,6 @@
 
 ## 입출력 예 설명
 
-<br />
 <center>
 <img src="./asset/1.png" alt="1" style="width:50vw; aspect-ratio: 3 / 1"/>
 </center>

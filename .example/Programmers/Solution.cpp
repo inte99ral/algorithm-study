@@ -11,8 +11,8 @@ int solution(int input1, vector<string> input2, vector<string> input3, vector<pa
 // ## Main
 int main() {
   ios_base::sync_with_stdio(false);
-  // cin.tie(nullptr);
-  // cout.tie(nullptr);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
 
   int input1; // Number
   vector<string> input2; // Korean Words
@@ -55,7 +55,7 @@ int main() {
       while (iter != end) input3.push_back(((string) *iter++).substr(1));
     }
 
-    // * Input 3: Numbers
+    // * Input 4: Multi-Dimensional Array
     {
       string rawInput4;
       regex regExp4("[0-9]+"); // Numbers

@@ -1,12 +1,10 @@
-# 연관 컨테이너：Associative Container
+# 순차 컨테이너：Sequence Container
 
 ## 목차
 
 <br />
 
 ## 개요
-
-<br />
 
 - 컨테이너란 C++에서 자주 사용되는 구조들을 미리 라이브러리화 시켜놓아 직접 구현하지 않아도 활용할 수 있도록 제공하는 표준 템플릿 라이브러리(STL, Standard Template Libaray) 중 하나 입니다.
 
@@ -27,6 +25,10 @@
 대표적인 예로, 벡터(vector), 데큐(deque), 리스트(list)가 있습니다.
 
 ## Vector
+
+```cpp
+vector<vector<int>> matrix(y, vector<int> (x));
+```
 
 ## List
 
