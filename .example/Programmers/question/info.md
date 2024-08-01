@@ -17,7 +17,6 @@
 
 &nbsp; 문제의 그림예시 `<그림 1>`
 
-<br />
 <center>
 
 ```
@@ -31,9 +30,9 @@
 0은 빈 칸, 1은 집, 2는 치킨집이다.
 
 </center>
-<br />
 
 <br />
+
 <center>
 
 <table class="example">
@@ -52,7 +51,6 @@
 </table>
 
 </center>
-<br />
 
 ## 제한 사항
 
@@ -64,8 +62,6 @@
 <br/>
 
 ## 입출력 예
-
-<br />
 
 <center>
 <table class="output">
@@ -91,8 +87,6 @@
 </tr>
 </table>
 </center>
-
-<br />
 
 ## 입출력 예 설명
 
