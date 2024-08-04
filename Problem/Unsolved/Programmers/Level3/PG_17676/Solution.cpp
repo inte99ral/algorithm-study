@@ -1,98 +1,112 @@
-// #include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
-// using namespace std;
+using namespace std;
 
-// // # Prototype Declaration ==============================
-// int solution(int m, int n, vector<string> board);
+// # Prototype Declaration ==============================
+int solution(vector<string> lines);
 
-// // # Global Variable & Constant =========================
+// # Global Variable & Constant =========================
 
-// // # Implements Definition ==============================
-// // ## Main
-// int main() {
-//   ios_base::sync_with_stdio(false);
-//   cin.tie(nullptr);
-//   cout.tie(nullptr);
+// # Implements Definition ==============================
+// ## Main
+int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
 
-//   int m;
-//   int n;
-//   vector<string> board;
+  vector<string> lines; // Sentences between double quotation marks
 
-//   // * Input
-//   {
-//     freopen("Problem/Unsolved/Programmers/Level2/PG_17679/question/input.txt", "rt", stdin);
-    
-//     string rawInput;
-//     regex regExp("[A-Z]+"); // Korean Words
-//     sregex_token_iterator iter;
-//     sregex_token_iterator end;
+  // * Input
+  {
+    freopen("Problem/Unsolved/Programmers/Level3/PG_17676/question/input.txt", "rt", stdin);
 
-//     cin >> m;
-//     cin >> n;
+    string rawInput;
+    regex regExp("\\\"[^\\[\\\"\\,\\]]+"); // Sentences between double quotation marks
+    sregex_token_iterator iter;
+    sregex_token_iterator end;
 
-//     cin.ignore();
+    getline(cin, rawInput);
+    iter = sregex_token_iterator(rawInput.begin(), rawInput.end(), regExp);
 
-//     getline(cin, rawInput);
-//     iter = sregex_token_iterator(rawInput.begin(), rawInput.end(), regExp);
+    while (iter != end) lines.push_back(((string) *iter++).substr(1));
+  }
 
-//     while (iter != end) {board.push_back(*iter++);}
-//   }
+  // * Output
+  {
+    int answer = solution(lines);
+    cout << "[OUTPUT] : " << answer << "\n";
+  }
 
-//   // * Output
-//   {
-//     int answer = solution(m, n, board);
-//     cout << "[OUTPUT] : " << answer << "\n";
-//   }
-
-//   return 0;
-// }
+  return 0;
+}
 
 // ## Solution
+#include <map>
+#include <regex>
 #include <string>
 #include <vector>
 
 using namespace std;
 
-int solution(int m, int n, vector<string> board) {
+int solution(vector<string> lines) {
   int answer = 0;
 
-  vector<vector<char>> matrix(n, vector<char> (m));
-  vector<vector<bool>> flag(n, vector<bool> (m));
+  map<int, int> req;
 
-  for (int y = 0; y < n; y++) {
-    for (int x = 0; x < m; x++) {
-      matrix[y][x] = board[m - 1 - x].at(y);
+  for (const string& line : lines) {
+    regex regExp("[0-9\\.]+");
+    sregex_token_iterator iter, end;
+
+    iter = sregex_token_iterator(line.begin(), line.end(), regExp);
+    iter++;
+    iter++;
+    iter++;
+
+    int h = stoi(*iter++) * 1000 * 60 * 60;
+    int m = stoi(*iter++) * 1000 * 60;
+    int s = stof(*iter++) * 1000;
+    int t = stof(*iter++) * 1000;
+
+    // * TEST_01
+    {
+      cout << "s: " << s << "\n";
+      cout << "t: " << t << "\n\n";
+    }
+
+    req[h + m + s - t + 1] = h + m + s;
+  }
+
+  // * TEST_00
+  {
+    for (const auto& target : req) {
+      cout << "t.f: " << target.first << "\n";
+      cout << "t.s: " << target.second << "\n\n";
     }
   }
 
-  int count;
-  do {
-    count = 0;
+  // for (const auto& target : req) {
+  //   int count;
+    
+  //   count = 0;
+  //   for (const auto& range : req) {
+  //     if ((range.first < target.first + 1000) && (target.first <= range.second)) {
+  //       count++;
+  //     }
+  //   }
+  //   if (answer < count) answer = count;
 
-    for (int y = 0; y < n - 1; y++) {
-      for (int x = 0; x < m - 1; x++) {
-        if ((matrix[y][x] != ' ') && (matrix[y][x] == matrix[y][x + 1]) && (matrix[y][x] == matrix[y + 1][x]) && (matrix[y + 1][x] == matrix[y + 1][x + 1])) {
-          flag[y][x] = flag[y][x + 1] = flag[y + 1][x] = flag[y + 1][x + 1] = true;
-        }
-      }
-    }
-
-    for (int y = 0; y < n; y++) {
-      for (int x = 0; x < m; x++) {
-        if (flag[y][x]) {
-          flag[y].erase(flag[y].begin() + x);
-          flag[y].push_back(false);
-          matrix[y].erase(matrix[y].begin() + x);
-          matrix[y].push_back(' ');
-          count++;
-          x--;
-        }
-      }
-    }
-
-    answer += count;
-  } 
-  while (count != 0);
+  //   count = 0;
+  //   for (const auto& range : req) {
+  //     cout << "t.s: " << target.second << "\n";
+  //     cout << "r.f: " << range.first << "\n";
+  //     cout << "r.s: " << range.second << "\n\n";
+  //     if ((range.first < target.second + 1000) && (target.second <= range.second)) {
+  //       count++;
+  //     }
+  //   }
+    
+  //   if (answer < count) answer = count;
+  // }
 
   return answer;
 }
