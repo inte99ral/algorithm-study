@@ -69,21 +69,7 @@ int solution(vector<string> lines) {
     int t = stoi(*iter++) * 1000;
     if (iter != end) t += stoi(*iter++);
 
-    // * TEST_01
-    {
-      // cout << "s: " << s << "\n";
-      // cout << "t: " << t << "\n\n";
-    }
-
     req[h + m + s - t + 1] = h + m + s;
-  }
-
-  // * TEST_00
-  {
-    // for (const auto& target : req) {
-    //   cout << "t.f: " << target.first << "\n";
-    //   cout << "t.s: " << target.second << "\n\n";
-    // }
   }
 
   for (const auto& target : req) {
@@ -91,20 +77,26 @@ int solution(vector<string> lines) {
     
     count = 0;
     for (const auto& range : req) {
-      if ((range.first < target.first + 1000) && (target.first <= range.second)) {
-        count++;
-      }
+      if ((target.first + 1000 <= range.first) || (range.second < target.first)) continue;
+      
+      count++;
     }
     if (answer < count) answer = count;
 
     count = 0;
     for (const auto& range : req) {
-      cout << "t.s: " << target.second << "\n";
-      cout << "r.f: " << range.first << "\n";
-      cout << "r.s: " << range.second << "\n\n";
-      if ((range.first < target.second + 1000) && (target.second <= range.second)) {
-        count++;
+
+      // * TEST_01
+      {
+        cout << "T.F: " << target.first << "\n";
+        cout << "T.S: " << target.second << "\n";
+        cout << "R.F: " << range.first << "\n";
+        cout << "R.S: " << range.second << "\n\n";
       }
+
+      if ((target.second + 1000 <= range.first) || (range.second < target.second)) continue;
+      
+      count++;
     }
     
     if (answer < count) answer = count;
