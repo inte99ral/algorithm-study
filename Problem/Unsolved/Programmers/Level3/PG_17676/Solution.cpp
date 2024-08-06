@@ -48,7 +48,7 @@ int main() {
 
 using namespace std;
 
-int solution(vector<string> lines) {
+int solution_1(vector<string> lines) {
   int answer = 0;
 
   map<int, int> req;
@@ -77,8 +77,15 @@ int solution(vector<string> lines) {
     
     count = 0;
     for (const auto& range : req) {
+      // * TEST_01
+      {
+        // cout << "T.F: " << target.first << "\n";
+        // cout << "T.S: " << target.second << "\n";
+        // cout << "R.F: " << range.first << "\n";
+        // cout << "R.S: " << range.second << "\n\n";
+      }
+
       if ((target.first + 1000 <= range.first) || (range.second < target.first)) continue;
-      
       count++;
     }
     if (answer < count) answer = count;
@@ -86,21 +93,82 @@ int solution(vector<string> lines) {
     count = 0;
     for (const auto& range : req) {
 
-      // * TEST_01
+      // * TEST_02
       {
-        cout << "T.F: " << target.first << "\n";
-        cout << "T.S: " << target.second << "\n";
-        cout << "R.F: " << range.first << "\n";
-        cout << "R.S: " << range.second << "\n\n";
+        // cout << "T.F: " << target.first << "\n";
+        // cout << "T.S: " << target.second << "\n";
+        // cout << "R.F: " << range.first << "\n";
+        // cout << "R.S: " << range.second << "\n\n";
       }
 
       if ((target.second + 1000 <= range.first) || (range.second < target.second)) continue;
-      
       count++;
     }
     
     if (answer < count) answer = count;
   }
+
+  return answer;
+}
+
+int solution(vector<string> lines) {
+  int answer = 0;
+  deque<pair<int, int>> reqDq;
+
+  for (const string& line : lines) {
+
+    int end_time = ((stoi(line.substr(11, 2)) * 60 + stoi(line.substr(14, 2))) * 60 + stoi(line.substr(17, 2))) * 1000;
+
+    int h = stoi(line.substr(11, 2)) * 60 * 60 * 1000;
+    int m = stoi(line.substr(14, 2)) * 60 * 1000;
+    int s = stoi(line.substr(17, 2)) * 1000;
+
+    int t = stoi(line.substr(24, 1)) * 1000;
+
+    if (line[25] == '.') {
+      int cursor = 26;
+      while (line[cursor] <= '9') cursor++;
+      t += stoi(line.substr(26, cursor - 26));
+    }
+
+    cout << "\n";
+  }
+
+  // for (const auto& target : reqDq) {
+  //   int count;
+    
+  //   count = 0;
+  //   for (const auto& range : reqDq) {
+  //     // * TEST_01
+  //     {
+  //       // cout << "T.F: " << target.first << "\n";
+  //       // cout << "T.S: " << target.second << "\n";
+  //       // cout << "R.F: " << range.first << "\n";
+  //       // cout << "R.S: " << range.second << "\n\n";
+  //     }
+
+  //     if ((target.first + 1000 <= range.first) || (range.second < target.first)) continue;
+  //     count++;
+  //   }
+  //   if (answer < count) answer = count;
+
+  //   count = 0;
+  //   for (const auto& range : reqDq) {
+
+  //     // * TEST_02
+  //     {
+  //       // cout << "T.F: " << target.first << "\n";
+  //       // cout << "T.S: " << target.second << "\n";
+  //       // cout << "R.F: " << range.first << "\n";
+  //       // cout << "R.S: " << range.second << "\n\n";
+  //     }
+
+  //     if ((target.second + 1000 <= range.first) || (range.second < target.second)) continue;
+  //     count++;
+  //   }
+    
+  //   if (answer < count) answer = count;
+  // }
 
   return answer;
 }
