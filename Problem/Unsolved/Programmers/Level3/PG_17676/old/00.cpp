@@ -48,43 +48,90 @@ int main() {
 
 using namespace std;
 
+int solution_1(vector<string> lines) {
+  int answer = 0;
+
+  map<int, int> req;
+
+  for (const string& line : lines) {
+    regex regExp("[0-9]+");
+    sregex_token_iterator iter, end;
+
+    iter = sregex_token_iterator(line.begin(), line.end(), regExp);
+    iter++;
+    iter++;
+    iter++;
+
+    int h = stoi(*iter++) * 1000 * 60 * 60;
+    int m = stoi(*iter++) * 1000 * 60;
+    int s = stoi(*iter++) * 1000;
+    s += stoi(*iter++);
+    int t = stoi(*iter++) * 1000;
+    if (iter != end) t += stoi(*iter++);
+
+    req[h + m + s - t + 1] = h + m + s;
+  }
+
+  for (const auto& target : req) {
+    int count;
+    
+    count = 0;
+    for (const auto& range : req) {
+      // * TEST_01
+      {
+        // cout << "T.F: " << target.first << "\n";
+        // cout << "T.S: " << target.second << "\n";
+        // cout << "R.F: " << range.first << "\n";
+        // cout << "R.S: " << range.second << "\n\n";
+      }
+
+      if ((target.first + 1000 <= range.first) || (range.second < target.first)) continue;
+      count++;
+    }
+    if (answer < count) answer = count;
+
+    count = 0;
+    for (const auto& range : req) {
+
+      // * TEST_02
+      {
+        // cout << "T.F: " << target.first << "\n";
+        // cout << "T.S: " << target.second << "\n";
+        // cout << "R.F: " << range.first << "\n";
+        // cout << "R.S: " << range.second << "\n\n";
+      }
+
+      if ((target.second + 1000 <= range.first) || (range.second < target.second)) continue;
+      count++;
+    }
+    
+    if (answer < count) answer = count;
+  }
+
+  return answer;
+}
+
 int solution(vector<string> lines) {
   int answer = 0;
-  vector<pair<int, int>> reqVec;
   deque<pair<int, int>> reqDq;
 
   for (const string& line : lines) {
+
     int end_time = ((stoi(line.substr(11, 2)) * 60 + stoi(line.substr(14, 2))) * 60 + stoi(line.substr(17, 2))) * 1000;
-    int start_time = end_time + 1;
-    
-    start_time -= stoi(line.substr(24, 1)) * 1000;
+
+    int h = stoi(line.substr(11, 2)) * 60 * 60 * 1000;
+    int m = stoi(line.substr(14, 2)) * 60 * 1000;
+    int s = stoi(line.substr(17, 2)) * 1000;
+
+    int t = stoi(line.substr(24, 1)) * 1000;
+
     if (line[25] == '.') {
       int cursor = 26;
       while (line[cursor] <= '9') cursor++;
-      start_time -= stoi(line.substr(26, cursor - 26));
-    }
-
-    cout << "s.t: " << start_time << " - ";
-    cout << "e.t: " << end_time << "\n";
-
-    reqDq.push_front({start_time, end_time});
-  }
-
-  reqVec = vector<pair<int, int>> {reqDq.begin(), reqDq.end()};
-
-
-
-  // * TEST_00
-  {
-    for (const auto& a : reqDq) {
-      cout << a.first << " - " << a.second << "\n";
+      t += stoi(line.substr(26, cursor - 26));
     }
 
     cout << "\n";
-
-    for (const auto& a : reqVec) {
-      cout << a.first << " - " << a.second << "\n";
-    }
   }
 
   // for (const auto& target : reqDq) {
