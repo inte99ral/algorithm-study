@@ -51,10 +51,9 @@ using namespace std;
 int solution(vector<string> lines) {
   int answer = 0;
   vector<pair<int, int>> reqVec;
-  deque<pair<int, int>> reqDq;
 
   for (const string& line : lines) {
-    int end_time = ((stoi(line.substr(11, 2)) * 60 + stoi(line.substr(14, 2))) * 60 + stoi(line.substr(17, 2))) * 1000;
+    int end_time = (((stoi(line.substr(11, 2)) * 60 + stoi(line.substr(14, 2))) * 60 + stoi(line.substr(17, 2))) * 1000) + stoi(line.substr(20, 3));
     int start_time = end_time + 1;
     
     start_time -= stoi(line.substr(24, 1)) * 1000;
@@ -67,25 +66,16 @@ int solution(vector<string> lines) {
     cout << "s.t: " << start_time << " - ";
     cout << "e.t: " << end_time << "\n";
 
-    reqDq.push_front({start_time, end_time});
+    reqVec.push_back({end_time, start_time});
   }
-
-  reqVec = vector<pair<int, int>> {reqDq.begin(), reqDq.end()};
-
-
 
   // * TEST_00
   {
-    for (const auto& a : reqDq) {
-      cout << a.first << " - " << a.second << "\n";
-    }
-
-    cout << "\n";
-
-    for (const auto& a : reqVec) {
-      cout << a.first << " - " << a.second << "\n";
-    }
+    // for (const auto& a : reqVec) {
+    //   cout << a.first << " - " << a.second << "\n";
+    // }
   }
+
 
   // for (const auto& target : reqDq) {
   //   int count;
