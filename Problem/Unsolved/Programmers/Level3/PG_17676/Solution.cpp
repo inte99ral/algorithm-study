@@ -84,24 +84,34 @@ int solution(vector<string> lines) {
     
     // * TEST_01
     {
-      cout << reqVec[i].first << " : " << endCount << "\n";
-      cout << reqVec[i].second << " : " << startCount << "\n";
-      cout << "\n";
+      cout << reqVec[i].first << " to " << reqVec[i].second << "\n";
     }
 
     int endCount = 1;
     int startCount = 1;
     for (int j = i + 1; j < N; j++) {
       // 뒷 시간대가 겹치는가?
-      if (reqVec[j].first > reqVec[i].first + 1000) {
+      if (reqVec[j].first > reqVec[i].first - 1000) {
+
+
         endCount++;
+
+        // * TEST_02
+        {
+          cout << "E" << endCount << ": " << reqVec[i].first << " <- [" << reqVec[j].first << " " << reqVec[j].second << "] <- " << reqVec[i].first - 1000 << "\n";
+        }
       }
 
 
       // 앞 시간대가 겹치는가?
-      if ((reqVec[i].second >= reqVec[j].second) || (reqVec[j].first > reqVec[i].second + 1000)) {
+      if ((reqVec[i].second >= reqVec[j].second) || (reqVec[j].first > reqVec[i].second - 1000)) {
 
         startCount++;
+
+        // * TEST_03
+        {
+          cout << "S" << startCount << ": " << reqVec[i].second << " <- [" << reqVec[j].first << " " << reqVec[j].second << "] <- " << reqVec[i].second - 1000 << "\n";
+        }
       }
     }
 
