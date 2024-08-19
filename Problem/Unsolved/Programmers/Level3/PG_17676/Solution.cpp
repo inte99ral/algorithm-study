@@ -41,6 +41,7 @@ int main() {
 }
 
 // ## Solution
+#include <algorithm>
 #include <map>
 #include <regex>
 #include <string>
@@ -51,118 +52,39 @@ using namespace std;
 int solution(vector<string> lines) {
   int answer = 1;
   vector<pair<int, int>> reqVec;
-  deque<pair<int, int>> reqDq;
 
   for (const string& line : lines) {
-    int end_time = (((stoi(line.substr(11, 2)) * 60 + stoi(line.substr(14, 2))) * 60 + stoi(line.substr(17, 2))) * 1000) + stoi(line.substr(20, 3));
-    int start_time = end_time + 1;
-    
-    start_time -= stoi(line.substr(24, 1)) * 1000;
+    int request_end;
+    int request_srt;
+
+    request_end = (((stoi(line.substr(11, 2)) * 60) + stoi(line.substr(14, 2))) * 60 + stoi(line.substr(17, 2))) * 1000 + stoi(line.substr(20, 3));
+    request_srt = request_end + 1;
+
+    request_srt -= stoi(line.substr(24, 1)) * 1000;
+
     if (line[25] == '.') {
       int cursor = 26;
       while (line[cursor] <= '9') cursor++;
-      start_time -= stoi(line.substr(26, cursor - 26));
+      request_srt -= stoi(line.substr(26, cursor - 26));
     }
 
-    reqDq.push_front({end_time, start_time});
+    reqVec.push_back({request_end, request_srt});
   }
 
-  reqVec = vector<pair<int, int>> {reqDq.begin(), reqDq.end()};
+  const int SIZE = reqVec.size();
+  for (int i = 0; i < SIZE; i++) {
 
-  // * TEST_00
-  {
-    for (const auto& a : reqVec) {
-      cout << a.first << " - " << a.second << "\n";
+    int count_end = 0;
+    int count_srt = 0;
+
+    for (int j = 0; j < SIZE; j++) {
+      if ((reqVec[i].first - 1000 < reqVec[j].first) && (reqVec[j].second <= reqVec[i].first)) count_end++;
+      if ((reqVec[i].second - 1000 < reqVec[j].first) && (reqVec[j].second <= reqVec[i].second)) count_srt++;
     }
-    cout << "\n";
+
+    if (answer < count_end) answer = count_end;
+    if (answer < count_srt) answer = count_srt;
   }
-
-  const int N = reqVec.size();
-
-  for (int i = 0; i < N; i++) {
-
-    
-    // * TEST_01
-    {
-      cout << reqVec[i].first << " to " << reqVec[i].second << "\n";
-    }
-
-    int endCount = 1;
-    int startCount = 1;
-    for (int j = i + 1; j < N; j++) {
-      // 뒷 시간대가 겹치는가?
-      if (reqVec[j].first > reqVec[i].first - 1000) {
-
-
-        endCount++;
-
-        // * TEST_02
-        {
-          cout << "E" << endCount << ": " << reqVec[i].first << " <- [" << reqVec[j].first << " " << reqVec[j].second << "] <- " << reqVec[i].first - 1000 << "\n";
-        }
-      }
-
-
-      // 앞 시간대가 겹치는가?
-      if ((reqVec[i].second >= reqVec[j].second) || (reqVec[j].first > reqVec[i].second - 1000)) {
-
-        startCount++;
-
-        // * TEST_03
-        {
-          cout << "S" << startCount << ": " << reqVec[i].second << " <- [" << reqVec[j].first << " " << reqVec[j].second << "] <- " << reqVec[i].second - 1000 << "\n";
-        }
-      }
-    }
-
-    // * TEST_
-    {
-      // cout << reqVec[i].first << " : " << endCount << "\n";
-      // cout << reqVec[i].second << " : " << startCount << "\n";
-      // cout << "\n";
-    }
-
-    if (answer < endCount) answer = endCount;
-    if (answer < startCount) answer = startCount;
-  }
-
-
-
-  // for (const auto& target : reqDq) {
-  //   int count;
-    
-  //   count = 0;
-  //   for (const auto& range : reqDq) {
-  //     // * TEST_01
-  //     {
-  //       // cout << "T.F: " << target.first << "\n";
-  //       // cout << "T.S: " << target.second << "\n";
-  //       // cout << "R.F: " << range.first << "\n";
-  //       // cout << "R.S: " << range.second << "\n\n";
-  //     }
-
-  //     if ((target.first + 1000 <= range.first) || (range.second < target.first)) continue;
-  //     count++;
-  //   }
-  //   if (answer < count) answer = count;
-
-  //   count = 0;
-  //   for (const auto& range : reqDq) {
-
-  //     // * TEST_02
-  //     {
-  //       // cout << "T.F: " << target.first << "\n";
-  //       // cout << "T.S: " << target.second << "\n";
-  //       // cout << "R.F: " << range.first << "\n";
-  //       // cout << "R.S: " << range.second << "\n\n";
-  //     }
-
-  //     if ((target.second + 1000 <= range.first) || (range.second < target.second)) continue;
-  //     count++;
-  //   }
-    
-  //   if (answer < count) answer = count;
-  // }
 
   return answer;
 }
