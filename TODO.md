@@ -4,6 +4,7 @@
 
 1. 첫 입력시, 초기화를 0으로 했으면, null 값이 아니라 인덱스 0을 가르킨다.
 2. 스택이나 우선순위 큐에서 pop 이나 push 행동을 취하면 당연히 순서가 바뀐다.
+3. if 문에서 배제한 케이스에 대하여 반례 체크를 해봐야 한다.
 
 <br />
 
@@ -39,6 +40,10 @@
 - [x] 2024-06-16 | [PG 42576](Problem\Solved\Programmers\Level_1\PG_42576\question\info.md) 완주하지 못한 선수 `#Level 1` `#해시`
 - [x] 2024-07-04 | [PG 42579](Problem\Solved\Programmers\Level_3\PG_42579\question\info.md) 베스트앨범 `#Level 3` `#해시`
 - [x] 2024-07-14 | [PG 42578](Problem\Solved\Programmers\Level_2\PG_42578\question\info.md) 의상 `#Level 2` `#해시`
+- [x] 2024-07-22：[PG 17677](Problem\Solved\Programmers\Level_2\PG_17677\question\info.md) 뉴스 클러스터링 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
+- [x] 2024-07-31：[PG 17679](Problem\Solved\Programmers\Level_2\PG_17679\question\info.md) 프렌즈4블록 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
+- [x] 2024-07-24：[PG 17680](Problem\Solved\Programmers\Level_2\PG_17680\question\info.md) 캐시 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
+- [x] 2024-08-19：[PG 17676](Problem\Solved\Programmers\Level_3\PG_17676\question\info.md) 추석 트래픽 `#Level 3` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
 
 <br />
 
@@ -46,10 +51,6 @@
 
 # FIXME:
 
-- [x] 2024-07-22：[PG 17677](Problem\Unsolved\Programmers\Level2\PG_17677\question\info.md) 뉴스 클러스터링 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
-- [x] 2024-07-24：[PG 17680](Problem\Unsolved\Programmers\Level2\PG_17680\question\info.md) 캐시 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
-- [x] 2024-07-31：[PG 17679](Problem\Unsolved\Programmers\Level2\PG_17679\question\info.md) 프렌즈4블록 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
-- [x] 2024-08-19：[PG 17676](Problem\Unsolved\Programmers\Level3\PG_17676\question\info.md) 추석 트래픽 `#Level 3` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
 - [ ] Doc/Lang_Ref/c++/RapidJson
 - [ ] Doc/Lang_Ref/Windows/%%
 - [ ] https://www.acmicpc.net/problem/5397

@@ -1,3 +1,9 @@
+# 정리
+
+## 과거 나의 풀이
+
+### 풀이 과정
+
 소문자로 바꿔서 기억하고
 
 소문자를 소문자로 바꿔도 똑같다는 발상 하에 만들어진 알고리즘
@@ -10,8 +16,9 @@
 
 참신하긴 했으니 칭찬한다.
 
-●나의 풀이
+### 풀이 코드
 
+```cpp
 #include <iostream>
 #include <string>
 #include <vector>
@@ -27,10 +34,10 @@ int solution(int m, int n, vector<string> board) {
     int del = 1;
     vector<vector<char>> b(n, vector<char>(0));
     for(int i = 0; i < m; i++) for(int j = 0; j < n; j++) b[j].insert(b[j].begin(),board[i][j]);
-    
+
     while(del != 0){
         del = 0;
-        
+
         //전체 돌면서 2*2 상황 체크
         for(int i = 0; i < (n - 1); i++){// 줄
             for(int j = 0; j < (m - 1); j++){ // 순위
@@ -38,7 +45,7 @@ int solution(int m, int n, vector<string> board) {
                 if((m==u) && (m==r) && (m==ur))b[i][j] = m, b[i+1][j] = m, b[i][j+1] = m, b[i+1][j+1] = m;
             }
         }
-        
+
         for(int i = 0; i < n; i++){// 줄
             for(int j = 0; j < m; j++){ // 순위
                 if(b[i][j] > 90){
@@ -51,6 +58,7 @@ int solution(int m, int n, vector<string> board) {
         }
         answer += del;
     }
-    
+
     return answer;
 }
+```
