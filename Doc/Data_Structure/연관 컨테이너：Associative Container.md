@@ -175,10 +175,77 @@ int main(void) {
 
 ### Multiset
 
-## Map
+## 맵：Map
 
-### Map
+### 맵 > 맵：Map
 
-### Multimap
+#### 맵 > 맵 > Read
+
+https://www.techiedelight.com/ko/determine-if-a-key-exists-in-a-map-in-cpp/
+
+```cpp
+std::map<int, int> m;
+std::vector<int> key, value;
+for(std::map<int,int>::iterator it = m.begin(); it != m.end(); ++it) {
+  key.push_back(it->first);
+  value.push_back(it->second);
+  std::cout << "Key: " << it->first << std::endl;
+  std::cout << "Value: " << it->second << std::endl;
+}
+```
+
+#### 맵 > 맵 > Delete
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
+
+  map<int, int> iMap;
+
+  iMap[2] = 5;
+  iMap[2] = -5;
+
+  iMap[2]++;
+
+  vector<string> t = {"1", "2", "3", "4", "5", "6"};
+
+  t.erase(t.begin() + 2, t.begin() + 4);
+
+  for (string s : t) {
+    cout << s << " ";
+  }
+
+  return 0;
+}
+```
+
+#### 큐 > 우선순위 큐 > Create
+
+### 맵 > 정렬없는 맵：Unordered Map
+
+[참고링크](https://math-coding.tistory.com/31)
+[참고링크](https://blog.naver.com/PostView.naver?blogId=do9562&logNo=221754890348)
+
+- #include <unordered_map>
+
+map보다 더 빠른 탐색을 하기 위한 자료구조입니다.
+
+unordered_map은 해쉬테이블로 구현한 자료구조로 탐색 시간복잡도는 O(1)입니다.
+
+map은 Binary Search Tree로 탐색 시간 복잡도는 O(log n)입니다.
+
+unordered_map을 사용하기 위해서는 #include< unordered_map > 을 선언해야 합니다.
+
+unordered_map은 중복된 데이터를 허용하지 않고 map에 비해 데이터가 많을 시 월등히 좋은 성능을 보입니다.
+
+하지만, key가 유사한 데이터가 많을 시 해시 충돌로 인해 성능이 떨어질 수도 있습니다.
+
+### 맵 > 중복허용 맵：Multimap
 
 https://learn.microsoft.com/ko-kr/cpp/standard-library/multiset-class?view=msvc-170&viewFallbackFrom=vs-2019
