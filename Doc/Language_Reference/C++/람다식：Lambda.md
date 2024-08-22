@@ -46,7 +46,7 @@ c++의 람다식은 4 개의 부분으로 구성되어 있습니다.
 
 <center>
 
-`[x2]`(int x1) -> int { return x1 % x2; }
+<b> `[x2]`(int x1) -> int { return x1 % x2; } </b>
 
 </center>
 
@@ -93,7 +93,7 @@ c++의 람다식은 4 개의 부분으로 구성되어 있습니다.
 
 <center>
 
-[x2]`(int x1)` -> int { return x1 % x2; }
+<b> [x2]`(int x1)` -> int { return x1 % x2; } </b>
 
 </center>
 
@@ -105,11 +105,23 @@ c++의 람다식은 4 개의 부분으로 구성되어 있습니다.
 
 <center>
 
-[x2](int x1) `-> int` { return x1 % x2; }
+<b> [x2](int x1) `-> int` { return x1 % x2; } </b>
 
 </center>
 
 - 람다함수의 반환 타입을 명시해줍니다.
+- 화살표를 생략하면 반환타입을 추론합니다.
+
+  <center>
+
+  ```cpp
+  function<int()> func1 = []() { return 0; };
+  ```
+
+  </center>
+
+<br />
+
 - return type이 void 인 경우 생략하여 다음과 같이 쓸 수 있습니다.
   <center>
 
@@ -125,7 +137,7 @@ c++의 람다식은 4 개의 부분으로 구성되어 있습니다.
 
 <center>
 
-[x2](int x1) -> int `{ return x1 % x2; }`
+<b> [x2](int x1) -> int `{ return x1 % x2; }` </b>
 
 </center>
 

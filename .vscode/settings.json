@@ -49,7 +49,7 @@
 
 {
   "explorer.compactFolders": false,
-  "workbench.colorTheme": "Visual Studio Light - C++",
+  "workbench.colorTheme": "Visual Studio Dark - C++",
   "typescript.updateImportsOnFileMove.enabled": "never",
 
   //# material-icon-theme ======================
