@@ -1,9 +1,9 @@
+# 명령어：Command
+
 <style>
  .example { width: 90vw; & > tbody > tr > td { border: solid 1px lightgray; }; }
  .center { text-align: center; & * { text-align: center; }; }
 </style>
-
-# 명령어：Command
 
 ## Linux Command
 
@@ -11,13 +11,52 @@
 
 <center>
 <table class="example">
-  <tr class="center">
-    <th>동작</th>
-    <th>명령어</th>
-  </tr>
-  <tr>
-    <td>계정 및<br />권한</td>
-    <td>
+<tr class="center">
+  <th>동작</th>
+  <th>명령어</th>
+</tr>
+<tr>
+  <td>셸 특수문자</td>
+  <td>
+
+```bash
+# ~：사용자의 홈 디렉터리.
+cd ~ #홈 디렉터리로 이동
+cd ~<username> #해당 사용자의 홈 디렉터리로 이동
+
+# -：이전 작업 디렉터리.
+cd - #이전 작업 디렉터리로 이동
+
+# ;：연결된 명령을 왼쪽부터 차례로 실행.
+date; ls; pwd # date->ls->pwd 순으로 명령 실행.
+
+# |：왼쪽 명령의 실행 결과를 오른쪽 명령의 입력으로 전달.
+ls -al / | more #ls -al /의 실행 결과를 more 입력으로 전달.
+
+# *：임의의 문자열을 나타내는 특수문자.
+ls -F t* #temp, tmp... 파일명이 t로 시작하는 파일 리스트 출력
+
+# ?：임의의 한 문자를 나타내는 특수문자.
+ls t?.txt #t1.txt, t2.txt...
+
+# []：정해진 조건의 한 문자를 나타내는 특수문자.
+ls -l t[135].txt #t1.txt, t3.txt...
+
+# ''：문자를 감싸서 문자열로 만들고, 모든 특수문자의 기능을 없앰.
+echo '$SHELL' #$SHELL 문자열이 화면에 출력.
+
+# ""：문자를 감싸서 문자열로 만들고, $, `, \를 제외한 특수문자의 기능을 없앰.
+echo "$SEHLL" #$이 명령으로 실행됨
+
+# ``：감싸인 문자열 부분을 명령으로 해석
+echo "Today is `date`" #`date` 가 명령으로 해석됨. Today is 2021. 01. 22 (금) 16:49:12 KST
+```
+
+  </td>
+</tr>
+<tr>
+  <td>계정 및<br />권한</td>
+  <td>
 
 ```bash
 # 루트 계정 비밀번호 설정
@@ -40,10 +79,10 @@ exit
 ```
 
   </td>
-  </tr>
-  <tr>
-    <td>압축</td>
-    <td>
+</tr>
+<tr>
+  <td>압축</td>
+  <td>
 
 ```bash
 #zip 파일 압축
