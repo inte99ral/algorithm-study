@@ -46,7 +46,7 @@ ls -l t[135].txt #t1.txt, t3.txt...
 echo '$SHELL' #$SHELL 문자열이 화면에 출력.
 
 # ""：문자를 감싸서 문자열로 만들고, $, `, \를 제외한 특수문자의 기능을 없앰.
-echo "$SEHLL" #$이 명령으로 실행됨
+echo "$SHELL" #$이 명령으로 실행됨
 
 # ``：감싸인 문자열 부분을 명령으로 해석
 echo "Today is `date`" #`date` 가 명령으로 해석됨. Today is 2021. 01. 22 (금) 16:49:12 KST
