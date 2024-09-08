@@ -9,27 +9,29 @@
 - DB 관리와 백업, 업무 자동화, 서버 운영, 게임 실행 등 윈도우 11에 이른 현재까지도 다방면에서 굉장히 유용하게 사용된다.
 - 텍스트 파일의 확장자를 bat 로 바꾸는 것으로 간편하게 만들수 있다.
 - 동일한 역할을 수행하는 .cmd 확장자 파일도 있다. 똑같다고 봐도 좋으나 윈도우가 업그레이드 되는 과정에서 추가되거나 변경된 기능으로 인하여 bat 파일은 MS-DOS와 윈도우 9x 이전 환경에서 실행하고, cmd 파일은 윈도우 NT 이후의 환경에서만 실행하라고 나눠둔 것이다.
+- 명령어는 대소문자를 구분하지 않습니다.
 
 ## 기본 형식
 
 ```bat
-rem 주석은
+REM 주석은
 : 다음과 같이
 :: 지정할 수 있습니다.
 
 :: Hello, world! 출력 예제
 :: Echo off 옵션 시, C:\> echo "a" 같은 입력창은 보여주지 않고 출력값 "a" 만 보여준다.
-@Echo off
+@ECHO OFF
 
 :: Echo 명령어는 뒷 줄의 문장을 출력한다.
-Echo Hello,
+ECHO Hello,
 
 :: 한 줄을 Echo. 입력으로 띄울 수 있다.
-Echo.
-Echo world!
+ECHO.
+ECHO world!
 
 :: 다른 입력이 있을 때까지 정지. >nul 명령어가 붙으면 "계속하려면 아무 키나 누르십시오..." 출력 조차 하지 않고 정지한다.
-pause>nul
+PAUSE>NUL
+EXIT
 ```
 
 ## 출력색 COLOR
@@ -47,6 +49,10 @@ echo "\033[32mGreen!!"
 ## 입출력
 
 ```bat
+@ECHO OFF
+SET var="The battery is charged 50%%"
+ECHO %var%
+
 @Echo off
 
 :: * set 은 변수에 값을 입력하는 명령입니다.
@@ -68,7 +74,8 @@ set /p E=" Input E : "
 echo [A : %A%] [B : %B%] [C : %C%]
 echo [D : %D%] [E : %E%]
 
-pause>nul
+PAUSE>NUL
+EXIT
 ```
 
 ## 조건문
@@ -95,12 +102,24 @@ exit
 ## 반복문
 
 ```bat
-@echo off
+@ECHO OFF
 
-FOR /l %%i in (1,1,5)
+FOR /l %%i IN (1,1,5)
 
-pause>nul
-exit
+PAUSE>NUL
+EXIT
+```
+
+- /l 옵션
+
+```bat
+@ECHO OFF
+
+:: 기본 형식은 FOR /l {%%|%}<변수> IN (시작, 간격, 끝) DO <명령>
+FOR /l %%i IN (5,-1,1) DO (ECHO "LOOP : %i%")
+
+PAUSE>NUL
+EXIT
 ```
 
 ## 확장과 치환：Expansions and Substitutions
@@ -120,6 +139,31 @@ cmd 에서도 비슷하게 이를 구현하는 방법이 존재합니다.
 
 ### 파라미터 확장：Parameter expansion
 
+[%와 %%의 차이](https://www.delftstack.com/ko/howto/batch/difference-between-and-in-batch/)
+[%var 과 %var%의 차이](https://stackoverflow.com/questions/15428777/whats-the-difference-between-a-and-variable-variables)
+
+&nbsp; 명령줄 셸에서 `%<variable>`은 교체 가능한 단일문자 매개변수를 지정합니다. MS-DOS는 대체 가능한 명령줄 매개변수로 `%1, %2, ... , %9` 을 사용합니다. `%1` 은 배치파일에 전달되는 첫번째 매개변수로 대체됩니다.
+
+&nbsp; 다음의 예시를 통해 이해도를 높여봅시다.
+
+```cmd
+:: a 에 문자열 입력
+SET a="Hello, world!"
+
+:: "%a" 가 그대로 출력됨. 값이 출력되지 않음
+ECHO %a
+```
+
+&nbsp; `%<variable>%`과 같이 양쪽에 퍼센트 기호를 사용하면 환경변수 역할을 하며 값을 대체합니다.
+
+```cmd
+:: a 에 문자열 입력
+SET a="Hello, world!"
+
+:: 값이 출력됨
+ECHO %a%
+```
+
 파라미터 확장은 % (퍼센트 사인) 으로 구현하고 다음 세가지 규칙을 따릅니다.
 
 1. 퍼센트 사인으로 변수를 지칭할 수 있습니다. `%<variable>`
@@ -129,21 +173,48 @@ cmd 에서도 비슷하게 이를 구현하는 방법이 존재합니다.
 - 예를 들어서 cmd 명령줄 셸에선 다음의 명령어
 
 ```bat
-FOR /f %f in ('dir /b .') DO somecommand %f
+FOR /f %f IN ('dir /b .') DO somecommand %f
 ```
 
-이를 배치 파일에서 사용하게되면 배치파일은 모든 명령을 왼쪽에서 오른쪽으로 읽으며 이 과정에서 "퍼센트 사인 사이에 변수명을 넣으면 그 값으로 치환" 조건으로 <b>FOR /f %`{f in ('dir /b .') DO somecommand }`%f</b> 이런 식으로 이해하려고 합니다.
+이를 배치 파일에서 사용하게되면 배치파일은 모든 명령을 왼쪽에서 오른쪽으로 읽으며 이 과정에서 "퍼센트 사인 사이에 변수명을 넣으면 그 값으로 치환" 조건으로 다음과 같이 이해하려고 합니다.
 
-따라서 배치파일에서는 변수를 지칭할 때와 값 치환을 구분하기 위해서 3번째 규칙을 적용하여 %을 두 번 사용합니다.
+<b>FOR /f %`{f in ('dir /b .') DO somecommand }`%f</b>
+
+따라서 배치파일에서는 %를 하나만 사용할 때는 역슬래시 //의 예시처럼 %% 로 사용하여야 제대로 인식됩니다.
+
+다음의 예시는 %%가 배치파일이 명령어를 파싱하는 과정에서 %로 바뀌는 것을 보여줍니다.
 
 ```bat
-FOR /f %%f in ('dir /b .') DO somecommand %%f
+@ECHO OFF
+SET var="The battery is charged 50%%"
+ECHO %var%
+
+:: "The battery is charged 50%" 라고 퍼센트 기호 하나만 출력됩니다.
+
+PAUSE>NUL
+EXIT
 ```
 
-또는 ! 기호를 통하여 지연된 변수확장을 사용할 수도 있습니다.
+- 파라미터 지연 확장
+
+! 기호를 통하여 지연된 변수확장을 사용할 수도 있습니다.
 이 경우엔 파싱 시점에 변수가 확장되지 않고 계산 실행 시점에서 변수가 확장됩니다.
 
+지연된 확장을 활성화하려면 사전에 SETLOCAL EnableDelayedExpansion 명령을 사용해야 합니다.
+
 예시는 다음과 같습니다.
+
+```bat
+@ECHO OFF
+
+
+SET n=0
+FOR /l %%G IN (1,1,5) DO (ECHO [!n!] & SET /a n+=1)
+echo Total = %n%
+
+PAUSE>NUL
+EXIT
+```
 
 ```bat
 @echo off
