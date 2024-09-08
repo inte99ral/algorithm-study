@@ -346,3 +346,22 @@ int main(int argc, char** argv)
 # MSYS2
 
 [참고링크](https://wikidocs.net/219732)
+
+<hr />
+<center>
+=============== 정리 중 ===============
+</center>
+<hr />
+
+## 확장과 치환：Expansions and Substitutions
+
+&nbsp; 리눅스에선 먼저 명령문을 tokens (words) 으로 분리한 다음 해석해야할 표현식이 있을 경우에 변수확장, 산술확장, 명령치환을 거쳐 최종 변경된 명령문을 만들게 됩니다. 그리고나서 마지막으로 불필요한 quotes 을 삭제 처리하고 작업에 들어갑니다.
+
+[참고 링크](https://mug896.github.io/bash-shell/expansions_and_substitutions.html)
+
+리눅스의 확장(`Expansion, ${}, $(), $(())`) 은 left-to-right 순서로 동시처리 됩니다.
+
+- parameter expansion (파라미터 확장) : $var or ${var}
+- arithmetic expansion (산술 확장) : $((expression))
+- command substitution (명령 대체) : $(command)
+- Process substitution (작업 치환)
