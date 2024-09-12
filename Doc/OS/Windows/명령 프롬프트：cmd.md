@@ -37,6 +37,7 @@ EXIT
 ## 출력색 COLOR
 
 [참고링크](https://velog.io/@joonpark/Makefile-%EA%BE%B8%EB%AF%B8%EA%B8%B0)
+[참고링크](https://fredhur.tistory.com/5)
 
 ```bat
 echo "Default!!"
@@ -78,6 +79,74 @@ PAUSE>NUL
 EXIT
 ```
 
+## 변수
+
+[%와 %%의 차이](https://www.delftstack.com/ko/howto/batch/difference-between-and-in-batch/)
+[%var 과 %var%의 차이](https://stackoverflow.com/questions/15428777/whats-the-difference-between-a-and-variable-variables)
+
+&nbsp; 명령줄 셸에서 `%<variable>`은 교체 가능한 단일문자 매개변수를 지정합니다. MS-DOS는 대체 가능한 명령줄 매개변수로 `%1, %2, ... , %9` 을 사용합니다. `%1` 은 배치파일에 전달되는 첫번째 매개변수로 대체됩니다.
+
+&nbsp; 다음의 예시를 통해 이해도를 높여봅시다.
+
+```cmd
+:: 명령 프롬프트 창에 명령을 직접 입력해주세요.
+:: a 에 문자열 입력합니다.
+SET a="Hello, world!"
+
+:: "%a" 가 그대로 출력되고 값은 출력되지 않습니다.
+ECHO "input = %a"
+```
+
+&nbsp; `%<variable>%`과 같이 양쪽에 퍼센트 기호를 사용하면 환경변수 역할을 하며 값을 대체합니다.
+
+```cmd
+:: 명령 프롬프트 창에 명령을 직접 입력해주세요.
+:: a 에 문자열 입력합니다.
+SET a="Hello, world!"
+
+:: "%a" 값이 출력됩니다.
+ECHO "input = %a%"
+```
+
+&nbsp; bat 배치파일에서는 cmd 프롬프트 창에 직접 입력할 때와는 다르게 퍼센트사인 두 개를 필요로 합니다 `%%<variable>`
+
+&nbsp; 그 이유는 bat과 cmd 창 입력이 명령을 읽는 과정이 다르기 때문입니다. 예를 들어서 cmd 명령줄 셸에선 다음의 명령어를 봅시다.
+
+<center>
+
+<b>SET /A x=12 % (110 % 100)</b>
+
+</center>
+<br />
+
+이를 배치 파일에서 사용하게되면 배치파일은 모든 명령을 왼쪽에서 오른쪽으로 읽으며 이 과정에서 `%<variable>%` 조건으로 다음과 같이 이해하려고 합니다.
+
+<center>
+
+<b>SET /A x=12 `% (110 %` 100)</b>
+
+</center>
+<br />
+
+" (110 " 이라는 이름의 변수는 없으므로 해당 명령을 제대로 수행하지 못합니다. 따라서 배치파일에서는 %를 하나만 사용할 때는 역슬래시를 //로 사용하는 것 처럼 %% 로 사용하여야 합니다.
+
+다음의 예시는 %%가 배치파일이 명령어를 처리하기 전에 파싱하는 과정에서 %로 바뀌는 것을 보여줍니다.
+
+```bat
+@ECHO OFF
+
+:: "The battery is charged 50%" 라고 퍼센트 기호 하나만 출력됩니다.
+SET var="The battery is charged 50%%"
+ECHO %var%
+
+:: 12를 10으로 나눈 나머지 값은 2
+SET /A x=12 %% 10
+ECHO %x%
+
+PAUSE>NUL
+EXIT
+```
+
 ## 조건문
 
 - 컴퓨터가 사용자에게 컴퓨터를 끌것인가를 물어보고, 만약 대답이 "예" 라면 종료한다. 만약 대답이 "예"가 아니면 배치 파일을 종료한다. 참고로 이 배치 파일은 MS-DOS에서는 작동하지 않는다.
@@ -110,128 +179,33 @@ PAUSE>NUL
 EXIT
 ```
 
-- /l 옵션
+### /L 옵션
+
+/L 옵션은 연속된 값을 의미합니다.
 
 ```bat
 @ECHO OFF
 
 :: 기본 형식은 FOR /l {%%|%}<변수> IN (시작, 간격, 끝) DO <명령>
-FOR /l %%i IN (5,-1,1) DO (ECHO "LOOP : %i%")
+:: FOR /L %변수 IN (시작,단계,끝) DO 명령 [명령-매개 변수]
+FOR /l %%i IN (5,-1,1) DO (ECHO "LOOP : %%i")
+
+:: 000 ~ 999 출력
+FOR /L %%i IN (0,1,9) DO (
+  FOR /L %%j IN (0,1,9) DO (
+    FOR /L %%k IN (0,1,9) DO (
+      ECHO %%i%%j%%k
+    )
+  )
+)
 
 PAUSE>NUL
 EXIT
 ```
 
-## 확장과 치환：Expansions and Substitutions
+### /f 옵션
 
-&nbsp; 리눅스에선 먼저 명령문을 tokens (words) 으로 분리한 다음 해석해야할 표현식이 있을 경우에 변수확장, 산술확장, 명령치환을 거쳐 최종 변경된 명령문을 만들게 됩니다. 그리고나서 마지막으로 불필요한 quotes 을 삭제 처리하고 작업에 들어갑니다.
-
-[참고 링크](https://mug896.github.io/bash-shell/expansions_and_substitutions.html)
-
-리눅스의 확장(`Expansion, ${}, $(), $(())`) 은 left-to-right 순서로 동시처리 됩니다.
-
-- parameter expansion (파라미터 확장) : $var or ${var}
-- arithmetic expansion (산술 확장) : $((expression))
-- command substitution (명령 대체) : $(command)
-- Process substitution (작업 치환)
-
-cmd 에서도 비슷하게 이를 구현하는 방법이 존재합니다.
-
-### 파라미터 확장：Parameter expansion
-
-[%와 %%의 차이](https://www.delftstack.com/ko/howto/batch/difference-between-and-in-batch/)
-[%var 과 %var%의 차이](https://stackoverflow.com/questions/15428777/whats-the-difference-between-a-and-variable-variables)
-
-&nbsp; 명령줄 셸에서 `%<variable>`은 교체 가능한 단일문자 매개변수를 지정합니다. MS-DOS는 대체 가능한 명령줄 매개변수로 `%1, %2, ... , %9` 을 사용합니다. `%1` 은 배치파일에 전달되는 첫번째 매개변수로 대체됩니다.
-
-&nbsp; 다음의 예시를 통해 이해도를 높여봅시다.
-
-```cmd
-:: a 에 문자열 입력
-SET a="Hello, world!"
-
-:: "%a" 가 그대로 출력됨. 값이 출력되지 않음
-ECHO %a
-```
-
-&nbsp; `%<variable>%`과 같이 양쪽에 퍼센트 기호를 사용하면 환경변수 역할을 하며 값을 대체합니다.
-
-```cmd
-:: a 에 문자열 입력
-SET a="Hello, world!"
-
-:: 값이 출력됨
-ECHO %a%
-```
-
-파라미터 확장은 % (퍼센트 사인) 으로 구현하고 다음 세가지 규칙을 따릅니다.
-
-1. 퍼센트 사인으로 변수를 지칭할 수 있습니다. `%<variable>`
-2. 퍼센트 사인 사이에 변수명을 넣으면 그 값으로 치환합니다. `%<variable>%`
-3. bat 배치파일에서는 퍼센트사인 두 개를 필요로 합니다 `%%<variable>`
-
-- 예를 들어서 cmd 명령줄 셸에선 다음의 명령어
-
-```bat
-FOR /f %f IN ('dir /b .') DO somecommand %f
-```
-
-이를 배치 파일에서 사용하게되면 배치파일은 모든 명령을 왼쪽에서 오른쪽으로 읽으며 이 과정에서 "퍼센트 사인 사이에 변수명을 넣으면 그 값으로 치환" 조건으로 다음과 같이 이해하려고 합니다.
-
-<b>FOR /f %`{f in ('dir /b .') DO somecommand }`%f</b>
-
-따라서 배치파일에서는 %를 하나만 사용할 때는 역슬래시 //의 예시처럼 %% 로 사용하여야 제대로 인식됩니다.
-
-다음의 예시는 %%가 배치파일이 명령어를 파싱하는 과정에서 %로 바뀌는 것을 보여줍니다.
-
-```bat
-@ECHO OFF
-SET var="The battery is charged 50%%"
-ECHO %var%
-
-:: "The battery is charged 50%" 라고 퍼센트 기호 하나만 출력됩니다.
-
-PAUSE>NUL
-EXIT
-```
-
-- 파라미터 지연 확장
-
-! 기호를 통하여 지연된 변수확장을 사용할 수도 있습니다.
-이 경우엔 파싱 시점에 변수가 확장되지 않고 계산 실행 시점에서 변수가 확장됩니다.
-
-지연된 확장을 활성화하려면 사전에 SETLOCAL EnableDelayedExpansion 명령을 사용해야 합니다.
-
-예시는 다음과 같습니다.
-
-```bat
-@ECHO OFF
-
-
-SET n=0
-FOR /l %%G IN (1,1,5) DO (ECHO [!n!] & SET /a n+=1)
-echo Total = %n%
-
-PAUSE>NUL
-EXIT
-```
-
-```bat
-@echo off
-setlocal EnableDelayedExpansion
-:: count to 5, storing results in a variable
-set n=0
-FOR /l %%G in (1,1,5) Do (echo [!n!] & set /a n+=1)
-echo Total = %n%
-```
-
-### 명령 대체：Command substitution
-
-바로 for의 /f 옵션을 쓰는 것 입니다.
-
-for는 다른 언어와 마찬가지로 루프문 역할을 수행하는데
-
-이중에 /f 옵션이 파일 구문 분석을 의미합니다.
+/f 옵션은 파일 구문 분석을 의미합니다.
 
 ```bat
 :: 기본 형식 1
@@ -254,6 +228,80 @@ for /f [usebackq <parsingkeywords>] {%%|%}<variable> in ('<literalstring>') do <
 :: 명령 대체：Command Substitution
 for /f [usebackq <parsingkeywords>] {%%|%}<variable> in (`<command>`) do <command> [<commandlineoptions>]
 ```
+
+- 파라미터 지연 확장
+
+! 기호를 통하여 지연된 변수확장을 사용할 수도 있습니다.
+이 경우엔 파싱 시점에 변수가 확장되지 않고 계산 실행 시점에서 변수가 확장됩니다.
+
+지연된 확장을 활성화하려면 사전에 SETLOCAL EnableDelayedExpansion 명령을 사용해야 합니다.
+
+예시는 다음과 같습니다.
+
+```bat
+@ECHO OFF
+:: n이 0이었기 때문에 "value: %n%" 이 파싱될 때 "value: 0"이 됩니다.
+
+ECHO "sum 1 to 5"
+ECHO.
+
+SET n=0
+FOR /l %%i in (1,1,5) DO (SET /a n+=%%i & ECHO "value: %n%")
+ECHO.
+
+ECHO "answer = %n%"
+ECHO.
+
+ECHO ============================
+:: SETLOCAL ENABLEDELAYEDEXPANSION 명령 없이는 적용되지 않습니다.
+
+ECHO "sum 1 to 5"
+ECHO.
+
+SET n=0
+FOR /l %%i in (1,1,5) DO (SET /a n+=%%i & ECHO "value: !n!")
+ECHO.
+
+ECHO "answer = %n%"
+ECHO.
+
+ECHO ============================
+:: SETLOCAL ENABLEDELAYEDEXPANSION 명령 이후에만 동작합니다.
+SETLOCAL ENABLEDELAYEDEXPANSION
+
+ECHO "sum 1 to 5"
+ECHO.
+
+SET n=0
+FOR /l %%i in (1,1,5) DO (SET /a n+=%%i & ECHO "value: !n!")
+ECHO.
+
+ECHO "answer = %n%"
+
+PAUSE>NUL
+EXIT
+```
+
+## 확장과 치환：Expansions and Substitutions
+
+&nbsp; 리눅스에선 먼저 명령문을 tokens (words) 으로 분리한 다음 해석해야할 표현식이 있을 경우에 변수확장, 산술확장, 명령치환을 거쳐 최종 변경된 명령문을 만들게 됩니다. 그리고나서 마지막으로 불필요한 quotes 을 삭제 처리하고 작업에 들어갑니다.
+
+[참고 링크](https://mug896.github.io/bash-shell/expansions_and_substitutions.html)
+
+리눅스의 확장(`Expansion, ${}, $(), $(())`) 은 left-to-right 순서로 동시처리 됩니다.
+
+- parameter expansion (파라미터 확장) : $var or ${var}
+- arithmetic expansion (산술 확장) : $((expression))
+- command substitution (명령 대체) : $(command)
+- Process substitution (작업 치환)
+
+cmd 에서도 비슷하게 이를 구현하는 방법이 존재합니다.
+
+### 파라미터 확장：Parameter expansion
+
+### 명령 대체：Command substitution
+
+바로 for의 /f 옵션을 쓰는 것 입니다.
 
 set 인수는 하나 이상의 파일 이름을 지정합니다.
 
@@ -344,6 +392,66 @@ usebackq
 FOR %%a IN (C: D: E: F: G: H: I: J: K: L: M: N: O: P: Q: R: S: T: U: V: W: X: Y: Z:) DO (
   IF EXIST %%a\WIN51 SET CDROM=%%a
 )
+```
+
+## 괄호와 캐롯
+
+[참고링크](https://learn.microsoft.com/ko-kr/windows-server/administration/windows-commands/echo)
+
+블록 내에서 괄호()()로 종료되는 경우 여는 괄호와 닫는 괄호 모두 각 괄호 바로 앞에 있는 캐리트(^)를 사용하여 이스케이프해야 합니다. 예를 들어 올바르게 This is ^(now^) correct 표시됩니다 This is (now) correct.
+
+## 인코딩 방식 변환
+
+&nbsp; 현 윈도우즈는 대부분 EUC-KR의 확장형 cp949 방식의 인코딩을 사용합니다. 하지만 대부분의 프로그램은 가장 보편적으로 사용되는 가변길이 유니코드 체계인 utf-8 으로 인코딩하기 때문에 한글 입력이 깨질 때가 있습니다.
+
+&nbsp; 윈도우즈의 설정에서 utf-8 으로 시스템 인코딩 체계를 변경할 수 있지만 이 경우엔 cp949 인코딩을 참조하는 기존 프로그램들이 말썽을 일으킬 수 있습니다.
+
+&nbsp; 이를 단편적으로 해결하기 위해 `chcp 65001` 명령어로 현재 창의 인코딩 방식을 UTF-8 로 바꿀 수 있습니다. 다시 cmd창을 키면 초기화되어 cp949로 실행됩니다.
+
+```bat
+@ECHO OFF
+ECHO "안녕, 세계!"
+
+:: 다음과 같이 출력됩니다.
+:: "?덈뀞, ?멸퀎!"
+
+PAUSE>NUL
+EXIT
+```
+
+```bat
+@ECHO OFF
+CHCP 65001
+ECHO "안녕, 세계!"
+
+:: 다음과 같이 출력됩니다.
+:: Active code page: 65001
+:: "안녕, 세계!"
+
+PAUSE>NUL
+EXIT
+```
+
+&nbsp; Active code page: 65001 메시지가 보기 싫다면 PAUSE>NUL 과 마찬가지로 chcp 65001>nul 로 메시지를 제거할 수 있습니다.
+
+## 무작위
+
+%RANDOM% 은 0부터 32767 사이의 값을 가집니다.
+
+따라서 1부터 6까지 주사위 값을 보고 싶다면 다음의 코드를 사용할 수 있습니다.
+
+```bat
+@ECHO OFF
+CHCP 65001>NUL
+SETLOCAL ENABLEDELAYEDEXPANSION
+
+FOR /L %%i IN (1,1,6) DO (
+  SET /A d6=^(!RANDOM! %% 6^) + 1
+  ECHO 주사위 결과 = !d6!
+)
+
+PAUSE>NUL
+EXIT
 ```
 
 ## 템플릿
