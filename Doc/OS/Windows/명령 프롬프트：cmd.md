@@ -11,15 +11,20 @@
 - 동일한 역할을 수행하는 .cmd 확장자 파일도 있다. 똑같다고 봐도 좋으나 윈도우가 업그레이드 되는 과정에서 추가되거나 변경된 기능으로 인하여 bat 파일은 MS-DOS와 윈도우 9x 이전 환경에서 실행하고, cmd 파일은 윈도우 NT 이후의 환경에서만 실행하라고 나눠둔 것이다.
 - 명령어는 대소문자를 구분하지 않습니다.
 
+## @
+
+어떤 명령어 앞에서 @를 붙이게 되면 해당 명령을 복창하지 말라는 의미가 됩니다.
+
 ## 기본 형식
 
 ```bat
 REM 주석은
-: 다음과 같이
-:: 지정할 수 있습니다.
+@REM 다음과 같이
+: 지정할 수
+:: 있습니다.
 
 :: Hello, world! 출력 예제
-:: Echo off 옵션 시, C:\> echo "a" 같은 입력창은 보여주지 않고 출력값 "a" 만 보여준다.
+:: Echo off 옵션 시, C:\> echo "a" 같은 입력된 명령은 보여주지 않고 출력값 "a" 만 보여준다.
 @ECHO OFF
 
 :: Echo 명령어는 뒷 줄의 문장을 출력한다.
@@ -30,6 +35,41 @@ ECHO.
 ECHO world!
 
 :: 다른 입력이 있을 때까지 정지. >nul 명령어가 붙으면 "계속하려면 아무 키나 누르십시오..." 출력 조차 하지 않고 정지한다.
+PAUSE>NUL
+EXIT
+```
+
+## 파일 경로 파악
+
+```bat
+@ECHO OFF
+CHCP 65001>NUL
+SETLOCAL ENABLEDELAYEDEXPANSION
+
+:: 파일전체경로
+:: ==============================
+ECHO "[파일전체경로] %0"
+
+:: 드라이브 경로
+:: ==============================
+ECHO "[드라이브경로] %~dp0"
+
+:: 드라이브 명
+:: ==============================
+ECHO "[드라이브　명] %~d0"
+
+:: 경로
+:: ==============================
+ECHO "[경　　　　로] %~p0"
+
+:: 파일 명
+:: ==============================
+ECHO "[파일　　　명] %~n0"
+
+:: 확장자 명
+:: ==============================
+ECHO "[확장자　　명] %~x0"
+
 PAUSE>NUL
 EXIT
 ```
@@ -147,6 +187,87 @@ PAUSE>NUL
 EXIT
 ```
 
+## 배열
+
+```bat
+@ECHO OFF
+CHCP 65001>NUL
+SETLOCAL ENABLEDELAYEDEXPANSION
+
+SET arr1[0]=9
+SET arr1[1]=8
+SET arr1[1]=7
+
+FOR /L %%i IN (0,1,5) DO (
+  ECHO !arr1[%%i]!
+)
+ECHO.
+
+:: ==============================
+:: 배열 선언 1. 길이 계산
+SET x=0
+:LOOP_00
+IF DEFINED arr1[%x%] (
+  CALL ECHO %%arr1[%x%]%%
+  SET /A x+=1
+  GOTO LOOP_00
+)
+
+ECHO "배열길이: " %x%
+ECHO.
+
+
+:: ==============================
+:: 배열 선언 2
+
+SET arr2=1 2 3 4
+
+FOR %%a IN (%arr2%) DO (ECHO %%a)
+
+PAUSE>NUL
+EXIT
+```
+
+## 명령줄 이동：GOTO, CALL
+
+### 라벨 호출 CALL
+
+```bat
+@ECHO OFF
+CHCP 65001>NUL
+SETLOCAL ENABLEDELAYEDEXPANSION
+
+:: # Global Variable & Constant =========================
+
+:: # Implements Definition ==============================
+CALL :FUNC_01
+
+CALL :FUNC_02 9 10 11
+
+ECHO 아래구문입니다.
+
+PAUSE>NUL
+EXIT
+
+:: # Prototype Declaration ==============================
+:FUNC_01
+ECHO 함수 1번
+GOTO :eof
+
+:FUNC_02
+ECHO 함수 2번
+
+SET /A tempSum=%~1+%~2+%~3
+ECHO 총합: %tempSum%
+GOTO :eof
+```
+
+### 파일 및 함수 호출 CALL
+
+```bat
+:: CALL [drive:][path] filename [batch-parameters]
+```
+
 ## 조건문
 
 - 컴퓨터가 사용자에게 컴퓨터를 끌것인가를 물어보고, 만약 대답이 "예" 라면 종료한다. 만약 대답이 "예"가 아니면 배치 파일을 종료한다. 참고로 이 배치 파일은 MS-DOS에서는 작동하지 않는다.
@@ -179,57 +300,7 @@ PAUSE>NUL
 EXIT
 ```
 
-### /L 옵션
-
-/L 옵션은 연속된 값을 의미합니다.
-
-```bat
-@ECHO OFF
-
-:: 기본 형식은 FOR /l {%%|%}<변수> IN (시작, 간격, 끝) DO <명령>
-:: FOR /L %변수 IN (시작,단계,끝) DO 명령 [명령-매개 변수]
-FOR /l %%i IN (5,-1,1) DO (ECHO "LOOP : %%i")
-
-:: 000 ~ 999 출력
-FOR /L %%i IN (0,1,9) DO (
-  FOR /L %%j IN (0,1,9) DO (
-    FOR /L %%k IN (0,1,9) DO (
-      ECHO %%i%%j%%k
-    )
-  )
-)
-
-PAUSE>NUL
-EXIT
-```
-
-### /f 옵션
-
-/f 옵션은 파일 구문 분석을 의미합니다.
-
-```bat
-:: 기본 형식 1
-for /f [<parsingkeywords>] {%%|%}<variable> in (<set>) do <command> [<commandlineoptions>]
-
-:: 기본 형식 2
-for /f [<parsingkeywords>] {%%|%}<variable> in (<literalstring>) do <command> [<commandlineoptions>]
-
-:: 명령 대체：Command Substitution
-for /f [<parsingkeywords>] {%%|%}<variable> in ('<command>') do <command> [<commandlineoptions>]
-
-
-:: usebackq 옵션으로 파싱 키워드를 사용하는 경우
-:: 기본 형식 1
-for /f [usebackq <parsingkeywords>] {%%|%}<variable> in (<set>) do <command> [<commandlineoptions>]
-
-:: 기본 형식 2
-for /f [usebackq <parsingkeywords>] {%%|%}<variable> in ('<literalstring>') do <command> [<commandlineoptions>]
-
-:: 명령 대체：Command Substitution
-for /f [usebackq <parsingkeywords>] {%%|%}<variable> in (`<command>`) do <command> [<commandlineoptions>]
-```
-
-- 파라미터 지연 확장
+### 파라미터 지연 확장
 
 ! 기호를 통하여 지연된 변수확장을 사용할 수도 있습니다.
 이 경우엔 파싱 시점에 변수가 확장되지 않고 계산 실행 시점에서 변수가 확장됩니다.
@@ -277,6 +348,174 @@ FOR /l %%i in (1,1,5) DO (SET /a n+=%%i & ECHO "value: !n!")
 ECHO.
 
 ECHO "answer = %n%"
+
+PAUSE>NUL
+EXIT
+```
+
+### /L 옵션
+
+/L 옵션은 연속된 값을 의미합니다.
+
+```bat
+@ECHO OFF
+
+:: 기본 형식은 FOR /l {%%|%}<변수> IN (시작, 간격, 끝) DO <명령>
+:: FOR /L %변수 IN (시작,단계,끝) DO 명령 [명령-매개 변수]
+FOR /l %%i IN (5,-1,1) DO (ECHO "LOOP : %%i")
+
+:: 000 ~ 999 출력
+FOR /L %%i IN (0,1,9) DO (
+  FOR /L %%j IN (0,1,9) DO (
+    FOR /L %%k IN (0,1,9) DO (
+      ECHO %%i%%j%%k
+    )
+  )
+)
+
+PAUSE>NUL
+EXIT
+```
+
+### /F 옵션
+
+/f 옵션은 파일 구문 분석을 의미합니다.
+
+```bat
+:: 기본 형식 1
+for /f [<parsingkeywords>] {%%|%}<variable> in (<set>) do <command> [<commandlineoptions>]
+
+:: 기본 형식 2
+for /f [<parsingkeywords>] {%%|%}<variable> in (<literalstring>) do <command> [<commandlineoptions>]
+
+:: 명령 대체：Command Substitution
+for /f [<parsingkeywords>] {%%|%}<variable> in ('<command>') do <command> [<commandlineoptions>]
+
+
+:: usebackq 옵션으로 파싱 키워드를 사용하는 경우
+:: 기본 형식 1
+for /f [usebackq <parsingkeywords>] {%%|%}<variable> in (<set>) do <command> [<commandlineoptions>]
+
+:: 기본 형식 2
+for /f [usebackq <parsingkeywords>] {%%|%}<variable> in ('<literalstring>') do <command> [<commandlineoptions>]
+
+:: 명령 대체：Command Substitution
+for /f [usebackq <parsingkeywords>] {%%|%}<variable> in (`<command>`) do <command> [<commandlineoptions>]
+```
+
+#### delims：구분문자
+
+- Delim는 텍스트나 데이터를 구분하고 구별하는 데 사용되는 문자 또는 문자열을 의미합니다. 일반적으로 컴퓨터 프로그래밍 및 데이터 처리에 사용됩니다.
+
+#### usebackq：백틱 명령어 인식
+
+```bat
+@ECHO OFF
+CHCP 65001>NUL
+SETLOCAL ENABLEDELAYEDEXPANSION
+
+:: usebackq 옵션이 없다면 `ECHO "Hello, world!"`를 문자열로 인식합니다
+::answer=`ECHO
+::answer="Hello, world"`
+FOR %%z IN (`ECHO "Hello, world!"`) DO (
+  ECHO answer=%%z
+)
+
+ECHO.
+
+:: "Hello, world!" 를 인식하고 ' ' 로 분리하여 첫번째 토큰값인 "Hello, 만 출력합니다
+:: answer="Hello,
+FOR /F "usebackq" %%a IN (`ECHO "Hello, world!"`) DO (
+  ECHO answer=%%a
+)
+
+ECHO.
+
+:: 토큰 token의 시작을 디폴트인 1말고 2부터로 지정합니다
+:: answer=world"
+FOR /F "usebackq tokens=2" %%a IN (`ECHO "Hello, world!"`) DO (
+  ECHO answer=%%a
+)
+
+ECHO.
+
+:: 구분문자 delimiter를 디폴트인 ' '말고 ':' 로 지정합니다
+:: answer="Hello, world"
+FOR /F "usebackq delims=:" %%a IN (`ECHO "Hello, world!"`) DO (
+  ECHO answer=%%a
+)
+
+PAUSE>NUL
+EXIT
+```
+
+- 파일 폴더 검색
+
+```bat
+:: dir   > 폴더 및 파일 리스트 출력
+:: %~dp0 > 같은 경로상에 있는 모든 파일
+:: /a-d  > 폴더명은 검색에서 제외
+:: /s    > 하위폴더 파일도 검색
+:: /b    > 복잡한 테이블말고 최소포맷인 결과만 보기
+:: |
+:: findstr
+:: /e
+dir %~dp0 /a-d /s /b | findstr /e "\.txt"
+
+
+FOR /F "usebackq" %%a IN (`dir %~dp0 /a-d /s /b ^| findstr /e "\.txt"`) DO (
+  ECHO TEST = %%a
+)
+```
+
+#### 응용 : 검색 예제
+
+```txt
+1:감자
+2:고구마
+3:사과
+4:귤
+5:배추
+6:양파
+7:호박
+8:딸기
+9:바나나
+```
+
+```bat
+@ECHO OFF
+CHCP 65001>NUL
+SETLOCAL ENABLEDELAYEDEXPANSION
+
+SET /P no="번호를 입력해주세요: "
+
+FOR /F "tokens=1,2 delims=:" %%a in (list.txt) DO (
+  if "%%a"=="%no%" (
+    SET item=%%b
+  )
+)
+ECHO no=%no%
+ECHO item=%item%
+
+PAUSE>NUL
+EXIT
+```
+
+#### token과 명시적으로 선언 변수
+
+%i 에 명시적으로 선언 되는 에 대 한 문입니다. %j 및 %k 를 사용 하 여 암시적으로 선언 된 토큰 =합니다. 토큰=을 사용하여 문자 z 또는 Z보다 높은 변수를 선언하려고 시도하지 않는 경우 최대 26개의 토큰을 지정할 수 있습니다.
+
+```bat
+@ECHO OFF
+CHCP 65001>NUL
+SETLOCAL ENABLEDELAYEDEXPANSION
+
+FOR /F "tokens=1-4 delims=:" %%a IN ("Hello,:World!:안녕,:세계!") DO (
+  ECHO %%a
+  ECHO %%b
+  ECHO %%c
+  ECHO %%d
+)
 
 PAUSE>NUL
 EXIT

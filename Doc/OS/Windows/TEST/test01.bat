@@ -1,4 +1,0 @@
-@ECHO OFF
-ECHO "안녕, 세계!"
-PAUSE>NUL
-EXIT
