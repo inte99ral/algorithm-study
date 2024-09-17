@@ -285,6 +285,24 @@
           "executable": "powershell.exe"
         }
       }
+    },
+
+    // 테스트용 Hello, world!
+    {
+      "label": "cmd 파일 변수 테스트",
+      "detail": "cmd",
+      "type": "cppbuild",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "command": "echo",
+      "args": ["Hello, world!"],
+      "options": {
+        "shell": {
+          "executable": "powershell.exe"
+        }
+      }
     }
   ]
 }

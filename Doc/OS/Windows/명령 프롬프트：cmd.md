@@ -119,6 +119,26 @@ PAUSE>NUL
 EXIT
 ```
 
+### 파일로 출력
+
+Just repeat the echo and >> for lines after the first. >> means that it should append to a file instead of creating a new file (or overwriting an existing file):
+
+```bat
+(
+echo Here is my first line
+echo Here is my second line
+echo Here is my third line
+)>"myNewTextFile.txt"
+pause
+```
+
+```bat
+echo Here is my first line > myNewTextFile.txt
+echo Here is my second line >> myNewTextFile.txt
+echo Here is my third line >> myNewTextFile.txt
+pause
+```
+
 ## 변수
 
 [%와 %%의 차이](https://www.delftstack.com/ko/howto/batch/difference-between-and-in-batch/)
@@ -348,6 +368,26 @@ FOR /l %%i in (1,1,5) DO (SET /a n+=%%i & ECHO "value: !n!")
 ECHO.
 
 ECHO "answer = %n%"
+
+PAUSE>NUL
+EXIT
+```
+
+- CALL 을 이용하는 방법도 있습니다.
+
+```bat
+@ECHO OFF
+CHCP 65001>NUL
+SETLOCAL ENABLEDELAYEDEXPANSION
+
+:: a 변수가 적용되기 전이므로 word2 만 나옵니다.
+SET a=word1 && ECHO word2 %a%
+
+:: word2 word1
+SET b=word1 && ECHO word2 !b!
+
+:: word2 word1
+SET c=word1 && CALL ECHO word2 %%c%%
 
 PAUSE>NUL
 EXIT

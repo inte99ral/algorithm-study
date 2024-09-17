@@ -13,6 +13,25 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 PAUSE>NUL
 EXIT
 
+:: 테스트 1 : 
+dir "E:\StudySpace\Coding\Algorithm_Study\Doc\OS\Windows\TEST" /a-d /s /b | findstr /e "\.cpp"
+
+
+
+
+SET var=1 && ECHO %var%
+
+FOR /L %i IN (1, 1, 5) DO ECHO %i 
+
+CALL ECHO DANCE
+
+FOR /F "usebackq" %i IN (`dir "E:\StudySpace\Coding\Algorithm_Study\Doc\OS\Windows\TEST" /a-d /s /b ^| findstr /e "\.cpp"`) DO @CALL ECHO %i
+
+
+(FOR /F "usebackq" %i IN (`dir "E:\StudySpace\Coding\Algorithm_Study\Doc\OS\Windows\TEST" /a-d /s /b ^| findstr /e "\.cpp"`) DO CALL SET list=%list% %i)
+
+
+E:\StudySpace\Coding\Algorithm_Study\Doc\OS\Windows\TEST
 
 
 @REM FOR /F "usebackq delims=" %%i IN (`dir %~dp0 /a-d /s /b ^| findstr /e "\.txt"`) DO (
