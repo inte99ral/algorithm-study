@@ -2,6 +2,8 @@
 
 - Microsoft Windows의 기본 유틸리티로, Windows NT 계열 OS의 커맨드라인 해석기(CLI)다.
 
+- [공식 문서](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd)
+
 ## 배치 파일：Batch File
 
 - 마이크로소프트사의 DOS 운영체제인 MS-DOS에서 명령어 입력이 번거롭거나 익숙하지 않은 사용자를 위해 만들어졌다.
@@ -145,6 +147,8 @@ pause
 [%var 과 %var%의 차이](https://stackoverflow.com/questions/15428777/whats-the-difference-between-a-and-variable-variables)
 
 &nbsp; 명령줄 셸에서 `%<variable>`은 교체 가능한 단일문자 매개변수를 지정합니다. MS-DOS는 대체 가능한 명령줄 매개변수로 `%1, %2, ... , %9` 을 사용합니다. `%1` 은 배치파일에 전달되는 첫번째 매개변수로 대체됩니다.
+
+[단일인자 매개변수](https://www.metacode9.com/entry/%EB%B0%B0%EC%B9%98%ED%8C%8C%EC%9D%BC-%EB%AC%B8%EB%B2%95-1-n1-p1)
 
 &nbsp; 다음의 예시를 통해 이해도를 높여봅시다.
 
@@ -764,6 +768,15 @@ EXIT
   move "%%i" "%%~xi"
   )
   ```
+
+## 데이터 리디렉션
+
+https://superuser.com/questions/1695080/how-does-work-within-a-batch-cmd-script
+
+|, <, >, 2>, etc.
+
+Conditional Execution
+|| and &&
 
 ## 정리필요
 
