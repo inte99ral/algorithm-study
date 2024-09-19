@@ -25,26 +25,43 @@
 
 ### 가장 기본형식
 
-```json
-{
-  // task.json 에 대한 공식문서 https://go.microsoft.com/fwlink/?LinkId=733558
-  "version": "2.0.0",
-  "tasks": [
-    // 테스트용 Hello, world!
-    {
-      "label": "테스트 출력",
-      "detail": "Hello, world! 를 출력합니다.",
-      "type": "shell",
-      "group": {
-        "kind": "test",
-        "isDefault": true
+[공식 문서](https://code.visualstudio.com/docs/editor/tasks#vscode)
+
+- tasks 안에 [ `{ ...1번째 작업 정보... }`, `{ ...2번째 작업 정보... }`, ... `{ ...n번째 작업 정보... }` ] 같은 형태로 작업 정보를 나열할 수 있습니다.
+
+  ```json
+  {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        // ...작업 1 에 대한 정보...
       },
-      "command": "echo",
-      "args": ["Hello, world!"]
-    }
-  ]
-}
-```
+      {
+        // ...작업 2 에 대한 정보...
+      },
+      // ...
+      {
+        // ...작업 n 에 대한 정보...
+      }
+    ]
+  }
+  ```
+
+<br />
+
+- tasks 안에 [ `{ ...1번째 작업 정보... }`, `{ ...2번째 작업 정보... }`, ... `{ ...n번째 작업 정보... }` ] 같은 형태로 작업 정보를 나열할 수 있습니다.
+
+  ```json
+  // tasks.json 앞 부분...
+
+  {
+    // ...작업 1 에 대한 정보...
+  },
+
+  // tasks.json 뒷 부분...
+  ```
+
+<br />
 
 ### 기본 gcc 빌드 방법
 
@@ -87,13 +104,8 @@
       "options": {
         // 작업 디렉터리 주소 설정 옵션
         "cwd": "${fileDirname}",
-        // 쉘 터미널 지정 ================================================================================
+        // 쉘 터미널 지정
         "shell": {
-          "executable": "D:\\Program Files\\Msys64\\usr\\bin\\bash.exe",
-          "args": ["--login", "-i"],
-          "env": {
-            "MSYSTEM": "MINGW64", // [MSYS (default) | MINGW32 | MINGW64] : set the MSYSTEM environment variable to select a MinGW toolchain.
-            "CHERE_INVOKING": "1" // [0 | 1] : prevent a shell from doing a cd "${HOME}" = inhibit the working directory change from current directory
           }
         }
       },
@@ -120,6 +132,242 @@
 }
 ```
 
+### CMD 명령프롬프트
+
+- 다음은 cmd 명령프롬프트 창에 <b>SET var= "Hello, world!" & CALL ECHO %var%</b> 명령어를 입력하는 작업을 tasks.json에 입력한 것 입니다.
+- <b>`SET var= "Hello, world!"` & CALL ECHO %var%</b>
+- <b>SET var= "Hello, world!" & `CALL ECHO %var%`</b>
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "cmd 테스트",
+      "detail": "cmd",
+      "type": "shell",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      // * cmd로 실행하는 옵션입니다
+      "options": {
+        "shell": {
+          "executable": "C:\\Windows\\System32\\cmd.exe",
+          "args": ["/d", "/c"]
+        }
+      },
+      "command": "SET",
+      "args": ["var=", "Hello, world!", "&", "CALL", "ECHO", "%var%"]
+    }
+  ]
+}
+```
+
+- cppbuild 옵션
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "cmd 테스트",
+      "detail": "cmd",
+      // * cppbuild 란!
+      "type": "cppbuild",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "command": "SET",
+      "args": ["var=", "Hello, world!", "&", "CALL", "ECHO", "%var%"]
+    }
+  ]
+}
+```
+
+<br />
+
+#### CMD 명령프롬프트 > 백준 등 프로그래밍 문제 컴파일
+
+- 백준 문제의 경우 단일 파일만 컴파일하면 됩니다.
+- g++ Main.cc -o Main -O2 -Wall -lm -static -std=gnu++17 -DONLINE_JUDGE -DBOJ
+
+```json
+// tasks.json 앞 부분...
+
+// 백준 채점용 C++ 컴파일
+{
+  "label": "C++: 백준 풀이 빌드",
+  "detail": "백준 C++17 표준옵션으로 컴파일합니다.",
+  "type": "cppbuild",
+  "group": {
+    "kind": "build",
+    "isDefault": true
+  },
+  "command": "g++",
+  // g++ Main.cc -o Main -O2 -Wall -lm -static -std=gnu++17 -DONLINE_JUDGE -DBOJ
+  "args": [
+    "${fileDirname}\\**.cpp",
+    "-o",
+    "${fileDirname}\\${fileBasenameNoExtension}.exe",
+    "-O2", // loop unrolling, function inlining, 메모리 및 속도희생을 제외한 모든 범위 최적화
+    "-Wall", // 모든 모호한 코딩에 대해서 경고를 보내는 옵션
+    "-lm", // math libarary 사용
+    "-static", // 정적 라이브러리와 공유 라이브러리 중 정적을 우선한다. 속도는 빠르지만 파일 사이즈가 커짐
+    "-std=gnu++17" // C++17 Clang GNU 확장기능 유효
+  ],
+  "options": {
+    "cwd": "${fileDirname}"
+  },
+  "problemMatcher": {
+    "owner": "cpp",
+    "fileLocation": ["relative", "${workspaceRoot}"],
+    "pattern": {
+      "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+      "file": 1,
+      "line": 2,
+      "column": 3,
+      "severity": 4,
+      "message": 5
+    }
+  }
+},
+// tasks.json 뒷 부분...
+```
+
+<br />
+
+#### CMD 명령프롬프트 > 컴파일
+
+- cpps.txt 를 거쳐서 저장하는 방법
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "테스트5=====",
+      "detail": "cpp 모두 찾기",
+      "type": "cppbuild",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "command": "(FOR",
+      "args": [
+        "/F",
+        "\"usebackq\"",
+        "%i",
+        "IN",
+        "(`dir/a-d/s/b",
+        "${fileDirname}",
+        "^|findstr/e",
+        "\".cpp\"`)",
+        "DO",
+        "@<NUL",
+        "SET/P=",
+        "%i ",
+        ">>${fileDirname}\\cpps.txt)",
+        "&",
+        "SET/P",
+        "cpps=<${fileDirname}\\cpps.txt",
+        "&",
+        "@CALL",
+        "ECHO",
+        "%cpps%",
+        "&",
+        "DEL/Q",
+        "${fileDirname}\\cpps.txt"
+      ]
+    }
+  ]
+}
+```
+
+<br />
+
+- [CMD] .cpp 경로 출력
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "[CMD] .cpp 경로 출력",
+      "detail": ".cpp 파일들의 경로를 cpps 변수에 저장한 뒤 ECHO 로 출력합니다",
+      "type": "cppbuild",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "command": "(FOR",
+      "args": [
+        "/F",
+        "\"usebackq\"",
+        "%i",
+        "IN",
+        "(`dir/a-d/s/b",
+        "${fileDirname}",
+        "^|findstr/e",
+        "\".cpp\"`)",
+        "DO",
+        "@CALL",
+        "SET",
+        "cpps=%cpps%",
+        "%i)",
+        "&",
+        "CALL",
+        "ECHO",
+        "%cpps:~7%"
+      ]
+    }
+  ]
+}
+```
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "테스트7=====",
+      "detail": "gcc 출력",
+      "type": "cppbuild",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "command": "(FOR",
+      "args": [
+        "/F", // cpps 변수에 .cpp 확장자 파일 목록 지정
+        "\"usebackq\"",
+        "%i",
+        "IN",
+        "(`dir/a-d/s/b",
+        "${fileDirname}",
+        "^|findstr/e",
+        "\".cpp\"`)",
+        "DO",
+        "@CALL",
+        "SET",
+        "cpps=%cpps%",
+        "%i)",
+        "&", // g++ 호출
+        "CALL",
+        "g++",
+        "%cpps:~7%",
+        "-o",
+        "${fileDirname}\\${fileBasenameNoExtension}.exe",
+        "-O2",
+        "-static",
+        "-std=gnu++17"
+      ]
+    }
+  ]
+}
+```
+
 ### 파워쉘
 
 task.json 은 옵션을 통해 다른 쉘에게 명령을 넘기는 것도 가능합니다.
@@ -127,5 +375,95 @@ task.json 은 옵션을 통해 다른 쉘에게 명령을 넘기는 것도 가�
 cmd 보다 파워쉘이 가진 기능이 많은 만큼 이쪽으로 g++ 명령을 호출하면 편리해집니다.
 
 ```json
-
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "파워쉘1",
+      "detail": "파워파워쉘",
+      "type": "shell",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      // * 파워쉘로 실행하는 옵션입니다
+      "options": {
+        "shell": {
+          "executable": "powershell.exe"
+        }
+      },
+      "command": "dir"
+    }
+  ]
+}
 ```
+
+- 파워쉘로 경로 출력
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "[PS] 파워쉘 컴파일 범위 테스트 코드",
+      "type": "shell",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "options": {
+        "shell": {
+          "executable": "powershell.exe"
+        }
+      },
+      "command": "echo",
+      "args": [
+        "\"$((Get-ChildItem",
+        "-Path",
+        "${fileDirname}",
+        "-Recurse",
+        "-Include",
+        "*.?pp).FullName)\""
+      ]
+    }
+  ]
+}
+```
+
+- 파워쉘로 컴파일
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "[PS] 파워쉘 컴파일 코드",
+      "type": "shell",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "command": "g++",
+      "args": [
+        "$((Get-ChildItem",
+        "-Path",
+        "${fileDirname}",
+        "-Recurse",
+        "-Force",
+        "-Filter",
+        "*.?pp).FullName)",
+        "-o",
+        "${fileDirname}\\${fileBasenameNoExtension}.exe",
+        "-O2",
+        "-Wall",
+        "-static",
+        "-std=gnu++17"
+      ]
+    }
+  ]
+}
+```
+
+### 실행
+
+- 마찬가지로 실행시키는 작업을 만드시면 됩니다.
