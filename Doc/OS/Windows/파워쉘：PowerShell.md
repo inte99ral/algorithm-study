@@ -18,6 +18,12 @@ Write-Host 'Hello, world!'
 #>
 ```
 
+## 버전 체크：Version
+
+```ps
+$PSVersionTable
+```
+
 ## 명령 대체：Command Substitution
 
 ```ps
