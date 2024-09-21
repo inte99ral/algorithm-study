@@ -1,59 +1,55 @@
 /*
  * ctrl + , 누르고 세팅에 적용하기
  *
- * 자주 쓰는 확장 모음
+ * 자주 쓰는 확장들
+ * # Default ==============================
+ * Material Icon Theme
+ * TODO Highlight
+ * Code Runner
+ * Git Graph
+ * indent-rainbow
+ * IntelliCode
+ * IntelliCode API Usage Examples
+ * WSL
+ *
+ * # MarkDown ==============================
+ * Markdown All in One
+ * markdownlint
+ *
+ * # HTML & JavaScript ====================
+ * Live Server
  * Auto Rename Tag
  * Auto Close Tag
- * Live Server
+ * ES7+ React/Redux/React-Native snippets
+ * ESLint
+ * Prettier - Code formatter
+ * Prettier ESLint
+ * vscode-styled-components
  *
+ * # C++ ==================================
  * C/C++
  * C/C++ Extension Pack
  * C/C++ Themes
  * CMake
  * CMake Tools
  *
- * Code Runner
- *
- * Debugger for Java
- *
- * ES7+ React/Redux/React-Native snippets
- * ESLint
- *
+ * # Java ==================================
  * Extension Pack for Java
- *
- * Git Graph
- * indent-rainbow
- * IntelliCode
- * IntelliCode API Usage Examples
- *
+ * Debugger for Java
  * Java prettier formatter
  * Language Support for Java(TM) by Red Hat
  * Maven for Java
  * Project Manager for Java
  * Test Runner for Java
- *
- * Markdown All in One
- * markdownlint
- *
- * Material Icon Theme
- *
- *
- * Prettier - Code formatter
- * Prettier ESLint
- *
- *
- * TODO Highlight
- * vscode-styled-components
- * WSL
  */
 
 {
-  // # Default ==============================
-  "explorer.compactFolders": false,
-  "workbench.colorTheme": "Visual Studio Light - C++",
-  "typescript.updateImportsOnFileMove.enabled": "never",
+  // # Default ============================================================
+  "explorer.compactFolders": false, // 폴더 경로 압축 여부
+  "workbench.colorTheme": "Visual Studio Light - C++", // vscode theme
+  "typescript.updateImportsOnFileMove.enabled": "never", // 파일 위치를 바꿀 때, 참조하는 경로들을 자동으로 수정할 지 여부
 
-  //# material-icon-theme ======================
+  // # material-icon-theme ================================================
   "workbench.iconTheme": "material-icon-theme",
   "material-icon-theme.folders.associations": {
     ".example": "Examples",
@@ -64,7 +60,7 @@
     "Unsolved": "Error"
   },
 
-  //# Todo highlight ===========================
+  // # Todo highlight =====================================================
   "todohighlight.isEnable": true,
   "todohighlight.include": [
     "**/*.js",
@@ -93,35 +89,35 @@
   ],
   "todohighlight.keywords": [],
 
-  //# Formatter ================================
+  // # Formatter ==========================================================
   "html.format.extraLiners": "",
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
   "editor.accessibilitySupport": "off",
-  // "editor.defaultFormatter": "ms-vscode.cpptools",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, UseTab: Never, IndentWidth: 2, TabWidth: 2, BreakBeforeBraces: Custom, BraceWrapping: { BeforeElse : true, BeforeWhile : true, BeforeCatch : true }, AllowShortIfStatementsOnASingleLine: AllIfsAndElse, IndentCaseLabels: false, ColumnLimit: 0, NamespaceIndentation: All, FixNamespaceComments: false, AccessModifierOffset: -1 }",
+  "editor.defaultFormatter": "esbenp.prettier-vscode", // prettier formatter setting
+  // "editor.defaultFormatter": "ms-vscode.cpptools", // vscode cpp formatter setting
+  // "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, UseTab: Never, IndentWidth: 2, TabWidth: 2, BreakBeforeBraces: Custom, BraceWrapping: { BeforeElse : true, BeforeWhile : true, BeforeCatch : true }, AllowShortIfStatementsOnASingleLine: AllIfsAndElse, IndentCaseLabels: false, ColumnLimit: 0, NamespaceIndentation: All, FixNamespaceComments: false, AccessModifierOffset: -1 }",
   "markdownlint.config": {
     "MD031": false, // Fenced code blocks should be surrounded by blank lines
     "MD033": false // Inline HTML
   },
 
-  //# Terminal =================================
-  // "terminal.integrated.profiles.windows": {
-  //   "PowerShell": {
-  //     "source": "PowerShell",
-  //     "icon": "terminal-powershell"
-  //   },
-  //   "Command Prompt": {
-  //     "path": ["${env:windir}\\Sysnative\\cmd.exe", "${env:windir}\\System32\\cmd.exe"],
-  //     "args": [],
-  //     "icon": "terminal-cmd"
-  //   },
-  //   "Git Bash": {
-  //     "source": "Git Bash"
-  //   }
-  // },
-  // "terminal.integrated.defaultProfile.windows": "PowerShell",
+  // # Terminal ===========================================================
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell"
+    },
+    "Command Prompt": {
+      "path": ["${env:windir}\\Sysnative\\cmd.exe", "${env:windir}\\System32\\cmd.exe"],
+      "args": [],
+      "icon": "terminal-cmd"
+    },
+    "Git Bash": {
+      "source": "Git Bash"
+    }
+  },
+  // "terminal.integrated.defaultProfile.windows": "PowerShell", // Default terminal
   "cmake.configureOnOpen": false,
   "cmake.showOptionsMovedNotification": false
 }

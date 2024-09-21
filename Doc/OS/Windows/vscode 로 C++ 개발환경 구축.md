@@ -1,9 +1,17 @@
 # Windows에서 Visual Studio Code로 C++ 개발환경 구축하기
 
+## -1. 참고자료
+
 [참고링크](https://basiclike.tistory.com/360)
 
+- zip파일 바로 적용 https://sooseongcom.com/post/MinGW-w64-HowToInstall
+- mingw 종류 설명 https://blog.naver.com/webos21/196800460
+- mingw 종류 세부설명 및 추천 https://klutzy.github.io/blog/2015/03/05/mingw/
+
+## 목차
+
 ```markdown
-0. 서문
+1. 서문
 ```
 
 ## 0. 서문
@@ -15,11 +23,7 @@
 
 ## 1. 서문
 
-## 참고자료
-
-- zip파일 바로 적용 https://sooseongcom.com/post/MinGW-w64-HowToInstall
-- mingw 종류 설명 https://blog.naver.com/webos21/196800460
-- mingw 종류 세부설명 및 추천 https://klutzy.github.io/blog/2015/03/05/mingw/
+- vscode 를 써야하는 이유
 
 ## N-1. VScode 세팅
 
@@ -41,6 +45,7 @@
 
   ```json
   {
+    // task.json 에 대한 공식문서 https://go.microsoft.com/fwlink/?LinkId=733558
     "version": "2.0.0",
     "tasks": [
       {
