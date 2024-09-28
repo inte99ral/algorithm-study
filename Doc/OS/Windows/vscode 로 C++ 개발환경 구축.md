@@ -75,7 +75,17 @@ minGW 의 패키지 구분은 3단계로 나뉘어집니다.
 
 쓰레드 모델에 따라 posix 인지 win32인지, 예외처리에서 sjlj 인지 seh 인지에 따라 갈립니다.
 
+### 3 > 간단 설명
+
+ucrt-x86_64-posix-seh 다운로드 받으시면 됩니다.
+
+### 3 > 상세 설명
+
 #### Runtime：`MSVCRT` vs `UCRT`
+
+C 표준 라이브러리에는 두 가지 변형이 있습니다.
+
+##### ◎ Runtime > 단순 설명
 
 [MSVCRT vs UCRT](https://wikidocs.net/219735)
 어찌보면 msvcrt와 ucrt는 항상 ucrt를 사용하므로 동의어입니다.
@@ -171,6 +181,8 @@ SJLJ 구현의 경우, Exception의 발생여부와 관계없이 항상 SJLJ 구
 두드러지지 않기 때문에 선호하는 것을 쓰면 된다.
 
 보편적으로는 x86_64-posix-seh 씁니다.
+
+## 4. 컴파일러 세팅
 
 ## N-1. VScode 세팅
 
