@@ -237,6 +237,25 @@ SJLJ 구현의 경우, Exception의 발생여부와 관계없이 항상 SJLJ 구
 
 <br />
 
+- 작업 예시
+
+  ```json
+  // 테스트용 Hello, world!
+  {
+    "label": "테스트 출력",
+    "detail": "Hello, world! 를 출력합니다.",
+    "type": "shell",
+    "group": {
+      "kind": "test",
+      "isDefault": true
+    },
+    "command": "echo",
+    "args": ["Hello, world!"]
+  }
+  ```
+
+<br />
+
 ### tasks.json 상세설명 > command
 
 - gcc 빌드에 대한 이해가 필요합니다.
@@ -374,6 +393,8 @@ SJLJ 구현의 경우, Exception의 발생여부와 관계없이 항상 SJLJ 구
 - 다음은 cmd 명령프롬프트 창에 <b>SET var= "Hello, world!" & CALL ECHO %var%</b> 명령어를 입력하는 작업을 tasks.json에 입력한 것 입니다.
 - <b>`SET var= "Hello, world!"` & CALL ECHO %var%</b>
 - <b>SET var= "Hello, world!" & `CALL ECHO %var%`</b>
+
+- args": ["/d", "/c"] 옵션 더 추가
 
 ```json
 {

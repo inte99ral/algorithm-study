@@ -51,9 +51,7 @@
 
 # FIXME:
 
-- [ ] Doc/Lang_Ref/c++/RapidJson
-- [ ] Doc/Lang_Ref/Windows/%%
-- [ ] https://www.acmicpc.net/problem/5397
+- [ ] 2024-xx-xx：[BJ 5397](Problem\Unsolved\Baekjoon\Silver\2\BJ_5397\question\info.md) 키로거 `#SilverⅡ` `#???`
 - [ ] [SWEA 20671](Problem\Unsolved\SWEA\D5\SWEA_19118\Solution.cpp) 숫자 카드 `#D5`
 
 <br />

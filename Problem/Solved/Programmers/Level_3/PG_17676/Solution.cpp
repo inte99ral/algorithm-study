@@ -18,7 +18,7 @@ int main() {
 
   // * Input
   {
-    freopen("Problem/Unsolved/Programmers/Level3/PG_17676/question/input.txt", "rt", stdin);
+    freopen("Problem/Solved/Programmers/Level_3/PG_17676/question/input.txt", "rt", stdin);
 
     string rawInput;
     regex regExp("\\\"[^\\[\\\"\\,\\]]+"); // Sentences between double quotation marks
