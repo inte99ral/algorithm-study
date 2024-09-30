@@ -2,9 +2,7 @@
 
 https://codingeverybody.kr/css-text-align-%ec%86%8d%ec%84%b1/
 
-<div style="
-  display: flex;
-">
+<div style="display: flex;">
   <div class="lbox" style="
     width: 40vw;
     aspect-ratio: 1/1;
@@ -44,3 +42,15 @@ https://codingeverybody.kr/css-text-align-%ec%86%8d%ec%84%b1/
     z-index: -1;
   "></div>
 </div>
+
+## 접기 / 펼치기
+
+<details>
+    <summary>자세히</summary>
+
+<!-- summary 아래 한칸 공백 두고 내용 삽입 -->
+
+테스트 00<br />
+관련 정보
+
+</details>

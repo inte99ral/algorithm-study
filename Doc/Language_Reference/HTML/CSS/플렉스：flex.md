@@ -31,3 +31,13 @@ https://codingeverybody.kr/css-text-align-%ec%86%8d%ec%84%b1/
     background: lightgray;
   "></div>
 </div>
+
+gantt
+title A Gantt Diagram
+dateFormat YYYY-MM-DD
+section Section
+A task :a1, 2014-01-01, 30d
+Another task :after a1, 20d
+section Another
+Task in Another :2014-01-12, 12d
+another task :24d

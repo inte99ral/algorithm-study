@@ -9,7 +9,19 @@
 
 <br />
 
-## test
+## test 00
+
+<details>
+    <summary>자세히</summary>
+
+<!-- summary 아래 한칸 공백 두고 내용 삽입 -->
+
+테스트 00<br />
+관련 정보
+
+</details>
+
+## test 01
 
 <div style="
   display: flex;
@@ -53,6 +65,14 @@
     z-index: -1;
   "></div>
 </div>
+
+## test 02
+
+<div style="width:100px; aspect-ratio:1/1; background:red;"></div>
+
+<div style="width:100px; height:100px; background:green;"></div>
+
+<div style="width:10vw; aspect-ratio:1/1; background:blue;"></div>
 
 ## How To Set
 
