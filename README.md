@@ -74,6 +74,12 @@
 
 <div style="width:10vw; aspect-ratio:1/1; background:blue;"></div>
 
+# test 03
+
+<div align="center">
+  <img src="example.svg" width="400" height="400" alt="css-in-readme">
+</div>
+
 ## How To Set
 
 g++ 컴파일러를 내장한 Msys2 와 mingw64 를 설치해야함

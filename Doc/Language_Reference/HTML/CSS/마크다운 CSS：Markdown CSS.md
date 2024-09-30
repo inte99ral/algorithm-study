@@ -4,6 +4,6 @@
 
 &nbsp; [Github 마크다운 사양：Github Flavored Markdown Spec](https://github.github.com/gfm/)
 
-자세한 깃헙 마크다운 사양은 Github Flavored Markdown Spec문서에서 확인 하실 수 있습니다.
+&nbsp; 자세한 깃헙 마크다운 사양은 Github Flavored Markdown Spec문서에서 확인 하실 수 있습니다.
 
-html 을 모든 부분을 지원하는 것이 아니며 CSS 는 당연히 적용되지 않습니다.
+&nbsp; html 을 모든 부분을 지원하는 것이 아니며 CSS 는 당연히 적용되지 않습니다.
