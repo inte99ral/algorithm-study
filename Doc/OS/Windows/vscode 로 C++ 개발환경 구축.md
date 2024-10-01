@@ -815,3 +815,8 @@ Get-Childitem -Path $home -Recurse -Force -Filter \*.txt 가장 빠른 방법
   },
   // ...tasks.json 뒷 부분
   ```
+
+### gcc (g++)
+
+- [라이브러리 추가](https://blog.naver.com/jodi999/220824963844)
+- [라이브러리 추가 + 스택오버플로우](https://stackoverflow.com/questions/6141147/how-do-i-include-a-path-to-libraries-in-g)

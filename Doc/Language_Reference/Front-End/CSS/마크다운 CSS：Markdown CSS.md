@@ -7,3 +7,7 @@
 &nbsp; 자세한 깃헙 마크다운 사양은 Github Flavored Markdown Spec문서에서 확인 하실 수 있습니다.
 
 &nbsp; html 을 모든 부분을 지원하는 것이 아니며 CSS 는 당연히 적용되지 않습니다.
+
+You can add some HTML (actually XHTML) and CSS inside a <foreignObject> tag inside of an svg file and then embed that inside of an <img> tag in your GitHub README.
+
+[예시](https://github.com/sindresorhus/css-in-readme-like-wat?tab=readme-ov-file)
