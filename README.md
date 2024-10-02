@@ -12,73 +12,22 @@
 ## test 00
 
 <details>
-    <summary>자세히</summary>
+  <summary>테스트 00</summary>
 
-<!-- summary 아래 한칸 공백 두고 내용 삽입 -->
-
-테스트 00<br />
-관련 정보
+  <div align="center">
+    <img src="./.asset/0.svg" width="400" height="400" alt="css-in-readme">
+  </div>
 
 </details>
 
-## test 01
+<details>
+  <summary>테스트 02</summary>
 
-<div style="
-  display: flex;
-">
-  <div class="lbox" style="
-    width: 40vw;
-    aspect-ratio: 1/1;
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    background: gray;
-    overflow: visible;
-    position: relative;
-  ">
-    <div class="lbox-bar-1" style="
-      width: 35vw;
-      height: 100px;
-      background: red;
-      flex-shrink: 0;
-    "></div>
-    <div class="lbox-bar-2" style="
-      width: 10vw;
-      height: 100px;
-      background: green;
-      flex-shrink: 0;
-    "></div>
-    <div class="lbox-bar-3" style="
-      width: 10vw;
-      height: 100px;
-      background: blue;
-      position: absolute;
-      top: 100px;
-      left: 100px;
-      z-index: 100;
-    "></div>
+  <div align="center">
+    <img src="./.asset/2.svg" width="400" height="400" alt="css-in-readme">
   </div>
-  <div class="rbox" style="
-    width: 40vw;
-    aspect-ratio: 1/1;
-    background: lightgray;
-    z-index: -1;
-  "></div>
-</div>
 
-## test 02
-
-<div style="width:100px; aspect-ratio:1/1; background:red;"></div>
-
-<div style="width:100px; height:100px; background:green;"></div>
-
-<div style="width:10vw; aspect-ratio:1/1; background:blue;"></div>
-
-# test 03
-
-<div align="center">
-  <img src="example.svg" width="400" height="400" alt="css-in-readme">
-</div>
+</details>
 
 ## How To Set
 
