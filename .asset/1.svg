@@ -13,7 +13,7 @@
       <div>Just for fun: a <a href='javascript:alert("link was clicked")'>link</a>.</div>
     </div>
     <script>
-      
+      Document.
     </script>
   </foreignObject>
 </svg>

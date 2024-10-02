@@ -21,11 +21,33 @@
 </details>
 
 <details>
-  <summary>테스트 02</summary>
+  <summary>테스트 01</summary>
 
   <div align="center">
     <img src="./.asset/2.svg" width="400" height="400" alt="css-in-readme">
   </div>
+
+</details>
+
+<details>
+  <summary>테스트 02</summary>
+
+  <center>
+    <a href="https://www.naver.com/">
+      <img src="./.asset/2.svg" width="400" height="400" alt="css-in-readme">
+    </a>
+  </center>
+
+</details>
+
+<details>
+  <summary>테스트 03</summary>
+
+  <center>
+    <a href='javascript:alert("link was clicked")'>
+      <img src="./.asset/2.svg" width="400" height="400" alt="css-in-readme">
+    </a>
+  </center>
 
 </details>
 
