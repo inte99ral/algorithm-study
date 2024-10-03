@@ -34,26 +34,27 @@
 <details>
   <summary>테스트 02</summary>
 
-  <table align="center">
-    <tr>
-      <td>
-        cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-      </td>
-      <td>
-        <a href="#"><img src="./.asset/3.jpg" width="2000" height="100" alt="css-in-readme"></a>
-      </td>
-      <td>
-        cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-      </td>
-      <td>
-        <a href="#"><img src="./.asset/3.jpg" width="2000" height="100" alt="css-in-readme"></a>
-      </td>
-      <td>
-        cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-      </td>
-    </tr>
-  </table>
-
+  <div style="background: red; width: 100vw; overflow-x: scroll">
+    <table>
+      <tr>
+        <td>
+          cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+        </td>
+        <td>
+          <a href="#"><img src="./.asset/3.jpg" style="min-width: 200px;" alt="css-in-readme"></a>
+        </td>
+        <td>
+          cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+        </td>
+        <td>
+          <a href="#"><img src="./.asset/3.jpg" width="2000" height="100" alt="css-in-readme"></a>
+        </td>
+        <td>
+          cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+        </td>
+      </tr>
+    </table>
+  </div>
 </details>
 
 ## How To Set
