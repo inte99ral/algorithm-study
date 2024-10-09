@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Page Title</title>
+    <style>
+      :root {
+        /* # background-color ============================== */
+        --var-color: #fef9e9;
+
+        /* # background-image ============================== */
+        --var-image: url(0.png); /* url(이미지 경로) */
+
+        /* # background-repeat ============================= */
+        --var-repeat: no-repeat; /* 반복하지 말기 */
+
+        /* # background-position =========================== */
+        --var-position: center center;
+
+        /* # background-position =========================== */
+        --var-attachment: local;
+      }
+
+      .target {
+        position: relative;
+        overflow-y: scroll;
+        width: 1000px;
+        height: 1000px;
+        background: var(--var-color) var(--var-image) var(--var-repeat) var(--var-position)
+          var(--var-attachment);
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          width: 10px;
+          height: 1400px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="target"></div>
+  </body>
+  <script></script>
+</html>

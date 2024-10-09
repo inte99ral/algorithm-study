@@ -2,6 +2,7 @@
   // task.json 에 대한 공식문서 https://go.microsoft.com/fwlink/?LinkId=733558
   "version": "2.0.0",
   "tasks": [
+    // # Build & Compile ==============================
     {
       // # 백준 채점용 C++ 컴파일
       "label": "C++: 백준 풀이 빌드",
@@ -12,7 +13,6 @@
         "isDefault": true
       },
       "command": "g++",
-      // g++ Main.cc -o Main -O2 -Wall -lm -static -std=gnu++17 -DONLINE_JUDGE -DBOJ
       "args": [
         "${fileDirname}\\**.cpp",
         "-o",
@@ -40,6 +40,7 @@
       }
     },
 
+    // # Test & Run ===================================
     {
       // # Execute 바이너리 실행(Windows)
       "label": "exe 파일 실행",

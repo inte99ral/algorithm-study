@@ -1,3 +1,6 @@
+# 기본 형태：Basic Form
+
+```html
 <!-- HTML 기본 형태 -->
 <!DOCTYPE html>
 <html>
@@ -13,3 +16,19 @@
     </div>
   </body>
 </html>
+```
+
+```css
+/* css 디폴트 설정 */
+* {
+  box-sizing: border-box;
+  background-color: inherit;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+```
+
+```js
+// js 디폴트 스크립트
+```

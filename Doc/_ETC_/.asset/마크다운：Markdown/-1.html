@@ -1,0 +1,141 @@
+<!-- HTML 기본 형태 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>기본 형태 BasicForm</title>
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+      background-color: inherit;
+      padding: 0;
+      margin: 0;
+      border: 0;
+    }
+
+    table {
+      border-collapse: collapse;
+      table-layout: fixed;
+      overflow: auto;
+    }
+
+    td {
+      border: solid 1px #e2e2e2;
+    }
+
+    #header-week td:nth-child(n + 2) {
+      text-align: center;
+      width: 280px;
+      min-width: 280px;
+      height: 40px;
+      min-height: 40px;
+
+      &:nth-child(2n) {
+        background: red;
+      }
+    }
+
+    #header-date td:nth-child(n + 2) {
+      text-align: center;
+      width: 40px;
+      max-width: 40px;
+      min-width: 40px;
+      height: 40px;
+      max-height: 40px;
+      min-height: 40px;
+
+      &:nth-child(7n + 0) {
+        background: red;
+      }
+
+      &:nth-child(7n + 1) {
+        background: red;
+      }
+    }
+
+    #header-proj {
+      text-align: center;
+    }
+  </style>
+  <div class="i-o" style="width: 100px; height: 100px; background: red"></div>
+
+  <br />
+
+  <body>
+    <table>
+      <tr id="header-week">
+        <td colspan="10">-</td>
+        <td colspan="7">WEEK 01</td>
+        <td colspan="7">WEEK 02</td>
+        <td colspan="7">WEEK 03</td>
+      </tr>
+      <tr id="header-date">
+        <td colspan="10">-</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+      </tr>
+      <tr id="header-proj">
+        <td colspan="5">프로젝트명</td>
+        <td>예상시작일</td>
+        <td>예상종료일</td>
+        <td>실제시작일</td>
+        <td>실제종료일</td>
+        <td>달성률</td>
+        <td>월</td>
+        <td>화</td>
+        <td>수</td>
+        <td>목</td>
+        <td>금</td>
+        <td>토</td>
+        <td>일</td>
+      </tr>
+      <tr id="header-task">
+        <td colspan="5">-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>0%</td>
+      </tr>
+      <tr>
+        <td align="center">No.</td>
+        <td>담당자</td>
+        <td>작업명</td>
+        <td>작업내용</td>
+        <td>포인트</td>
+        <td>예상시작일</td>
+        <td>예상종료일</td>
+        <td>실제시작일</td>
+        <td>실제종료일</td>
+        <td>달성률</td>
+        <td colspan="5">-</td>
+      </tr>
+      <tr>
+        <td>01</td>
+        <td>홍길동</td>
+        <td>UI/UX > 목업 > 헤더 프레임 제작</td>
+        <td>Figma에 기획한 내용을 바탕으로 사이트 디자인을 선구상하기</td>
+        <td>115</td>
+        <td>2022-09-05</td>
+        <td>2022-09-05</td>
+        <td>2022-09-05</td>
+        <td>2022-09-05</td>
+        <td>100%</td>
+        <td colspan="5">-</td>
+      </tr>
+    </table>
+  </body>
+</html>

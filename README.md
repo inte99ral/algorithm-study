@@ -1,4 +1,6 @@
-# Algorithm Study Convention
+# 코딩 공부 총정리：Algorithm Study
+
+## Algorithm Study Convention
 
 - Problem site name
   - Problem name
@@ -8,54 +10,6 @@
     - input.txt
 
 <br />
-
-## test 00
-
-<details>
-  <summary>테스트 00</summary>
-
-  <div align="center">
-    <img src="./.asset/0.svg" width="400" height="400" alt="css-in-readme">
-  </div>
-
-</details>
-
-<details>
-  <summary>테스트 01</summary>
-
-  <div align="center">
-    <a href="#">
-      <img src="./.asset/2.svg" width="400" height="400" alt="css-in-readme">
-    </a>
-  </div>
-
-</details>
-
-<details>
-  <summary>테스트 02</summary>
-
-  <div style="background: red; width: 100vw; overflow-x: scroll">
-    <table>
-      <tr>
-        <td>
-          cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-        </td>
-        <td>
-          <a href="#"><img src="./.asset/3.jpg" style="min-width: 200px;" alt="css-in-readme"></a>
-        </td>
-        <td>
-          cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-        </td>
-        <td>
-          <a href="#"><img src="./.asset/3.jpg" width="2000" height="100" alt="css-in-readme"></a>
-        </td>
-        <td>
-          cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-        </td>
-      </tr>
-    </table>
-  </div>
-</details>
 
 ## How To Set
 
@@ -205,7 +159,7 @@ vscode는 관리하는 디렉토리의 .vscode 폴더 안의 파일로 환경설
 
 - c_cpp_properties.json: 컴파일러 path 세팅, intellisense 세팅
 
-  ```
+  ```json
   {
     "configurations": [
       {
@@ -215,11 +169,7 @@ vscode는 관리하는 디렉토리의 .vscode 폴더 안의 파일로 환경설
           // msys64 설치 경로에 따라 수정할 것
           "C:/msys64/mingw64/include"
         ],
-        "defines": [
-          "_DEBUG",
-          "UNICODE",
-          "_UNICODE"
-        ],
+        "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
         "windowsSdkVersion": "10.0.18362.0",
         // msys64 설치 경로에 따라 수정할 것
         "compilerPath": "C:/msys64/mingw64/bin/gcc.exe",
@@ -235,7 +185,7 @@ vscode는 관리하는 디렉토리의 .vscode 폴더 안의 파일로 환경설
 
 <br />
 
-# How To Run
+## How To Run
 
 - 해당 문제 경로에 터미널로 접근 후에 명령어로 구동(우클릭 -> 통합 터미널에서 열기)
 
@@ -248,7 +198,7 @@ vscode는 관리하는 디렉토리의 .vscode 폴더 안의 파일로 환경설
 
 <br />
 
-# Copyright Information
+## Copyright Information
 
 - [백준](https://help.acmicpc.net/rule)
 - [프로그래머스](https://programmers.zendesk.com/hc/ko/articles/360034546572-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4%EC%9D%98-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%EC%99%B8%EB%B6%80%EC%97%90-%EA%B2%8C%EC%8B%9C%ED%95%A0-%EC%88%98-%EC%9E%88%EB%82%98%EC%9A%94-)

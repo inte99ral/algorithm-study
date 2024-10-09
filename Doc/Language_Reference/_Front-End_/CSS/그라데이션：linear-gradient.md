@@ -6,7 +6,9 @@
 
 https://webclub.tistory.com/575
 
-https://codepen.io/display1180/pen/xLbQZP
+[줄무늬예시](https://codepen.io/display1180/pen/xLbQZP)
+
+[체크무늬](https://codepen.io/ryusoo/pen/GRxNvEx)
 
 <center>
 <div style="
