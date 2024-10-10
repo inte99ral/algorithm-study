@@ -45,7 +45,7 @@ int main() {
       </tr>
       <tr>
         <td>
-          <a href="#"><img src="./.asset/3.jpg" width="1400px" height="1000" alt="css-in-readme"></a>
+          <a href="#"><img src="./.asset/3.jpg" width="1400px" height="400" alt="css-in-readme"></a>
         </td>
       </tr>
     </table>

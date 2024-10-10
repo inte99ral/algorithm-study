@@ -14,34 +14,32 @@
       border: 0;
     }
 
-    #body {
-      width: 200vw;
-      height: 200vh;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #e2e2e2;
-    }
-
     .container {
-      width: 400px;
-      height: 400px;
-
       display: flex;
-
-      background: url(5.jpg) fixed;
     }
 
     .container-item {
-      width: 100px;
-      height: 400px;
+      &:nth-child(1) {
+        width: 400px;
+        height: 400px;
+        background: red;
+        position: sticky;
+        left: 0px;
 
-      background: red;
+        flex-shrink: 0;
+      }
+      &:nth-child(2) {
+        width: 3000px;
+        height: 500px;
+        background: blue;
+
+        flex-shrink: 0;
+      }
     }
   </style>
   <body id="body">
     <div class="container">
+      <div class="container-item"></div>
       <div class="container-item"></div>
     </div>
   </body>
