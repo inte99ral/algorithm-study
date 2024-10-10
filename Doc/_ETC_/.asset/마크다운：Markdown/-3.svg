@@ -1,15 +1,43 @@
-<svg fill="none" viewBox="0 0 400 400" width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+<svg fill="none" viewBox="0 0 1400 400" width="1400" height="400" xmlns="http://www.w3.org/2000/svg">
   <foreignObject width="100%" height="100%">
     <div id="html" xmlns="http://www.w3.org/1999/xhtml">
       <style>
-        body {
+        * {
+          box-sizing: border-box;
+          background-color: inherit;
+          padding: 0;
+          margin: 0;
+          border: 0;
+        }
+
+        .container {
+          display: flex;
+        }
+
+        .container-item:nth-child(1) {
           width: 400px;
           height: 400px;
           background: red;
-          color: blue;
+          position: sticky;
+          left: 0px;
+
+          flex-shrink: 0;
+        }
+
+        .container-item:nth-child(2) {
+          width: 3000px;
+          height: 500px;
+          background: blue;
+
+          flex-shrink: 0;
         }
       </style>
-      <body>HELLO WORLD!</body>
+      <body>
+        <div class="container">
+          <div class="container-item"></div>
+          <div class="container-item"></div>
+        </div>
+      </body>
     </div>
   </foreignObject>
 </svg>
