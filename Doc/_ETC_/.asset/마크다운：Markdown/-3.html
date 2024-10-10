@@ -1,0 +1,48 @@
+<!-- HTML 기본 형태 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>기본 형태 BasicForm</title>
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+      background-color: inherit;
+      padding: 0;
+      margin: 0;
+      border: 0;
+    }
+
+    #body {
+      width: 200vw;
+      height: 200vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e2e2e2;
+    }
+
+    .container {
+      width: 400px;
+      height: 400px;
+
+      display: flex;
+
+      background: url(5.jpg) fixed;
+    }
+
+    .container-item {
+      width: 100px;
+      height: 400px;
+
+      background: red;
+    }
+  </style>
+  <body id="body">
+    <div class="container">
+      <div class="container-item"></div>
+    </div>
+  </body>
+</html>

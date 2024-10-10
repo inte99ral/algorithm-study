@@ -6,6 +6,19 @@
     <title>기본 형태 BasicForm</title>
   </head>
   <style>
+    :root {
+      --color-cell: #f3f3f3;
+      --color-line: #e2e2e2;
+
+      --color-cell-week: #f3f3f3;
+      --color-line-week: #e2e2e2;
+
+      --color-cell-green: #b7e1cd;
+      --color-line-green: #a3c7b6;
+
+      --color-elblue: #d5e5f4;
+    }
+
     * {
       box-sizing: border-box;
       background-color: inherit;
@@ -68,41 +81,99 @@
       background: red;
     }
     #graph {
-      background: blue;
+      background: transparent;
     }
     #graph-week {
       display: flex;
       height: 40px;
-      background: #dddddd;
+      font-weight: 600;
 
       div {
         min-width: 280px;
         height: 40px;
         text-align: center;
         line-height: 40px;
-        border: solid 1px black;
+        border: solid 1px var(--color-line);
+
+        &:nth-child(2n - 1) {
+          background-color: #b7e1cd;
+          border: solid 1px #a3c7b6;
+        }
       }
     }
 
     #graph-date {
       display: flex;
       height: 40px;
-      background: #dddddd;
+      font-weight: 600;
 
       div {
+        max-width: 40px;
         min-width: 40px;
         height: 40px;
         text-align: center;
         line-height: 40px;
-        border: solid 1px black;
+        border: solid 1px var(--color-line);
+
+        &:nth-child(7n) {
+          background-color: #cccccc;
+          border: solid 1px #b5b5b5;
+          color: white;
+        }
+
+        &:nth-child(7n - 1) {
+          background-color: #cccccc;
+          border: solid 1px #b5b5b5;
+          color: white;
+        }
       }
     }
+
+    #graph-day {
+      display: flex;
+      height: 40px;
+
+      div {
+        max-width: 40px;
+        min-width: 40px;
+        height: 40px;
+        text-align: center;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 40px;
+        border: solid 1px var(--color-line);
+
+        &:nth-child(7n) {
+          background-color: #cccccc;
+          border: solid 1px #b5b5b5;
+          color: white;
+        }
+
+        &:nth-child(7n - 1) {
+          background-color: #cccccc;
+          border: solid 1px #b5b5b5;
+          color: white;
+        }
+      }
+    }
+
     #graph-background {
       width: 100%;
       height: 80px;
-      border: solid 1px black;
-      background: linear-gradient(to bottom, transparent 38px, #ddd 38px) 0 0 / 100vw 40px repeat-y,
-        linear-gradient(to right, transparent 38px, #ddd 38px) 0 0 / 40px 100vh repeat-x red;
+      border: solid 1px var(--color-line);
+
+      /* background: linear-gradient(to right, red 38px, gray 0, gray 40px, red 0px) left 0 / 80px 100%; */
+
+      background: linear-gradient(
+          to right,
+          #f3f3f3 38px,
+          var(--color-line) 0,
+          var(--color-line) 40px
+        )
+        left 0 / 40px 100%;
+
+      /* background: linear-gradient(to bottom, transparent 38px, #ddd 38px) 0 0 / 100vw 40px repeat-y,
+        linear-gradient(to right, transparent 38px, #ddd 38px) 0 0 / 40px 100vh repeat-x red;*/
     }
 
     #test {
@@ -117,6 +188,10 @@
       <div id="table"></div>
       <div id="graph">
         <div id="graph-week">
+          <div>WEEK 1</div>
+          <div>WEEK 2</div>
+          <div>WEEK 1</div>
+          <div>WEEK 2</div>
           <div>WEEK 1</div>
           <div>WEEK 2</div>
         </div>
@@ -135,6 +210,22 @@
           <div>12</div>
           <div>13</div>
           <div>14</div>
+        </div>
+        <div id="graph-day">
+          <div>Mon</div>
+          <div>Tue</div>
+          <div>Wed</div>
+          <div>Thu</div>
+          <div>Fri</div>
+          <div>Sat</div>
+          <div>Sun</div>
+          <div>Mon</div>
+          <div>Tue</div>
+          <div>Wed</div>
+          <div>Thu</div>
+          <div>Fri</div>
+          <div>Sat</div>
+          <div>Sun</div>
         </div>
         <div id="graph-background"></div>
       </div>
