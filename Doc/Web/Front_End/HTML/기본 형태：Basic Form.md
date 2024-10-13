@@ -21,8 +21,8 @@
 ```css
 /* css 디폴트 설정 */
 * {
+  position: relative;
   box-sizing: border-box;
-  background-color: inherit;
   padding: 0;
   margin: 0;
   border: 0;
@@ -32,3 +32,6 @@
 ```js
 // js 디폴트 스크립트
 ```
+
+Semantic HTML 레이아웃
+[Semantic HTML 레이아웃](https://velog.io/@lobinb797/Day95-NodeJS-)

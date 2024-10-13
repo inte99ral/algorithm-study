@@ -1,5 +1,19 @@
 # \_ETC\_
 
+## 목차
+
+## ...로 글자 줄이기
+
+```css
+div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+```
+
+## ??
+
 https://codingeverybody.kr/css-text-align-%ec%86%8d%ec%84%b1/
 
 <div style="display: flex;">

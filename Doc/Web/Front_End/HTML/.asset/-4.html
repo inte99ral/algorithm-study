@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    * {
+      position: relative;
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+      border: 0;
+      font-size: 20px;
+      font-weight: 900;
+    }
+    *::after {
+      content: var(--name);
+      position: absolute;
+      top: var(--size-t);
+      left: var(--size-l);
+      text-shadow: -1px 0px white, 0px 1px white, 1px 0px white, 0px -1px white;
+      z-index: 1;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+
+      overflow: hidden;
+      background: aquamarine;
+    }
+
+    #header {
+      margin: 1rem;
+      width: calc(100vw - 2rem);
+      height: 8rem;
+
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      overflow: hidden;
+      background: red;
+    }
+
+    #logo {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      overflow: hidden;
+      background: blue;
+    }
+
+    #nav {
+      width: 92vw;
+      height: 3rem;
+
+      overflow: hidden;
+      background: blue;
+    }
+
+    #nav {
+      width: 92vw;
+      height: 3rem;
+
+      overflow: hidden;
+      background: blue;
+    }
+
+    #main {
+      margin: 1rem;
+      width: calc(100vw - 2rem);
+      flex-grow: 1;
+
+      overflow: hidden;
+      background: blue;
+    }
+
+    #footer {
+      margin: 1rem;
+      width: calc(100vw - 2rem);
+      height: 8rem;
+
+      overflow: hidden;
+      background: red;
+    }
+  </style>
+  <body>
+    <header id="header" style="--name: 'header'; --size-t: 4%; --size-l: 48.5%">
+      <div id="logo" style="--name: 'logo'; --size-t: 22%; --size-l: 16%"></div>
+      <nav id="nav" style="--name: 'nav'; --size-t: 22%; --size-l: 49%"></nav>
+    </header>
+    <main id="main" style="--name: 'main'; --size-t: 4%; --size-l: 49%">
+      <div id="sidebar" style="--name: -"></div>
+      <section class="sidebar" style="--name: -">
+        <article class="article" style="--name: -"></article>
+      </section>
+      <aside id="sidebar" style="--name: -"></aside>
+    </main>
+    <footer id="footer" style="--name: 'footer'; --size-t: 40%; --size-l: 48.5%"></footer>
+  </body>
+</html>

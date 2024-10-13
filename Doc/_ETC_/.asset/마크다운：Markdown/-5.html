@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    /* # Default Setting ========================== */
+    :root {
+      --size-cell: 40px;
+      --size-width: 2000px;
+      --size-height: 400px;
+
+      --color-cell-0: #f3f3f3;
+      --color-line-0: #e2e2e2;
+
+      --color-week-cell-0: transparent;
+      --color-week-line-0: #e2e2e2;
+      --color-week-cell-1: #b7e1cd;
+      --color-week-line-1: #a3c7b6;
+
+      --color-days-cell-0: transparent;
+      --color-days-line-0: #e2e2e2;
+      --color-days-cell-1: #cccccc;
+      --color-days-line-1: #b5b5b5;
+
+      --color-back: transparent;
+      --color-back-cell-0: transparent;
+      --color-back-line-0: #e2e2e2;
+      --color-back-cell-1: #f3f3f3;
+      --color-back-line-1: #e2e2e2;
+    }
+
+    * {
+      box-sizing: border-box;
+      background-color: inherit;
+      padding: 0;
+      margin: 0;
+      border: 0;
+    }
+
+    #gantt {
+      box-sizing: content-box;
+      min-width: var(--size-width);
+      max-width: var(--size-width);
+      min-height: var(--size-height);
+      max-height: var(--size-height);
+
+      display: flex;
+      border: solid 1px var(--color-line-0);
+      background: var(--color-back);
+    }
+
+    /* # Gantt Graph ============================== */
+    #gantt-graph-week {
+      display: flex;
+      height: 40px;
+      font-weight: 600;
+    }
+    #gantt-graph-week > div {
+      min-width: 280px;
+      max-width: 280px;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+
+      background-color: var(--color-week-cell-0);
+      border: solid 1px var(--color-week-line-0);
+    }
+    #gantt-graph-week > div:nth-child(2n - 1) {
+      background-color: var(--color-week-cell-1);
+      border: solid 1px var(--color-week-line-1);
+    }
+
+    #gantt-graph-days {
+      display: flex;
+      height: 40px;
+    }
+    #gantt-graph-days > div {
+      max-width: 40px;
+      min-width: 40px;
+      max-height: 40px;
+      min-height: 40px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 40px;
+      background-color: var(--color-days-cell-0);
+      border: solid 1px var(--color-days-line-0);
+    }
+    #gantt-graph-days > div:nth-child(7n) {
+      color: white;
+      background-color: var(--color-days-cell-1);
+      border: solid 1px var(--color-days-line-1);
+    }
+    #gantt-graph-days > div:nth-child(7n - 1) {
+      color: white;
+      background-color: var(--color-days-cell-1);
+      border: solid 1px var(--color-days-line-1);
+    }
+
+    #gantt-graph-date {
+      display: flex;
+      height: 40px;
+    }
+    #gantt-graph-date > div {
+      max-width: 40px;
+      min-width: 40px;
+      max-height: 40px;
+      min-height: 40px;
+      text-align: center;
+      font-weight: 600;
+      line-height: 40px;
+      background-color: var(--color-days-cell-0);
+      border: solid 1px var(--color-days-line-0);
+    }
+    #gantt-graph-date > div:nth-child(7n) {
+      color: white;
+      background-color: var(--color-days-cell-1);
+      border: solid 1px var(--color-days-line-1);
+    }
+    #gantt-graph-date > div:nth-child(7n - 1) {
+      color: white;
+      background-color: var(--color-days-cell-1);
+      border: solid 1px var(--color-days-line-1);
+    }
+    #gantt-graph-back {
+      width: 100%;
+      height: calc(var(--size-height) - (3 * var(--size-cell)));
+      border: solid 1px var(--color-back-line-0);
+
+      background: linear-gradient(
+            to bottom,
+            var(--color-back-cell-0) 38px,
+            var(--color-back-line-0) 0,
+            var(--color-back-line-0) 40px
+          )
+          left 0 / 100% 40px,
+        linear-gradient(
+            to right,
+            var(--color-back-cell-0) 38px,
+            var(--color-back-line-0) 0,
+            var(--color-back-line-0) 40px
+          )
+          left 0 / 40px 100%,
+        linear-gradient(
+            to right,
+            var(--color-back-cell-1) 280px,
+            var(--color-back-cell-0) 0,
+            var(--color-back-cell-0) 560px
+          )
+          left 0 / 560px 100%;
+    }
+
+    /* # Gantt Table ============================== */
+    #gantt-table {
+      position: relative;
+      /* position: sticky;
+      left: 0; */
+    }
+    /* ## Gantt Table Project====================== */
+    #gantt-table-header-proj {
+      display: flex;
+    }
+    #gantt-table-header-proj > div {
+      width: 100px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      border: solid 1px var(--color-days-line-0);
+    }
+    .gantt-table-section-proj {
+      display: flex;
+    }
+    .gantt-table-section-proj > div {
+      width: 100px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      border: solid 1px var(--color-days-line-0);
+    }
+
+    /* ## Gantt Table Task========================= */
+    #gantt-table-header-task > div {
+      display: flex;
+    }
+    #gantt-table-header-task > div > div {
+      height: 40px;
+      padding-left: 4px;
+      padding-right: 4px;
+      line-height: 40px;
+      text-align: center;
+      border: solid 1px var(--color-days-line-0);
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    #gantt-table-section-task > div {
+      display: flex;
+      overflow: hidden;
+    }
+    #gantt-table-section-task > div > div {
+      height: 40px;
+      padding-left: 4px;
+      padding-right: 4px;
+      line-height: 40px;
+      text-align: left;
+      border: solid 1px var(--color-days-line-0);
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    #gantt-table-header-task > div > div:nth-child(1),
+    #gantt-table-section-task > div > div:nth-child(1) {
+      width: 40px;
+      /* width: var(--size-width-no); */
+      text-align: center;
+    }
+    #gantt-table-header-task > div > div:nth-child(2),
+    #gantt-table-section-task > div > div:nth-child(2) {
+      width: 24px;
+      /* width: 320px; */
+      /* width: var(--size-width-name); */
+    }
+    #gantt-table-header-task > div > div:nth-child(3),
+    #gantt-table-section-task > div > div:nth-child(3) {
+      width: 600px;
+      /* width: var(--size-width-detail); */
+    }
+    #gantt-table-header-task > div > div:nth-child(4),
+    #gantt-table-section-task > div > div:nth-child(4) {
+      width: 120px;
+    }
+    .no-0 {
+      background-color: aquamarine;
+      /* height: 0px;
+      border: none; */
+    }
+  </style>
+  <body>
+    <div id="gantt">
+      <div id="gantt-table">
+        <div id="gantt-table-blank"></div>
+        <div id="gantt-table-header-proj">
+          <div>No.</div>
+          <div>프로젝트명</div>
+          <div>예상시작일</div>
+          <div>예상종료일</div>
+          <div>실제시작일</div>
+          <div>실제종료일</div>
+          <div>달성률</div>
+        </div>
+        <div class="gantt-table-section-proj">
+          <div>1</div>
+          <div>프로젝트 J</div>
+          <div>2022-09-05</div>
+          <div>2022-09-05</div>
+          <div>2022-09-05</div>
+          <div>2022-09-05</div>
+          <div>100%</div>
+        </div>
+        <div id="gantt-table-header-task">
+          <div>
+            <div>No.</div>
+            <div>TASK NAME</div>
+            <div>TASK DETAIL</div>
+            <div>PIC</div>
+            <div>COST</div>
+            <div>EST. START</div>
+            <div>EST. END</div>
+            <div>ACT. START</div>
+            <div>ACT. END</div>
+            <div>PROGRESS</div>
+          </div>
+        </div>
+        <div id="gantt-table-section-task">
+          <div class="no-0">
+            <div>0</div>
+            <div>TASK UI/UX > 목업 > 헤더 프레임 제작</div>
+            <div>Figma에 기획한 내용을 바탕으로 사이트 디자인을 선구상하기</div>
+            <div>홍길동</div>
+            <div>4</div>
+            <div>2022-09-05</div>
+            <div>2022-09-05</div>
+            <div>2022-09-05</div>
+            <div>2022-09-05</div>
+            <div>100%</div>
+          </div>
+          <div class="no-1">
+            <div>1</div>
+            <div>한글은UI/UX > 목업 > 헤더 프레임 제작</div>
+            <div>Figma에 기획한 내용을 바탕으로 사이트 디자인을 선구상하기</div>
+            <div>Alejandro Garnacho</div>
+            <div>4</div>
+            <div>2022-09-05</div>
+            <div>2022-09-05</div>
+            <div>2022-09-05</div>
+            <div>2022-09-05</div>
+            <div>100%</div>
+          </div>
+          <div class="no-2">
+            <div>2</div>
+            <div>UI/UX > 목업 > 헤더 프레임 제작</div>
+            <div>Figma에 기획한 내용을 바탕으로 사이트 디자인을 선구상하기</div>
+            <div>Jadon Sancho</div>
+            <div>4</div>
+            <div>2022-09-05</div>
+            <div>2022-09-05</div>
+            <div>2022-09-05</div>
+            <div>2022-09-05</div>
+            <div>100%</div>
+          </div>
+        </div>
+      </div>
+      <div id="gantt-graph">
+        <div id="gantt-graph-week">
+          <div>WEEK 1</div>
+          <div>WEEK 2</div>
+          <div>WEEK 3</div>
+          <div>WEEK 4</div>
+        </div>
+        <div id="gantt-graph-days">
+          <div>Mon</div>
+          <div>Tue</div>
+          <div>Wed</div>
+          <div>Thu</div>
+          <div>Fri</div>
+          <div>Sat</div>
+          <div>Sun</div>
+          <div>Mon</div>
+          <div>Tue</div>
+          <div>Wed</div>
+          <div>Thu</div>
+          <div>Fri</div>
+          <div>Sat</div>
+          <div>Sun</div>
+          <div>Mon</div>
+          <div>Tue</div>
+          <div>Wed</div>
+          <div>Thu</div>
+          <div>Fri</div>
+          <div>Sat</div>
+          <div>Sun</div>
+          <div>Mon</div>
+          <div>Tue</div>
+          <div>Wed</div>
+          <div>Thu</div>
+          <div>Fri</div>
+          <div>Sat</div>
+          <div>Sun</div>
+        </div>
+        <div id="gantt-graph-date">
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+          <div>4</div>
+          <div>5</div>
+          <div>6</div>
+          <div>7</div>
+          <div>8</div>
+          <div>9</div>
+          <div>10</div>
+          <div>11</div>
+          <div>12</div>
+          <div>13</div>
+          <div>14</div>
+          <div>15</div>
+          <div>16</div>
+          <div>17</div>
+          <div>18</div>
+          <div>19</div>
+          <div>20</div>
+          <div>21</div>
+          <div>22</div>
+          <div>23</div>
+          <div>24</div>
+          <div>25</div>
+          <div>26</div>
+          <div>27</div>
+          <div>28</div>
+        </div>
+        <div id="gantt-graph-back" />
+      </div>
+    </div>
+  </body>
+</html>
