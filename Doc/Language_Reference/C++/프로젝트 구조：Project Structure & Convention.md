@@ -1,4 +1,4 @@
-# 프로젝트 구조 및 형상 관리 컨벤션
+# 프로젝트 구조 및 형상 관리 컨벤션：Project Structure & Convention
 
 cpp 프로젝트 구조
 https://stackoverflow.com/questions/2360734/whats-a-good-directory-structure-for-larger-c-projects-using-makefile

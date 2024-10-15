@@ -182,6 +182,11 @@ SJLJ 구현의 경우, Exception의 발생여부와 관계없이 항상 SJLJ 구
 
 보편적으로는 x86_64-posix-seh 씁니다.
 
+#### Exception Handling Model：`SEH` vs `SJLJ` vs `DWARF`
+
+- [SEH, SJLJ, DWARF](https://klutzy.github.io/blog/2015/03/05/mingw/)
+- [DWARF](https://stackoverflow.com/questions/15670169/what-is-difference-between-sjlj-vs-dwarf-vs-seh)
+
 ## 4. 컴파일러 세팅
 
 ## N-1. VScode 세팅
@@ -226,13 +231,13 @@ SJLJ 구현의 경우, Exception의 발생여부와 관계없이 항상 SJLJ 구
 - tasks 안에 [ `{ ...1번째 작업 정보... }`, `{ ...2번째 작업 정보... }`, ... `{ ...n번째 작업 정보... }` ] 같은 형태로 작업 정보를 나열할 수 있습니다.
 
   ```json
-  // tasks.json 앞 부분...
+  // ...tasks.json 앞 부분...
 
   {
     // ...작업 1 에 대한 정보...
   },
 
-  // ...tasks.json 뒷 부분
+  // ...tasks.json 뒷 부분...
   ```
 
 <br />
@@ -258,23 +263,20 @@ SJLJ 구현의 경우, Exception의 발생여부와 관계없이 항상 SJLJ 구
 
 ### tasks.json 상세설명 > command
 
-- gcc 빌드에 대한 이해가 필요합니다.
-- g++ gcc 차이 cout cin << 안되던데? 1 d return
+#### tasks.json 상세설명 > command > include 폴더 포함
 
 - 다음의 예시는 include 폴더의 cpp 까지 포함하려면 명령어를 다음과 같이 바꿔야합니다.
 
+  ```bash
+  g++ <FILE_NAME>.js
+  ```
+
   ```json
-  // tasks.json 앞 부분...
+  // ...tasks.json 앞 부분...
 
   // C++ include 경로 빌드
   {
-    "label": "C++: g++ - include",
-    "detail": "-o 옵션으로 /include 폴더를 포함하여 빌드합니다.",
-    "type": "cppbuild",
-    "group": {
-      "kind": "build",
-      "isDefault": true
-    },
+    // ...작업정보 앞 부분...
     "command": "g++",
     "args": [
       "-std=c++17",
@@ -283,25 +285,13 @@ SJLJ 구현의 경우, Exception의 발생여부와 관계없이 항상 SJLJ 구
       "-o",
       "${fileDirname}\\${fileBasenameNoExtension}.exe"
     ],
-    "options": {
-      "cwd": "${fileDirname}"
-    },
-    "problemMatcher": {
-      "owner": "cpp",
-      "fileLocation": ["relative", "${workspaceRoot}"],
-      "pattern": {
-        "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
-        "file": 1,
-        "line": 2,
-        "column": 3,
-        "severity": 4,
-        "message": 5
-      }
-    }
+    // ...작업정보 뒷 부분...
   },
 
   // ...tasks.json 뒷 부분
   ```
+
+````
 
 #### 가장 기본 형태
 
@@ -820,3 +810,4 @@ Get-Childitem -Path $home -Recurse -Force -Filter \*.txt 가장 빠른 방법
 
 - [라이브러리 추가](https://blog.naver.com/jodi999/220824963844)
 - [라이브러리 추가 + 스택오버플로우](https://stackoverflow.com/questions/6141147/how-do-i-include-a-path-to-libraries-in-g)
+````

@@ -1,5 +1,18 @@
 # 마크다운：Markdown
 
+## TeX and LaTeX style syntax
+
+[참고 링크](https://github.blog/news-insights/product-news/math-support-in-markdown/)
+
+$${\color{red}Red}$$
+
+${\color{lightgreen}Light \space Green}$
+
+$\scriptsize{\color{#FF9922}Light \space Green}$
+
+When $a \ne 0$, there are two solutions to $(ax^2 + bx + c = 0)$ and they are
+$$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
+
 ## 반응형 이미지
 
 ```markdown

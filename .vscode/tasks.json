@@ -3,9 +3,10 @@
   "version": "2.0.0",
   "tasks": [
     // # Build & Compile ==============================
+    // ## C++ =========================================
+    // ### C++：백준 채점용 단일 파일 컴파일 =============
     {
-      // # 백준 채점용 C++ 컴파일
-      "label": "C++: 백준 풀이 빌드",
+      "label": "C++：백준 풀이 빌드",
       "detail": "백준 C++17 표준옵션으로 컴파일합니다.",
       "type": "cppbuild",
       "group": {
@@ -40,10 +41,14 @@
       }
     },
 
+    // ### C++：백준 채점용 단일 파일 컴파일 ============
+    {},
+
     // # Test & Run ===================================
+    // ## C++ =========================================
+    // ### C++：빌드된 .exe 파일 실행 ===================
     {
-      // # Execute 바이너리 실행(Windows)
-      "label": "exe 파일 실행",
+      "label": "C++：빌드된 .exe 파일 실행",
       "detail": "현재 폴더에서 cpp 파일과 같은 이름의 exe 파일을 구동합니다.",
       "type": "process",
       "group": {
@@ -51,6 +56,34 @@
         "isDefault": true
       },
       "command": "${fileDirname}/${fileBasenameNoExtension}.exe"
+    },
+
+    // ## Java ========================================
+    // ### Java：.java 파일 실행 =======================
+    {
+      "label": "Java：.java 파일 실행",
+      "detail": "보고있는 .java 파일을 JVM 위에서 실행합니다.",
+      "type": "process",
+      "group": {
+        "kind": "test",
+        "isDefault": false
+      },
+      "command": "java",
+      "args": ["${fileDirname}/${fileBasenameNoExtension}.java"]
+    },
+
+    // ## JavaScript ==================================
+    // ### JavaScript：.js 파일 실행 ===================
+    {
+      "label": "JavaScript：.js 파일 실행",
+      "detail": "보고있는 .js 파일을 node.js 위에서 실행합니다.",
+      "type": "process",
+      "group": {
+        "kind": "test",
+        "isDefault": false
+      },
+      "command": "node",
+      "args": ["${fileDirname}/${fileBasenameNoExtension}.js"]
     }
   ]
 }
