@@ -71,6 +71,8 @@ g++ <INPUT_FILE_1> <INPUT_FILE_2> ... <INPUT_FILE_n> -o <OUTPUT_FILE>
 ```bash
 # 해당 <DIRECTORY_PATH> 경로의 디렉토리에서 header file을 cumulative하게(반복해서) 찾습니다.
 g++ -I<DIRECTORY_PATH>
+
+-I/data[...]/lib
 ```
 
   </td>
@@ -83,6 +85,8 @@ g++ -I<DIRECTORY_PATH>
 # library 경로 지정(반복 탐색 후 전부 링크)
 # 해당 <DIRECTORY_PATH> 경로의 디렉토리에서 library를 cumulative(반복해서) 찾습니다.
 g++ -L<DIRECTORY_PATH>
+
+-L/data[...]/lib
 ```
 
   </td>
@@ -98,6 +102,8 @@ g++ -L<DIRECTORY_PATH>
 # 뒤에 오는 라이브러리 이름은 관례에 따라 lib 접두사와 .a 확장자를 가진 정적 라이브러리 파일명
 # -lfoo：links to libfoo.so(shared library) if it exists, or to libfoo.a(static library) as a second choice
 g++ -l<LIBRARY_NAME>
+
+-lfoo  # (links libfoo.a or libfoo.so)
 ```
 
   </td>
@@ -206,9 +212,7 @@ g++ -W
   </td>
 </tr>
 <tr>
-  <td>
-    -Wall
-  </td>
+  <td><h3><b>"-Wall"</b></h3></td>
   <td>
 
 ```bash
@@ -251,22 +255,26 @@ gcc -pedantic
   </td>
 </tr>
 <tr>
-  <td>
-    -std=c99
-  </td>
+  <td><h3><b>"-std="</b></h3></td>
   <td>
 
 ```bash
-# c99에 맞게 compile하라.
+# standard 코드 기준점을 맞추고 그에 맞게 컴파일합니다.
+# 형식
+gcc -std=<C_VERSION_NAME> ...<COMMAND_LINE>
+
+# 예시
+## c99에 맞게 compile하라.
 gcc -std=c99
+
+## C++ 17 적용
+g++ -std=c++17
 ```
 
   </td>
 </tr>
 <tr>
-  <td>
-    -O
-  </td>
+  <td><h3><b>"-O"</b></h3></td>
   <td>
 
 ```bash

@@ -496,15 +496,17 @@ EXIT
 - 파일 폴더 검색
 
 ```bat
-:: dir   > 폴더 및 파일 리스트 출력
-:: %~dp0 > 같은 경로상에 있는 모든 파일
-:: /a-d  > 폴더명은 검색에서 제외
-:: /s    > 하위폴더 파일도 검색
-:: /b    > 복잡한 테이블말고 최소포맷인 결과만 보기
-:: |
-:: findstr
-:: /e
+:: dir     > 폴더 및 파일 리스트 출력
+:: %~dp0   > 같은 경로상에 있는 모든 파일
+:: /a-d    > dir option. 폴더명은 검색에서 제외
+:: /s      > dir option. 하위폴더 파일도 검색
+:: /b      > dir option. 복잡한 테이블말고 최소포맷인 결과만 보기
+:: |       > 명령 간 데이터 전달 Pipe & Redirection
+:: findstr > 텍스트의 패턴을 검색합니다.
+:: /e      > 줄의 끝에서 부터 검색합니다.
 dir %~dp0 /a-d /s /b | findstr /e "\.txt"
+
+dir /a-d /s /b %~dp0 | findstr /e ".cpp"
 
 
 FOR /F "usebackq" %%a IN (`dir %~dp0 /a-d /s /b ^| findstr /e "\.txt"`) DO (

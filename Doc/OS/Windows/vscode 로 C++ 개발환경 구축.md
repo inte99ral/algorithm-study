@@ -291,8 +291,6 @@ SJLJ 구현의 경우, Exception의 발생여부와 관계없이 항상 SJLJ 구
   // ...tasks.json 뒷 부분
   ```
 
-````
-
 #### 가장 기본 형태
 
 ```json
@@ -607,7 +605,86 @@ dir C:\Users\dkdld\Desktop\test0 /a-d /s /b | find ".txt"
 
 <br />
 
-- [CMD] .cpp 경로 출력
+#### CMD > 반복검색 빌드
+
+```bash
+g++ <INPUT_FILE_1> <INPUT_FILE_2> ... <INPUT_FILE_n> -o <OUTPUT_FILE>
+```
+
+```bat
+:: # BAT：.cpp 파일들을 탐색합니다 ========================================
+:: ## 상세 설명
+:: dir     > 폴더 및 파일 리스트 출력
+:: /a-d    > dir option. 폴더명은 검색에서 제외
+:: /s      > dir option. 하위폴더 파일도 검색
+:: /b      > dir option. 복잡한 테이블말고 최소포맷인 결과만 보기
+:: %~dp0   > 탐색할 경로. 드라이브를 포함한 현재 bat 파일 경로
+:: |       > 명령 간 데이터 전달 Pipe & Redirection
+:: findstr > 텍스트의 패턴을 검색합니다.
+:: /e      > findstr option. 줄의 끝에서 부터 검색합니다.
+dir /a-d /s /b %~dp0 | findstr /e ".cpp"
+
+:: # BAT：.cpp 파일들을 탐색한 후, 한 줄 씩 출력합니다 ======================
+FOR /F "usebackq" %%a IN (`dir %~dp0 /a-d /s /b ^| findstr /e "\.cpp"`) DO (
+  ECHO [CPP_PATH] = %%a
+)
+
+
+:: # BAT：.cpp 파일들을 탐색한 후, "변수"에 넣고 출력합니다 =================
+:: ## <DIRECTORY_PATH> 경로 밑의 .cpp 파일들의 경로를 cpps 변수에 저장한 뒤 ECHO 로 출력합니다
+(FOR /F "usebackq" %%i IN (`dir/a-d/s/b %~dp0 ^|findstr/e ".cpp"`) DO (SET cpps=!cpps! %%i)) & CALL ECHO "[CPP_PATH] = !cpps:~1!"
+
+:: 다음 식은 bat 파일에선 정상적으로 돌아가지 않습니다.
+::  이유 1. %~dp0은 batch 파일의 경로 값을 가진 인수입니다. cmd 명령줄 입력 시엔 %~dp0 을 쓸 수 없습니다.
+::  이유 2. cmd 명령줄 입력 시엔 %<variable> 이 아니라 %%<variable> 를 사용합니다.
+::  이유 3. bat 작업 중, 변수값이 명령 도중 변화할 경우엔 지연확장(DelayedExpansion)을 적용해야 합니다.
+::  이유 4. cmd 명령줄 입력 시엔 cpps 변수가 선언된 적 없을 경우 "%cpps%" 라는 문자열로 인식하지만 bat 파일에선 비어있는 변수값 "" 으로 인식합니다.
+
+:: 다음과 같은 차이를 감안하여 CMD에서 쓸 경우에는 다음과 같이 바꾸어주셔야 합니다.
+
+:: # CMD：.cpp 파일들을 탐색한 후, "변수"에 넣고 출력합니다 =================
+:: ## <DIRECTORY_PATH> 경로 밑의 .cpp 파일들의 경로를 cpps 변수에 저장한 뒤 ECHO 로 출력합니다
+(FOR /F "usebackq" %i IN (`dir/a-d/s/b <DIRECTORY_PATH> ^|findstr/e ".cpp"`) DO @(CALL SET cpps=%cpps% %i)) & CALL ECHO "[CPP_PATH] = %cpps:~7%"
+
+
+:: # BAT：.cpp 파일들을 탐색한 후, "파일"에 넣고 출력합니다 =================
+:: ## <DIRECTORY_PATH> 경로 밑의 .cpp 파일들의 경로를 cpps 변수에 저장한 뒤 ECHO 로 출력합니다
+:: 다음 식은 bat 파일에선 정상적으로 돌아가지 않습니다.
+:: %cpps% 변수에 지연확장(DelayedExpansion)이 적용되지 않았기 때문입니다.
+(FOR /F "usebackq" %%i IN (`dir/a-d/s/b <DIRECTORY_PATH> ^|findstr/e ".cpp"`) DO @(CALL SET cpps=%cpps% %%i)) & CALL ECHO %cpps:~7%
+
+(FOR /F "usebackq" %%i IN (`dir/a-d/s/b %~dp0 ^|findstr/e ".cpp"`) DO (@<NUL SET/P= "%%i " >> cpps.txt)) & CALL SET/P cpps=<cpps.txt & @CALL ECHO "[CPP_PATH]: !cpps:~0,-1!" & DEL/Q cpps.txt
+
+
+:: # CMD：.cpp 파일들을 탐색한 후, "변수"에 넣고 출력합니다 =================
+:: ## <DIRECTORY_PATH> 경로 밑의 .cpp 파일들의 경로를 cpps 변수에 저장한 뒤 ECHO 로 출력합니다
+(FOR /F "usebackq" %i IN (`dir/a-d/s/b <DIRECTORY_PATH> ^|findstr/e ".cpp"`) DO @(@<NUL SET/P= "%i " >> cpps.txt)) & CALL SET/P cpps=<cpps.txt & CALL ECHO "[CPP_PATH]: %cpps:~0,-1%" & DEL/Q cpps.txt
+
+(FOR /F "usebackq" %%i IN (`dir/a-d/s/b <DIRECTORY_PATH> ^|findstr/e ".cpp"`) DO @(NUL SET/P= "%%i " >> ${fileDirname}\\cpps.txt))
+
+
+(FOR /F "usebackq" %%i IN (`dir/a-d/s/b %~dp0 ^|findstr/e ".cpp"`) DO (@<NUL SET/P= "%%i " >> cpps.txt)) & SET/P cpps=<cpps.txt & ECHO [ANSWER]=%cpps%..!!
+
+
+(FOR /F "usebackq" %%i IN (`dir/a-d/s/b %~dp0 ^|findstr/e ".cpp"`) DO (@<NUL SET/P= "%%i " >> cpps.txt))
+& SET/P cpps=<cpps.txt & ECHO [ANSWER]=%cpps%=[ANSWER]
+
+& SET/P cpps=<cpps.txt & @(CALL ECHO [ANSWER]=%cpps%=[ANSWER])
+
+        "&",
+        "SET/P",
+        "cpps=<${fileDirname}\\cpps.txt",
+        "&",
+        "@CALL",
+        "ECHO",
+        "%cpps%",
+        "&",
+        "DEL/Q",
+        "${fileDirname}\\cpps.txt"
+
+```
+
+- <DIRECTORY_PATH> = ${fileDirname} 경로 맞춰주기
 
 ```json
 {
@@ -618,7 +695,7 @@ dir C:\Users\dkdld\Desktop\test0 /a-d /s /b | find ".txt"
       "detail": ".cpp 파일들의 경로를 cpps 변수에 저장한 뒤 ECHO 로 출력합니다",
       "type": "cppbuild",
       "group": {
-        "kind": "test",
+        "kind": "build",
         "isDefault": true
       },
       "command": "(FOR",
@@ -632,10 +709,10 @@ dir C:\Users\dkdld\Desktop\test0 /a-d /s /b | find ".txt"
         "^|findstr/e",
         "\".cpp\"`)",
         "DO",
-        "@CALL",
+        "@(CALL",
         "SET",
         "cpps=%cpps%",
-        "%i)",
+        "%i))",
         "&",
         "CALL",
         "ECHO",
@@ -645,6 +722,8 @@ dir C:\Users\dkdld\Desktop\test0 /a-d /s /b | find ".txt"
   ]
 }
 ```
+
+- [CMD] .cpp 경로 출력
 
 ```json
 {
@@ -810,4 +889,7 @@ Get-Childitem -Path $home -Recurse -Force -Filter \*.txt 가장 빠른 방법
 
 - [라이브러리 추가](https://blog.naver.com/jodi999/220824963844)
 - [라이브러리 추가 + 스택오버플로우](https://stackoverflow.com/questions/6141147/how-do-i-include-a-path-to-libraries-in-g)
-````
+
+```
+
+```
