@@ -1,5 +1,11 @@
 # 그 외
 
+## pragma
+
+주석 형식을 이용하여 명령줄에 주석을 전달하거나 개발 환경에 지정하는 대신 링커 옵션을 지정할 수 있습니다.
+
+https://learn.microsoft.com/ko-kr/cpp/preprocessor/comment-c-cpp?view=msvc-170
+
 ## Bool
 
 ### [Bool 값의 출력 | Boolean Alphabet](https://en.cppreference.com/w/cpp/io/manip/boolalpha)

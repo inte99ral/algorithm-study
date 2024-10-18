@@ -32,6 +32,9 @@ vector<vector<int>> matrix(y, vector<int> (x));
 
 ## List
 
+[리스트](https://chanheess.tistory.com/154)
+[반복자 응용](https://velog.io/@jh991012/%EB%B0%B1%EC%A4%80C-5397%EB%B2%88-%ED%82%A4%EB%A1%9C%EA%B1%B0)
+
 ## 덱：Deque
 
 ### 덱 > 덱：Deque (Double-Ended Queue)

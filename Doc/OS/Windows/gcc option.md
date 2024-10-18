@@ -7,6 +7,15 @@
 
 [참고 해설](https://velog.io/@hseop/gcc-compiler-Library)
 
+[동작 과정](https://seamless.tistory.com/2)
+
+gcc가 실행시키는 프로그램
+
+- 전처리기 : cpp
+- 컴파일러 : cc1
+- 어셈블러 : as
+- 링커 : ld
+
 #### gcc 간단한 사용법
 
 <table>
@@ -70,7 +79,9 @@ g++ <INPUT_FILE_1> <INPUT_FILE_2> ... <INPUT_FILE_n> -o <OUTPUT_FILE>
 
 ```bash
 # 해당 <DIRECTORY_PATH> 경로의 디렉토리에서 header file을 cumulative하게(반복해서) 찾습니다.
-g++ -I<DIRECTORY_PATH>
+# 자동적으로 링크되는 주소가 아닐 경우, 헤더파일의 탐색 경로를 추가해줍니다.
+# 예를 들어 바탕화면에 위치한 main.h 를 #include "main.h" 로 호출하고 싶다면 바탕화면 주소를 추가해줘야합니다.
+g++ -I<HEADER_DIRECTORY_PATH>
 
 -I/data[...]/lib
 ```
@@ -84,7 +95,7 @@ g++ -I<DIRECTORY_PATH>
 ```bash
 # library 경로 지정(반복 탐색 후 전부 링크)
 # 해당 <DIRECTORY_PATH> 경로의 디렉토리에서 library를 cumulative(반복해서) 찾습니다.
-g++ -L<DIRECTORY_PATH>
+g++ -L<LIBRARY_DIRECTORY_PATH>
 
 -L/data[...]/lib
 ```
@@ -113,9 +124,14 @@ g++ -l<LIBRARY_NAME>
   <td>
 
 ```bash
-# {-Wl | --whole-archive} -Wl 또는 –whole-archive 옵션
+# -Wl,-whole-archive
+# 1단계 소스 코드를 gcc를 거쳐 obj 로 만든뒤, 2단계 obj를 LD(링커)를 거쳐 elf 만드는 "분리된" 링킹과정을 실행하지 않고 소스코드 -> gcc -> elf 로 한번에 컴파일할 경우, linking 옵션을 주기 위해서는 -Wl 옵션이 필요하다
+#  -Wl,[링크 옵션들] 옵션 : gcc를 거치지 않고 바로 링크에게 옵션을 정해주고자 할 때 사용한다.(사용법은 -Wa와 동일한다.)
+# Wl 은 여러 옵션을 이을 수도 있음 -Wl,aaa,bbb,ccc
 # 컴파일러에게 라이브러리에 있는 모든 객체 파일을 링크하도록 지시
 # 이 옵션을 사용하면 라이브러리에 있는 모든 함수가 사용될 수 있음
+# dll 정적링크 옵션 https://stackoverflow.com/questions/15852677/static-and-dynamic-shared-linking-with-mingw
+gcc object1.o object2.o -lMyLib2 -Wl,-Bstatic -lMyLib1 -Wl,-Bdynamic -o output
 
 # 형식
 g++ <INPUT_FILE> -l<LIBRARY_NAME> {-Wl | --whole-archive} <LIBRARY_NAME> -o <OUTPUT_FILE>
@@ -380,3 +396,9 @@ g++ -U<MACRO_NAME>
   </td>
 </tr>
 </table>
+
+#### 비주류 옵션
+
+-rpath (runtime library path)
+
+shared object(.so)파일의 path를 입력하면 프로그램 실행 시 입력한 path를 search한다.

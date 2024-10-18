@@ -4,7 +4,7 @@
   "tasks": [
     // # Build & Compile ==============================
     // ## C++ =========================================
-    // ### C++：백준 채점용 단일 파일 컴파일 =============
+    // ### C++：CMD：단일파일 빌드 (백준 채점용) =========
     {
       "label": "C++：백준 풀이 빌드",
       "detail": "백준 C++17 표준옵션으로 컴파일합니다.",
@@ -41,8 +41,42 @@
       }
     },
 
-    // ### C++：백준 채점용 단일 파일 컴파일 ============
-    {},
+    // ### C++：CMD：반복검색 빌드 ======================
+    {
+      "label": "C++：CMD：반복검색 빌드",
+      "detail": "내부의 cpp 파일들을 반복검색한 후 빌드합니다.",
+      "type": "cppbuild",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      // * (FOR /F "usebackq" %i IN (`dir/a-d/s/b <DIRECTORY_PATH> ^|findstr/e ".cpp"`) DO @(CALL SET cpps=%cpps% %i)) & CALL g++ %cpps:~7% -o ${fileDirname}\\${fileBasenameNoExtension}.exe -O2 -static -std=gnu++17
+      "command": "(FOR",
+      "args": [
+        "/F", // cpps 변수에 .cpp 확장자 파일 목록 지정
+        "\"usebackq\"",
+        "%i",
+        "IN",
+        "(`dir/a-d/s/b",
+        "${fileDirname}",
+        "^|findstr/e",
+        "\".cpp\"`)",
+        "DO",
+        "@(CALL",
+        "SET",
+        "cpps=%cpps%",
+        "%i))",
+        "&",
+        "CALL", // g++ 호출
+        "g++",
+        "%cpps:~7%",
+        "-o",
+        "${fileDirname}\\${fileBasenameNoExtension}.exe",
+        "-O2",
+        "-static",
+        "-std=gnu++17"
+      ]
+    },
 
     // # Test & Run ===================================
     // ## C++ =========================================

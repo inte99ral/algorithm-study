@@ -6,7 +6,10 @@ int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
   cout.tie(nullptr);
-  freopen(".example\\Baekjoon\\question\\input.txt", "rt", stdin);  // -- 로컬 input.txt 입력 코드
+
+  #ifndef ONLINE_JUDGE
+  freopen(".example\\Baekjoon\\question\\input.txt", "rt", stdin);  // * 로컬 input.txt 입력 코드
+  #endif
 
   string input;
 

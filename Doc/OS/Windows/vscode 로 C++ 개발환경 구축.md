@@ -519,15 +519,15 @@ cppbuild 설명 https://github.com/microsoft/vscode-cpptools/issues/12110
       "kind": "build",
       "isDefault": true
     },
+    // * g++ Main.cc -o Main -O2 -Wall -lm -static -std=gnu++17 -DONLINE_JUDGE -DBOJ
     "command": "g++",
-    // g++ Main.cc -o Main -O2 -Wall -lm -static -std=gnu++17 -DONLINE_JUDGE -DBOJ
     "args": [
       "${fileDirname}\\**.cpp",
       "-o",
       "${fileDirname}\\${fileBasenameNoExtension}.exe",
       "-O2", // loop unrolling, function inlining, 메모리 및 속도희생을 제외한 모든 범위 최적화
       "-Wall", // 모든 모호한 코딩에 대해서 경고를 보내는 옵션
-      "-lm", // math libarary 사용
+      "-lm", // libm.a (math libarary) 고속연산을 위한 정적 라이브러리 지정
       "-static", // 정적 라이브러리와 공유 라이브러리 중 정적을 우선한다. 속도는 빠르지만 파일 사이즈가 커짐
       "-std=gnu++17" // C++17 Clang GNU 확장기능 유효
     ],
@@ -644,44 +644,22 @@ FOR /F "usebackq" %%a IN (`dir %~dp0 /a-d /s /b ^| findstr /e "\.cpp"`) DO (
 
 :: # CMD：.cpp 파일들을 탐색한 후, "변수"에 넣고 출력합니다 =================
 :: ## <DIRECTORY_PATH> 경로 밑의 .cpp 파일들의 경로를 cpps 변수에 저장한 뒤 ECHO 로 출력합니다
-(FOR /F "usebackq" %i IN (`dir/a-d/s/b <DIRECTORY_PATH> ^|findstr/e ".cpp"`) DO @(CALL SET cpps=%cpps% %i)) & CALL ECHO "[CPP_PATH] = %cpps:~7%"
+::(FOR /F "usebackq" %i IN (`dir/a-d/s/b <DIRECTORY_PATH> ^|findstr/e ".cpp"`) DO @(CALL SET cpps=%cpps% %i)) & CALL ECHO "[CPP_PATH] = %cpps:~7%"
 
 
 :: # BAT：.cpp 파일들을 탐색한 후, "파일"에 넣고 출력합니다 =================
-:: ## <DIRECTORY_PATH> 경로 밑의 .cpp 파일들의 경로를 cpps 변수에 저장한 뒤 ECHO 로 출력합니다
-:: 다음 식은 bat 파일에선 정상적으로 돌아가지 않습니다.
-:: %cpps% 변수에 지연확장(DelayedExpansion)이 적용되지 않았기 때문입니다.
-(FOR /F "usebackq" %%i IN (`dir/a-d/s/b <DIRECTORY_PATH> ^|findstr/e ".cpp"`) DO @(CALL SET cpps=%cpps% %%i)) & CALL ECHO %cpps:~7%
-
+:: ## <DIRECTORY_PATH> 경로 밑의 .cpp 파일들의 경로를 cpps 파일에 저장한 뒤 ECHO 로 출력합니다
 (FOR /F "usebackq" %%i IN (`dir/a-d/s/b %~dp0 ^|findstr/e ".cpp"`) DO (@<NUL SET/P= "%%i " >> cpps.txt)) & CALL SET/P cpps=<cpps.txt & @CALL ECHO "[CPP_PATH]: !cpps:~0,-1!" & DEL/Q cpps.txt
 
+:: 위와 마찬가지로 CMD에서 쓸 경우에는 다음과 같이 바꾸어주셔야 합니다.
 
 :: # CMD：.cpp 파일들을 탐색한 후, "변수"에 넣고 출력합니다 =================
-:: ## <DIRECTORY_PATH> 경로 밑의 .cpp 파일들의 경로를 cpps 변수에 저장한 뒤 ECHO 로 출력합니다
-(FOR /F "usebackq" %i IN (`dir/a-d/s/b <DIRECTORY_PATH> ^|findstr/e ".cpp"`) DO @(@<NUL SET/P= "%i " >> cpps.txt)) & CALL SET/P cpps=<cpps.txt & CALL ECHO "[CPP_PATH]: %cpps:~0,-1%" & DEL/Q cpps.txt
-
-(FOR /F "usebackq" %%i IN (`dir/a-d/s/b <DIRECTORY_PATH> ^|findstr/e ".cpp"`) DO @(NUL SET/P= "%%i " >> ${fileDirname}\\cpps.txt))
+:: ## <DIRECTORY_PATH> 경로 밑의 .cpp 파일들의 경로를 cpps 파일에 저장한 뒤 ECHO 로 출력합니다
+::(FOR /F "usebackq" %i IN (`dir/a-d/s/b <DIRECTORY_PATH> ^|findstr/e ".cpp"`) DO @(@<NUL SET/P= "%i " >> cpps.txt)) & CALL SET/P cpps=<cpps.txt & CALL ECHO "[CPP_PATH]: %cpps:~0,-1%" & DEL/Q cpps.txt
 
 
-(FOR /F "usebackq" %%i IN (`dir/a-d/s/b %~dp0 ^|findstr/e ".cpp"`) DO (@<NUL SET/P= "%%i " >> cpps.txt)) & SET/P cpps=<cpps.txt & ECHO [ANSWER]=%cpps%..!!
-
-
-(FOR /F "usebackq" %%i IN (`dir/a-d/s/b %~dp0 ^|findstr/e ".cpp"`) DO (@<NUL SET/P= "%%i " >> cpps.txt))
-& SET/P cpps=<cpps.txt & ECHO [ANSWER]=%cpps%=[ANSWER]
-
-& SET/P cpps=<cpps.txt & @(CALL ECHO [ANSWER]=%cpps%=[ANSWER])
-
-        "&",
-        "SET/P",
-        "cpps=<${fileDirname}\\cpps.txt",
-        "&",
-        "@CALL",
-        "ECHO",
-        "%cpps%",
-        "&",
-        "DEL/Q",
-        "${fileDirname}\\cpps.txt"
-
+:: # CMD：.cpp 파일들을 탐색한 후, "변수"에 넣고 gcc 로 빌드합니다 ==========
+::(FOR /F "usebackq" %i IN (`dir/a-d/s/b <DIRECTORY_PATH> ^|findstr/e ".cpp"`) DO @(CALL SET cpps=%cpps% %i)) & CALL g++ %cpps:~7% -o ${fileDirname}\\${fileBasenameNoExtension}.exe
 ```
 
 - <DIRECTORY_PATH> = ${fileDirname} 경로 맞춰주기
