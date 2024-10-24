@@ -52,7 +52,7 @@
 # FIXME:
 
 - [ ] 2024-10-18：[BJ 5397](Problem\Failed\Baekjoon\Silver\2\BJ_5397\question\info.md) 키로거 `#SilverⅡ` `#자료구조` `#스택` `#연결 리스트`
-- [ ] [SWEA 20671](Problem\Unsolved\SWEA\D5\SWEA_19118\Solution.cpp) 숫자 카드 `#D5`
+- [ ] 2024-xx-xx：[SWEA 20671](Problem\Unsolved\SWEA\D5\SWEA_20671\question\info.md) 숫자 카드 `#D5`
 
 <br />
 

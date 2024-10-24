@@ -58,6 +58,9 @@ vector<vector<int>> matrix(y, vector<int> (x));
 - Sort 디폴트는 오름차순이므로 햇갈림에 주의하세요
 - 선언 방법
 
+- priority_queue container 는 vector, deque container 와 붙어서 사용이 가능합니다. (list 불가능)
+- Any sequence container with `random access` iterator and supporting operations front(), push_back() and pop_back() can be used to instantiate priority_queue.
+
 #### 큐 > 우선순위 큐 > Create
 
 ```cpp

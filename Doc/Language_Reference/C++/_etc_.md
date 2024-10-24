@@ -44,3 +44,9 @@ int main() {
   return 0;
 }
 ```
+
+## Int
+
+### Long 타입 캐스팅
+
+[1LL](https://lucas-jang.github.io/easy-technique-to-handle-int-overflow/)

@@ -16,6 +16,8 @@ gcc가 실행시키는 프로그램
 - 어셈블러 : as
 - 링커 : ld
 
+[gcc option](https://blog.naver.com/seojongbeom/220907637623)
+
 #### gcc 간단한 사용법
 
 <table>
