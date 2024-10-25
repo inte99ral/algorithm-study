@@ -2,6 +2,8 @@
 
 ## TeX and LaTeX style syntax
 
+[latex 문법](https://velog.io/@d2h10s/LaTex-Markdown-%EC%88%98%EC%8B%9D-%EC%9E%91%EC%84%B1%EB%B2%95)
+
 [참고 링크](https://github.blog/news-insights/product-news/math-support-in-markdown/)
 
 $${\color{red}Red}$$

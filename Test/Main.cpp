@@ -9,6 +9,12 @@ using namespace std;
 // # Implements Definition ==============================
 // ## Main
 int main() {
-  function<int()> func1 = []() { return 0; };
+  // function<int()> func1 = []() -> int { return 0; };
+
+  string str1 = "12345";
+  string str2 = "5";
+
+  cout << (str1 > str2? str1 : str2) << endl;
+
   return 0;
 }
