@@ -2,9 +2,10 @@
 
 # 자주하는 실수 모음
 
-1. 첫 입력시, 초기화를 0으로 했으면, null 값이 아니라 인덱스 0을 가르킨다.
-2. 스택이나 우선순위 큐에서 pop 이나 push 행동을 취하면 당연히 순서가 바뀐다.
-3. if 문에서 배제한 케이스에 대하여 반례 체크를 해봐야 한다.
+1. <b>포인터</b>：첫 입력시, 초기화를 0으로 했으면, null 값이 아니라 인덱스 0을 가르킨다.
+2. <b>큐</b>：스택이나 우선순위 큐에서 pop 이나 push 행동을 취하면 당연히 순서가 바뀐다.
+3. <b>조건</b>：if 문에서 배제한 케이스에 대하여 반례 체크를 해봐야 한다.
+4. <b>범위</b>：int 의 범위는 4byte 2^32. long long 또한 8byte 2^64 가 한계이다. 아무리 long 이여도 int의 세제곱을 커버하진 못한다.
 
 <br />
 
@@ -17,8 +18,8 @@
 - [x] 2023.11.07 | [BJ 1592 영식이와 친구들 #Bronze/2 #구현 #시뮬레이션](Problem\Solved\Baekjoon\Bronze\2\BJ_1592\question\info.md)
 - [x] 2023.11.28 | [BJ 2292 벌집 #Bronze/2 #수학](Problem\Solved\Baekjoon\Bronze\2\BJ_2292\question\info.md)
 - [x] 2023.12.01 | [BJ 2477 참외밭 #Silver/2 #수학 #구현 #기하학](Problem\Solved\Baekjoon\Silver\2\BJ_2477\question\info.md)
-- [x] 2023.12.10 | [PG 1845 폰켓몬 #Level/1 #해시](Problem\Solved\Programmers\Level1\PG_1845\question\info.md)
-- [x] 2023.12.15 | [PG 181188 요격 시스템 #Level/2 #연습문제](Problem\Solved\Programmers\Level2\PG_181188\question\info.md)
+- [x] 2023.12.10 | [PG 1845 폰켓몬 #Level/1 #해시](Problem\Solved\Programmers\Level_1\PG_1845\question\info.md)
+- [x] 2023.12.15 | [PG 181188 요격 시스템 #Level/2 #연습문제](Problem\Solved\Programmers\Level_2\PG_181188\question\info.md)
 - [x] 2023.12.20 | [BJ 2527 직사각형 #Silver/1 #수학 #기하학 #많은조건분기](Problem\Solved\Baekjoon\Silver\1\BJ_2527\question\info.md)
 - [x] 2023.12.20 | [BJ 2941 크로아티아알파벳 #Silver/5 #구현 #문자열](Problem\Solved\Baekjoon\Silver\5\BJ_2941\question\info.md)
 - [x] 2023.12.24 | [BJ 2563 색종이 #Silver/5 #구현](Problem\Solved\Baekjoon\Silver\5\BJ_2563\question\info.md)
@@ -51,7 +52,9 @@
 
 # FIXME:
 
-- [ ] 2024-10-18：[BJ 5397](Problem\Failed\Baekjoon\Silver\2\BJ_5397\question\info.md) 키로거 `#SilverⅡ` `#자료구조` `#스택` `#연결 리스트`
+- [x] 2024-10-18：[BJ 5397](Problem\Failed\Baekjoon\Silver\2\BJ_5397\question\info.md) 키로거 `#SilverⅡ` `#자료구조` `#스택` `#연결 리스트`
+- [x] 2024-10-25 | [BJ 1629](Problem\Unsolved\Baekjoon\Silver\1\BJ_1629\question\info.md) 곱셈 `#SilverⅠ`
+- [ ] 2024-06-16 | [BJ 11726](Problem\Solved\Baekjoon\Gold\1\BJ_17472\question\info.md) 2×n 타일링 `#SilverⅢ`
 - [ ] 2024-xx-xx：[SWEA 20671](Problem\Unsolved\SWEA\D5\SWEA_20671\question\info.md) 숫자 카드 `#D5`
 
 <br />
@@ -60,7 +63,7 @@
 
 # TODO:
 
-- [ ] BJ 3040 백설공주와일곱난쟁이 BronzeⅡ
+- [x] 2024-10-26：[BJ 3040](Problem\Failed\Baekjoon\Bronze\2\BJ_3040\info\question.md) 백설공주와일곱난쟁이 `#BronzeⅡ` `#브루트포스`
 - [ ] BJ 2999 비밀이메일
 - [ ] BJ 3985 롤케이크
 - [ ] BJ 3052 나머지

@@ -135,6 +135,7 @@
     "vector": "cpp",
     "forward_list": "cpp",
     "tuple": "cpp",
-    "algorithm": "cpp"
+    "algorithm": "cpp",
+    "cmath": "cpp"
   }
 }

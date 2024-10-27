@@ -11,10 +11,8 @@ using namespace std;
 int main() {
   // function<int()> func1 = []() -> int { return 0; };
 
-  string str1 = "12345";
-  string str2 = "5";
+  long long i = (long long)(12312153 / 2) + 1;
 
-  cout << (str1 > str2? str1 : str2) << endl;
-
+  cout << i;
   return 0;
 }
