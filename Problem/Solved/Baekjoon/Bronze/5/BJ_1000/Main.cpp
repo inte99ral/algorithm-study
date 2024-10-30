@@ -6,10 +6,11 @@ int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
   cout.tie(nullptr);
-  freopen("Problem\\Solved\\Baekjoon\\Bronze\\5\\BJ_1000_A+B\\input.txt", "rt", stdin); // -- 로컬 input.txt 입력 코드
 
-  int x, y;
-  cin >> x >> y;
-  cout << (x + y);
+  freopen("Problem\\Solved\\Baekjoon\\Bronze\\5\\BJ_1000\\info\\input.txt", "rt", stdin);
+
+  int A, B;
+  cin >> A >> B;
+  cout << A + B;
   return 0;
 }

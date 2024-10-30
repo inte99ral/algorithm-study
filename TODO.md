@@ -1,20 +1,20 @@
-<!-- Warn -->
+# TODO
 
-# 자주하는 실수 모음
+## WARN
 
+1. <b>변수</b>：값이 바뀐 걸 인지하기.
 1. <b>포인터</b>：첫 입력시, 초기화를 0으로 했으면, null 값이 아니라 인덱스 0을 가르킨다.
-2. <b>큐</b>：스택이나 우선순위 큐에서 pop 이나 push 행동을 취하면 당연히 순서가 바뀐다.
-3. <b>조건</b>：if 문에서 배제한 케이스에 대하여 반례 체크를 해봐야 한다.
-4. <b>범위</b>：int 의 범위는 4byte 2^32. long long 또한 8byte 2^64 가 한계이다. 아무리 long 이여도 int의 세제곱을 커버하진 못한다.
+1. <b>큐</b>：스택이나 우선순위 큐에서 pop 이나 push 행동을 취하면 당연히 순서가 바뀐다.
+1. <b>조건</b>：if 문에서 배제한 케이스에 대하여 반례 체크를 해봐야 한다.
+1. <b>범위</b>：int 의 범위는 4byte 2^32. long long 또한 8byte 2^64 가 한계이다. 아무리 long 이여도 int의 세제곱을 커버하진 못한다.
 
 <br />
 
-<!-- Solved -->
+## DONE:
 
-# DONE:
-
-- [x] 2023.10.27 | [BJ 1000 A+B #Bronze/5 #수학 #구현 #사칙연산](Problem\Solved\Baekjoon\Bronze\5\BJ_1000\question.md)
+- [x] 2023.10.27 | [BJ 1000 A+B #Bronze/5 #수학 #구현 #사칙연산](Problem\Solved\Baekjoon\Bronze\5\BJ_1000\info//.A+B.md)
 - [x] 2023.11.02 | [BJ 1244 스위치 켜고 끄기 #Silver/4 #구현 #시뮬레이션](Problem\Solved\Baekjoon\Silver\4\BJ_1244\question\info.md)
+- `[2] ==================================================`
 - [x] 2023.11.07 | [BJ 1592 영식이와 친구들 #Bronze/2 #구현 #시뮬레이션](Problem\Solved\Baekjoon\Bronze\2\BJ_1592\question\info.md)
 - [x] 2023.11.28 | [BJ 2292 벌집 #Bronze/2 #수학](Problem\Solved\Baekjoon\Bronze\2\BJ_2292\question\info.md)
 - [x] 2023.12.01 | [BJ 2477 참외밭 #Silver/2 #수학 #구현 #기하학](Problem\Solved\Baekjoon\Silver\2\BJ_2477\question\info.md)
@@ -48,9 +48,7 @@
 
 <br />
 
-<!-- Failed -->
-
-# FIXME:
+## FIXME:
 
 - [x] 2024-10-18：[BJ 5397](Problem\Failed\Baekjoon\Silver\2\BJ_5397\question\info.md) 키로거 `#SilverⅡ` `#자료구조` `#스택` `#연결 리스트`
 - [x] 2024-10-25 | [BJ 1629](Problem\Unsolved\Baekjoon\Silver\1\BJ_1629\question\info.md) 곱셈 `#SilverⅠ`
@@ -59,9 +57,7 @@
 
 <br />
 
-<!-- Unsolved -->
-
-# TODO:
+## TODO:
 
 - [x] 2024-10-26：[BJ 3040](Problem\Failed\Baekjoon\Bronze\2\BJ_3040\info\question.md) 백설공주와일곱난쟁이 `#BronzeⅡ` `#브루트포스`
 - [ ] BJ 2999 비밀이메일

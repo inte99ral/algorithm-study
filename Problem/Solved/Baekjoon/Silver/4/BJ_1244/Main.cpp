@@ -3,54 +3,51 @@
 using namespace std;
 
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
-  cout.tie(nullptr);
-  freopen("Problem\\Solved\\Baekjoon\\Silver\\4\\BJ_1244\\question\\input.txt", "rt", stdin); // -- 로컬 input.txt 입력 코드
-
   int L;
   int N;
-  int *arr;
+  int *sArr;
+
+  // freopen("Problem\\Solved\\Baekjoon\\Silver\\4\\BJ_1244\\info\\input.txt", "rt", stdin);
 
   cin >> L;
-  arr = new int[L + 1]();
+  sArr = new int[L + 1];
 
-
-  for(int l = 1; l <= L; l++) {
-    cin >> arr[l];
+  for (int l = 1; l <= L; l++) {
+    cin >> sArr[l];
   }
 
   cin >> N;
 
-  for(int n = 0; n < N; n++) {
-    int gender;
-    int target;
+  for (int n = 0; n < N; n++) {
+    int gender, number;
+    cin >> gender >> number;
 
-    cin >> gender >> target;
-    target;
+    if (gender == 1) {
+      int sum = number;
+      while (sum < L + 1) {
+        sArr[sum] = !sArr[sum];
+        sum += number;
+      }
+    }
 
-    switch(gender) {
-      case 1: // man
-        for(int i = 1; target * i <= L; i++) {
-          arr[target * i] = 1 - arr[target * i];
-        }
-        break;
-      case 2: // girl
-        for(int i = 0; target - i > 0 && target + i <= L; i++) {
-          if(arr[target + i] != arr[target - i]) break;
+    else {
+      int gap = 1;
+      sArr[number] = !sArr[number];
+      while ((0 < number - gap) && (number + gap < L + 1)) {
+        if (sArr[number - gap] != sArr[number + gap]) break;
 
-          int alt = 1 - arr[target + i];
-          arr[target + i] = alt;
-          arr[target - i] = alt;
-        }
-        break;
+        sArr[number - gap] = !sArr[number - gap];
+        sArr[number + gap] = !sArr[number + gap];
+        gap++;
+      }
     }
   }
 
-  for(int l = 1; l <= L; l++) {
-    cout << arr[l] << ' ';
+  for (int l = 1; l <= L; l++) {
+    cout << sArr[l] << ' ';
     if(l % 20 == 0) cout << '\n';
   }
 
+  delete[] sArr;
   return 0;
 }

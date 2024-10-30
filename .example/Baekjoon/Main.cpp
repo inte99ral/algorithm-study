@@ -1,7 +1,13 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+// # Prototype Declaration ==================================================
 
+// # Global Variable & Constant =============================================
+
+// # Implements Definition ==================================================
+
+// ## Main
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);
