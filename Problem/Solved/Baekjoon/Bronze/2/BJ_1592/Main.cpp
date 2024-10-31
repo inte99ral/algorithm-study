@@ -1,34 +1,27 @@
-#include <iostream>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
-  cout.tie(nullptr);
-  freopen("Problem\\Solved\\Baekjoon\\Bronze\\2\\BJ_1592\\question\\input.txt", "rt", stdin); // -- 로컬 input.txt 입력 코드
+  freopen("Problem\\Solved\\Baekjoon\\Bronze\\2\\BJ_1592\\.input.txt", "rt", stdin);
 
-  int N;
-  int M;
-  int L;
-  int count;
-  int cond;
+  int N, M, L;
   int *arr;
+  int count;
+  int curr;
 
   cin >> N >> M >> L;
-  count = 0;
-  cond = 0;
-
   arr = new int[N]();
-  arr[0] = 1;
+  count = 0;
+  curr = 0;
 
-  while(arr[cond] < M) {
-    cond = (cond + N + ((arr[cond] % 2 == 0) ? -L : L)) % N;
-    arr[cond]++;
+  while((++arr[curr]) < M) {
+    curr = (curr + N + ((arr[curr] % 2 == 0) ? -L : L)) % N;
     count++;
   }
 
   cout << count;
-  
+
+  delete[] arr;
   return 0;
 }

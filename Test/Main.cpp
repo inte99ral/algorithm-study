@@ -11,8 +11,7 @@ using namespace std;
 int main() {
   // function<int()> func1 = []() -> int { return 0; };
 
-  long long i = (long long)(12312153 / 2) + 1;
-
+  int i = 6 * 5 - 2 * 5;
   cout << i;
   return 0;
 }

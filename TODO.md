@@ -12,12 +12,7 @@
 
 ## DONE:
 
-- [x] 2023.10.27 | [BJ 1000 A+B #Bronze/5 #수학 #구현 #사칙연산](Problem\Solved\Baekjoon\Bronze\5\BJ_1000\info//.A+B.md)
-- [x] 2023.11.02 | [BJ 1244 스위치 켜고 끄기 #Silver/4 #구현 #시뮬레이션](Problem\Solved\Baekjoon\Silver\4\BJ_1244\question\info.md)
-- `[2] ==================================================`
-- [x] 2023.11.07 | [BJ 1592 영식이와 친구들 #Bronze/2 #구현 #시뮬레이션](Problem\Solved\Baekjoon\Bronze\2\BJ_1592\question\info.md)
-- [x] 2023.11.28 | [BJ 2292 벌집 #Bronze/2 #수학](Problem\Solved\Baekjoon\Bronze\2\BJ_2292\question\info.md)
-- [x] 2023.12.01 | [BJ 2477 참외밭 #Silver/2 #수학 #구현 #기하학](Problem\Solved\Baekjoon\Silver\2\BJ_2477\question\info.md)
+- `[5] ==================================================`
 - [x] 2023.12.10 | [PG 1845 폰켓몬 #Level/1 #해시](Problem\Solved\Programmers\Level_1\PG_1845\question\info.md)
 - [x] 2023.12.15 | [PG 181188 요격 시스템 #Level/2 #연습문제](Problem\Solved\Programmers\Level_2\PG_181188\question\info.md)
 - [x] 2023.12.20 | [BJ 2527 직사각형 #Silver/1 #수학 #기하학 #많은조건분기](Problem\Solved\Baekjoon\Silver\1\BJ_2527\question\info.md)
@@ -43,8 +38,20 @@
 - [x] 2024-07-14 | [PG 42578](Problem\Solved\Programmers\Level_2\PG_42578\question\info.md) 의상 `#Level 2` `#해시`
 - [x] 2024-07-22：[PG 17677](Problem\Solved\Programmers\Level_2\PG_17677\question\info.md) 뉴스 클러스터링 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
 - [x] 2024-07-31：[PG 17679](Problem\Solved\Programmers\Level_2\PG_17679\question\info.md) 프렌즈4블록 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
+
 - [x] 2024-07-24：[PG 17680](Problem\Solved\Programmers\Level_2\PG_17680\question\info.md) 캐시 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
+
 - [x] 2024-08-19：[PG 17676](Problem\Solved\Programmers\Level_3\PG_17676\question\info.md) 추석 트래픽 `#Level 3` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
+
+- [x] 2024-10-31：[BJ_1000](Problem\Solved\Baekjoon\Bronze\5\BJ_1000/._A+B.md) A+B `#BronzeⅤ` `#수학` `#구현`
+
+- [x] 2024-10-31：[BJ_1244](Problem\Solved\Baekjoon\Silver\4\BJ_1244/._스위치_켜고_끄기.md) 스위치 켜고 끄기 `#SilverⅣ` `#구현`
+
+- [x] 2024-10-31：[BJ_1592](Problem\Solved\Baekjoon\Bronze\2\BJ_1592/._영식이와_친구들.md) 영식이와 친구들 `#BronzeⅡ` `#구현`
+
+- [x] 2024-10-31：[BJ_2292](Problem\Solved\Baekjoon\Bronze\2\BJ_2292/._벌집.md) 벌집 `#BronzeⅡ` `#수학`
+
+- [x] 2024-10-31：[BJ_2477](Problem\Solved\Baekjoon\Silver\2\BJ_2477/._참외밭.md) 참외밭 `#SilverⅡ` `#수학` `#구현` `#기하학`
 
 <br />
 

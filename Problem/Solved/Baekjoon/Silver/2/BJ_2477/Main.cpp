@@ -1,79 +1,31 @@
-/*
- * 해설 ㄱ 자 모양을 추측하기 위하여 반시계방향 상수 배열을 만들고
- * ㄱ자 모양을 위해 시계방향으로 꺾이는 순간을 파악
- */
-
 #include <iostream>
 
 using namespace std;
 
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
-  cout.tie(nullptr);
-  freopen("Problem\\Solved\\Baekjoon\\Silver\\2\\BJ_2477\\question\\input.txt", "rt", stdin); // -- 로컬
-
-  int answer;
+  freopen("Problem\\Solved\\Baekjoon\\Silver\\2\\BJ_2477\\.input.txt", "rt", stdin);
 
   int K;
-  int maxArea = 0;
-  int delArea = 0;
-
-  int firstDirc = 0;
-  int prevDirc = 0;
-  int currDirc = 0;
-
-  int firstLen = 0;
-  int prevLen = 0;
-  int currLen = 0;
-
-  const int *clockwise = new int[5]{-1, 3, 4, 2, 1};
+  int dirc[6] = {};
+  int len[6] = {};
 
   cin >> K;
 
-  cin >> currDirc;
-  cin >> currLen;
+  for (int i = 0; i < 6; i++) cin >> dirc[i] >> len[i];
 
-  firstDirc = currDirc;
-  firstLen = currLen;
+  for (int i = 0; i < 6; i++) {
+    int i1 = i;
+    int i2 = (i + 1) % 6;
+    int i3 = (i + 2) % 6;
+    int i4 = (i + 3) % 6;
+    int i5 = (i + 4) % 6;
+    int i6 = (i + 5) % 6;
 
-  for(int i = 0; i < 5; i++) {
-    int currArea;
-
-    prevDirc = currDirc;
-    prevLen = currLen;
-
-    cin >> currDirc;
-    cin >> currLen;
-
-    currArea = prevLen * currLen;
-
-    if(currDirc == clockwise[prevDirc]) {
-      delArea = currArea;
-    }
-    else {
-      if(maxArea < currArea) {
-        maxArea = currArea;
-      } 
+    if ((dirc[i1] == dirc[i3]) && (dirc[i2] == dirc[i4])) {
+      cout << K * ((len[i5] * len[i6]) - (len[i2]) * (len[i3]));
+      break;
     }
   }
-
-  {
-    prevDirc = currDirc;
-    prevLen = currLen;
-
-    int currArea = firstLen * prevLen;
-
-    if(firstDirc == clockwise[prevDirc]) {
-      delArea = firstLen * prevLen;
-    }
-    else {
-      int currArea = firstLen * prevLen;
-      if(maxArea < currArea) maxArea = currArea; 
-    }
-  }
-
-  cout << K * (maxArea - delArea);
 
   return 0;
 }
