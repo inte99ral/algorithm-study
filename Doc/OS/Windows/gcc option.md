@@ -97,6 +97,8 @@ g++ -I<HEADER_DIRECTORY_PATH>
 ```bash
 # library 경로 지정(반복 탐색 후 전부 링크)
 # 해당 <DIRECTORY_PATH> 경로의 디렉토리에서 library를 cumulative(반복해서) 찾습니다.
+# https://docs.redhat.com/ko/documentation/red_hat_enterprise_linux/7/html/developer_guide/gcc-using-libraries_using-library-gcc
+
 g++ -L<LIBRARY_DIRECTORY_PATH>
 
 -L/data[...]/lib
