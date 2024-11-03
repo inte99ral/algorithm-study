@@ -53,6 +53,10 @@
 
 [mingw, msys2, cygwin, 어떤 것을 설치해야 할까?](https://woogyun.tistory.com/651)
 
+https://www.msys2.org/
+
+https://m.blog.naver.com/adapriest/220981306872
+
 GCC vs LLVM/Clang
 각 리포지토리에 있는 모든 패키지를 빌드하는 데 사용되는 기본 컴파일러/툴체인입니다.
 

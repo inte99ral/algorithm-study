@@ -9,7 +9,47 @@
 - [system("cls")는 좋은 방법이 아니다](https://cplusplus.com/forum/articles/10515/)
 
 ```cpp
+#include <conio.h>
+#include <iostream>
+#include <stdlib.h> // * NEEDED
+#include <Windows.h>
 
+using namespace std;
+
+void setCursorPos(int Y, int X) {
+  COORD Pos;
+  Pos.Y = Y;
+  Pos.X = X;
+  SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Pos);
+}
+
+int main() {
+	system("cls"); // * WINDOW SHELL CLEAR
+	system("color B4");
+
+	while(1) {
+
+		int Y, X;
+		cout << "Input Y:\nInput X:";
+		setCursorPos(0, 10);
+		cin >> Y;
+		setCursorPos(1, 10);
+		cin >> X;
+
+		if(Y < 2) Y = 2;
+
+		system("cls"); // * WINDOW SHELL CLEAR
+		setCursorPos(Y, X);
+		cout << "┌ ┬ ┐";
+		setCursorPos(Y + 1, X);
+		cout << "├─┼─┤";
+		setCursorPos(Y + 2, X);
+		cout << "└ ┴ ┘";
+		setCursorPos(0, 0);
+	}
+
+	return 0;
+}
 ```
 
 #### 색상
