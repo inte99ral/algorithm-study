@@ -103,6 +103,7 @@
     "MD010": false, // Don't lint : Hard tabs
     "MD014": false, // Don't lint : Dollar signs used before commands without showing output
     "MD026": false, // Don't lint : Trailing punctuation in heading [Punctuation: ':']
+    "MD029": false, // Don't lint : Ordered list item prefix
     "MD031": false, // Don't lint : Fenced code blocks should be surrounded by blank lines
     "MD033": false // Don't lint : Inline HTML
   },

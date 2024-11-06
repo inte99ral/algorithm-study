@@ -12,6 +12,8 @@ ${\color{lightgreen}Light \space Green}$
 
 $\scriptsize{\color{#FF9922}Light \space Green}$
 
+$\color{#FF9922} \footnotesize \textnormal{package.json \space 확인 🚨}$
+
 When $a \ne 0$, there are two solutions to $(ax^2 + bx + c = 0)$ and they are
 $$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
 
