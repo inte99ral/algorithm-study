@@ -360,7 +360,8 @@ npm install
 
   <br />
 
-- react의 최상단 index.tsx 에 Router가 감지할 수 있도록 `<BrowserRouter>` 태그를 넣어줍니다.
+- react의 최상단 index.tsx 에 Router가 감지할 수 있도록<br />
+  react-router-dom 에서 BrowserRouter 를 임포트하고 `<BrowserRouter>` 태그를 넣어줍니다.
 
   ```typescript
   // -- API & Library
@@ -386,33 +387,46 @@ npm install
   reportWebVitals(console.log);
   ```
 
-- 라우터 설정을 정의할 AppRouter.tsx 를 생성
+- App.tsx 에 페이지들을 각 주소에 맞게 연결해줍시다.
 
   ```typescript
-  // src/AppRouter.tsx
+  // src/App.tsx
   // API & Library
-  import React from 'react';
-  import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+  import React, { useEffect } from 'react';
+  import { Route, Routes, Navigate } from 'react-router-dom';
 
   // Components
   import { HomePage } from 'components/HomePage';
   import { BlogPage } from 'components/BlogPage';
   import { ErrorPage } from 'components/pages/ErrorPage';
 
-  export const AppRouter = () => {
+  const App = () => {
+    // LifeCycle
+    useEffect(() => {
+      console.log('[VERSION]: ', process.env.REACT_APP_VERSION);
+    }, []);
+
     // Return
     return (
-      <>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Navigate replace to="/home" />} />
-            <Route path="/home/*" element={<HomePage />} />
-            <Route path="/blog/*" element={<BlogPage />} />
-            <Route path="/error/*" element={<ErrorPage />} />
-            <Route path="/*" element={<Navigate replace to="/error" />} />
-          </Routes>
-        </BrowserRouter>
-      </>
+      <div className={`App`}>
+        <Routes>
+          <Route path="/" element={<Navigate replace to="/home" />} /> // 처음 도착하게 될 주소
+          <Route path="/home/*" element={<HomePage />} />
+          <Route path="/blog/*" element={<BlogPage />} />
+          <Route path="/error/*" element={<ErrorPage />} />
+          <Route path="/*" element={<Navigate replace to="/error" />} /> // 이상한 값이면 이 곳으로
+        </Routes>
+      </div>
     );
   };
+
+  export default App;
   ```
+
+- 사이트를 로컬 주소에 올려 테스트하는 `npm start` 명령어를 통해서 작동을 확인해봅시다.
+
+  ```bash
+  npm start
+  ```
+
+### Gitpage.io 에 올리기

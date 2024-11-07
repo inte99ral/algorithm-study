@@ -12,10 +12,6 @@
 
 ## DONE:
 
-- `[5] ==================================================`
-- [x] 2023.12.10 | [PG 1845 폰켓몬 #Level/1 #해시](Problem\Solved\Programmers\Level_1\PG_1845\question\info.md)
-- [x] 2023.12.15 | [PG 181188 요격 시스템 #Level/2 #연습문제](Problem\Solved\Programmers\Level_2\PG_181188\question\info.md)
-- [x] 2023.12.20 | [BJ 2527 직사각형 #Silver/1 #수학 #기하학 #많은조건분기](Problem\Solved\Baekjoon\Silver\1\BJ_2527\question\info.md)
 - [x] 2023.12.20 | [BJ 2941 크로아티아알파벳 #Silver/5 #구현 #문자열](Problem\Solved\Baekjoon\Silver\5\BJ_2941\question\info.md)
 - [x] 2023.12.24 | [BJ 2563 색종이 #Silver/5 #구현](Problem\Solved\Baekjoon\Silver\5\BJ_2563\question\info.md)
 - [x] 2023.12.24 | [BJ 2567 색종이2 #Silver/4 #구현](Problem\Solved\Baekjoon\Silver\4\BJ_2567\question\info.md)
@@ -45,6 +41,9 @@
 - [x] 2024-10-31：[BJ_1592](Problem\Solved\Baekjoon\Bronze\2\BJ_1592/._영식이와_친구들.md) 영식이와 친구들 `#BronzeⅡ` `#구현`
 - [x] 2024-10-31：[BJ_2292](Problem\Solved\Baekjoon\Bronze\2\BJ_2292/._벌집.md) 벌집 `#BronzeⅡ` `#수학`
 - [x] 2024-10-31：[BJ_2477](Problem\Solved\Baekjoon\Silver\2\BJ_2477/._참외밭.md) 참외밭 `#SilverⅡ` `#수학` `#구현` `#기하학`
+- [x] 2024-11-07：[PG_1845](Problem\Solved\Programmers\Level_1\PG_1845/__폰켓몬.md) 폰켓몬 `#Level 1` `#해시`
+- [x] 2024-11-07：[PG_181188](Problem\Solved\Programmers\Level_2\PG_181188/__요격_시스템.md) 요격 시스템 `#Level 2`
+- [x] 2024-11-07：[BJ_2527](Problem\Solved\Baekjoon\Silver\1\BJ_2527/__직사각형.md) 직사각형 `#SilverⅠ` `#수학` `#기하학` `#많은조건분기`
 
 <br />
 

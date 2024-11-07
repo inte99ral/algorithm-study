@@ -1,11 +1,5 @@
 # [디스크 컨트롤러](https://school.programmers.co.kr/learn/courses/30/lessons/181188)
 
-<style>
-  .example * {text-align: center;}
-  .example td {width: 20vw; border: solid 1px lightgray}
-  .output td {width: 30vw; padding: 1em}
-</style>
-
 ## 문제 설명
 
 &nbsp; A 나라가 B 나라를 침공하였습니다. B 나라의 대부분의 전략 자원은 아이기스 군사 기지에 집중되어 있기 때문에 A 나라는 B 나라의 아이기스 군사 기지에 융단폭격을 가했습니다.
@@ -37,8 +31,8 @@
 
 <table class="example">
   <tr>
-    <td><img src="./asset/1.png" alt="1" style="width:20vw; aspect-ratio: 1 / 1"/></td>
-    <td><img src="./asset/3.avif" alt="3" style="width:20vw; aspect-ratio: 1 / 1"/></td>
+    <td><img src="./asset/1.png" alt="1" width="400" height="200"/></td>
+    <td><img src="./asset/3.avif" alt="3" width="400" height="200"/></td>
   </tr>
   <tr>
     <td>다리의 총 길이: 13</td>
@@ -91,7 +85,7 @@
 ## 입출력 예 설명
 
 <center>
-<img src="./asset/1.png" alt="1" style="width:50vw; aspect-ratio: 3 / 1"/>
+<img src="./asset/1.png" alt="1" width="400" height="200"/>
 </center>
 
 위 그림과 같이 최소 세 번의 요격 미사일 발사로 전부 방어할 수 있습니다.

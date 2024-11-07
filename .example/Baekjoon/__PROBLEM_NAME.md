@@ -12,11 +12,8 @@
 
 &nbsp; 문제의 그림예시 `<그림 1>`
 
-<br />
 <center>
-
-<img src="./.asset/1.png" alt="1" style="width:50vw; aspect-ratio: 2 / 1"/>
-
+<img src="./asset/1.png" alt=1 width="400" height="200" />
 </center>
 <br />
 

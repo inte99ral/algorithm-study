@@ -1,32 +1,54 @@
-// #include <bits/stdc++.h>
-#include <iostream>
-#include <map>
-#include <sstream>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// # Prototype Declaration ==================================================
+
+int solution(vector<int> nums);
+
+// # Global Variable & Constant =============================================
+
+// # Implements Definition ==================================================
+
+// ## Main
+int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
+
+  vector<int> input;
+
+  // * Input
+  {
+    freopen("Problem\\Solved\\Programmers\\Level_1\\PG_1845\\.input.txt", "rt", stdin);
+
+      string rawInput;
+      regex regExp("[0-9]+");
+      sregex_token_iterator iter;
+      sregex_token_iterator end;
+
+      getline(cin, rawInput);
+      iter = sregex_token_iterator(rawInput.begin(), rawInput.end(), regExp);
+
+      while (iter != end) input.push_back(stoi(*iter++));
+  }
+
+  // * Output
+  {
+    int answer = solution(input);
+    cout << "[OUTPUT] : " << answer << "\n";
+  }
+
+  return 0;
+}
+
+
+// ## Solution
 #include <vector>
 #include <unordered_set>
 
 using namespace std;
 
-// -- Header ====================
-int solution(vector<int> nums);
-
-// -- Local Input ====================
-int main() {
-  freopen("Problem\\Solved\\Programmers\\Level1\\PG_1845\\question\\input.txt", "rt", stdin);
-  string rawData;
-  string buffer;
-  vector<int> input;
-
-  getline(cin, rawData);
-  stringstream ss(rawData.substr(1,rawData.size() - 2));
-
-  while(getline(ss, buffer, ',')) input.push_back(stoi(buffer));
-
-  cout << solution(input) << '\n';
-  return 0;
-}
-
-// -- Solution ====================
 int solution(vector<int> nums) {
   unordered_set<int> s(nums.begin(), nums.end());
   return min(nums.size() / 2, s.size());
