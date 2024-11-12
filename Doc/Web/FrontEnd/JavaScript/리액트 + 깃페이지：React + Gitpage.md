@@ -671,24 +671,6 @@ src/
 
 <hr />
 
-### SASS
-
-sass 는 기존의 css 보다 향상된 스타일 문법 입니다.
-다음 두 명령어 중 하나를 골라 사용하시면 됩니다.
-
-- node-sass 적용 `npm install node-sass` (비추천, 현재 지원 중단)
-- dart sass 적용 `npm install sass`
-
-적용했으면 src/theme.css 파일의 확장자를 src/theme<b>.scss</b> 로 바꿔주세요
-
-#### SASS > $\color{#FF9922} \footnotesize \textbf{node-sass 에러 🚨}$
-
-&nbsp; `node-sass` 는 더 이상 사용되지 않습니다. node 의 버전에 영향을 받기 때문에 개발을 하다보면 `node_modules\node-sass` 가 말썽을 일으킬 때가 있습니다.
-
-&nbsp; 이는 sass 문법을 css 에 적용시켜주는 node-sass가 노드 버전에 의존적이어서 노드 버전이 바뀌면 오류를 일으키곤 합니다. 버전에 맞춰서 package.json 를 수정하는 방법도 있지만 dart sass 를 사용하는 쪽을 추천합니다.
-
-<hr />
-
 ### 백지화 및 홈페이지 디자인 시작
 
 &nbsp; 지금까지는 react 가 제공하는 기본 페이지 디자인(파란색 리액트 로고가 가운데에 회전하는 페이지) 을 유지하면서 전체적인 구조를 조정하였습니다.
@@ -722,29 +704,29 @@ sass 는 기존의 css 보다 향상된 스타일 문법 입니다.
   export default App;
   ```
 
-#### 2단계. theme.scss 정리
+#### 2단계. theme.css 정리
 
 - 모든 내용을 삭제합니다.
-- 자주 쓰이는 설정을 추가해줍니다. // 주석처리 된 부분은 코드가 길어졌을 때, 눈에 잘보이도록 정리하는 용도 입니다. 아무런 의미가 없습니다.
+- 자주 쓰이는 설정을 추가해줍니다.
 
-  ```scss
-  // # src/theme.scss
-  // ## API & Library ==================================================
-  // ## Asset ==========================================================
-  // ### Font
-  // ### Image
-
-  // ## Default ========================================================
-  // ### Variable
-  // ### Animation
-
-  // ## Styles =========================================================
+  ```css
   * {
+    <!-- 포지션은 부모 상속을 원칙으로 합니다. -->
     position: relative;
+
+    <!-- 테두리 선 두께가 객체 밖으로 나가지 않습니다. -->
     box-sizing: border-box;
+
+    <!-- 객체 속에 여유 간격을 두지 마세요. ▣ -->
     padding: 0;
+
+    <!-- 객체들 사이에 여유 간격을 두지 마세요. ■ ■ -->
     margin: 0;
+
+    <!-- z축 기준값을 1000으로 하겠습니다. -->
     z-index: 1000;
+
+    <!-- 글씨를 자동으로 꾸미지 말아주세요. -->
     text-decoration: none;
   }
   ```
@@ -780,20 +762,9 @@ sass 는 기존의 css 보다 향상된 스타일 문법 입니다.
   export default App;
   ```
 
-- theme.scss 에서 글씨를 정가운데로 맞춰줍시다.
+- theme.css 에서 글씨를 정가운데로 맞춰줍시다.
 
-  ```scss
-  // # src/theme.scss
-  // ## API & Library ==================================================
-  // ## Asset ==========================================================
-  // ### Font
-  // ### Image
-
-  // ## Default ========================================================
-  // ### Variable
-  // ### Animation
-
-  // ## Styles =========================================================
+  ```css
   * {
     position: relative;
     box-sizing: border-box;
@@ -815,9 +786,9 @@ sass 는 기존의 css 보다 향상된 스타일 문법 입니다.
 
 - `npm start` 로 확인해보세요.
 
-#### 4단계. Hello, world! +
+#### 4단계. Hello, world! + 자식 컴포넌트
 
-- 컴포넌트와 폰트를 사용해서 react 구조에 익숙해져봅시다
+- 자식 컴포넌트를 만들어서 react 구조에 익숙해져봅시다
 - component/ 폴더 안에 HelloPage/ 폴더를 만듭니다.
 - src/component/HelloPage/HelloPage.tsx
 - HelloPage/ 폴더 내부에 index.tsx 파일을 만들고 다음과 같이 작성합니다.
@@ -827,7 +798,7 @@ sass 는 기존의 css 보다 향상된 스타일 문법 입니다.
 
   import React from 'react';
 
-  const HelloPage = () => {
+  export const HelloPage = () => {
     return (
       <center>
         <h1>Hello, world!</h1>
@@ -835,8 +806,6 @@ sass 는 기존의 css 보다 향상된 스타일 문법 입니다.
       </center>
     );
   };
-
-  export default HelloPage;
   ```
 
 - App.tsx 를 다음과 같이 수정해주세요
@@ -851,7 +820,7 @@ sass 는 기존의 css 보다 향상된 스타일 문법 입니다.
   // ## Style ==========================================================
   // ## Component ======================================================
 
-  import HelloPage from 'component/HelloPage'; // <--
+  import { HelloPage } from 'component/HelloPage'; // <--
 
   const App = () => {
     // ## Hook ===========================================================
@@ -870,9 +839,202 @@ sass 는 기존의 css 보다 향상된 스타일 문법 입니다.
   export default App;
   ```
 
-- index 파일은 폴더 경로
+- index 파일은 디폴트 값으로 취급됩니다. 덕분에 폴더 경로만 적어줘도 연결됩니다.
+- 이제 페이지 전체에 해당하는 App.tsx 를 수정하지 않아도 작은 범위에서 내부의 자식 컴포넌트만 수정해주면 디자인과 글씨를 바꿀 수 있습니다.
+- `<HelloPage></HelloPage>` 를 닫는 부분 없이 단일 태그로 `<HelloPage />` 처럼 쓸 수도 있습니다.
+- `npm start` 를 통해서 결과물을 확인해보세요.
 
-- 폰트
+#### 5단계. Hello, world! + 테마와 폰트
+
+- 페이지 전체에 사용될 글꼴이나 바탕색을 수정해봅시다.
+- 예시용으로 저는 [윤디자인](https://www.yoondesign-m.com/719) 사이트에서 폰트 파일 `koverwatch.ttf` 을 다운로드 받겠습니다.
+- src/asset/ 폴더 안에 font/ 폴더를 만든 뒤에 그 안에 폰트 파일을 넣어주세요.
+- src/theme.css 파일에서 font 를 적용해주세요.
+
+  ```css
+  /* # src/theme.css */
+
+  /* ## font */
+
+  @font-face {
+    font-family: Koverwatch; /* <-- */
+    src: url(asset/font/koverwatch.ttf); /* <-- */
+  }
+
+  /* ## style */
+
+  * {
+    font-family: Koverwatch; /* <-- */
+    font-size: 64px; /* <-- */
+
+    position: relative;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    z-index: 1000;
+    text-decoration: none;
+  }
+
+  .app {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  ```
+
+- `npm start` 를 통해서 결과물을 확인해보세요.
+
+<hr />
+
+### SASS
+
+&nbsp; sass 는 기존의 css 보다 향상된 스타일 문법 입니다.
+
+&nbsp; 다음 두 명령어 중 하나를 골라 사용하시면 됩니다.
+
+- node-sass 적용 `npm install node-sass` (비추천, 현재 지원 중단)
+- dart sass 적용 `npm install sass`
+
+#### SASS > $\color{#FF9922} \footnotesize \textbf{node-sass 에러 🚨}$
+
+&nbsp; `node-sass` 는 더 이상 사용되지 않습니다. node 의 버전에 영향을 받기 때문에 개발을 하다보면 `node_modules\node-sass` 가 말썽을 일으킬 때가 있습니다.
+
+&nbsp; 이는 sass 문법을 css 에 적용시켜주는 node-sass가 노드 버전에 의존적이어서 노드 버전이 바뀌면 오류를 일으키곤 합니다. 버전에 맞춰서 package.json 를 수정하는 방법도 있지만 dart sass 를 사용하는 쪽을 추천합니다.
+
+#### SASS > 적용 예시
+
+&nbsp; src/theme.css 파일의 확장자를 src/theme<b>.scss</b> 로 바꿔주세요
+
+- 이제 SASS 문법으로 테마를 꾸밀 수 있습니다. // 주석처리 된 부분은 코드가 길어졌을 때, 눈에 잘보이도록 정리하는 용도 입니다. 아무런 의미가 없습니다.
+
+  ```scss
+  // # src/theme.scss
+  // ## API & Library ==================================================
+  // ## Asset ==========================================================
+  // ### Font
+
+  @font-face {
+    font-family: Koverwatch;
+    src: url(asset/font/koverwatch.ttf);
+  }
+
+  // ### Image
+
+  // ## Default ========================================================
+  // ### Variable
+  // ### Animation
+
+  // ## Styles =========================================================
+
+  * {
+    font-family: Koverwatch;
+    font-size: 64px;
+
+    position: relative;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    z-index: 1000;
+    text-decoration: none;
+  }
+
+  .app {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  ```
+
+- 가장 큰 차이 중 하나는 주석 처리가 // 로 편해졌다는 점 입니다.
+- 또한 지금 당장은 큰 의미가 없지만 & 를 통해 자기 자신을 지정하여 캐스케이드하게 스타일 코드를 작성할 수 있습니다. 다음은 예시입니다.
+
+  ```scss
+  * {
+    font-family: Koverwatch;
+    font-size: 64px;
+
+    position: relative;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    z-index: 1000;
+    text-decoration: none;
+
+    // 나 (*) 바로 밑에 있는 .app 를 선택
+    & > .app {
+      background-color: red; // 확인용 빨간 배경
+
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  ```
+
+- `npm start` 를 통해서 결과물을 확인해보세요.
+- 예시용이었으므로 `* { ... & > .app { ... }}` 구조는 원래 모습인 `* {...}` 과 `.app {...}` 으로 분리하여 원상복구 하셔도 됩니다.
+
+<hr />
+
+### react-icons
+
+&nbsp; [react-icons 사이트](https://react-icons.github.io/react-icons/)
+
+&nbsp; 페이지 디자인에는 여러 아이콘과 기호들이 사용됩니다.
+
+&nbsp; 기호가 필요한 상황마다 쓸만한 아이콘을 찾고 또 페이지에 넣는 과정은 상당히 불편합니다. react-icons 은 자주 쓰이는 아이콘 디자인들을 전부 제공해줍니다.
+
+#### react-icons > 설치
+
+- `npm install react-icons` 명령어로 설치해주세요
+
+  ```bash
+  npm install react-icons
+  ```
+
+#### react-icons > 적용예시
+
+- react-icons... 를 import 해준 이후면 태그로 사용할 수 있습니다.
+- 사용 예시는 다음과 같습니다.
+
+  ```javascript
+  // # src/component/HelloPage/HelloPage.tsx
+  // ## API & Library ==================================================
+
+  import React from 'react';
+  import { AiFillSetting } from 'react-icons/ai'; // <--
+
+  // ## Asset ==========================================================
+  // ## Style ==========================================================
+  // ## Component ======================================================
+
+  export const HelloPage = () => {
+    // ## Hook ===========================================================
+    // ## Method =========================================================
+    // ## Return =========================================================
+
+    return (
+      <center>
+        <AiFillSetting /> // <--
+        <h1>Hello, world!</h1>
+        <h3>front-end : {process.env.REACT_APP_VERSION}</h3>
+      </center>
+    );
+  };
+  ```
+
+<hr />
+
+### Styled Component
 
 <hr />
 
@@ -1079,7 +1241,3 @@ sass 는 기존의 css 보다 향상된 스타일 문법 입니다.
 - <b>404.html</b> 파일을 직접 생성해준 뒤, 입력받은 주소를 데이터로 바꾸어 github.io/ 주소로 다시 넘겨주는 코드를 추가합니다. 데이터를 넘겨주는 방법은 여러 종류가 있지만 여기선 가장 쉽고 빠르게 전체주소를 쿼리스트링으로 넘겨주는 방법을 씁니다.
 
 빌드 후, 깃 페이지 링크에서 잘 작동하는 지 확인해보자. 그 외에도 직접 분해해서 필요한 데이터만 가져오는 방법, localstorage 를 쓰는 방법 등 본인에게 적합한 방법을 사용하세요.
-
-### react-icons
-
-### Styled Component
