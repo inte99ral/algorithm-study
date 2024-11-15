@@ -122,6 +122,42 @@
     Set-ExecutionPolicy RemoteSigned
     ```
 
+- npm 업데이트
+
+  ```bash
+  npm install -g npm@latest
+  ```
+
+- npm module 업데이트
+
+  ```bash
+  # npm 모듈 버전 확인
+  npm show <MODULE_NAME> version
+
+  # 특정 모듈 최신 업데이트
+  npm update <MODULE_NAME>
+
+  # 특정 모듈 특정 버전 업데이트
+  npm install --save <MODULE_NAME>@^<VERSION_NUMBER>
+
+  # package.json 모듈 전체 업데이트
+  npm install -g npm-check-updates
+
+  # NCU (NPM CHECK UPDATES) 도구로 최신 버전 전체 확인
+  ncu
+
+  # NCU (NPM CHECK UPDATES) 도구로 최신 버전으로 전체 업데이트
+  ncu -u
+  ```
+
+- $\color{#FF9922} \footnotesize \textnormal{ERESOLVE could not resolve 에러 🚨}$
+
+  &nbsp; npm 7 버전 이후부터는 패키지간의 의존성을 체크하는 peerDependencies를 자동 설치하는 기능 때문이 생깁니다. peer Dependencies를 자동으로 설치할 때, 이미 설치되어있는 의존성(direct dependencies of the root project)과 동일하지만 버전이 다른 peerDependencies가 존재하면 충돌이 일어나서 위와 같은 에러가 발생합니다.
+
+  &nbsp; 이 경우엔 `npm install <MODULE_NAME> --force` install 명령어에 --force 옵션으로 충돌이 일어난 peerDependencies의 설치를 강행합니다.
+
+  &nbsp; 위 방법으로 해결이 안되었을 경우엔 `npm install <MODULE_NAME> --legacy-peer-deps` 명령어를 통하여 npm 4~6버전 처럼 peerDependencies를 자동으로 설치하지 않도록 설정합니다.
+
 ### react & typescript
 
 #### react & typescript > 설치
@@ -627,7 +663,7 @@ src/
     </React.StrictMode>,
   );
 
-  reportWebVitals();
+  reportWebVitals(console.log);
   ```
 
 - react의 도구들은 구조상 도구가 감지할 <b>컴포넌트 영역</b>을 태그로 묶어주어야 합니다. 다음은 감시도구, 라우터, 리코일이라는 도구가 `<React.StrictMode>` `</BrowserRouter>` `<RecoilRoot>` 라는 태그를 통해 감지 영역을 지정해준 모습입니다.
@@ -790,7 +826,7 @@ src/
 
 - 자식 컴포넌트를 만들어서 react 구조에 익숙해져봅시다
 - component/ 폴더 안에 HelloPage/ 폴더를 만듭니다.
-- src/component/HelloPage/HelloPage.tsx
+- src/component/HelloPage/index.tsx
 - HelloPage/ 폴더 내부에 index.tsx 파일을 만들고 다음과 같이 작성합니다.
 
   ```typescript
@@ -854,14 +890,14 @@ src/
   ```css
   /* # src/theme.css */
 
-  /* ## font */
+  /* ## font =================================================== */
 
   @font-face {
     font-family: Koverwatch; /* <-- */
     src: url(asset/font/koverwatch.ttf); /* <-- */
   }
 
-  /* ## style */
+  /* ## style ================================================== */
 
   * {
     font-family: Koverwatch; /* <-- */
@@ -888,6 +924,97 @@ src/
 - `npm start` 를 통해서 결과물을 확인해보세요.
 
 <hr />
+
+#### 6단계. Hello, world! + 테마 환경변수
+
+- 페이지 전체에 사용되는 색상등의 변수들을 지정해봅시다.
+- css 에서 `var(<VARIABLE_NAME>)` 방식으로 `<VARIABLE_NAME>` 변수를 사용할 수 있습니다. `<VARIABLE_NAME>` 변수명은 `--` 로 시작하는 것이 원칙입니다.
+- 예시로 라이트 모드 색상과, 다크 모드 색상을 분리하려면 다음과 같이 전체에 통용되는 색상을 바꿔주어야 합니다.
+
+  ```css
+  /* # src/theme.css */
+
+  /* ## font =================================================== */
+
+  @font-face {
+    font-family: Koverwatch;
+    src: url(asset/font/koverwatch.ttf);
+  }
+
+  /* ## Variable =============================================== */
+
+  .light {
+    --color-main: #ffffff; /* <-- */
+    --color-reverse: #000000; /* <-- */
+  }
+
+  .dark {
+    --color-main: #353839; /* <-- */
+    --color-reverse: #ffffff; /* <-- */
+  }
+
+  /* ## style ================================================== */
+
+  * {
+    font-family: Koverwatch;
+    font-size: 64px;
+
+    position: relative;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    z-index: 1000;
+    text-decoration: none;
+  }
+
+  .app {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--color-reverse); /* <-- */
+    background-color: var(--color-main); /* <-- */
+  }
+  ```
+
+- dark 또는 light 라는 클래스 이름에 따라 --color-reverse, --color-main 변수의 값이 달라지면서 색이 달라집니다.
+- 이제 App.tsx 가 isDark 라는 값에 의하여 dark 모드인지 light 모드인지 결정하도록 다음과 같이 작성해주세요.
+
+  ```typescript
+  // # src/App.tsx
+  // ## API & Library ==================================================
+
+  import React from 'react';
+
+  // ## Asset ==========================================================
+  // ## Style ==========================================================
+  // ## Component ======================================================
+
+  import { HelloPage } from 'component/HelloPage';
+
+  const App = () => {
+    // ## Default ========================================================
+    const isDark = true; // <--
+
+    // ## Hook ===========================================================
+    // ## Method =========================================================
+    // ## Return =========================================================
+
+    return (
+      <div className={`app ${isDark ? 'dark' : 'light'}`}> // <--
+        <HelloPage></HelloPage>
+      </div>
+    );
+  };
+
+  export default App;
+  ```
+
+- `npm start` 를 통해서 결과물을 확인해보세요.
+- isDark 값을 false 와 true 로 바꿔보세요.
 
 ### SASS
 
@@ -922,12 +1049,22 @@ src/
   }
 
   // ### Image
-
   // ## Default ========================================================
   // ### Variable
+
+  .light {
+    --color-main: #ffffff; /* <-- */
+    --color-reverse: #000000; /* <-- */
+  }
+
+  .dark {
+    --color-main: #353839; /* <-- */
+    --color-reverse: #ffffff; /* <-- */
+  }
+
   // ### Animation
 
-  // ## Styles =========================================================
+  // ## Style ==========================================================
 
   * {
     font-family: Koverwatch;
@@ -1007,7 +1144,7 @@ src/
 - 사용 예시는 다음과 같습니다.
 
   ```javascript
-  // # src/component/HelloPage/HelloPage.tsx
+  // # src/component/HelloPage/index.tsx
   // ## API & Library ==================================================
 
   import React from 'react';
@@ -1036,6 +1173,63 @@ src/
 
 ### Styled Component
 
+- Styled Component 를 이용하면 스타일의 적용을 좀 더 국소적으로 통제할 수 있습니다. 필요 없어진 디자인 css 코드들의 정돈과 기존 코드들의 관리도 편해집니다.
+- css 관리와 개발 편의성을 위하여 각 컴포넌트의 디렉토리 구조를 데이터 정보를 담은 `index.tsx` 와 스타일을 적용한 `style.tsx` 로 분리합니다.
+
+#### Styled Component > 설치
+
+- `npm install styled-components` 명령어로 스타일 컴포넌트 패키지를 설치할 수 있습니다.
+- `npm install @types/styled-components` 명령어로 스타일 컴포넌트 타입에 대한 타입스크립트 명세서를 설치할 수 있습니다.
+
+#### Styled Component > 적용예시
+
+- HelloPage/style.tsx 를 만들어봅시다.
+
+  - styled-components 를 임포트하고 div 태그를 선언하고 스타일을 적용합니다.
+  - 변화가 눈에 띄도록 한 번 빨간색으로 칠해보겠습니다.
+
+    ```typescript
+    // # src/component/HelloPage/style.tsx
+
+    import Styled from 'styled-components'; // <--
+
+    export const Styled_HelloPage = Styled.div`
+      width: 50vw;
+      height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    
+      background-color: red;
+    `;
+    ```
+
+- HelloPage/index.tsx 에 적용하겠습니다.
+
+  - ./style 로 부터 Styled_HelloPage 컴포넌트 div 태그를 가져옵니다.
+  - 이는 `<Styled_HelloPage>` 라는 태그명으로 사용할 수 있습니다.
+
+    ```typescript
+    // # src/component/HelloPage/index.tsx
+
+    import React from 'react';
+    import { AiFillSetting } from 'react-icons/ai';
+    import { Styled_HelloPage } from './style'; // <--
+
+    export const HelloPage = () => {
+      return (
+        <Styled_HelloPage> // <--
+          <AiFillSetting />
+          <h1>Hello, world!</h1>
+          <h3>front-end : {process.env.REACT_APP_VERSION}</h3>
+        </Styled_HelloPage>
+      );
+    };
+    ```
+
+- `npm start` 를 통해서 결과물을 확인해보세요.
+
 <hr />
 
 ### react router
@@ -1043,54 +1237,90 @@ src/
 #### react router > 설치
 
 - 패키지 설치 명령어
+- `react-router-dom` 패키지와 `@types/react-router-dom` 타입스크립트 명세서를 설치해주세요.
 
   ```bash
-  npm install react-router-dom @types/react-router-dom
+  npm install react-router-dom
+  npm install @types/react-router-dom
   ```
 
 #### react router > 환경설정
 
 - 테스트용 페이지 파일들을 생성
 
-  1. 홈페이지 HomePage.tsx
+  1. 홈페이지 HomePage/index.tsx
 
-     ```typescript
-     // src/components/HomePage/index.tsx
-     // API & Library
-     import React from 'react';
+     - index.tsx
 
-     export const HomePage = () => {
-       // Return
-       return (
-         <>
-           <div>홈페이지</div>
-         </>
-       );
-     };
-     ```
+       ```typescript
+       // # src/component/BlogPage/index.tsx
+       // API & Library
+       import React from 'react';
 
-  <br />
+       export const BlogPage = () => {
+         // Return
+         return (
+           <>
+             <div>홈 페이지</div>
+           </>
+         );
+       };
+       ```
 
-  2. 블로그 페이지 BlogPage.tsx
+     - style.tsx
 
-     ```typescript
-     // src/components/BlogPage/index.tsx
-     // API & Library
-     import React from 'react';
+       ```typescript
+       // # src/component/BlogPage/index.tsx
+       // API & Library
+       import React from 'react';
 
-     export const BlogPage = () => {
-       // Return
-       return (
-         <>
-           <div>블로그 페이지</div>
-         </>
-       );
-     };
-     ```
+       export const BlogPage = () => {
+         // Return
+         return (
+           <>
+             <div>블로그 페이지</div>
+           </>
+         );
+       };
+       ```
 
-  <br />
+  2. 블로그 페이지 src/BlogPage/
 
-  3. 에러 핸들링 페이지 ErrorPage.tsx
+     - index.tsx
+
+       ```typescript
+       // # src/component/BlogPage/index.tsx
+       // API & Library
+       import React from 'react';
+
+       export const BlogPage = () => {
+         // Return
+         return (
+           <>
+             <div>블로그 페이지</div>
+           </>
+         );
+       };
+       ```
+
+     - style.tsx
+
+       ```typescript
+       // # src/component/BlogPage/index.tsx
+       // API & Library
+       import React from 'react';
+
+       export const BlogPage = () => {
+         // Return
+         return (
+           <>
+             <div>블로그 페이지</div>
+           </>
+         );
+       };
+       ```
+
+  3. 에러 핸들링 페이지 ErrorPage/index.tsx
 
      ```typescript
      // src/components/ErrorPage/index.tsx
@@ -1109,74 +1339,80 @@ src/
 
   <br />
 
-- react의 최상단 index.tsx 에 Router가 감지할 수 있도록<br />
-  react-router-dom 에서 BrowserRouter 를 임포트하고 `<BrowserRouter>` 태그를 넣어줍니다.
+- src/index.tsx
 
-  ```typescript
-  // -- API & Library
-  import React from 'react';
-  import ReactDOM from 'react-dom/client';
-  import { BrowserRouter } from 'react-router-dom';
-  import { RecoilRoot } from 'recoil';
-  import { reportWebVitals } from 'api/webVitals';
+  - react의 최상단 index.tsx 에 Router가 감지할 수 있도록<br />
+    react-router-dom 에서 BrowserRouter 를 임포트하고 `<BrowserRouter>` 태그를 넣어줍니다.
 
-  // -- Components
-  import App from './App';
+    ```typescript
+    import React from 'react';
+    import ReactDOM from 'react-dom/client';
+    import { BrowserRouter } from 'react-router-dom'; // <--
+    import { reportWebVitals } from 'api/webVitals';
+    import App from './App';
 
-  const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+    const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-  root.render(
-    <BrowserRouter>
-      <RecoilRoot>
-        <App />
-      </RecoilRoot>
-    </BrowserRouter>,
-  );
-
-  reportWebVitals(console.log);
-  ```
-
-- App.tsx 에 페이지들을 각 주소에 맞게 연결해줍시다.
-
-  ```typescript
-  // src/App.tsx
-  // API & Library
-  import React, { useEffect } from 'react';
-  import { Route, Routes, Navigate } from 'react-router-dom';
-
-  // Components
-  import { HomePage } from 'components/HomePage';
-  import { BlogPage } from 'components/BlogPage';
-  import { ErrorPage } from 'components/pages/ErrorPage';
-
-  const App = () => {
-    // LifeCycle
-    useEffect(() => {
-      console.log('[VERSION]: ', process.env.REACT_APP_VERSION);
-    }, []);
-
-    // Return
-    return (
-      <div className={`App`}>
-        <Routes>
-          <Route path="/" element={<Navigate replace to="/home" />} /> // 처음 도착하게 될 주소
-          <Route path="/home/*" element={<HomePage />} />
-          <Route path="/blog/*" element={<BlogPage />} />
-          <Route path="/error/*" element={<ErrorPage />} />
-          <Route path="/*" element={<Navigate replace to="/error" />} /> // 이상한 값이면 이 곳으로
-        </Routes>
-      </div>
+    root.render(
+      <React.StrictMode>
+        <BrowserRouter> // <--
+          <App />
+        </BrowserRouter>
+      </React.StrictMode>,
     );
-  };
 
-  export default App;
-  ```
+    reportWebVitals(console.log);
+    ```
+
+- src/App.tsx
+
+  - react-router-dom 모듈의 Route, Routes, Navigate 를 임포트 해주세요.
+  - Routes 태그 안에 주소에 맞게 Route 태그로 페이지를 연결해주세요.
+  - Navigate 태그로 특정 주소로 보낼 수 있습니다. 처음 도착할 주소에는 HomePage, 아예 해당하지 않는 주소에는 ErrorPage를 매칭해주세요.
+  - 다음과 같은 코드로 작성됩니다.
+
+    ```typescript
+    // # src/App.tsx
+    // ## API & Library ==================================================
+
+    import React from 'react';
+    import { Route, Routes, Navigate } from 'react-router-dom';
+
+    // ## Asset ==========================================================
+    // ## Style ==========================================================
+    // ## Component ======================================================
+
+    import { BlogPage } from 'component/BlogPage';
+    import { ErrorPage } from 'component/ErrorPage';
+    import { HomePage } from 'component/HomePage';
+
+    const App = () => {
+      // ## Default ========================================================
+      const isDark = false;
+
+      // ## Hook ===========================================================
+      // ## Method =========================================================
+      // ## Return =========================================================
+
+      return (
+        <div className={`app ${isDark ? 'dark' : 'light'}`}>
+          <Routes> // <--
+            <Route path="/" element={<Navigate replace to="/home" />} />
+            <Route path="/home/*" element={<HomePage />} />
+            <Route path="/blog/*" element={<BlogPage />} />
+            <Route path="/error/*" element={<ErrorPage />} />
+            <Route path="/*" element={<Navigate replace to="/error" />} />
+          </Routes>
+        </div>
+      );
+    };
+
+    export default App;
+    ```
 
 - 사이트를 로컬 주소에 올려 테스트하는 `npm start` 명령어를 통해서 작동을 확인해봅시다.
 
-  ```bash
-  npm start
-  ```
+  - 처음 주소가 /home 으로 가는지, /qwer 같은 이상한 주소는 /error 로 보내는지 /blog 주소를 주소창에 입력하면 제대로 가는지 확인해주세요.
 
 - `npm run build` 명령어를 통해서 빌드한 후 /build 폴더 안의 내용물을 전부 배포용 프로젝트 `<GITHUB_ID>`.github.io에 올려준 뒤에 https://`<GITHUB_ID>`.github.io/ 에 접속해서 확인해봅시다.
 
@@ -1200,7 +1436,6 @@ src/
   <!DOCTYPE html>
   <html>
     <head>
-      <meta charset="utf-8"
       <title>Integral Blog</title>
       <script type="text/javascript">
         window.location.replace(`/?url=${window.location.href}`);
@@ -1240,4 +1475,40 @@ src/
 - Gitpage.io는 이상한 주소로 인하여 404 에러를 응답할 때 <b>index.html</b> 옆에 <b>404.html</b> 파일이 존재한다면 그것을 대신 띄워줍니다.
 - <b>404.html</b> 파일을 직접 생성해준 뒤, 입력받은 주소를 데이터로 바꾸어 github.io/ 주소로 다시 넘겨주는 코드를 추가합니다. 데이터를 넘겨주는 방법은 여러 종류가 있지만 여기선 가장 쉽고 빠르게 전체주소를 쿼리스트링으로 넘겨주는 방법을 씁니다.
 
-빌드 후, 깃 페이지 링크에서 잘 작동하는 지 확인해보자. 그 외에도 직접 분해해서 필요한 데이터만 가져오는 방법, localstorage 를 쓰는 방법 등 본인에게 적합한 방법을 사용하세요.
+- 이를 다시 `npm run build` 명령어로 빌드 후에 gitpage.io 프로젝트에 올려 깃 페이지 링크에서 잘 작동하는 지 확인해보자. 그 외에도 직접 분해해서 필요한 데이터만 가져오는 방법, localstorage 를 쓰는 방법 등 본인에게 적합한 방법을 사용하세요.
+
+### react useEffect
+
+```typescript
+// src/App.tsx
+// API & Library
+import React, { useEffect } from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
+
+// Components
+import { HomePage } from 'components/HomePage';
+import { BlogPage } from 'components/BlogPage';
+import { ErrorPage } from 'components/pages/ErrorPage';
+
+const App = () => {
+  // LifeCycle
+  useEffect(() => {
+    console.log('[VERSION]: ', process.env.REACT_APP_VERSION);
+  }, []);
+
+  // Return
+  return (
+    <div className={`App`}>
+      <Routes>
+        <Route path="/" element={<Navigate replace to="/home" />} /> // 처음 도착하게 될 주소
+        <Route path="/home/*" element={<HomePage />} />
+        <Route path="/blog/*" element={<BlogPage />} />
+        <Route path="/error/*" element={<ErrorPage />} />
+        <Route path="/*" element={<Navigate replace to="/error" />} /> // 이상한 값이면 이 곳으로
+      </Routes>
+    </div>
+  );
+};
+
+export default App;
+```
