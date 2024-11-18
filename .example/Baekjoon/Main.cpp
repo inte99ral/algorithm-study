@@ -1,13 +1,29 @@
+// # <DIRECTORY_PATH>
+
+/**
+ * 
+ */
+
+// ## API & Library ==========================================================
+
 #include <bits/stdc++.h>
 
+#ifndef ONLINE_JUDGE
+#define SET_IO(INPUT_PATH) freopen(INPUT_PATH, "rt", stdin)
+#else
+#define SET_IO(INPUT_PATH) std::ios::sync_with_stdio(false); std::cin.tie(nullptr); cout.tie(nullptr)
+#endif
+
 using namespace std;
-// # Prototype Declaration ==================================================
 
-// # Global Variable & Constant =============================================
+// ## Prototype Declaration ==================================================
 
-// # Implements Definition ==================================================
+// ## Global Variable & Constant =============================================
 
-// ## Main
+// ## Implements Definition ==================================================
+
+// ### Main
+
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);

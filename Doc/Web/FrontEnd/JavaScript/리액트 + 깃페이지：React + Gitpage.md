@@ -438,7 +438,7 @@ src/
 
   - 베이스 주소가 src로 설정되었기 때문에 앞으로 import 할 때, 뒤에 /../../../ 없이 주소를 적을 경우 src 부터 시작합니다.
 
-- $\color{#FF9922} \footnotesize \textnormal{package.json \space 확인 🚨}$
+- $\color{#FF9922} \footnotesize \textnormal{package.json 확인 🚨}$
 
   - warning 이 뜨고 npm audit (npm 에서 코드 취약점을 파악하는 명령어) 를 쳤을 시에 nth-check 가 나온다면 걱정하지 말자.
   - 경고하자면 `npm audit fix --force` 로는 해결할 수 없다. 오히려 다른 패키지들이 깨질 수 있으니 주의
@@ -449,7 +449,8 @@ src/
     npm audit은 CRA의 몇몇 부분을 취약점으로 오탐지한다.
   - 따라서 문제되는 의존성이 npm에 탐지되지 않게하기 위하여 다음의 방법을 사용한다.
   - package.json 안의 "dependencies" 안에 있는 "react-scripts" 을 "devDependencies" 로 이동시킨다.
-  - 그 후, npm audit 대신 `npm audit --production` 을 사용하면된다.
+  - 그 후, npm audit 대신 (구버전)`npm audit --production` 또는 (신버전)`npm install --omit=dev` 을 사용하면 됩니다.
+  - package 안에 "scripts" 항목에 `"install": "npm install --omit=dev",` 를 추가하는 것 또한 방법입니다.
   - npm이 node_modules 트리나 package-lock.json 의 수정시엔 의존성 라이브러리 버전을 상세하게 고정한 정보인 package-lock.json 이 자동생성되나 가끔 수정이 안될때가 있습니다. package-lock.json이 우선시 되므로 이 경우 package-lock.json을 삭제하거나 직접 수정해주세요
 
 ### eslint & prettier
@@ -1426,7 +1427,7 @@ src/
 
 &nbsp; 404 에러가 뜨는 이유는 바로 웹 배포를 해주는 사실상의 백엔드 서버인 Gitpage.io 때문입니다. Gitpage.io 입장에서 보기엔 https://`<GITHUB_ID>`.github.io<b>/blog</b> 라는 주소는 없는 곳을 가리키는 이상한 주소입니다. React의 SPA 구조를 Gitpage.io 가 받아들이지 못해서 발생하는 문제입니다.
 
-&nbsp; 다행히 편법을 사용하여 이 문제를 쉽게 해결할 수 있습니다. Gitpage.io는 이상한 주소로 인하여 404 에러를 응답할 때 <b>index.html</b> 옆에 <b>404.html</b> 파일이 존재한다면 그것을 대신 띄워줍니다. 이것을 응용하여 <b>404.html</b> 파일을 직접 생성해준 뒤, 입력받은 주소를 데이터로 바꾸어 https://`<GITHUB_ID>`.github.io<b>/ 기본주소로 넘겨주는 코드를 추가합니다. 또한 <b>index.html</b> 쪽에는 넘어온 주소 데이터가 있을 경우에 이를 해석해서 react router 에게 넘겨주는 코드를 추가합니다.
+&nbsp; 다행히 편법을 사용하여 이 문제를 쉽게 해결할 수 있습니다. Gitpage.io는 이상한 주소로 인하여 404 에러를 응답할 때 <b>index.html</b> 옆에 <b>404.html</b> 파일이 존재한다면 그것을 대신 띄워줍니다. 이것을 응용하여 <b>404.html</b> 파일을 직접 생성해준 뒤, 입력받은 주소를 데이터로 바꾸어 https://`<GITHUB_ID>`.github.io<b>/</b> 기본주소로 넘겨주는 코드를 추가합니다. 또한 <b>index.html</b> 쪽에는 넘어온 주소 데이터가 있을 경우에 이를 해석해서 react router 에게 넘겨주는 코드를 추가합니다.
 
 - 빌드된 front-end/build 폴더의 최상단 구조는 front-end/public 폴더에 들어있습니다.
 - /public/404.html 파일 생성
@@ -1477,7 +1478,56 @@ src/
 
 - 이를 다시 `npm run build` 명령어로 빌드 후에 gitpage.io 프로젝트에 올려 깃 페이지 링크에서 잘 작동하는 지 확인해보자. 그 외에도 직접 분해해서 필요한 데이터만 가져오는 방법, localstorage 를 쓰는 방법 등 본인에게 적합한 방법을 사용하세요.
 
+#### react router > NavLink
+
+&nbsp; 각 주소에 페이지를 할당했다면 이제 각 페이지를 넘나들수 있도록 링크 버튼을 만들어 보세요.
+
+&nbsp; React와 비슷한 웹 프론트엔드 프레임워크 Vue 의 Vue Router 에서 `<router-link>` 를 지원하는 것과 같이 React Router 에서는 `<NavLink>` 를 지원합니다.
+
+- HomePage 에 ErrorPage 와 BlogPage 로 이동하는 링크를 만들어보겠습니다.
+- HomePage index.tsx에 다음과 같이 링크를 추가해주세요
+
+  ```typescript
+  // # src/component/HomePage/index.tsx
+
+  import React from 'react';
+  import { NavLink } from 'react-router-dom'; // <--
+  import { Styled_HomePage } from './style';
+
+  export const HomePage = () => {
+    return (
+      <Styled_HomePage>
+        <h1>홈 페이지입니다.</h1>
+        <br />
+        <NavLink to="/blog">블로그 페이지로 가기</NavLink> // <--
+        <NavLink to="/error">에러 페이지로 가기</NavLink> // <--
+      </Styled_HomePage>
+    );
+  };
+  ```
+
+#### react router > $\color{#FF9922} \footnotesize \textbf{인터넷의 예제에서는 activeClassName 이 사용됬는데 오류가 발생하는 경우 🚨}$
+
+&nbsp; 현재 페이지 위치를 가리키는 링크버튼은 클릭을 막거나, 색을 다르게 표현하는 경우가 있습니다.
+
+&nbsp; 이때, 과거 다른 예시들 중에선 activeClassName 이라는 방법을 사용할텐데 이를 따라서 쓰게되면 에러가 납니다.
+
+&nbsp; React Router v6 이전에는 activeClassName 으로 클릭된 태그에 클래스 적용이 가능했지만 더 이상 지원하지 않습니다. React Router v6 이후로는 직접적으로 `{ <BOOL_FUNCTION> }` 를 이용해서 class 태그 값을 바꾸는 함수를 넣어서 조작할 수 있습니다.
+
+- isActive 변수로 클릭 된 태그의 정보를 조작하는 예시입니다.
+
+  ```typescript
+  <NavLink
+    to="/blog"
+    className={({ isActive }) => (isActive ? 'example-classname-1' : 'example-classname-2')}
+  ></NavLink>
+  ```
+
+### react useState
+
 ### react useEffect
+
+&nbsp; react 라이브러리에서
 
 ```typescript
 // src/App.tsx
@@ -1512,3 +1562,65 @@ const App = () => {
 
 export default App;
 ```
+
+<hr />
+
+### recoil 상태 관리 라이브러리
+
+- DOM 기반으로 페이지를 형성하는 컴포넌트들을 분리 개발하게 된 덕분에 재사용성이 증가되었지만,
+  컴포넌트 간에 상호작용을 필요로 하는 계산이 매우 힘들어졌다. <br />
+
+  일반적인 구현에는 props 로 부모 컴포넌트에서 자식 컴포넌트에게 전달하며,
+  emit 이나 hook 을 걸어 자식 쪽에서 부모에게 정보를 전달할 수 있다. <br />
+
+  이 과정이 직접 부모자식 관계가 아닐 경우 상당히 복잡하고 코드가 길어지고
+  데이터를 다루는 로직이 복잡해진다.
+  상기한 문제를 해결하기 위해 상태 관리 라이브러리`(State Management Library)`를 사용한다.
+  여러 컴포넌트에서 데이터를 공유할 수 있도록 중앙 관리하는 방식이라고 대강 이해하면 충분하다.
+  <br />
+
+  많은 개발자들이 사용하며 어느 정도 신뢰가 쌓인 Vue의 Vuex,
+  Pinia 그리고 React의 Recoil, Redux 가 주로 사용된다.
+  React 에서 자체적으로 지원하는 전역 상태 관리 인터페이스 Context API 나,
+  Mobx 등 여러 방법들이 있으니 입맛에 맞게 선택하면 된다.
+  여기서는 데이터 비동기화 처리가 간편한 recoil 을 채택했다.<br />
+
+- `npm install recoil`<br/>
+  다음의 명령어로 위에서 언급한 패키지들을 내려 받는다.
+
+<br />
+
+### JSON-SERVER
+
+[빌드시엔 미적용](https://donghyun-dev.tistory.com/108)
+
+### Notion API 를 Blog Database 로 쓰기
+
+  <hr />
+
+https://www.notion.so/my-integrations 에서 API 키 받아오기 가능
+
+## 서버 환경 조성
+
+### REST API
+
+&nbsp; REST API 는 세련되고 안정된 서버와의 통신 방식입니다.
+
+&nbsp; 여기서는 실제로 서버 호출을 하지 않고 서버가 있는 척만 하는 방법으로 진행합니다.
+
+&nbsp; 실제로 서버를 준비하시고 연결하셔도 좋습니다.
+
+#### REST API > Axios
+
+- axios 라이브러리는 promise 객체를 좀더 간결하고 세련되게 쓰는 방법입니다.
+
+- axios 객체를
+
+&nbsp; npm install axios
+
+#### REST API > 구글 스프레드 시트
+
+- 앱 스크립트 작성
+- 프로젝트 설정에에서 편집기에 appsscript.json 매니페스트 파일 표시 선택
+- 서버 예제로 구글 스프레드 시트를 활용할 것
+- 가격 https://developers.google.com/apps-script/guides/services/quotas?hl=ko

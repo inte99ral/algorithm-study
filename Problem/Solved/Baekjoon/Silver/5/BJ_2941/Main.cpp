@@ -1,46 +1,32 @@
-#include <iostream>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
-  cout.tie(nullptr);
-  freopen("Problem\\Solved\\Baekjoon\\Silver\\5\\BJ_2941\\question\\input.txt", "rt", stdin);
+  int answer;
+  int N;
+  string input;
 
-  char input[103];
-  int index = 0;
-  int answer = 0;
+  freopen("Problem\\Solved\\Baekjoon\\Silver\\5\\BJ_2941\\_INPUT_.txt", "rt", stdin);
+  
+  cin >> input;
+  answer = N = input.size();
 
-  cin.getline(input, 103);
-
-  while (input[index] != '\0') {
-    switch (input[index]) {
-      case 'c':
-        if(input[index + 1] == '=' || input[index + 1] == '-') index++;
-        break;
-      case 'd':
-        if(input[index + 1] == 'z' && input[index + 2] == '=') index += 2;
-        else if(input[index + 1] == '-') index++;
-        break;
-      case 'l':
-        if(input[index + 1] == 'j') index++;
-        break;
-      case 'n':
-        if(input[index + 1] == 'j') index++;
-        break;
-      case 's':
-        if(input[index + 1] == '=') index++;
-        break;
-      case 'z':
-        if(input[index + 1] == '=') index++;
-        break;
+  for (int n = 1; n < N; n++) {
+    switch (input[n]) {
+     case 'j':
+      if (input[n - 1] == 'l' || input[n - 1] == 'n') answer--;
+      break;
+     case '-':
+      if (input[n - 1] == 'c' || input[n - 1] == 'd') answer--;
+      break;
+     case '=':
+      if (input[n - 1] == 'c' || input[n - 1] == 's' || input[n - 1] == 'z') answer--;
+      if (n > 1 && input[n - 2] == 'd' && input[n - 1] == 'z') answer--;
+      break;
     }
-    index++;
-    answer++;
   }
-
+  
   cout << answer;
-
   return 0;
 }

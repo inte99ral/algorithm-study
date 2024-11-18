@@ -14,6 +14,9 @@
 
 - [x] 2023.12.20 | [BJ 2941 크로아티아알파벳 #Silver/5 #구현 #문자열](Problem\Solved\Baekjoon\Silver\5\BJ_2941\question\info.md)
 - [x] 2023.12.24 | [BJ 2563 색종이 #Silver/5 #구현](Problem\Solved\Baekjoon\Silver\5\BJ_2563\question\info.md)
+
+`==================================================`
+
 - [x] 2023.12.24 | [BJ 2567 색종이2 #Silver/4 #구현](Problem\Solved\Baekjoon\Silver\4\BJ_2567\question\info.md)
 - [x] 2023.12.26 | [BJ 2798 블랙잭 #Bronze/2 #브루트포스](Problem\Solved\Baekjoon\Bronze\2\BJ_2798\question\info.md)
 - [x] 2023.12.27 | [BJ 2810 컵홀더 #Bronze/1 #구현 #문자열 #그리디](Problem\Solved\Baekjoon\Bronze\1\BJ_2810\question\info.md)
