@@ -1,7 +1,11 @@
 // # <DIRECTORY_PATH>
 
 /**
- * 
+ * 추가 서술
+ *
+ * @see "https://www.google.co.kr/"
+ * @author inte99ral
+ * @version 2024-11-18
  */
 
 // ## API & Library ==========================================================
@@ -23,7 +27,6 @@ using namespace std;
 // ## Implements Definition ==================================================
 
 // ### Main
-
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(nullptr);

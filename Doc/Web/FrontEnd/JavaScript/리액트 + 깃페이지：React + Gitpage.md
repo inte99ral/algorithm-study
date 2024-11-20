@@ -148,6 +148,7 @@
 
   # NCU (NPM CHECK UPDATES) 도구로 최신 버전으로 전체 업데이트
   ncu -u
+
   ```
 
 - $\color{#FF9922} \footnotesize \textnormal{ERESOLVE could not resolve 에러 🚨}$
@@ -157,6 +158,12 @@
   &nbsp; 이 경우엔 `npm install <MODULE_NAME> --force` install 명령어에 --force 옵션으로 충돌이 일어난 peerDependencies의 설치를 강행합니다.
 
   &nbsp; 위 방법으로 해결이 안되었을 경우엔 `npm install <MODULE_NAME> --legacy-peer-deps` 명령어를 통하여 npm 4~6버전 처럼 peerDependencies를 자동으로 설치하지 않도록 설정합니다.
+
+- $\color{#FF9922} \footnotesize \textnormal{Try creating one first with: npm i --package-lock-only 🚨}$
+
+  &nbsp; package-lock.json 파일이 필요한 상황에 해당 파일이 없을 경우 나오는 에러 경보문 입니다.
+
+  &nbsp; `npm i --package-lock-only` 명령어는 package-lock.json 파일만 생성하거나 업데이트하며, npm install 처럼 실제로 패키지를 설치하거나 수정하지 않습니다.
 
 ### react & typescript
 
@@ -385,8 +392,7 @@ https://github.com/testing-library/jest-dom
 - src/ 폴더 내에서 <b>setupTests.ts</b> 와 <b>App.test.tsx</b> 파일을 삭제합니다.
 - npm search jest 명령어를 통해서 검색
 - npm uninstall jest
-- package.json 에서 ctrl + f 로 검색하여 jest 와 testing-library 를 제거합니다.
-- package-lock.json 을 삭제하고 npm install 또는
+- 모든 흔적을 지우고 싶으시면 package.json 에서 ctrl + f 로 검색하여 jest 와 testing-library 를 제거한 뒤에 package-lock.json 을 삭제하고 `npm i --package-lock-only`->`npm install` 명령을 실행합니다.
 - npm cache verify
   - 꼬인 부분을 체크 및 해결하는 명령어입니다. cache 폴더의 내용을 확인하고, 가비지 데이터들을 수집하여 삭제하고 무결성을 확인합니다.
 - npm cache clean --force
@@ -440,18 +446,38 @@ src/
 
 - $\color{#FF9922} \footnotesize \textnormal{package.json 확인 🚨}$
 
-  - warning 이 뜨고 npm audit (npm 에서 코드 취약점을 파악하는 명령어) 를 쳤을 시에 nth-check 가 나온다면 걱정하지 말자.
-  - 경고하자면 `npm audit fix --force` 로는 해결할 수 없다. 오히려 다른 패키지들이 깨질 수 있으니 주의
-  - npm 으로 패키지를 다운로드 받고 있다면 원래 나와야 하는 게 맞다.
-  - 문제의 원인은 package.json 안에 있는 `"react-scripts"` 이다.
-  - npm은 해당 코드로 Node.js 앱을 돌릴 때 생기는 취약점을 경고한다.
-    하지만 CRA(create-react-app)는 정적 빌드 툴이고, Node.js와 같은 방식으로 작동하지 않으며.
-    npm audit은 CRA의 몇몇 부분을 취약점으로 오탐지한다.
-  - 따라서 문제되는 의존성이 npm에 탐지되지 않게하기 위하여 다음의 방법을 사용한다.
-  - package.json 안의 "dependencies" 안에 있는 "react-scripts" 을 "devDependencies" 로 이동시킨다.
-  - 그 후, npm audit 대신 (구버전)`npm audit --production` 또는 (신버전)`npm install --omit=dev` 을 사용하면 됩니다.
-  - package 안에 "scripts" 항목에 `"install": "npm install --omit=dev",` 를 추가하는 것 또한 방법입니다.
-  - npm이 node_modules 트리나 package-lock.json 의 수정시엔 의존성 라이브러리 버전을 상세하게 고정한 정보인 package-lock.json 이 자동생성되나 가끔 수정이 안될때가 있습니다. package-lock.json이 우선시 되므로 이 경우 package-lock.json을 삭제하거나 직접 수정해주세요
+  &nbsp; warning 이 뜨고 npm audit (npm 에서 코드 취약점을 파악하는 명령어) 를 쳤을 시에 nth-check 가 나온다면 걱정하지 하세요. npm 으로 패키지를 다운로드 받고 있다면 원래 나와야 하는 게 맞습니다. 문제의 원인은 package.json 안에 있는 react 스크립트 패키지 `"react-scripts"` 입니다. 이 오류에서는 리액트 자체가 문제인 상황입니다.
+
+  &nbsp; `npm audit fix --force` 로는 해결할 수 없습니다. npm 은 해당 코드로 Node.js 앱을 돌릴 때 생기는 취약점을 경고하고 수정하는 기능(npm audit)을 가지고 있습니다. 하지만 CRA(create-react-app)는 정적 빌드 툴이고, Node.js와 같은 방식으로 작동하지 않습니다. 때문에 npm audit은 CRA의 몇몇 부분을 취약점으로 오탐지하곤 합니다.
+
+  &nbsp; 따라서 npm audit 에게 `"react-scripts"` 패키지는 완성품에 포함되어서 Node.js 위에서 구동하는 용도가 아니라 개발용으로 쓰이는 패키지라는 것을 명시해준다면 문제를 해결할 수 있습니다.
+
+  &nbsp; 다음과 같이 package.json 안의 "dependencies" 안에 있는 "react-scripts" 을 "devDependencies" 로 이동시켜서 개발-의존성 패키지 임을 명시해주세요.
+
+  ```json
+  {
+    // ...
+
+    "dependencies": {
+      // ...
+      // "react-scripts": "^5.0.1" <-- 삭제해주세요
+      // ...
+    },
+    "devDependencies": {
+      // ...
+      "react-scripts": "^5.0.1"
+      // ...
+    }
+
+    // ...
+  }
+  ```
+
+  &nbsp; 그 후, npm audit 대신 (구버전)`npm audit --production` 또는 (신버전)`npm audit --omit=dev` 을 사용하면 됩니다.
+
+  - `npm audit --omit=dev` 과 `npm audit --production`은 실질적으로 동일한 기능을 수행합니다. 두 명령어 모두 개발 의존성(devDependencies)을 제외하고 프로덕션 의존성만을 대상으로 보안 감사를 실행합니다. 최신 버전에서는 의존성에 대하여 더 유연하게 접근하기 위하여 --omit 명령어 쪽을 권장합니다. 이 경우엔 다른 종류의 의존성도 --omit=optional 같이 통일성 있는 명령어로 배제할 수 있기 때문입니다.
+
+  &nbsp; npm이 node_modules 트리나 package-lock.json 의 수정시엔 의존성 라이브러리 버전을 상세하게 고정한 정보인 package-lock.json 이 자동생성되나 가끔 수정이 안될때가 있습니다. package-lock.json이 우선시 되므로 이 경우 package-lock.json을 삭제하거나 직접 수정해주세요
 
 ### eslint & prettier
 
@@ -569,6 +595,34 @@ src/
           "version": "detect"
         }
       }
+    }
+    ```
+
+  - $\color{#FF9922} \footnotesize \textnormal{Error while loading rule '@typescript-eslint/no-unused-expressions': Cannot read properties of undefined (reading 'allowShortCircuit') 🚨}$
+
+    &nbsp; 해당 에러는 `no-unused-expressions` 사용되지 않은 변수가 생기지 않도록 막습니다.
+
+    &nbsp; 문제는 코드의 무결성을 지키는 ESLint와 타입스크립트 플러그인 @typescript-eslint 의 버전의 불일치가 해당 에러를 유발한다는 점 입니다.
+
+    &nbsp; 후에 해결될 문제로 보이지만 현재까지의 해결방안은 `npm install --save-dev eslint@9.14.0` 명령어를 통하여 ESLint 를 9.14 이하의 버전으로 사용하는 것 입니다.
+
+    &nbsp; 또는 `no-unused-expressions` 규칙의 경고 단계를 원천적으로 차단하는 수준에서, 단순 경고 급으로 낮출 수도 있습니다. 다음과 같이 `.eslintrc.json` 파일의 rules 에 해당 조건을 수정해주세요.
+
+    ```json
+    {
+      // ...
+
+      // 프로젝트에 사용할 규칙을 설정.
+      // 규칙에 추가 옵션이 있는 경우 배열로 설정 가능.
+      // 참고 : https://eslint.org/docs/latest/rules/
+      // off 또는 0 사용시 규칙을 사용하지 않음.
+      // warn 또는 1 사용시 규칙을 경고로 사용.
+      // error 또는 2 사용시 규칙을 오류로 사용.
+      "rules": {
+        "no-unused-vars": "warn"
+      }
+
+      // ...
     }
     ```
 
