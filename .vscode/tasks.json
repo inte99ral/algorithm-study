@@ -89,7 +89,10 @@
         "kind": "test",
         "isDefault": true
       },
-      "command": "${fileDirname}/${fileBasenameNoExtension}.exe"
+      "command": "${fileDirname}/${fileBasenameNoExtension}.exe",
+      "options": {
+        "cwd": "${fileDirname}"
+      }
     },
 
     // ## Java ========================================
@@ -103,7 +106,10 @@
         "isDefault": false
       },
       "command": "java",
-      "args": ["${fileDirname}/${fileBasenameNoExtension}.java"]
+      "args": ["${fileDirname}/${fileBasenameNoExtension}.java"],
+      "options": {
+        "cwd": "${fileDirname}"
+      }
     },
 
     // ## JavaScript ==================================
@@ -117,7 +123,10 @@
         "isDefault": false
       },
       "command": "node",
-      "args": ["${fileDirname}/${fileBasenameNoExtension}.js"]
+      "args": ["${fileDirname}/${fileBasenameNoExtension}.js"],
+      "options": {
+        "cwd": "${fileDirname}"
+      }
     }
   ]
 }

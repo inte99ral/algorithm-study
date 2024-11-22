@@ -33,7 +33,7 @@ int main() {
   cout.tie(nullptr);
 
   #ifndef ONLINE_JUDGE
-  freopen(".example\\Baekjoon\\question\\input.txt", "rt", stdin);  // * 로컬 input.txt 입력 코드
+  freopen("__INPUT__.txt", "rt", stdin);  // * 로컬 input.txt 입력 코드
   #endif
 
   string input;

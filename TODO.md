@@ -12,13 +12,8 @@
 
 ## DONE:
 
-- [x] 2023.12.20 | [BJ 2941 크로아티아알파벳 #Silver/5 #구현 #문자열](Problem\Solved\Baekjoon\Silver\5\BJ_2941\question\info.md)
-- [x] 2023.12.24 | [BJ 2563 색종이 #Silver/5 #구현](Problem\Solved\Baekjoon\Silver\5\BJ_2563\question\info.md)
-
 `==================================================`
 
-- [x] 2023.12.24 | [BJ 2567 색종이2 #Silver/4 #구현](Problem\Solved\Baekjoon\Silver\4\BJ_2567\question\info.md)
-- [x] 2023.12.26 | [BJ 2798 블랙잭 #Bronze/2 #브루트포스](Problem\Solved\Baekjoon\Bronze\2\BJ_2798\question\info.md)
 - [x] 2023.12.27 | [BJ 2810 컵홀더 #Bronze/1 #구현 #문자열 #그리디](Problem\Solved\Baekjoon\Bronze\1\BJ_2810\question\info.md)
 - [x] 2023.12.27 | [BJ 2851 슈퍼마리오 #Bronze/1 #구현 #브루트포스 #누적합](Problem\Solved\Baekjoon\Bronze\1\BJ_2851\question\info.md)
 - [x] 2023.12.27 | [BJ 2164 카드2 #Silver/4 #자료구조 #큐](Problem\Solved\Baekjoon\Silver\4\BJ_2164\question\info.md)
@@ -47,6 +42,10 @@
 - [x] 2024-11-07：[PG_1845](Problem\Solved\Programmers\Level_1\PG_1845/__폰켓몬.md) 폰켓몬 `#Level 1` `#해시`
 - [x] 2024-11-07：[PG_181188](Problem\Solved\Programmers\Level_2\PG_181188/__요격_시스템.md) 요격 시스템 `#Level 2`
 - [x] 2024-11-07：[BJ_2527](Problem\Solved\Baekjoon\Silver\1\BJ_2527/__직사각형.md) 직사각형 `#SilverⅠ` `#수학` `#기하학` `#많은조건분기`
+- [x] 2024-11-22：[BJ_2941](Problem\Solved\Baekjoon\Silver\5\BJ_2941/__크로아티아_알파벳__.md) 크로아티아 알파벳 `#SilverⅤ` `#구현` `#문자열`
+- [x] 2024-11-22：[BJ_2563](Problem\Solved\Baekjoon\Silver\4\BJ_2563/__색종이__.md) 색종이 `#SilverⅣ` `#구현`
+- [x] 2024-11-22：[BJ_2567](Problem\Solved\Baekjoon\Silver\4\BJ_2567/__색종이_2__.md) 색종이 2 `#SilverⅣ` `#구현`
+- [x] 2024-11-22：[BJ_2798](Problem\Solved\Baekjoon\Bronze\2\BJ_2798/__블랙잭__.md) 블랙잭 `#BronzeⅡ` `#브루트포스 알고리즘`
 
 <br />
 
