@@ -12,12 +12,13 @@
 
 ## DONE:
 
+- [x] 2023.12.27 | [BJ 2810 컵홀더 #Bronze/1 #구현 #문자열 #그리디](Problem\Solved\Baekjoon\Bronze\1\BJ_2810/__컵홀더__.md)
+- [x] 2023.12.27 | [BJ 2851 슈퍼마리오 #Bronze/1 #구현 #브루트포스 #누적합](Problem\Solved\Baekjoon\Bronze\1\BJ_2851/__슈퍼_마리오__.md)
+- [x] 2023.12.27 | [BJ 2164 카드2 #Silver/4 #자료구조 #큐](Problem\Solved\Baekjoon\Silver\4\BJ_2164/__카드2__.md)
+
 `==================================================`
 
-- [x] 2023.12.27 | [BJ 2810 컵홀더 #Bronze/1 #구현 #문자열 #그리디](Problem\Solved\Baekjoon\Bronze\1\BJ_2810\question\info.md)
-- [x] 2023.12.27 | [BJ 2851 슈퍼마리오 #Bronze/1 #구현 #브루트포스 #누적합](Problem\Solved\Baekjoon\Bronze\1\BJ_2851\question\info.md)
-- [x] 2023.12.27 | [BJ 2164 카드2 #Silver/4 #자료구조 #큐](Problem\Solved\Baekjoon\Silver\4\BJ_2164\question\info.md)
-- [x] 2023.12.29 | [BJ 15649 N과 M (1) #Silver/3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15649\question\info.md)
+- [x] 2023.12.29 [BJ 15649](<Problem\Solved\Baekjoon\Silver\3\BJ_15649/__N과_M_(1)__.md>) N과 M (1) #Silver/3 #백트래킹
 - [x] 2024.01.01 | [BJ 15650 N과 M (2) #Silver/3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15650\question\info.md)
 - [x] 2024.01.02 | [BJ 15651 N과 M (3) #Silver/3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15651\question\info.md)
 - [x] 2024.01.02 | [BJ 4963 섬의 개수 #Silver/2 #그래프이론 #그래프탐색 #너비우선탐색 #깊이우선탐색](Problem\Solved\Baekjoon\Silver\2\BJ_4963\question\info.md)

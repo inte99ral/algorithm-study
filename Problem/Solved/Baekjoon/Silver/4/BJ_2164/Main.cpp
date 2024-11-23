@@ -1,48 +1,22 @@
-#include <iostream>
-#include <queue>
+#include <bits/stdc++.h>
+
+#ifndef ONLINE_JUDGE
+#define SET_IO(INPUT_PATH) ios_base::sync_with_stdio(false);cout.tie(nullptr);cin.tie(nullptr);freopen(INPUT_PATH, "rt", stdin)
+#else
+#define SET_IO(INPUT_PATH) ios_base::sync_with_stdio(false);cout.tie(nullptr);cin.tie(nullptr)
+#endif
 
 using namespace std;
 
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
-  cout.tie(nullptr);
-  freopen("Problem\\Solved\\Baekjoon\\Silver\\4\\BJ_2164\\question\\input.txt", "rt", stdin);
+  SET_IO("_INPUT_.txt");
 
-  /** -- 풀이 1 : 직접 구현 ========================================
-   * 카드의 덱을 큐로 직접 구현한다
-   */
-  
-  // {
-  //   int N;
-  //   queue<int> deck;
-
-  //   cin >> N;
-  //   for(int n = 1; n <= N; n++) deck.push(n);
-
-  //   while(deck.size() != 1) {
-  //     deck.pop();
-  //     deck.push(deck.front());
-  //     deck.pop();
-  //   }
-
-  //   cout << deck.front();
-  // }
-
-
-  /** -- 풀이 2 : 패턴 파악 ========================================
-   * 답에는 규칙이 존재한다.
-   * 답은 항상 2의 배수이고 2의 거듭제곱에 맞춰서 아래의 순서로 패턴이 반복된다
-   * 1  2  2 4  2 4 6 8  2 4 6 8 10 12 14 16
-   */
-
-  {
-    int N = 0;
-    int exp = 1;
-    cin >> N;
-    while(exp < N) exp <<= 1;
-    cout << (N == exp ? exp : (N << 1) - exp);
-  }
+  int N;
+  int exp;
+  cin >> N;
+  exp = 1;
+  while (exp << 1 < N) exp <<= 1;
+  cout << (N == 1 ? 1 : (N - exp) * 2);
 
   return 0;
 }

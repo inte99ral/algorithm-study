@@ -1,30 +1,30 @@
-#include <iostream>
+#include <bits/stdc++.h>
+
+#ifndef ONLINE_JUDGE
+#define SET_IO(INPUT_PATH) ios_base::sync_with_stdio(false);cout.tie(nullptr);cin.tie(nullptr);freopen(INPUT_PATH, "rt", stdin)
+#else
+#define SET_IO(INPUT_PATH) ios_base::sync_with_stdio(false);cout.tie(nullptr);cin.tie(nullptr)
+#endif
 
 using namespace std;
 
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
-  cout.tie(nullptr);
+  SET_IO("_INPUT_.txt");
 
-  freopen("Problem\\Solved\\Baekjoon\\Bronze\\1\\BJ_2810\\question\\input.txt", "rt", stdin);
-
-  int answer;
   int N;
-  string input;
+  string seat;
+  int holder;
 
   cin >> N;
-  cin >> input;
+  cin >> seat;
+  holder = N + 1;
 
-  answer = N + 1;
-  for(int n = 0; n < N; n++) {
-    if(input.at(n) == 'L') {
-      answer--;
-      n++;
-    }
+  for (int n = 0; n < N; n++) {
+    if (seat[n] == 'S') continue;
+    holder--;
+    n++;
   }
-
-  cout << (answer == N + 1? N : answer);
-
+  
+  cout << min(holder, N);
   return 0;
 }

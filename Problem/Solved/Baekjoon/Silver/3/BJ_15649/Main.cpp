@@ -1,43 +1,33 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
+
+#ifndef ONLINE_JUDGE
+#define SET_IO(INPUT_PATH) std::ios_base::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);freopen(INPUT_PATH, "rt", stdin)
+#else
+#define SET_IO(INPUT_PATH) std::ios_base::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr)
+#endif
 
 using namespace std;
 
-void perm(vector<int> origin, int N, int M);
-void permRecur(vector<int> origin, vector<int> fixed, int N, int M, int select, int length);
-
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
-  cout.tie(nullptr);
-
-  freopen("Problem\\Failed\\Baekjoon\\Silver\\3\\BJ_15649\\question\\input.txt", "rt", stdin);
+  SET_IO("_INPUT_.txt");
 
   int N, M;
-  vector<int> iVec;
-
   cin >> N >> M;
-  for(int n = 0; n < N; n++) iVec.push_back(n + 1);
-  perm(iVec, N, M);
 
+  int *origin;
+  int *select;
+  bool *selected;
+  int cursorOrigin;
+  int cursorSelect;
+
+  origin = new int[N];
+  for (int n = 1; n <= N; n++) origin[n] = n;
+  select = new int[N]();
+  selected = new bool[N]();
+
+
+  delete origin;
+  delete select;
+  delete selected;
   return 0;
-}
-
-void perm(vector<int> origin, int N, int M) {
-  vector<int> fixed(M);
-  permRecur(origin, fixed, N, M, 0, 0);
-}
-
-void permRecur(vector<int> origin, vector<int> fixed, int N, int M, int select, int length) {
-  if(length == M) {
-    for(int f : fixed) cout << f << ' ';
-    cout << '\n';
-    return;
-  }
-
-  for(int n = 0; n < N; n++) {
-    if((select >> n) & 1) continue;
-    fixed[length] = origin[n];
-    permRecur(origin, fixed, N, M, select | (1 << n), length + 1);
-  }
 }

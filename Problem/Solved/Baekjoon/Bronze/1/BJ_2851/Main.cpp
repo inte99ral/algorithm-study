@@ -1,21 +1,23 @@
-#include <iostream>
+#include <bits/stdc++.h>
+
+#ifndef ONLINE_JUDGE
+#define SET_IO(INPUT_PATH) ios_base::sync_with_stdio(false);cout.tie(nullptr);cin.tie(nullptr);freopen(INPUT_PATH, "rt", stdin)
+#else
+#define SET_IO(INPUT_PATH) ios_base::sync_with_stdio(false);cout.tie(nullptr);cin.tie(nullptr)
+#endif
 
 using namespace std;
 
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
-  cout.tie(nullptr);
-
-  freopen("Problem\\Solved\\Baekjoon\\Bronze\\1\\BJ_2851\\question\\input.txt", "rt", stdin);
+  SET_IO("_INPUT_.txt");
 
   int answer = 0;
 
-  for(int i = 0; i < 10; i++) {
-    int input;
-    cin >> input;
-    if(abs(answer - 100) < abs(answer + input - 100)) break;
-    answer += input;
+  for (int i = 0; i < 10; i++) {
+    int temp; cin >> temp;
+
+    if (100 - answer >= answer + temp - 100) answer += temp;
+    else break;
   }
 
   cout << answer;

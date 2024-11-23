@@ -13,9 +13,9 @@
 #include <bits/stdc++.h>
 
 #ifndef ONLINE_JUDGE
-#define SET_IO(INPUT_PATH) freopen(INPUT_PATH, "rt", stdin)
+#define SET_IO(INPUT_PATH) std::ios_base::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);freopen(INPUT_PATH, "rt", stdin)
 #else
-#define SET_IO(INPUT_PATH) std::ios::sync_with_stdio(false); std::cin.tie(nullptr); cout.tie(nullptr)
+#define SET_IO(INPUT_PATH) std::ios_base::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr)
 #endif
 
 using namespace std;
