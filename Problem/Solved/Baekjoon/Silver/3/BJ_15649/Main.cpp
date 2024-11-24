@@ -17,13 +17,15 @@ int main() {
   int *origin;
   int *select;
   bool *selected;
-  int cursorOrigin;
-  int cursorSelect;
+  int originIndex;
+  int selectIndex;
 
   origin = new int[N];
   for (int n = 1; n <= N; n++) origin[n] = n;
   select = new int[N]();
   selected = new bool[N]();
+
+  while (selectIndex < M)
 
 
   delete origin;
