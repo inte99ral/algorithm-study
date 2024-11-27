@@ -2,7 +2,9 @@
 
 </br>
 
-- 내부 문자열을 입출력 스트림에 집어넣기
+## 응용 예시
+
+### 내부 문자열을 입출력 스트림에 집어넣기
 
 ```cpp
 #include <iostream>  // for cin
@@ -44,7 +46,28 @@ int main() {
 
 </br>
 
-- 정렬 조건 적용 (bool 함수 선언)
+### 내부 문자열을 입출력 스트림에 집어넣기 매크로화
+
+```cpp
+#include <iostream>
+#include <sstream>
+#include <fstream>
+
+#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::stringstream ss(INPUT_DATA);if(fs.is_open())std::cin.rdbuf(fs.rdbuf());else std::cin.rdbuf(ss.rdbuf())
+
+int main() {
+  // 문자열 리터럴 암시적 문자열 연결
+  SET_IO(
+    "inner1\n"
+    "inner2\n"
+  );
+
+  for (string buf; cin >> buf;) cout << buf << endl;
+  return 0;
+}
+```
+
+### 정렬 조건 적용 (bool 함수 선언)
 
 ```cpp
 bool compare(int a, int b) { return a > b; }

@@ -147,4 +147,21 @@ c++의 람다식은 4 개의 부분으로 구성되어 있습니다.
 
 ## 람다식의 활용
 
+```cpp
+function<int()> func1 = []() -> int { return 0; };
+```
+
 <br />
+
+- c++ 23 부터는 deducing this 를 이용하여 람다 객체에 스스로 접근할 수 있습니다.
+
+```cpp
+auto factorial = [](this auto&& self, int n) {
+    if (n <= 1)
+        return 1;
+    return n * self(n - 1);
+};
+
+// 사용 예
+int result = factorial(5);
+```
