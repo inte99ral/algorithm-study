@@ -1,64 +1,72 @@
+#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <vector>
 
 #define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::stringstream ss(INPUT_DATA);if(fs.is_open())std::cin.rdbuf(fs.rdbuf());else std::cin.rdbuf(ss.rdbuf())
 
 using namespace std;
 
-int perm(const int* origin, int N, int R);
-void permRecur(const int* origin, const int* select, int N, int R, int data, int size, const int* count);
+template <typename It>
+bool next_perm(It begin, It end) {
+  if (begin == end) return false;
+
+  It i = end;
+  if (begin == --i) return false;
+
+  while (true) {
+    It i1, i2;
+
+    i1 = i;
+
+    if (*--i < *i1) {
+      i2 = end;
+      while (!(*i < *--i2));
+      iter_swap(i, i2);
+      reverse(i1, end);
+      return true;
+    }
+    if (i == begin) {
+      reverse(begin, end);
+      return false;
+    }
+  }
+}
 
 int main() {
-  SET_IO("3 2");
+  SET_IO("4 1");
 
   int N;
   int R;
-  int count;
-  int* origin;
+  int count = 0;
+  vector<int> origin;
 
   cin >> N;
   cin >> R;
-  count = 0;
-  origin = new int[N];
-  for (int n = 1; n <= N; n++) origin[n - 1] = n;
+  origin = vector<int>(N);
+  for (int n = 0; n < N; n++) origin[n] = n + 1;
 
   cout << "[CASES]:\n";
 
   {
-    // ### 4. Recursive Solution - Bitmask
-    int count = perm(origin, N, R);
+    // ### 6. Iterator Solution
+
+    // 선택할 범위까지 1로 안하는 범위를 0으로 채웁니다.
+    vector<int> v(N);
+    fill(v.begin(), v.begin() + R, 1);
+    fill(v.begin() + R, v.end() + R, 0);
+
+    do {
+      count++;
+      for (int r = 0; r < R; r++) cout << origin[r] << ' ';
+      cout << '\n';
+    } while (next_perm(origin.begin(), origin.end()));
+    
   }
-  
-  delete[] origin;
 
   cout << "\n";
   cout << "[NUMBER]: " << count << "\n";
 
   return 0;
-}
-
-
-int perm(const int* origin, int N, int R) {
-  int count;
-  int* select = new int[R]();
-  permRecur(origin, select, N, R, 0, 0, &count);
-  return count;
-}
-
-void permRecur(const int* origin, const int* select, int N, int R, int data, int size, int* count) {
-  if (size == R) {
-    *count++;
-    for (int r = 0; r < R; r++) cout << select[r] << ' ';
-    cout << '\n';
-    return;
-  }
-
-  for (int i = 0; i < N; i++) {
-    // 지금의 i번째 값 (=origin index) 을 이전에 선택한 적이 있다면?
-    if((data >> i) & 1) continue;
-
-    permRecur(origin, select, N, R, data, size + 1, count);
-  }
-  return;
 }

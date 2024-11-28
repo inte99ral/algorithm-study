@@ -323,15 +323,218 @@ int main() {
 
 &nbsp; 재귀적함수로 DFS 알고리즘을 구현하면 Stack 구조보다도 단순해지고 직관적이라는 장점이 있습니다.
 
-## 구현 ?：재귀적 풀이 - 정렬：Recursive Solution - Sorting
+&nbsp; 후에 서술할 swap 을 이용한 풀이와 더불어 가장 정석적인 알고리즘 입니다.
 
-Swap
+```cpp
+#include <iostream>
+#include <fstream>
+#include <sstream>
 
-&nbsp; 1 ~ 3 번의 출력값들을 자세히 보면 순열 데이터의 오름차순 출력 과정은 원본 배열이 오름차순 배열에서 시작하여 내림차순으로 정렬되는 과정과 같다는 것을 눈치챌 수 있습니다.
-&nbsp; (시작은 오름차순) 1 - 2 - 3 >>> (끝은 내림차순) 3 - 2 - 1
-&nbsp; 이를 응용하여 오름차순 정렬이 확실하다면 내림차순으로 바꾸는 알고리즘 만으로 모든 순열 경우를 얻을 수 있다.
+#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::stringstream ss(INPUT_DATA);if(fs.is_open())std::cin.rdbuf(fs.rdbuf());else std::cin.rdbuf(ss.rdbuf())
 
-## 구현 ? + 1：반복자 풀이 - 정렬：Iterator Solution - Sorting
+using namespace std;
+
+void permRecur(int data, int size);
+
+int N;
+int R;
+int *origin;
+int *select;
+int count;
+
+int main() {
+  SET_IO("3 2");
+
+  cin >> N;
+  cin >> R;
+  count = 0;
+  origin = new int[N]();
+  for (int n = 1; n <= N; n++) origin[n - 1] = n;
+
+  cout << "[CASES]:\n";
+
+  {
+    // ### 4. Recursive Solution - Bitmask
+    select = new int[R]();
+    permRecur(0, 0);
+    delete[] select;
+  }
+
+  delete[] origin;
+
+  cout << "\n";
+  cout << "[NUMBER]: " << count << "\n";
+
+  return 0;
+}
+
+void permRecur(int data, int size) {
+  if (size == R) {
+    count++;
+    for (int r = 0; r < R; r++) cout << select[r] << ' ';
+    cout << '\n';
+    return;
+  }
+
+  for (int i = 0; i < N; i++) {
+    // 지금의 i번째 값 (=origin index) 을 이전에 선택한 적이 있다면? continue
+    if(data & (1 << i)) continue;
+
+    select[size] = origin[i];
+    permRecur(data | (1 << i), size + 1);
+  }
+  return;
+}
+```
+
+&nbsp; 위의 풀이는 가장 정석적이며 구현하기에 가장 간편한 구조입니다. 하지만 재귀되는 함수 permRecur 의 전역적인 변수 활용을 위해서 많은 데이터가 main 함수에 노출되어 있습니다.
+
+&nbsp; 다음과 같이 포인터로 변수의 주소를 전달하는 방법으로 전역 변수의 사용을 피하고 폐쇄적인 함수로 만들 수 있습니다. 이제 main 함수 측이 perm(원본 배열, 전체 수, 선택할 수) 만 호출하면 순열을 구할 수 있습니다.
+
+```cpp
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
+#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::stringstream ss(INPUT_DATA);if(fs.is_open())std::cin.rdbuf(fs.rdbuf());else std::cin.rdbuf(ss.rdbuf())
+
+using namespace std;
+
+int perm(int* origin, int N, int R);
+void permRecur(int* origin, int* select, int N, int R, int data, int size, int* count);
+
+int main() {
+  SET_IO("3 2");
+
+  int N;
+  int R;
+  int count;
+  int* origin;
+
+  cin >> N;
+  cin >> R;
+  count = 0;
+  origin = new int[N];
+  for (int n = 1; n <= N; n++) origin[n - 1] = n;
+
+  cout << "[CASES]:\n";
+
+  {
+    // ### 4. Recursive Solution - Bitmask
+    count = perm(origin, N, R);
+  }
+
+  delete[] origin;
+
+  cout << "\n";
+  cout << "[NUMBER]: " << count << "\n";
+
+  return 0;
+}
+
+
+int perm(int* origin, int N, int R) {
+  int count = 0;
+  int* select = new int[R]();
+  permRecur(origin, select, N, R, 0, 0, &count);
+  cout << '\n';
+  return count;
+}
+
+void permRecur(int* origin, int* select, int N, int R, int data, int size, int* count) {
+  if (size == R) {
+    (*count)++;
+    for (int r = 0; r < R; r++) cout << select[r] << ' ';
+    cout << '\n';
+    return;
+  }
+
+  for (int i = 0; i < N; i++) {
+    // 지금의 i번째 값 (=origin index) 을 이전에 선택한 적이 있다면? continue
+    if(data & (1 << i)) continue;
+
+    select[size] = origin[i];
+    permRecur(origin, select, N, R, data | (1 << i), size + 1, count);
+  }
+  return;
+}
+```
+
+## 구현 5：재귀적 풀이 - Swap 알고리즘：Recursive Solution - Swap
+
+&nbsp; 1 ~ 4 까지의 결과값을 유심히 관찰하면 다음과 같은 사실을 알 수 있습니다. 각 원소가 이전의 결과와 중복되지 않는 조건을 지키며 본래 있던 위치가 아닌 곳으로 이동시키고 출력하면 순열의 결과값과 일치합니다. 여기서 두 원소의 위치를 바꾸고 출력한 뒤에 원 위치로 돌려준다면 별도의 체크 없이도 논리상 중복이 없게 됩니다. (원본 그대로 출력되는 경우는 자기와 자기의 위치를 바꾼 상태로 출력될 것 입니다.) 이것이 Swap 알고리즘 입니다.
+
+&nbsp; 두 원소의 위치만 바꿔주는 것으로 구현이 되므로 가장 단순하고 보편적인 순열 출력 방법입니다. 다만 단점 두 가지가 있습니다.
+
+&nbsp; 첫번째 단점은 Swap 알고리즘은 오름차순 정렬을 보장하지 않습니다. 요소들을 교환하면서 순열을 만들기 때문에, <b>결과물이 무작위적인 순서</b>로 나오게 됩니다.
+
+&nbsp; 두번째 단점은 <b>원본 배열 origin에 접근하여</b> 의 두 요소의 위치를 직접 조작하기 때문에 연산 도중에 origin 에 접근할 경우 문제가 발생할 수 있다는 점 입니다.
+
+&nbsp; 코드로는 다음과 같이 구현됩니다.
+
+```cpp
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
+#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::stringstream ss(INPUT_DATA);if(fs.is_open())std::cin.rdbuf(fs.rdbuf());else std::cin.rdbuf(ss.rdbuf())
+
+using namespace std;
+
+void swap(int* swapArr, int x, int y);
+void permRecur(int* origin, int* countPtr, int N, int R, int size);
+
+int main() {
+  SET_IO("4 2");
+
+  int N;
+  int R;
+  int count = 0;
+  int *origin;
+
+  cin >> N;
+  cin >> R;
+  origin = new int[N]();
+  for (int n = 0; n < N; n++) origin[n] = n + 1;
+
+  cout << "[CASES]:\n";
+
+  {
+    // ### 5. Recursive Solution - Swap
+    permRecur(origin, &count, N, R, 0);
+  }
+
+  delete[] origin;
+
+  cout << "\n";
+  cout << "[NUMBER]: " << count << "\n";
+
+  return 0;
+}
+
+void swap(int* swapArr, int x, int y) {
+  int temp = swapArr[x];
+  swapArr[x] = swapArr[y];
+  swapArr[y] = temp;
+}
+
+void permRecur(int* origin, int* countPtr, int N, int R, int size) {
+  if (size == R) {
+    (*countPtr)++;
+    for (int r = 0; r < R; r++) cout << origin[r] << ' ';
+    cout << '\n';
+    return;
+  }
+
+  for (int i = size; i < N; i++) {
+    swap(origin, size, i);
+    permRecur(origin, countPtr, N, R, size + 1);
+    swap(origin, size, i);
+  }
+}
+```
+
+## 구현 6：반복자 풀이：Iterator Solution
 
 &nbsp; 1 ~ 3 번의 출력값들을 자세히 보면 순열 데이터의 오름차순 출력 과정은 원본 배열이 오름차순 배열에서 시작하여 내림차순으로 정렬되는 과정과 같다는 것을 눈치챌 수 있습니다.
 &nbsp; (시작은 오름차순) 1 - 2 - 3 >>> (끝은 내림차순) 3 - 2 - 1
