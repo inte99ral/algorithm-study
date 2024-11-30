@@ -1,12 +1,36 @@
 # 순열：Permutation
 
-## 정의
+## 목차
 
-&nbsp; 서로 다른 n개의 원소에서 r (단, 0 < r ≤ n)개를 중복없이 순서에 상관있게 일렬로 배열하는 것을 순열(permutation)이라고 합니다.
+- [중복순열]()
+  - [정의](#-중복순열--정의)
+  - [구현 0：수학적 경우의 수](#-중복순열--구현-0수학적-경우의-수mathematical-calculation)
 
-&nbsp; 위와 같은 조건하에 원형으로 나열하는 원순열과 대칭을 불허하는 염주순열도 있지만 이중에서 통상적인 표현으로 순열이라 함은 일렬로 나열하는 직순열을 말합니다.
+## 중복순열：Permutation With Repetition
 
-## 구현 0：수학적 경우의 수 계산：Mathematical Calculation
+### ■ 중복순열 > 정의
+
+&nbsp; 서로 다른 n개의 원소에서 r (단, 0 < r ≤ n)개를 중복을 허용하고 순서에 상관있게 일렬로 배열하는 것을 중복순열(Permutation With Repetition)이라고 합니다.
+
+### ■ 중복순열 > 구현 0：수학적 경우의 수：Mathematical Calculation
+
+&nbsp; 가장 직관적으로 이해할 수 있습니다. 번호가 적혀져있는 N 개의 구슬을 뽑고 다시 섞은 뒤에 뽑는 것을 R 번 반복하면 나오는 경우의 수는 N 의 R제곱일 것 입니다.
+
+<center>
+
+$_{n}\mathrm{\Pi}_{r}=n^r$
+
+</center>
+
+## 직순열：Permutation
+
+### ■ 직순열 > 정의
+
+&nbsp; 서로 다른 n개의 원소에서 r (단, 0 < r ≤ n)개를 중복없이 순서에 상관있게 일렬로 배열하는 것을 직순열이라고 합니다.
+
+&nbsp; 원형으로 나열하는 원순열과 대칭을 불허하는 염주순열도 있지만 `통상적인 표현`으로 순열이라 함은 이 직순열을 말합니다.
+
+### ■ 직순열 > 구현 0：수학적 경우의 수：Mathematical Calculation
 
 &nbsp; N 개를 순서대로 나열하는 모든 경우의 수 N! 에서 R 개만을 본다면, 뽑지 않은 것 N-R 개들이 나열된 (N - R)! 만큼이 중복되므로 나누어 해당 경우의 가짓수를 제거해주면 됩니다.
 
@@ -14,7 +38,7 @@
 
 <center>
 
-${n}P{r} = \frac{n!}{(n-r)!}$
+$_{n}\mathrm{P}_{r} = P(n, r) = \frac{n!}{(n-r)!}$
 
 </center>
 
@@ -32,7 +56,7 @@ using namespace std;
 int factorial(int x) { return (x == 1) || (x == 0) ? 1 : x * factorial(x - 1); }
 
 int main() {
-  SET_IO("5");
+  SET_IO("5 2");
 
   int N;
   int R;
@@ -61,7 +85,7 @@ int main() {
 }
 ```
 
-## 구현 1：지역적 풀이 - For 루프：Local Solution - For Loop Based
+### ■ 직순열 > 구현 1：지역적 풀이 - For 루프：Inline Solution - For Loop Based
 
 &nbsp; 지역적으로 뽑을 수 만큼 직접 For 루프 코드를 작성하여 중복되지 않는 경우의 수를 모두 구현합니다.
 
@@ -80,8 +104,6 @@ int main() {
 
 using namespace std;
 
-int factorial(int x) { return (x == 1) || (x == 0) ? 1 : x * factorial(x - 1); }
-
 int main() {
   SET_IO("5");
 
@@ -99,7 +121,7 @@ int main() {
   cout << "[CASES]:\n";
 
   {
-    // ### 1. Local Solution - For Loop Based
+    // ### 1. Inline Solution - For Loop Based
     int *select = new int[R];
 
     for (int i = 0; i < N; i++) {
@@ -132,7 +154,7 @@ int main() {
 }
 ```
 
-## 구현 2：지역적 풀이 - While 루프：Local Solution - While Loop Based
+### 직순열 > 구현 2：지역적 풀이 - While 루프：Inline Solution - While Loop Based
 
 &nbsp; 알고리즘은 For 루프와 완벽히 똑같습니다. i 루프, j 루프... 루프 안으로 들어가는 상황과 루프 밖으로 나오는 상황을 if 문으로 구현하기 때문에 전체 원소 수 N 값과 뽑을 수 R 값을 유동적으로 바꿀 수 있다.
 
@@ -143,6 +165,8 @@ int main() {
 &nbsp; for(int 변수 = 0 ... ) 를 `data[size]` 값을 확인하면서 체크하는 것으로 구현합니다.
 
 &nbsp; 코드로는 다음과 같이 만들 수 있습니다.
+
+#### 직순열 > 구현 2 > C++
 
 ```cpp
 #include <iostream>
@@ -172,7 +196,7 @@ int main() {
   cout << "[CASES]:\n";
 
   {
-    // ### 2. Local Solution - While Loop Based
+    // ### 2. Inline Solution - While Loop Based
     int* select = new int[R]();
     int* data = new int[R](); // loop counter
     int size = 0; // loop depth
@@ -230,7 +254,7 @@ int main() {
 }
 ```
 
-## 구현 3：지역적 풀이 - 스택 & 비트연산자：Local Solution - Stack & Bitmask Based
+### 직순열 > 구현 3：지역적 풀이 - 스택 & 비트연산자：Inline Solution - Stack & Bitmask Based
 
 &nbsp; 3의 풀이는 while 루프 하나가 매 상황 분기마다 i, k, j... 루프 상태를 구현하기 위해 과하게 복잡한 구조를 가지는 것이 보입니다.
 
@@ -244,6 +268,8 @@ int main() {
 
 &nbsp; 주석을 빼면 짧은 코드로 순열 계산이 가능합니다.
 
+#### 직순열 > 구현 3 > C++
+
 ```cpp
 #include <array>
 #include <deque>
@@ -254,8 +280,6 @@ int main() {
 #define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::stringstream ss(INPUT_DATA);if(fs.is_open())std::cin.rdbuf(fs.rdbuf());else std::cin.rdbuf(ss.rdbuf())
 
 using namespace std;
-
-int factorial(int x) { return (x == 1) || (x == 0) ? 1 : x * factorial(x - 1); }
 
 int main() {
   SET_IO("3 2");
@@ -274,7 +298,7 @@ int main() {
   cout << "[CASES]:\n";
 
   {
-    // ### 3. Local Solution - Stack & Bitmask Based
+    // ### 3. Inline Solution - Stack & Bitmask Based
     int* select = new int[R]();
     deque<array<int, 3>> task = {{0, 0, 0}};
 
@@ -317,13 +341,15 @@ int main() {
 }
 ```
 
-## 구현 4：재귀적 풀이：Recursive Solution
+### 직순열 > 구현 4：재귀적 풀이 - DFS：Recursive Solution - DFS
 
 &nbsp; 지역적인 풀이와 다르게 중간에 값에 접근이 불가능하고 전역적인 변수를 필요로 합니다.
 
 &nbsp; 재귀적함수로 DFS 알고리즘을 구현하면 Stack 구조보다도 단순해지고 직관적이라는 장점이 있습니다.
 
 &nbsp; 후에 서술할 swap 을 이용한 풀이와 더불어 가장 정석적인 알고리즘 입니다.
+
+#### 직순열 > 구현 4 > C++
 
 ```cpp
 #include <iostream>
@@ -386,6 +412,8 @@ void permRecur(int data, int size) {
   return;
 }
 ```
+
+#### 직순열 > 구현 4 > C++ - 폐쇄화
 
 &nbsp; 위의 풀이는 가장 정석적이며 구현하기에 가장 간편한 구조입니다. 하지만 재귀되는 함수 permRecur 의 전역적인 변수 활용을 위해서 많은 데이터가 main 함수에 노출되어 있습니다.
 
@@ -460,7 +488,54 @@ void permRecur(int* origin, int* select, int N, int R, int data, int size, int* 
 }
 ```
 
-## 구현 5：재귀적 풀이 - Swap 알고리즘：Recursive Solution - Swap
+#### 직순열 > 구현 4 > Java
+
+```java
+import java.util.Arrays;
+
+class Permutation {
+
+  // -- Methods ====================
+
+  public static void perm(int[] arr, int selectNumber) {
+    permRecur(arr, selectNumber, 0, new int[selectNumber], 0);
+    return;
+  }
+
+  public static void permRecur(
+    int[] origin,
+    int selectNumber,
+    int selectData,
+    int[] fixed,
+    int index
+  ) {
+    // 전부 선택했으니 출력
+    if (index == selectNumber) {
+      System.out.println(Arrays.toString(fixed));
+      return;
+    }
+
+    for (int i = 0; i < origin.length; i++) {
+      // 해당 숫자는 이미 선택했었음
+      if ((selectData & 1 << i) > 0) continue;
+
+      // 선택함
+      fixed[index] = origin[i];
+      permRecur(origin, selectNumber, selectData | 1 << i, fixed, index + 1);
+    }
+    return;
+  }
+
+  // -- Run ====================
+  public static void main(String[] args) {
+    int[] arr = { 1, 2, 3 };
+    perm(arr, 2);
+    return;
+  }
+}
+```
+
+### ■ 직순열 > 구현 5：재귀적 풀이 - Swap：Recursive Solution - Swap
 
 &nbsp; 1 ~ 4 까지의 결과값을 유심히 관찰하면 다음과 같은 사실을 알 수 있습니다. 각 원소가 이전의 결과와 중복되지 않는 조건을 지키며 본래 있던 위치가 아닌 곳으로 이동시키고 출력하면 순열의 결과값과 일치합니다. 여기서 두 원소의 위치를 바꾸고 출력한 뒤에 원 위치로 돌려준다면 별도의 체크 없이도 논리상 중복이 없게 됩니다. (원본 그대로 출력되는 경우는 자기와 자기의 위치를 바꾼 상태로 출력될 것 입니다.) 이것이 Swap 알고리즘 입니다.
 
@@ -534,8 +609,125 @@ void permRecur(int* origin, int* countPtr, int N, int R, int size) {
 }
 ```
 
-## 구현 6：반복자 풀이：Iterator Solution
+### ■ 직순열 > 구현 6：반복자 풀이：Iterator Solution
 
-&nbsp; 1 ~ 3 번의 출력값들을 자세히 보면 순열 데이터의 오름차순 출력 과정은 원본 배열이 오름차순 배열에서 시작하여 내림차순으로 정렬되는 과정과 같다는 것을 눈치챌 수 있습니다.
-&nbsp; (시작은 오름차순) 1 - 2 - 3 >>> (끝은 내림차순) 3 - 2 - 1
+&nbsp; 1 ~ 4 번의 출력값들을 자세히 보면 순열 데이터의 오름차순 출력 과정은 원본 배열이 오름차순 배열에서 시작하여 내림차순으로 정렬되는 과정과 같다는 것을 눈치챌 수 있습니다. (시작은 오름차순) 1 - 2 - 3 >>> (끝은 역순으로 뒤집은 내림차순) 3 - 2 - 1
+
 &nbsp; 이를 응용하여 오름차순 정렬이 확실하다면 내림차순으로 바꾸는 알고리즘 만으로 모든 순열 경우를 얻을 수 있다.
+
+&nbsp; 전체를 오름차순에서 내림차순으로 바꾼다면 nPn (n개에서 n개를 뽑는 순열) 이 됩니다. 뽑을 개수 이후의 r번 부터 n번 까지의 수들을 뒤집어 역순으로 바꿔준다면 이 부분의 수열이 섞이는 부분을 건너뛸 수 있습니다.
+
+&nbsp; 이 알고리즘의 시간 복잡도는 O(nPr)입니다. 이는 가능한 모든 순열을 생성하는 데 필요한 최소 시간 복잡도입니다.
+
+```cpp
+#include <algorithm>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+
+#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::stringstream ss(INPUT_DATA);if(fs.is_open())std::cin.rdbuf(fs.rdbuf());else std::cin.rdbuf(ss.rdbuf())
+
+using namespace std;
+
+template <typename It>
+bool next_perm(It begin, It end);
+
+int main() {
+  SET_IO("3 2");
+
+  int N;
+  int R;
+  int count = 0;
+  vector<int> origin;
+
+  cin >> N;
+  cin >> R;
+  origin = vector<int>(N);
+  for (int n = 0; n < N; n++) origin[n] = n + 1;
+
+  cout << "[CASES]:\n";
+
+  {
+    // ### 6. Iterator Solution
+
+    do {
+      count++;
+      for (int r = 0; r < R; r++) cout << origin[r] << ' ';
+      cout << '\n';
+
+      reverse(origin.begin() + R, origin.end());
+    } while (next_perm(origin.begin(), origin.end()));
+
+  }
+
+  cout << "\n";
+  cout << "[NUMBER]: " << count << "\n";
+
+  return 0;
+}
+
+template <typename It>
+bool next_perm(It begin, It end) {
+  if (begin == end) return false;
+
+  It i = end;
+  if (begin == --i) return false;
+
+  while (true) {
+    It i1, i2;
+
+    i1 = i;
+
+    if (*--i < *i1) {
+      i2 = end;
+      while (!(*i < *--i2));
+      iter_swap(i, i2);
+      reverse(i1, end);
+      return true;
+    }
+    if (i == begin) {
+      reverse(begin, end);
+      return false;
+    }
+  }
+}
+```
+
+&nbsp; 오름차순->내림차순으로 진행한다고 할 때, 현재 상태에 대한 다음 순서를 찾아내는 next_perm 함수는 다음과 같은 논리로 동작합니다.
+
+1. 먼저 범위가 비어있는지 확인합니다.
+2. 뒤에서부터 시작하여 첫 번째로 감소하는 요소(i)를 찾습니다.
+3. i 이후의 요소 중 i보다 큰 가장 작은 요소(i2)를 찾습니다.
+4. i와 i2를 교환합니다.
+5. i 이후의 모든 요소를 뒤집습니다.
+
+이는 STL의 `algorithm` 헤더의 std::next_permutation과 동일한 동작을 수행합니다.
+
+```cpp
+template <typename It>
+bool next_perm(It begin, It end) {
+  if (begin == end) return false;
+
+  It i = end;
+  if (begin == --i) return false;
+
+  while (true) {
+    It i1, i2;
+
+    i1 = i;
+
+    if (*--i < *i1) {
+      i2 = end;
+      while (!(*i < *--i2));
+      iter_swap(i, i2);
+      reverse(i1, end);
+      return true;
+    }
+    if (i == begin) {
+      reverse(begin, end);
+      return false;
+    }
+  }
+}
+```
