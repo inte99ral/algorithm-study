@@ -1,67 +1,52 @@
-#include <array>
-#include <deque>
-#include <iostream>
-#include <sstream>
-#include <fstream>
+// # <DIRECTORY_PATH>
 
-#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::stringstream ss(INPUT_DATA);if(fs.is_open())std::cin.rdbuf(fs.rdbuf());else std::cin.rdbuf(ss.rdbuf())
+/**
+ * 추가 서술
+ *
+ * @see "https://www.google.co.kr/"
+ * @author inte99ral
+ * @version 2024-11-18
+ */
+
+// ## API & Library ==========================================================
+
+#include <bits/stdc++.h>
+
+#ifndef ONLINE_JUDGE
+#define SET_IO(INPUT_PATH) std::ios_base::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);freopen(INPUT_PATH, "rt", stdin)
+#else
+#define SET_IO(INPUT_PATH) std::ios_base::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr)
+#endif
 
 using namespace std;
 
-// ## Global Variable & Constant =====
+// ## Global Variable & Constant =============================================
 
-// ## Prototype Declaration ==========
+// ## Prototype Declaration ==================================================
 
-int comb(int* origin, int N, int R);
-void combRecur(int* origin, int* select, int* ptrCount, int N, int R, int size, int curr);
+// ## Implements Definition ==================================================
 
-// ## Implements Definition ==========
-
+// ### Main
 int main() {
-  SET_IO("5 2");
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
 
-  int N;
-  int R;
-  int count;
-  int *origin;
+  #ifndef ONLINE_JUDGE
+  freopen("__INPUT__.txt", "rt", stdin);  // * 로컬 input.txt 입력 코드
+  #endif
 
-  cin >> N;
-  cin >> R;
-  count = 0;
-  origin = new int[N];
-  for (int n = 1; n <= N; n++) origin[n - 1] = n;
+  string input;
 
-  cout << "[CASES]:\n";
+  // -- String line
+  // getline(cin, input);
+  // cout << input << '\n';
 
-  {
-    // ### 4. Recursive Solution - DFS
-    count = comb(origin, N, R);
+  // -- Int Array
+  for (int i = 0; i < 6; i++) {
+    cin >> input;
+    cout << input << '\n';
   }
-
-  delete[] origin;
-
-  cout << "\n";
-  cout << "[NUMBER]: " << count << "\n";
 
   return 0;
-}
-
-int comb(int* origin, int N, int R) {
-
-}
-
-void combRecur(int* origin, int* select, int* ptrCount, int N, int R, int size, int curr) {
-  if (size == R) {
-    (*ptrCount)++;
-    for (int r = 0; r < R; r++) cout << select[r] << ' ';
-    cout << '\n';
-    return;
-  }
-
-  if (curr == N) return;
-
-  for (int i = curr; i < N; i++) {
-    select[size] = origin[i];
-    combRecur(size + 1, i + 1);
-  }
 }

@@ -92,6 +92,8 @@ int main() {
 
 &nbsp; 코드로는 다음과 같이 만들 수 있습니다.
 
+#### 조합 > 구현 1 > C++
+
 ```cpp
 #include <iostream>
 #include <sstream>
@@ -151,6 +153,38 @@ int main() {
 }
 ```
 
+#### 조합 > 구현 1 > Java
+
+```java
+public class Main {
+	static int N, R;
+	static int[] data;
+	static int[] sel; // 선택된 것
+
+	public static void main(String[] args) {
+		N = 6;
+		R = 3;
+		data = new int[] {1, 2, 3, 4, 5, 6};
+		sel = new int[R];
+
+		comb();
+	}
+
+	private static void comb() {
+		for(int i = 0; i < N - 2; i++) {
+			sel[0] = data[i];
+			for(int j = (i + 1); j < N - 1; j++) {
+				sel[1] = data[j];
+				for(int k = (j + 1); k < N; k++) {
+					sel[2] = data[k];
+					System.out.println(Arrays.toString(sel));
+				}
+			}
+		}
+	}
+}
+```
+
 ### 조합 > 구현 2：지역적 풀이 - While 루프：Inline Solution - While Loop Based
 
 &nbsp; 알고리즘은 For 루프와 완벽히 똑같습니다. i 루프, j 루프... 루프 안으로 들어가는 상황과 루프 밖으로 나오는 상황을 if 문으로 구현하기 때문에 전체 원소 수 N 값과 뽑을 수 R 값을 유동적으로 바꿀 수 있다.
@@ -164,6 +198,8 @@ int main() {
 &nbsp; 순서를 작은 인덱스 -> 큰 인덱스 순으로 고정할 것이기 때문에 `data[size]` 에서 `size++` 상황이라면 이전에 `data[size + 1] = data[size] + 1` 처럼 다음 `size` 의 루프는 이전 인덱스보다 더 큰 인덱스 부터 시작하도록 만들어줍시다.
 
 &nbsp; 코드로는 다음과 같이 만들 수 있습니다.
+
+#### 조합 > 구현 2 > C++
 
 ```cpp
 #include <iostream>
@@ -397,10 +433,111 @@ void combRecur(int size, int curr) {
 &nbsp; 다음과 같이 포인터로 변수의 주소를 전달하는 방법으로 전역 변수의 사용을 피하고 폐쇄적인 함수로 만들 수 있습니다. 이제 main 함수 측이 폐쇄적인 함수 comb(원본 배열, 전체 수, 선택할 수) 만 호출하면 순열을 구할 수 있습니다.
 
 ```cpp
+#include <array>
+#include <deque>
+#include <iostream>
+#include <sstream>
+#include <fstream>
 
+#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::stringstream ss(INPUT_DATA);if(fs.is_open())std::cin.rdbuf(fs.rdbuf());else std::cin.rdbuf(ss.rdbuf())
+
+using namespace std;
+
+// ## Global Variable & Constant =====
+
+// ## Prototype Declaration ==========
+
+int comb(int* origin, int N, int R);
+void combRecur(int* origin, int* select, int* ptrCount, int N, int R, int size, int curr);
+
+// ## Implements Definition ==========
+
+int main() {
+  SET_IO("5 2");
+
+  int N;
+  int R;
+  int count;
+  int *origin;
+
+  cin >> N;
+  cin >> R;
+  count = 0;
+  origin = new int[N];
+  for (int n = 1; n <= N; n++) origin[n - 1] = n;
+
+  cout << "[CASES]:\n";
+
+  {
+    // ### 4. Recursive Solution - DFS Closed
+    count = comb(origin, N, R);
+  }
+
+  delete[] origin;
+
+  cout << "\n";
+  cout << "[NUMBER]: " << count << "\n";
+
+  return 0;
+}
+
+int comb(int* origin, int N, int R) {
+  int count = 0;
+  int* select = new int[R]();
+  combRecur(origin, select, &count, N, R, 0, 0);
+  delete[] select;
+  return count;
+}
+
+void combRecur(int* origin, int* select, int* ptrCount, int N, int R, int size, int curr) {
+  if (size == R) {
+    (*ptrCount)++;
+    for (int r = 0; r < R; r++) cout << select[r] << ' ';
+    cout << '\n';
+    return;
+  }
+
+  if (curr == N) return;
+
+  for (int i = curr; i < N; i++) {
+    select[size] = origin[i];
+    combRecur(origin, select, ptrCount, N, R, size + 1, i + 1);
+  }
+}
 ```
 
 #### 조합 > 구현 4 > Java
+
+```java
+public class Main {
+	static int N, R;
+	static int[] data;
+	static int[] sel; // 선택된 것
+
+	public static void main(String[] args) {
+		N = 6;
+		R = 3;
+		data = new int[] {1, 2, 3, 4, 5, 6};
+		sel = new int[R];
+
+		comb(0, 0);
+	}
+
+
+	private static void comb(int cnt, int start) {
+		if(cnt == R) {
+			System.out.println(Arrays.toString(sel).replaceAll("[\\,\\[\\]]", ""));
+			return;
+		}
+		for(int i = start; i < N; i++) {
+			sel[cnt] = data[i];
+			comb(cnt + 1, i + 1);
+		}
+	}
+}
+```
+
+#### 조합 > 구현 4 > Java - 폐쇄화
 
 ```java
 import java.util.Arrays;
@@ -590,6 +727,39 @@ void combRecur(int* origin, int* select, int* ptrCount, int N, int R, int size, 
 }
 ```
 
+#### 조합 > 구현 5 > Java
+
+```java
+public class Main {
+	static int N, R;
+	static int[] data;
+	static int[] sel; // 선택된 것
+
+	public static void main(String[] args) {
+		N = 6;
+		R = 3;
+		data = new int[] {1, 2, 3, 4, 5, 6};
+		sel = new int[R];
+
+		comb();
+	}
+
+	private static void comb(int depth, int idx) {
+		if(depth == R) {
+			System.out.println(Arrays.toString(sel));
+			return;
+		}
+		if(idx == N) {
+			return;
+		}
+
+		sel[depth] = data[idx];
+		comb(depth + 1, idx + 1);
+		comb(depth, idx + 1);
+	}
+}
+```
+
 ### 조합 > 구현 6：반복자 풀이：Iterator Solution
 
 &nbsp; 1 ~ 3 번의 출력값들을 자세히 보면 선택된 원소를 1, 선택되지 못한 원소를 0이라고 할 경우에 1100 부터 시작하여 1010 ... 0101, 0011 까지 내림차순 정렬되는 과정과 일치합니다.
@@ -670,4 +840,41 @@ int main() {
   return 0;
 }
 
+```
+
+### 조합 > 구현 7： 스프레드 연산자 풀이：Spread Solution
+
+- javascript 의 map 함수와 스프레드 연산자 Spread Operator 를 활용하면 식이 엄청나게 단순해 집니다.
+
+```js
+// -- Methods ====================
+
+const comb = function (arr, selectNumber) {
+  const results = [];
+
+  // n개중에서 1개 선택할 때(nC1), 바로 모든 배열의 원소 return
+  if (selectNumber === 1) return arr.map((el) => [el]);
+
+  arr.forEach((fixed, index, origin) => {
+    // 해당하는 fixed를 제외한 나머지 뒷 부분
+    const rest = origin.slice(index + 1);
+
+    // 나머지에 대해서 조합을 구한다.
+    const combArr = comb(rest, selectNumber - 1);
+
+    //  돌아온 조합에 떼 놓은(fixed) 값 붙이기
+    const attached = combArr.map((el) => [fixed, ...el]);
+
+    // 배열 spread syntax 로 모두다 push
+    results.push(...attached);
+  });
+
+  // 결과 담긴 results return
+  return results;
+};
+
+// -- Run ====================
+
+let arr = [1, 2, 3];
+console.log(comb(arr, 2));
 ```
