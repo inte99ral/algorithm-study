@@ -48,21 +48,35 @@ int main() {
 
 ### 내부 문자열을 입출력 스트림에 집어넣기 매크로화
 
+- c++ 다형성을 이용하여 `INPUT_DATA` 경로에 파일이 있을 경우엔 `ifstream` 의 스트림버퍼를 가져옵니다. 없을 경우에는 `INPUT_DATA` 문자열에 대한 `stringstream` 의 스트림버퍼를 적용하는 매크로를 생성합니다.
+
 ```cpp
 #include <iostream>
 #include <sstream>
 #include <fstream>
 
-#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::stringstream ss(INPUT_DATA);if(fs.is_open())std::cin.rdbuf(fs.rdbuf());else std::cin.rdbuf(ss.rdbuf())
+#ifndef ONLINE_JUDGE
+#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::cin.rdbuf(fs.is_open()?((std::istream*)&fs)->rdbuf():((std::istream*)new std::stringstream(INPUT_DATA))->rdbuf())
+#else
+#define SET_IO(INPUT_PATH) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr)
+#endif
+
+
+using namespace std;
 
 int main() {
-  // 문자열 리터럴 암시적 문자열 연결
-  SET_IO(
-    "inner1\n"
-    "inner2\n"
-  );
+  // SET_IO(
+  //   "INNER1 \n"
+  //   "INNER2 \n"
+  //   "INNER3 \n"
+  // );
 
-  for (string buf; cin >> buf;) cout << buf << endl;
+  SET_IO("_INPUT_.txt");
+
+  for (string buf; cin >> buf;) {
+    cout << buf << endl;
+  }
+
   return 0;
 }
 ```

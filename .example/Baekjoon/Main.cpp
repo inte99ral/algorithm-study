@@ -13,10 +13,11 @@
 #include <bits/stdc++.h>
 
 #ifndef ONLINE_JUDGE
-#define SET_IO(INPUT_PATH) std::ios_base::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);freopen(INPUT_PATH, "rt", stdin)
+#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::cin.rdbuf(fs.is_open()?((std::istream*)&fs)->rdbuf():((std::istream*)new std::stringstream(INPUT_DATA))->rdbuf())
 #else
-#define SET_IO(INPUT_PATH) std::ios_base::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr)
+#define SET_IO(INPUT_PATH) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr)
 #endif
+
 
 using namespace std;
 
@@ -28,24 +29,18 @@ using namespace std;
 
 // ### Main
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
-  cout.tie(nullptr);
+  // freopen("__INPUT__.txt", "rt", stdin);
 
-  #ifndef ONLINE_JUDGE
-  freopen("__INPUT__.txt", "rt", stdin);  // * 로컬 input.txt 입력 코드
-  #endif
+  // SET_IO(
+  //   "INNER1 \n"
+  //   "INNER2 \n"
+  //   "INNER3 \n"
+  // );
 
-  string input;
+  SET_IO("_INPUT_.txt");
 
-  // -- String line
-  // getline(cin, input);
-  // cout << input << '\n';
-
-  // -- Int Array
-  for (int i = 0; i < 6; i++) {
-    cin >> input;
-    cout << input << '\n';
+  for (string buf; cin >> buf;) {
+    cout << buf << endl;
   }
 
   return 0;
