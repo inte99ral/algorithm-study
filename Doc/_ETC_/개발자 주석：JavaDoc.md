@@ -11,12 +11,12 @@
  * @description
  *
  * Custom Axios 를 생성하여 배열에 저장하고 리턴한다.
- * @author inte99ral
- * @version 2024-11-18
- * @param 값
- * @return 폭
- * @see <a href="http://gochigo.kr">고치고</a>
- * @deprecated 미권장 대체되었다
+ * @author ：inte99ral
+ * @version ：2024-11-18
+ * @param ：값
+ * @return ：폭
+ * @see ：<a href="http://gochigo.kr">고치고</a>
+ * @deprecated ：미권장 대체되었다
  * @throws
  * @exception
  * @example 예시
