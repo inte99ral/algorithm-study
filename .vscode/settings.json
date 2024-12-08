@@ -54,6 +54,7 @@
   "material-icon-theme.folders.associations": {
     "component": "components",
     ".example": "Examples",
+    "_EXAMPLE_": "Examples",
     "C++": "Cobol",
     "Problem": "Tasks",
     "Solved": "Resolver",

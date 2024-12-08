@@ -35,13 +35,13 @@ $$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
 
 ```cpp
 int main() {
-  ... 클릭하여 확장/축소 ...
+  ... 클릭하여 확장 ...
 ```
 
   </summary>
   
 ```cpp
-  ...
+  ... 클릭하여 축소 ...
   return 0;
 }
 ```
@@ -62,7 +62,7 @@ int main() {
       </tr>
       <tr>
         <td>
-          <a href="#"><img src="./.asset/3.jpg" width="1400px" height="400" alt="css-in-readme"></a>
+          <a href="#"><img src="./.asset/마크다운：Markdown/3.jpg" width="1400px" height="400" alt="css-in-readme"></a>
         </td>
       </tr>
     </table>
@@ -72,12 +72,8 @@ int main() {
 ## 클릭 안되게 하기
 
 <a href="#">
-  <img src="./.asset/2.svg" width="400" height="400" alt="css-in-readme">
+  <img src="./.asset/마크다운：Markdown/2.svg" width="400" height="400" alt="css-in-readme">
 </a>
-
-````html
-<xyz> ```cpp int main() { return 0; } ``` </xyz>
-````
 
 ## 마크다운 CSS：Markdown CSS
 
@@ -101,10 +97,10 @@ Doc\Language_Reference\Front-End\CSS\asset\마크다운 CSS：Markdown CSS\0.svg
 
 <details>
   <summary>테스트 00</summary>
-  <a href="#"><img src="./asset/마크다운：Markdown/0.svg" width="800px" height="400" alt="css-in-readme"></a>
+  <a href="#"><img src="./.asset/마크다운：Markdown/0.svg" width="800px" height="400" alt="css-in-readme"></a>
 </details>
 
 <details>
   <summary>테스트 00</summary>
-  <a href="#"><img src="./asset/마크다운：Markdown/2.svg" width="800px" height="400" alt="css-in-readme"></a>
+  <a href="#"><img src="./.asset/마크다운：Markdown/2.svg" width="800px" height="400" alt="css-in-readme"></a>
 </details>
