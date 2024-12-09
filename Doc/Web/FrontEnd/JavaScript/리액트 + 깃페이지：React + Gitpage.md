@@ -1660,13 +1660,21 @@ https://www.notion.so/my-integrations 에서 API 키 받아오기 가능
 
 &nbsp; REST API 는 세련되고 안정된 서버와의 통신 방식입니다.
 
-&nbsp; 여기서는 별개의 서버 호출을 하지 않습니다. html 을 
+&nbsp; 여기서는 별개의 서버 호출을 하지 않고 프론트엔드 측에서 형태만 구축하겠습니다. 백엔드 서버를 별개로 올리지 않더라도 웹페이지를 live server 나 npm start 등의 명령어로 로컬 호스트로 올리게 되면 페이지를 렌더링 하면서 페이지의 파일들도 해당 포트에 올리게 됩니다.
 
-React 
+#### REST API > localhost 에 대한 이해 ①
 
-서버가 있는 척만 하는 방법으로 진행합니다.
+&nbsp; vscode 확장 live server 의 경우나 react의 npm start 같은 로컬호스트 테스트를 실행하면 클라우드 시스템과 같이 여러분의 파일 폴더를 웹 브라우저에서 접근할 수 있게 됩니다. 설정한 포트 넘버에 따라 `localhost:<PORT_NUMBER>/` 주소에서 접근할 수 있습니다.
 
-&nbsp; 실제로 서버를 준비하시고 연결하셔도 좋습니다.
+&nbsp; 이 과정에서 파일 디렉토리 목록을 담은 index 라는 이름의 파일이 있다면 index 파일명의 파일을 브라우저에 띄웁니다. 이것이 index.tsx 라는 이름을 가진 파일이 해당 주소에서 브라우저에 띄워지는 이유입니다.
+
+&nbsp; 예를 들어, 로컬호스트로 올린 폴더에 data.json 이라는 제목의 파일을 넣어뒀다면 크롬이나 엣지등의 웹브라우저에서 `localhost:<PORT_NUMBER>/data.json` 이라고 검색하면 해당 데이터가 출력됩니다.
+
+#### REST API > localhost 에 대한 이해 ②
+
+&nbsp; React 로컬호스트 테스트의 경우 react 프로젝트 최상단 public 폴더가 로컬호스트에 올려집니다. 따라서 public/server/test 폴더를 만들고 해당 디렉토리에 data.json 파일을 만든다면, `localhost:<PORT_NUMBER>/server/test/data.json` 주소로 브라우저에서 해당 데이터에 접근할 수 있습니다. (react의 디폴트 포트넘버는 3000 입니다.)
+
+&nbsp; 우선 이렇게 같은 소스에서 데이터에 접근하는 방법을 이용하여 서버가 별도로 있는 척을 하겠습니다. 실제로 서버를 준비하고 포트포워딩하여 연결할 때는 주소만 바꿔주면 됩니다.
 
 #### REST API > Axios
 
@@ -1675,10 +1683,3 @@ React
 - axios 객체를
 
 &nbsp; npm install axios
-
-#### REST API > 구글 스프레드 시트
-
-- 앱 스크립트 작성
-- 프로젝트 설정에에서 편집기에 appsscript.json 매니페스트 파일 표시 선택
-- 서버 예제로 구글 스프레드 시트를 활용할 것
-- 가격 https://developers.google.com/apps-script/guides/services/quotas?hl=ko
