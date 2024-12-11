@@ -132,3 +132,35 @@ git merge [브랜치명]
 ## 컨벤션
 
 - [참고링크](https://velog.io/@shin6403/Git-git-%EC%BB%A4%EB%B0%8B-%EC%BB%A8%EB%B2%A4%EC%85%98-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0)
+
+## 깃 대상 제외：gitignore
+
+- [참고링크](https://help.github.com/articles/ignoring-files/)
+
+- 예시 : React 기본 생성 파일
+
+  ```txt
+  # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+  # dependencies
+  /node_modules
+  /.pnp
+  .pnp.js
+
+  # testing
+  /coverage
+
+  # production
+  /build
+
+  # misc
+  .DS_Store
+  .env.local
+  .env.development.local
+  .env.test.local
+  .env.production.local
+
+  npm-debug.log*
+  yarn-debug.log*
+  yarn-error.log*
+  ```

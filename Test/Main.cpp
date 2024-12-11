@@ -1,3 +1,4 @@
+#include <bits/stdc++.h>
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -12,17 +13,11 @@
 using namespace std;
 
 int main() {
-  // SET_IO(
-  //   "INNER1 \n"
-  //   "INNER2 \n"
-  //   "INNER3 \n"
-  // );
+  SET_IO("5");
 
-  SET_IO("_INPUT_.txt");
+  map<string,string> n;
 
-  for (string buf; cin >> buf;) {
-    cout << buf << endl;
-  }
+  n["inte"] = "gral";
 
   return 0;
 }

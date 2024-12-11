@@ -96,10 +96,13 @@
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
   "editor.accessibilitySupport": "off",
-  "editor.wordWrap": "off",
   "editor.defaultFormatter": "esbenp.prettier-vscode", // prettier formatter setting
   // "editor.defaultFormatter": "ms-vscode.cpptools", // vscode cpp formatter setting
   // "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, UseTab: Never, IndentWidth: 2, TabWidth: 2, BreakBeforeBraces: Custom, BraceWrapping: { BeforeElse : true, BeforeWhile : true, BeforeCatch : true }, AllowShortIfStatementsOnASingleLine: AllIfsAndElse, IndentCaseLabels: false, ColumnLimit: 0, NamespaceIndentation: All, FixNamespaceComments: false, AccessModifierOffset: -1 }",
+  "editor.wordWrap": "on", // 글씨 자동개행 {on | off}
+  "[markdown]": {
+    "editor.wordWrap": "on" // 글씨 자동개행 {on | off}
+  },
   "markdownlint.config": {
     "MD009": false, // Don't lint : Trailing space
     "MD010": false, // Don't lint : Hard tabs
@@ -108,9 +111,6 @@
     "MD029": false, // Don't lint : Ordered list item prefix
     "MD031": false, // Don't lint : Fenced code blocks should be surrounded by blank lines
     "MD033": false // Don't lint : Inline HTML
-  },
-  "[markdown]": {
-    "editor.wordWrap": "on" // 글씨 자동개행 {on | off}
   },
 
   // # Terminal ===========================================================

@@ -1,12 +1,14 @@
-# 컨벤션
+# 코드 작성 규칙：Coding Conventions
 
 </br>
 
 - 컨벤션이란?
 
-  - 코드 개발시 함수명이나 프로젝트 구조 등 개발하는 형식에 대한 약속
+  - 코드 개발시 함수명이나 프로젝트 구조 등 개발하는 형식에 대한 관습적 약속
 
 - c++ [참고링크](https://docs.popekim.com/ko/coding-standards/cpp)
+
+- [참고링크](https://velog.io/@rex/%EC%BD%94%EB%93%9C-%EC%9E%91%EC%84%B1-%EA%B7%9C%EC%B9%99%EB%93%A4-Coding-Conventions)
 
 ## 명명 규칙
 
@@ -54,3 +56,7 @@ class Main {
 
 ⟶ (U+27F6) <br/>
 ⤏ (U+290F)
+
+- 인수에 대한 설명이 필요할 경우 대문자 스네이크 표기법에 『(U+300E), 』(U+300F) 로 감싸서 표기합니다.
+
+예시(React 의 useState) : `const [『GETTER_NAME』, 『SETTER_NAME』] = useState<『VALUE_TYPE』>(『INITIAL_VALUE』);`

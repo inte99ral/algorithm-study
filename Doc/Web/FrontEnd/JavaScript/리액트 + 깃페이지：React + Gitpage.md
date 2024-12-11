@@ -1199,7 +1199,7 @@ src/
 - 사용 예시는 다음과 같습니다.
 
   ```javascript
-  // # src/component/HelloPage/index.tsx
+  // # src/component/Hello/index.tsx
   // ## API & Library ==================================================
 
   import React from 'react';
@@ -1209,7 +1209,7 @@ src/
   // ## Style ==========================================================
   // ## Component ======================================================
 
-  export const HelloPage = () => {
+  export const Hello = () => {
     // ## Hook ===========================================================
     // ## Method =========================================================
     // ## Return =========================================================
@@ -1228,6 +1228,7 @@ src/
 
 ### Styled Component
 
+- Styled Component 를 이용하면 React 가 HTML 코드를 스크립트를 이용하여 조작하듯 CSS 또한 스크립트로 조작할 수 있습니다.
 - Styled Component 를 이용하면 스타일의 적용을 좀 더 국소적으로 통제할 수 있습니다. 필요 없어진 디자인 css 코드들의 정돈과 기존 코드들의 관리도 편해집니다.
 - css 관리와 개발 편의성을 위하여 각 컴포넌트의 디렉토리 구조를 데이터 정보를 담은 `index.tsx` 와 스타일을 적용한 `style.tsx` 로 분리합니다.
 
@@ -1238,17 +1239,17 @@ src/
 
 #### Styled Component > 적용예시
 
-- HelloPage/style.tsx 를 만들어봅시다.
+- Hello/style.tsx 를 만들어봅시다.
 
   - styled-components 를 임포트하고 div 태그를 선언하고 스타일을 적용합니다.
   - 변화가 눈에 띄도록 한 번 빨간색으로 칠해보겠습니다.
 
     ```typescript
-    // # src/component/HelloPage/style.tsx
+    // # src/component/Hello/style.tsx
 
     import Styled from 'styled-components'; // <--
 
-    export const Styled_HelloPage = Styled.div`
+    export const Styled_Hello = Styled.div`
       width: 50vw;
       height: 50vh;
       display: flex;
@@ -1260,28 +1261,36 @@ src/
     `;
     ```
 
-- HelloPage/index.tsx 에 적용하겠습니다.
+- Hello/index.tsx 에 적용하겠습니다.
 
-  - ./style 로 부터 Styled_HelloPage 컴포넌트 div 태그를 가져옵니다.
-  - 이는 `<Styled_HelloPage>` 라는 태그명으로 사용할 수 있습니다.
+  - ./style 로 부터 Styled_Hello 컴포넌트 div 태그를 가져옵니다.
+  - 이는 `<Styled_Hello>` 라는 태그명으로 사용할 수 있습니다.
 
     ```typescript
     // # src/component/HelloPage/index.tsx
 
     import React from 'react';
     import { AiFillSetting } from 'react-icons/ai';
-    import { Styled_HelloPage } from './style'; // <--
+    import { Styled_Hello } from './style'; // <--
 
     export const HelloPage = () => {
       return (
-        <Styled_HelloPage> // <--
+        <Styled_Hello> // <--
           <AiFillSetting />
           <h1>Hello, world!</h1>
           <h3>front-end : {process.env.REACT_APP_VERSION}</h3>
-        </Styled_HelloPage>
+        </Styled_Hello>
       );
     };
     ```
+
+- 다음과 같은 구조를 적용하여 Styled Component 에 props 값 즉 인자값을 넘기는 것도 가능합니다.
+
+```typescript
+export const Styled_Example = Styled.div<{ isActive: boolean }>`
+  background: ${({ isActive }) => (isActive ? 'red' : 'blue')};
+`;
+```
 
 - `npm start` 를 통해서 결과물을 확인해보세요.
 
@@ -1303,17 +1312,15 @@ src/
 
 - 테스트용 페이지 파일들을 생성
 
-  1. 홈페이지 HomePage/index.tsx
+  1. 홈페이지 src/component/Home/
 
      - index.tsx
 
        ```typescript
-       // # src/component/BlogPage/index.tsx
-       // API & Library
+       // # src/component/Home/index.tsx
        import React from 'react';
 
-       export const BlogPage = () => {
-         // Return
+       export const Home = () => {
          return (
            <>
              <div>홈 페이지</div>
@@ -1322,34 +1329,15 @@ src/
        };
        ```
 
-     - style.tsx
-
-       ```typescript
-       // # src/component/BlogPage/index.tsx
-       // API & Library
-       import React from 'react';
-
-       export const BlogPage = () => {
-         // Return
-         return (
-           <>
-             <div>블로그 페이지</div>
-           </>
-         );
-       };
-       ```
-
-  2. 블로그 페이지 src/BlogPage/
+  2. 블로그 페이지 src/component/Blog/
 
      - index.tsx
 
        ```typescript
-       // # src/component/BlogPage/index.tsx
-       // API & Library
+       // # src/component/Blog/index.tsx
        import React from 'react';
 
-       export const BlogPage = () => {
-         // Return
+       export const Blog = () => {
          return (
            <>
              <div>블로그 페이지</div>
@@ -1358,32 +1346,13 @@ src/
        };
        ```
 
-     - style.tsx
-
-       ```typescript
-       // # src/component/BlogPage/index.tsx
-       // API & Library
-       import React from 'react';
-
-       export const BlogPage = () => {
-         // Return
-         return (
-           <>
-             <div>블로그 페이지</div>
-           </>
-         );
-       };
-       ```
-
-  3. 에러 핸들링 페이지 ErrorPage/index.tsx
+  3. 에러 핸들링 페이지 src/component/Error/
 
      ```typescript
-     // src/components/ErrorPage/index.tsx
-     // API & Library
+     // # src/component/Error/index.tsx
      import React from 'react';
 
-     export const ErrorPage = () => {
-       // Return
+     export const Error = () => {
        return (
          <>
            <div>에러 페이지</div>
@@ -1437,9 +1406,9 @@ src/
     // ## Style ==========================================================
     // ## Component ======================================================
 
-    import { BlogPage } from 'component/BlogPage';
-    import { ErrorPage } from 'component/ErrorPage';
-    import { HomePage } from 'component/HomePage';
+    import { Blog } from 'component/Blog';
+    import { Error } from 'component/Error';
+    import { Home } from 'component/Home';
 
     const App = () => {
       // ## Default ========================================================
@@ -1453,9 +1422,9 @@ src/
         <div className={`app ${isDark ? 'dark' : 'light'}`}>
           <Routes> // <--
             <Route path="/" element={<Navigate replace to="/home" />} />
-            <Route path="/home/*" element={<HomePage />} />
-            <Route path="/blog/*" element={<BlogPage />} />
-            <Route path="/error/*" element={<ErrorPage />} />
+            <Route path="/home/*" element={<Home />} />
+            <Route path="/blog/*" element={<Blog />} />
+            <Route path="/error/*" element={<Error />} />
             <Route path="/*" element={<Navigate replace to="/error" />} />
           </Routes>
         </div>
@@ -1538,24 +1507,24 @@ src/
 
 &nbsp; React와 비슷한 웹 프론트엔드 프레임워크 Vue 의 Vue Router 에서 `<router-link>` 를 지원하는 것과 같이 React Router 에서는 `<NavLink>` 를 지원합니다.
 
-- HomePage 에 ErrorPage 와 BlogPage 로 이동하는 링크를 만들어보겠습니다.
-- HomePage index.tsx에 다음과 같이 링크를 추가해주세요
+- Home 에 Error 와 Blog 로 이동하는 링크를 만들어보겠습니다.
+- Home index.tsx에 다음과 같이 링크를 추가해주세요
 
   ```typescript
-  // # src/component/HomePage/index.tsx
+  // # src/component/Home/index.tsx
 
   import React from 'react';
   import { NavLink } from 'react-router-dom'; // <--
-  import { Styled_HomePage } from './style';
+  import { Styled_Home } from './style';
 
-  export const HomePage = () => {
+  export const Home = () => {
     return (
-      <Styled_HomePage>
+      <Styled_Home>
         <h1>홈 페이지입니다.</h1>
         <br />
         <NavLink to="/blog">블로그 페이지로 가기</NavLink> // <--
         <NavLink to="/error">에러 페이지로 가기</NavLink> // <--
-      </Styled_HomePage>
+      </Styled_Home>
     );
   };
   ```
@@ -1578,6 +1547,41 @@ src/
   ```
 
 ### react useState
+
+&nbsp; react 라이브러리에서는 스크립트 코드를 통하여 가상 DOM 위에서 웹페이지를 생성합니다. 이 과정에서 let 의 변동적인 변수 사용이 제한됩니다. 아예 선언이 불가한 경우가 생기거나 또는 변경해도 이미 렌더링된 웹페이지에 변화가 적용되지 않습니다.
+
+&nbsp; react 에서 변수를 사용하기 위해서는 변수의 그릇은 const 로 선언하고 변수가 변했기 때문에 다시 렌더링 해야한다는 사실을 react 가상 DOM 에 전달해줄 방법이 필요합니다. 이것이 useState 입니다.
+
+&nbsp; useState 는 다음의 형태로 사용됩니다.
+
+<center>
+
+`const [『GETTER_NAME』, 『SETTER_NAME』] = useState<『VALUE_TYPE』>(『INITIAL_VALUE』);`
+
+</center>
+
+&nbsp; 다음과 같이 사용할 수 있습니다.
+
+```typescript
+// # src/component/Home/index.tsx
+
+import React, { useState } from 'react';
+
+import { Styled_Home } from './style';
+
+export const Home = () => {
+  const [count, setCount] = useState(0); // <--
+
+  return (
+    <Styled_Home>
+      <h1>홈 페이지입니다.</h1>
+      <br />
+      <NavLink to="/blog">블로그 페이지로 가기</NavLink>
+      <NavLink to="/error">에러 페이지로 가기</NavLink>
+    </Styled_Home>
+  );
+};
+```
 
 ### react useEffect
 
@@ -1644,16 +1648,6 @@ export default App;
 
 <br />
 
-### JSON-SERVER
-
-[빌드시엔 미적용](https://donghyun-dev.tistory.com/108)
-
-### Notion API 를 Blog Database 로 쓰기
-
-  <hr />
-
-https://www.notion.so/my-integrations 에서 API 키 받아오기 가능
-
 ## 서버 환경 조성
 
 ### REST API
@@ -1662,15 +1656,13 @@ https://www.notion.so/my-integrations 에서 API 키 받아오기 가능
 
 &nbsp; 여기서는 별개의 서버 호출을 하지 않고 프론트엔드 측에서 형태만 구축하겠습니다. 백엔드 서버를 별개로 올리지 않더라도 웹페이지를 live server 나 npm start 등의 명령어로 로컬 호스트로 올리게 되면 페이지를 렌더링 하면서 페이지의 파일들도 해당 포트에 올리게 됩니다.
 
-#### REST API > localhost 에 대한 이해 ①
+#### REST API > localhost 에 대한 이해
 
 &nbsp; vscode 확장 live server 의 경우나 react의 npm start 같은 로컬호스트 테스트를 실행하면 클라우드 시스템과 같이 여러분의 파일 폴더를 웹 브라우저에서 접근할 수 있게 됩니다. 설정한 포트 넘버에 따라 `localhost:<PORT_NUMBER>/` 주소에서 접근할 수 있습니다.
 
 &nbsp; 이 과정에서 파일 디렉토리 목록을 담은 index 라는 이름의 파일이 있다면 index 파일명의 파일을 브라우저에 띄웁니다. 이것이 index.tsx 라는 이름을 가진 파일이 해당 주소에서 브라우저에 띄워지는 이유입니다.
 
 &nbsp; 예를 들어, 로컬호스트로 올린 폴더에 data.json 이라는 제목의 파일을 넣어뒀다면 크롬이나 엣지등의 웹브라우저에서 `localhost:<PORT_NUMBER>/data.json` 이라고 검색하면 해당 데이터가 출력됩니다.
-
-#### REST API > localhost 에 대한 이해 ②
 
 &nbsp; React 로컬호스트 테스트의 경우 react 프로젝트 최상단 public 폴더가 로컬호스트에 올려집니다. 따라서 public/server/test 폴더를 만들고 해당 디렉토리에 data.json 파일을 만든다면, `localhost:<PORT_NUMBER>/server/test/data.json` 주소로 브라우저에서 해당 데이터에 접근할 수 있습니다. (react의 디폴트 포트넘버는 3000 입니다.)
 
@@ -1680,6 +1672,6 @@ https://www.notion.so/my-integrations 에서 API 키 받아오기 가능
 
 - axios 라이브러리는 promise 객체를 좀더 간결하고 세련되게 쓰는 방법입니다.
 
-- axios 객체를
+- axios 객체를 사용할 수 있도록 패키지를 설치해주세요.
 
 &nbsp; npm install axios
