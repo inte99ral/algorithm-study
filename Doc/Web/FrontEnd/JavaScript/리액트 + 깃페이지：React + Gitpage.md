@@ -1556,95 +1556,224 @@ export const Styled_Example = Styled.div<{ isActive: boolean }>`
 
 <center>
 
-`const [『GETTER_NAME』, 『SETTER_NAME』] = useState<『VALUE_TYPE』>(『INITIAL_VALUE』);`
+`const [『GETTER』, 『SETTER』] = useState<『VALUE_TYPE』>(『INITIAL_VALUE』);`
 
 </center>
+
+#### react useState > 예시
+
+- 버튼을 클릭하면 카운트가 올라가는 사이트를 만들어 보겠습니다.
 
 &nbsp; 다음과 같이 사용할 수 있습니다.
 
 ```typescript
 // # src/component/Home/index.tsx
 
-import React, { useState } from 'react';
-
-import { Styled_Home } from './style';
+import React, { useState, useEffect } from 'react';
 
 export const Home = () => {
   const [count, setCount] = useState(0); // <--
 
+  const onClickEvent = () => {
+    setCount(count + 1);
+    console.log('클릭 이벤트 발생'); // <--
+  };
+
   return (
-    <Styled_Home>
+    <>
       <h1>홈 페이지입니다.</h1>
       <br />
-      <NavLink to="/blog">블로그 페이지로 가기</NavLink>
-      <NavLink to="/error">에러 페이지로 가기</NavLink>
-    </Styled_Home>
+      <button onClick={onClickEvent}>버튼</button>
+      <div>카운트 : {count}</div>
+    </>
+  );
+};
+```
+
+### react useRef
+
+&nbsp; useRef 는 다음과 같은 방식으로 값을 저장하고 사용할 수 있습니다.
+
+<center>
+
+`const 『VAULE_NAME』= useRef<『VAULE_TYPE』>(『INITIAL_VALUE』)`
+`『VAULE_NAME』.current++;`
+
+</center>
+
+&nbsp; useRef 는 useState 와 비슷하게 const 로 변화하는 변수를 선언하는 방법입니다. useState 와는 크게 다음의 차이점을 지닙니다.
+
+1. useState 는 getter 와 setter 를 사용하지만, useRef 는 객체 내부에 current 클래스 변수를 직접 사용합니다.
+
+2. useRef 의 변화는 리렌더링의 트리거가 되지 않습니다. 다른 변화로 인하여 리렌더링이 발생했을 시에 비로소 useREf 의 변화가 적용됩니다. 덕분에 useRef 는 가벼우며 사이트에 무리를 주지 않습니다.
+
+&nbsp; 위의 두 가지 특성으로 인하여 useRef 로 선언된 변수는 컴포넌트와 무관한 변수, DOM 요소 접근, 지속적인 값 저장, 커스텀 훅 생성 등에 사용됩니다.
+
+#### react useRef > 예시
+
+&nbsp; 다음의 예시는 useState 와 useRef 를 동시에 쓰는 코드 입니다. useState 의 값 count1 이 변하기 전에는 count2 의 변화가 페이지 렌더링에 적용되지 않습니다.
+
+```typescript
+// # src/component/Home/index.tsx
+
+import React, { useState, useRef } from 'react';
+
+export const Home = () => {
+  const [count1, setCount1] = useState<number>(0);
+  const count2 = useRef<number>(0);
+
+  const count1Up = () => {
+    setCount1(count1 + 1);
+    console.log('카운트1 : ', count1);
+  };
+
+  const count2Up = () => {
+    count2.current++;
+    console.log('카운트2 : ', count2.current);
+  };
+
+  return (
+    <>
+      <h1>홈 페이지입니다.</h1>
+      <br />
+      <button onClick={count1Up}>카운트1 UP</button>
+      <button onClick={count2Up}>카운트2 UP</button>
+      <br />
+      <div>카운트1 : {count1}</div>
+      <br />
+      <div>카운트2 : {count2.current}</div>
+    </>
   );
 };
 ```
 
 ### react useEffect
 
-&nbsp; react 라이브러리에서
+&nbsp; react 라이브러리에서는 가상 DOM으로 렌더링된 페이지를 다시 렌더링하기 전에는 페이지의 정보가 변하지 않습니다.
+
+&nbsp; 유동적인 변화를 구현하거나, 함수가 구동하는 타이밍을 맞추기 위해서는 useEffect 를 사용해야 합니다. useEffect 에 선언된 객체가 변화할 때, useEffect는 이를 감지하고 작동합니다.
+
+&nbsp; useEffect 함수 안에는 작동 시 호출할 콜백 함수와 변화를 감지할 의존성 객체들의 배열을 인자로 받습니다. 결과적으로 밑의 양식으로 사용할 수 있습니다..
+
+<center>
+
+`useEffect(『CALLBACK_FUNCTION』, 『DEPENDENCY_ARRAY』)`
+
+</center>
+
+- 의존성 객체를 인자로 주지 않았을 경우에는 모든 변화 상황 마다 콜백함수가 발동합니다.
 
 ```typescript
-// src/App.tsx
-// API & Library
-import React, { useEffect } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+// # src/component/Home/index.tsx
 
-// Components
-import { HomePage } from 'components/HomePage';
-import { BlogPage } from 'components/BlogPage';
-import { ErrorPage } from 'components/pages/ErrorPage';
+import React, { useState, useEffect } from 'react';
 
-const App = () => {
-  // LifeCycle
+export const Home = () => {
+  const [count1, setCount1] = useState(0);
+  const [count2, setCount2] = useState(0);
+
   useEffect(() => {
-    console.log('[VERSION]: ', process.env.REACT_APP_VERSION);
-  }, []);
+    console.log('뭐가 변하든 나도 작동할꺼야!');
+  }); // <--
 
-  // Return
   return (
-    <div className={`App`}>
-      <Routes>
-        <Route path="/" element={<Navigate replace to="/home" />} /> // 처음 도착하게 될 주소
-        <Route path="/home/*" element={<HomePage />} />
-        <Route path="/blog/*" element={<BlogPage />} />
-        <Route path="/error/*" element={<ErrorPage />} />
-        <Route path="/*" element={<Navigate replace to="/error" />} /> // 이상한 값이면 이 곳으로
-      </Routes>
-    </div>
+    <>
+      <h1>홈 페이지입니다.</h1>
+      <br />
+      <button onClick={() => setCount1(count1 + 1)}>카운트 1 UP</button>
+      <button onClick={() => setCount2(count2 + 1)}>카운트 2 UP</button>
+      <br />
+      <div>카운트1 : {count1}</div>
+      <div>카운트2 : {count2}</div>
+    </>
   );
 };
+```
 
-export default App;
+- 의존성 객체를 인자로 줄 경우에는 해당 인자의 변화에만 반응합니다.
+
+```typescript
+// # src/component/Home/index.tsx
+
+import React, { useState, useEffect } from 'react';
+
+export const Home = () => {
+  const [count1, setCount1] = useState(0);
+  const [count2, setCount2] = useState(0);
+
+  useEffect(() => {
+    console.log('count2가 변하면 나도 작동할꺼야!');
+  }, [count2]); // <--
+
+  return (
+    <>
+      <h1>홈 페이지입니다.</h1>
+      <br />
+      <button onClick={() => setCount1(count1 + 1)}>카운트 1 UP</button>
+      <button onClick={() => setCount2(count2 + 1)}>카운트 2 UP</button>
+      <br />
+      <div>카운트1 : {count1}</div>
+      <div>카운트2 : {count2}</div>
+    </>
+  );
+};
+```
+
+- 의존성 객체를 빈 객체로 줄 경우에는 맨 처음 페이지가 로드 될 때, 초기 렌더링 시에만 함수를 호출하고 다시는 호출되지 않습니다.
+
+```typescript
+// # src/component/Home/index.tsx
+
+import React, { useState, useEffect } from 'react';
+
+export const Home = () => {
+  const [count1, setCount1] = useState(0);
+  const [count2, setCount2] = useState(0);
+
+  useEffect(() => {
+    console.log('처음에만 작동할꺼야!');
+  }, []); // <--
+
+  return (
+    <>
+      <h1>홈 페이지입니다.</h1>
+      <br />
+      <button onClick={() => setCount1(count1 + 1)}>카운트 1 UP</button>
+      <button onClick={() => setCount2(count2 + 1)}>카운트 2 UP</button>
+      <br />
+      <div>카운트1 : {count1}</div>
+      <div>카운트2 : {count2}</div>
+    </>
+  );
+};
 ```
 
 <hr />
 
 ### recoil 상태 관리 라이브러리
 
-- DOM 기반으로 페이지를 형성하는 컴포넌트들을 분리 개발하게 된 덕분에 재사용성이 증가되었지만,
-  컴포넌트 간에 상호작용을 필요로 하는 계산이 매우 힘들어졌다. <br />
+#### recoil 상태 관리 라이브러리 > 필요한 이유
 
-  일반적인 구현에는 props 로 부모 컴포넌트에서 자식 컴포넌트에게 전달하며,
-  emit 이나 hook 을 걸어 자식 쪽에서 부모에게 정보를 전달할 수 있다. <br />
+&nbsp; Vue 나 React 에서는 DOM 기반으로 페이지를 형성하는 컴포넌트들을 분리 개발하게 된 덕분에 재사용성이 매우 증가되었지만, 컴포넌트 간에 상호작용을 필요로 하는 계산에는 애로사항이 꽃핍니다.
 
-  이 과정이 직접 부모자식 관계가 아닐 경우 상당히 복잡하고 코드가 길어지고
-  데이터를 다루는 로직이 복잡해진다.
-  상기한 문제를 해결하기 위해 상태 관리 라이브러리`(State Management Library)`를 사용한다.
-  여러 컴포넌트에서 데이터를 공유할 수 있도록 중앙 관리하는 방식이라고 대강 이해하면 충분하다.
-  <br />
+&nbsp; 가끔 부모 컴포넌트와 자식 컴포넌트가 상호작용을 해야 할 때가 있습니다. 예를 들어서 컬러팔레트를 클릭하면 배경이 바뀌는 사이트를 상상해 보세요. 버튼은 자식 컴포넌트에 있습니다. 부모 컴포넌트의 바탕색은 어떻게 바꿀까요? 그 반대로 부모에 버튼이 있고 자식의 색을 바꿔야 한다면요?
 
-  많은 개발자들이 사용하며 어느 정도 신뢰가 쌓인 Vue의 Vuex,
-  Pinia 그리고 React의 Recoil, Redux 가 주로 사용된다.
-  React 에서 자체적으로 지원하는 전역 상태 관리 인터페이스 Context API 나,
-  Mobx 등 여러 방법들이 있으니 입맛에 맞게 선택하면 된다.
-  여기서는 데이터 비동기화 처리가 간편한 recoil 을 채택했다.<br />
+&nbsp; 부모가 자식에게 데이터를 전달할 때는 인자를 통해서 넘겨줄 수 있습니다. 부모 컴포넌트에서 자식에게 넘겨주는 인자를 `props` 라고 부릅니다.
+
+&nbsp; 자식이 부모에게 데이터를 넘겨주기 위해선 부모의 `event`를 자식에게 넘겨주면 됩니다. Vue나 Svelte 에서는 emit 을 통해, React 에선 스크립트를 직접 적용할 수 있기 때문에 콜백함수 hook 을 넘겨줄 수 있습니다.
+
+&nbsp; 하지만 상호작용해야 할 컴포넌트가 고조할머니 뻘이라면 어떡하시겠습니까? 고조부모-증조부모-조부모-부모-자식 관계들을 건너 건너 props 와 event 를 전달하시겠습니까? 이런 인자 전달 캐스케이드 쇼는 너무 복잡하고 힘듭니다.
+
+&nbsp; 프로그래밍처럼 전역변수만 있다면 해결될 문제입니다. 이 문제를 해결하기 위해 상태 관리 라이브러리`(State Management Library)`가 필요합니다. 여러 컴포넌트에서 데이터를 공유할 수 있도록 데이터를 중앙 관리하는 방식이라고 생각하면 이해가 편합니다.
+
+&nbsp; 많은 개발자들이 사용하며 어느 정도 신뢰가 쌓인 Vue의 Vuex, Pinia 그리고 React의 Recoil, Redux 가 주로 사용됩니다. React 에서 자체적으로 지원하는 전역 상태 관리 인터페이스 Context API 나, Mobx 등 여러 방법들이 있으니 입맛에 맞게 선택하시면 됩니다.
+
+&nbsp; 전 데이터 비동기화 처리가 간편한 recoil 을 채택하겠습니다.
+
+#### recoil 상태 관리 라이브러리 > 설치
 
 - `npm install recoil`<br/>
-  다음의 명령어로 위에서 언급한 패키지들을 내려 받는다.
+  다음의 명령어로 위에서 언급한 패키지들을 내려 받습니다.
 
 <br />
 
@@ -1674,4 +1803,6 @@ export default App;
 
 - axios 객체를 사용할 수 있도록 패키지를 설치해주세요.
 
-&nbsp; npm install axios
+```bash
+npm install axios
+```
