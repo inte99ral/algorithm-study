@@ -1817,6 +1817,14 @@ export const Home = () => {
 
 &nbsp; 우선 이렇게 같은 소스에서 데이터에 접근하는 방법을 이용하여 서버가 별도로 있는 척을 하겠습니다. 실제로 서버를 준비하고 포트포워딩하여 연결할 때는 주소만 바꿔주면 됩니다.
 
+#### $\color{#FF9922} \footnotesize \textnormal{REST API > 추가적인 설명 🚨}$
+
+&nbsp; 지금 이 구현은 프론트엔드 측에서 절반만 구현한 것 입니다. RESTful 한 통신을 위해서는 백엔드 서버 또한 이에 적합하게 만들어야 합니다.
+
+&nbsp; REST API 서버는 URL 에 다루는 자원에 접근할 수 있는 ID 고유키만을 적어 소통하도록 구성합니다. 데이터의 CRUD 조작은 GET, POST, PUT, DELETE 라는 http 프로토콜 통신 타입에 담아서 요청합니다.
+
+&nbsp; 그렇다면 `http:『SERVER_URL』/『RESOURCE_ID』/『DATA_PRIMARY_KEY』` 만으로 서로 소통할 수 있게 됩니다. 지금 예시에서는 REST API 서버를 구축하는 백엔드 개발 단계를 생략했기 때문에 오해없으시길 바랍니다.
+
 #### REST API > Axios
 
 &nbsp; axios 라이브러리는 promise 객체를 좀더 간결하고 세련되게 쓰는 방법입니다.
@@ -1936,7 +1944,10 @@ export class AxiosApi {
 ##### REST API > Axios > 코드 상세 설명
 
 - Axios 객체는 싱글턴 디자인패턴을 채택하여 중복되지 않도록 하는 것이 좋습니다. Axios 객체가 여러 번 생성되어 서버 컴퓨터에게 순서섞인 비동기적 CRUD 처리를 요구하게 될 경우, 서버 데이터의 CRUD 데이터 처리 순서가 뒤죽박죽이 될 수 있습니다.
+
 - 서버의 오버헤드를 줄이기 위하여 여러 다른 서버 주소에서 데이터를 가져오는 경우가 있기 때문에 baseUrl 지정을 유동적으로 할 수 있도록 했습니다.
+
+- fetch 의 예시를 보면 알수있듯, Axios를 사용할 때는 response 객체에 json() 또는 text() 메서드가 없습니다. 그 이유는 Axios가 이미 응답 데이터를 자동으로 파싱하기 때문입니다. Axios에서는 response 객체의 data 속성을 통해 직접 파싱된 데이터에 접근할 수 있습니다.
 
 #### REST API > API 화
 
@@ -2115,8 +2126,166 @@ export const Home = () => {
 
 &nbsp; 앞으로 AWS 나 서버를 올리게 된다면 곧바로 그 쪽으로 적용하면 됩니다.
 
-## 웹페이지 마크다운 띄우기
+## 리액트 마크다운
 
 &nbsp; 매번 HTML 코드를 작성하는 일은 괴롭습니다. 사이트 운영에 의미가 없겠죠.
 
 &nbsp; 유동적이고 지속가능한 사이트 확장을 위해서 마크다운을 사이트에 적용가능한 HTML 로 바꾸어주는 라이브러리를 사용하겠습니다.
+
+### 리액트 마크다운 > 설치
+
+```bash
+npm install react-markdown
+```
+
+### 리액트 마크다운 > 예시
+
+### 리액트 마크다운 > 예시 > 1. Server 데이터
+
+&nbsp; 웹페이지에 띄울 마크다운 파일을 만들어봅시다.
+
+- public/server/ 폴더에 포스팅할 글들을 올릴 post/ 폴더를 만듭니다.
+- post/ 폴더에 0.md 파일을 생성해주세요.
+
+```md
+# Example 유저 내역
+
+## 목록
+
+- 홍길동
+- 전우치
+```
+
+&nbsp; 이제 `http://localhost:『PORT_NUMBER』/server/post/0.md` 주소에서 해당 파일에 접근할 수 있습니다.
+
+### 리액트 마크다운 > 예시 > 2. REST API
+
+&nbsp; REST API 환경 조성이 사전에 필요합니다.
+
+&nbsp; src/api/rest/ 폴더에 post/ 폴더를 추가한 뒤, index.ts 를 만들어주세요.
+
+```ts
+// # src/api/rest/post/index.tsx
+
+import { AxiosApi } from 'api/axios';
+
+const postAxios = AxiosApi.getAPI().getInstance('post');
+
+export const getPost = (id: number) => {
+  return new Promise<string>((resolve, reject) => {
+    postAxios
+      ?.get(`/${id}.md`, { responseType: 'text' })
+      .then((responce) => {
+        resolve(responce.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+```
+
+### 리액트 마크다운 > 예시 > 3. 페이지에서 구현
+
+&nbsp; 우선 글씨가 보기 좋도록 src/theme.scss 에서 폰트를 [Pretendard](https://namu.wiki/w/Pretendard) 로 바꾸겠습니다. 또한 전체 테마에서 바탕색과 문서색을 정해주겠습니다.
+
+- src/theme.scss 에 테마 환경변수 값을 수정합니다.
+- src/theme.scss 의 사이트 전체 테마 폰트를 수정합니다.
+
+```scss
+// # src/theme.scss
+
+// ...
+
+@font-face {
+  font-family: Pretendard;
+  src: url(asset/font/PretendardVariable.ttf);
+}
+
+// ...
+
+.light {
+  --color-main: #ffffff;
+  --color-sub: #f4f5f7;
+  --color-reverse: #000000;
+  --color-blur: #00000040;
+}
+
+.dark {
+  --color-main: #353839;
+  --color-sub: #2f2f31;
+  --color-reverse: #ffffff;
+  --color-blur: #ffffff40;
+}
+
+// ...
+
+* {
+  font-family: Pretendard;
+  font-size: 14px;
+
+  position: relative;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  z-index: 1000;
+  text-decoration: none;
+}
+```
+
+&nbsp; src/component/Home/index.tsx 도 포스팅 글들을 보기좋게 정리하겠습니다. style 파일에서 스타일 컴포넌트를 생성해주세요.
+
+- src/component/Home/style.tsx 를 다음과 같이 수정합니다.
+
+```tsx
+// # src/component/Home/style.tsx
+
+import Styled from 'styled-components';
+
+export const Styled_Home = Styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-sub);
+`;
+
+export const Styled_HomeCard = Styled.div`
+  border-radius: 14px;
+  padding: 28px;
+  margin: 14px;
+  background-color: var(--color-main);
+
+  box-shadow:
+    4px 4px 10px -1px rgba(0, 0, 0, 0.25),
+    -4px -4px 10px -1px rgba(255, 255, 255, 0.25); 
+`;
+```
+
+- src/component/Home/index.tsx 를 다음과 같이 수정합니다.
+
+```tsx
+// # src/component/Home/index.tsx
+
+import React, { useState, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import { getPost } from 'api/rest/post';
+
+import { Styled_Home, Styled_HomeCard } from './style';
+
+export const Home = () => {
+  const [post, setPost] = useState('');
+
+  useEffect(() => {
+    (async () => setPost(await getPost(0)))();
+  }, []);
+
+  return (
+    <Styled_Home>
+      <h4>예시 유저들의 목록은 다음과 같습니다.</h4>
+      <br />
+      <Styled_HomeCard>
+        <ReactMarkdown>{post}</ReactMarkdown>
+      </Styled_HomeCard>
+    </Styled_Home>
+  );
+};
+```
