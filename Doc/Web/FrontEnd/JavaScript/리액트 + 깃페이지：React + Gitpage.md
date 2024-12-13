@@ -1787,22 +1787,336 @@ export const Home = () => {
 
 #### REST API > localhost 에 대한 이해
 
-&nbsp; vscode 확장 live server 의 경우나 react의 npm start 같은 로컬호스트 테스트를 실행하면 클라우드 시스템과 같이 여러분의 파일 폴더를 웹 브라우저에서 접근할 수 있게 됩니다. 설정한 포트 넘버에 따라 `localhost:<PORT_NUMBER>/` 주소에서 접근할 수 있습니다.
+&nbsp; vscode 확장 live server 의 경우나 react의 npm start 같은 로컬호스트 테스트를 실행하면 클라우드 시스템과 같이 여러분의 파일 폴더를 웹 브라우저에서 접근할 수 있게 됩니다. 설정한 포트 넘버에 따라 `localhost:『PORT_NUMBER』/` 주소에서 접근할 수 있습니다.
 
 &nbsp; 이 과정에서 파일 디렉토리 목록을 담은 index 라는 이름의 파일이 있다면 index 파일명의 파일을 브라우저에 띄웁니다. 이것이 index.tsx 라는 이름을 가진 파일이 해당 주소에서 브라우저에 띄워지는 이유입니다.
 
-&nbsp; 예를 들어, 로컬호스트로 올린 폴더에 data.json 이라는 제목의 파일을 넣어뒀다면 크롬이나 엣지등의 웹브라우저에서 `localhost:<PORT_NUMBER>/data.json` 이라고 검색하면 해당 데이터가 출력됩니다.
+&nbsp; 예를 들어, 로컬호스트로 올린 폴더에 data.json 이라는 제목의 파일을 넣어뒀다면 크롬이나 엣지등의 웹브라우저에서 `localhost:『PORT_NUMBER』/data.json` 이라고 검색하면 해당 데이터가 출력됩니다. React 로컬호스트 테스트의 경우 react 프로젝트 최상단 public 폴더가 로컬호스트로 올려집니다.
 
-&nbsp; React 로컬호스트 테스트의 경우 react 프로젝트 최상단 public 폴더가 로컬호스트에 올려집니다. 따라서 public/server/test 폴더를 만들고 해당 디렉토리에 data.json 파일을 만든다면, `localhost:<PORT_NUMBER>/server/test/data.json` 주소로 브라우저에서 해당 데이터에 접근할 수 있습니다. (react의 디폴트 포트넘버는 3000 입니다.)
+- Example 예시를 확인하는 두 사용자 User 가 있다고 가정해보겠습니다.
+- react 프로젝트 최상단 public 폴더에 가서버 역할을 할 server/ 폴더를 만들어주세요.
+- public/server/ 폴더에 id 에 해당하는 example/ 폴더를 만들어주세요.
+- public/server/example/user.json 파일을 생성하고 두 사용자의 정보를 다음과 같이 만들어주세요.
+
+```json
+[
+  {
+    "id": 0,
+    "name": "홍길동"
+  },
+  {
+    "id": 1,
+    "name": "전우치"
+  }
+]
+```
+
+- 터미널에 `npm start` 명령어로 react 의 빌드 테스트를 로컬 서버에 올려주세요.
+- 웹브라우저에서 `localhost:『PORT_NUMBER』/server/example/user.json` 주소를 검색해주세요.(react의 디폴트 포트넘버는 3000 입니다.)
+- 브라우저에서 해당 데이터에 접근할 수 있는 지 확인해봅시다.
 
 &nbsp; 우선 이렇게 같은 소스에서 데이터에 접근하는 방법을 이용하여 서버가 별도로 있는 척을 하겠습니다. 실제로 서버를 준비하고 포트포워딩하여 연결할 때는 주소만 바꿔주면 됩니다.
 
 #### REST API > Axios
 
-- axios 라이브러리는 promise 객체를 좀더 간결하고 세련되게 쓰는 방법입니다.
+&nbsp; axios 라이브러리는 promise 객체를 좀더 간결하고 세련되게 쓰는 방법입니다.
+
+##### REST API > Axios > 설치
 
 - axios 객체를 사용할 수 있도록 패키지를 설치해주세요.
 
 ```bash
 npm install axios
 ```
+
+##### REST API > Axios > 코드 예시
+
+&nbsp; 이제 axios 를 우리 입맛에 맞게 쓸 수 있도록 API 화 시킬 것 입니다.
+
+- src/api/ 폴더에 axios/ 폴더를 만들고 index.ts 를 생성해주세요.
+
+````typescript
+// # src/api/axios/index.tsx
+
+import axios, { AxiosInstance } from 'axios';
+
+/**
+ * @description
+ * 모든 Axios 객체를 중앙통제하는 싱글턴 API 인스턴스 입니다.
+ *
+ * 다른 api 주소에서 받아올 경우에는 Axios 객체를 새로 만들어 지정해줄 수 있습니다.
+ *
+ * @example
+ * ```
+ * // * Axios API 임포트하여 사용합니다.
+ * import { AxiosApi } from 'api/axios';
+ *
+ * // * 다음과 같이 객체를 받아옵니다. base url 과 객체명을 통일하는 것을 권장합니다.
+ * const『AXIOS_INSTANCE_NAME』 = AxiosApi.getAPI().getInstance('『BASE_URL』');
+ *
+ * // * 엑시오스 인스턴스 객체에서는 다음과 같이 url 요청을 보낼 수 있습니다.
+ * 『AXIOS_INSTANCE_NAME』.get(`『REQUEST_URL』`)
+ * ```
+ *
+ * @author inte99ral
+ * @version 2024-11-18
+ */
+
+export class AxiosApi {
+  // ## Private:
+
+  private static apiInstance: AxiosApi;
+  private axiosMap: Map<string, AxiosInstance>;
+
+  private constructor() {
+    this.axiosMap = new Map<string, AxiosInstance>();
+    this.axiosMap.set(
+      'default',
+      axios.create({
+        baseURL: process.env.REACT_APP_SERVER,
+        headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+      }),
+    );
+  }
+
+  // ## Public:
+
+  public static getAPI = () => {
+    if (!AxiosApi.apiInstance) AxiosApi.apiInstance = new AxiosApi();
+    return AxiosApi.apiInstance;
+  };
+
+  public getInstance = (url: string = 'default', isBaseUrl: boolean = true) => {
+    if (!this.axiosMap.has(url)) {
+      this.axiosMap.set(
+        url,
+        axios.create({
+          baseURL: (isBaseUrl ? process.env.REACT_APP_SERVER : '') + url,
+          headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+        }),
+      );
+    }
+    return this.axiosMap.get(url);
+  };
+
+  /**
+   *
+   * @param accessToken axios에 입력할 엑세스토큰
+   * @param axiosUrlArr 대상 axios의 url, 값이 없다면 모든 axios를 대상으로 합니다.
+   */
+  public setAccessToken = (accessToken: string, ...axiosUrlArr: string[]) => {
+    this.axiosMap.forEach((axiosInstance: AxiosInstance, axiosUrl: string) => {
+      if (axiosUrlArr.length != 0 || !axiosUrlArr.includes(axiosUrl)) return;
+      axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    });
+  };
+
+  /**
+   *
+   * @param interceptFunction axios에 입력할 인터셉터 함수
+   * @param axiosUrlArr 대상 axios의 url, 값이 없다면 모든 axios를 대상으로 합니다.
+   */
+  public setRequestInterceptor = (interceptFunction: boolean, ...axiosUrlArr: string[]) => {
+    this.axiosMap.forEach((axiosInstance: AxiosInstance, axiosUrl: string) => {
+      if (axiosUrlArr.length != 0 || !axiosUrlArr.includes(axiosUrl)) return;
+      axiosInstance.interceptors.request.use(
+        (config) => {
+          if (interceptFunction) throw new Error('Error');
+          return config;
+        },
+        (error) => {
+          Promise.reject(error);
+        },
+      );
+    });
+  };
+}
+````
+
+##### REST API > Axios > 코드 상세 설명
+
+- Axios 객체는 싱글턴 디자인패턴을 채택하여 중복되지 않도록 하는 것이 좋습니다. Axios 객체가 여러 번 생성되어 서버 컴퓨터에게 순서섞인 비동기적 CRUD 처리를 요구하게 될 경우, 서버 데이터의 CRUD 데이터 처리 순서가 뒤죽박죽이 될 수 있습니다.
+- 서버의 오버헤드를 줄이기 위하여 여러 다른 서버 주소에서 데이터를 가져오는 경우가 있기 때문에 baseUrl 지정을 유동적으로 할 수 있도록 했습니다.
+
+#### REST API > API 화
+
+&nbsp; axios 싱글턴 인스턴스를 만들고 리턴받는 API 를 구현하였습니다. 이제 RESTful 한 요청/응답 데이터를 얻어오는 함수들을 만들고 API 화 하겠습니다.
+
+&nbsp; 다음의 예시는 example 이라는 resource id 에 맞춰 RESTful 하게 통신하는 상황을 가정합니다.
+
+&nbsp; public/server/example/user.json 파일에 있는 데이터를 가져오고 다루는 API 를 만들어봅시다.
+
+- src/api/ 폴더에 rest/ 폴더를 만듭니다.
+- src/api/rest/ 폴더에 example/ 폴더를 만들고 index.ts 를 생성해주세요.
+
+````typescript
+// # src/api/rest/『RESTFUL_ID』/index.tsx
+
+// ## Documentation ==================================================
+/**
+ * @description
+ * REST API 에 맞게 통신 요청/응답 처리를 함수화 한 파일 입니다.
+ *
+ * base url, 즉 REST 통신의 자원 ID 와 객체명을 통일하는 것을 권장합니다.
+ *
+ * @example
+ * ```
+ * // * rest 라이브러리 임포트하여 사용합니다.
+ * import {『RESTFUL_FUNCTION』} from 'api/rest/『RESTFUL_ID』'
+ *
+ * // * 요청/응답은 프라미스 객체로 처리되므로 동기적으로 처리하는 것은 불가능하며 비동기 처리를 해야합니다.
+ * // 1. IFFE 방식
+ * (async () => { const responceData = await 『RESTFUL_FUNCTION』(); })();
+ *
+ * // 2. Promise 체이닝
+ * 『RESTFUL_FUNCTION』().then((data) => { const responceData = data; });
+ * ```
+ *
+ * @author inte99ral
+ * @version 2024-11-18
+ */
+
+// ## API & Library ==================================================
+
+import { AxiosApi } from 'api/axios';
+
+// ## Interface & Type ===============================================
+
+/**
+ * @description
+ *
+ * 응답 데이터의 Interface & Type 입니다.
+ *
+ * typescript 에서는 응답 데이터의 Type 을 반드시 알아야하는 경우가 있습니다.
+ *
+ * @example
+ * ```
+ * // * rest 라이브러리 임포트하여 사용합니다.
+ * import {『RESTFUL_FUNCTION』,『RESPONCE_TYPE』} from 'api/rest/『AXIOS_OBJECT_NAME』'
+ *
+ * // * useState 에 대한 예시는 다음과 같습니다.
+ * const [『SETTER』,『GETTER』] = useState<『RESPONCE_TYPE』[]>();
+ *
+ * (async () => {
+ *  『GETTER』(await 『RESTFUL_FUNCTION』());
+ * })();
+ * ```
+ *
+ * @author inte99ral
+ * @version 2024-11-18
+ */
+export interface User {
+  [key: string]: string | number | boolean; // 인덱스 시그니처 - 동적 키 접근 허용
+  id: number;
+  name: string;
+}
+
+// ## Variable & Constant ============================================
+
+const exampleAxios = AxiosApi.getAPI().getInstance('example');
+
+// ## Function =======================================================
+
+export const getExampleUserlist = () => {
+  return new Promise<User[]>((resolve, reject) => {
+    exampleAxios
+      ?.get(`/user.json`)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+/**
+ * @description Axios 객체가 아닌 fetch를 사용한 예시 입니다.
+ * @author inte99ral
+ * @version 2024-11-18
+ */
+export const getTestDataByFetch = () => {
+  return new Promise((resolve, reject) => {
+    // fetch 옵션의 상세 설명 https://developer.mozilla.org/ko/docs/Web/API/Window/fetch
+    fetch('server/example/user.json', {
+      method: 'GET', // { GET | POST | PUT | DELETE }
+      mode: 'cors', // { no-cors | cors "교차 출처(cross-origin) 허용" | same-origin "동일출처만 허용" }
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return response.json();
+      })
+      .then((data) => {
+        // console.log('JSON 데이터 로드 완료:', data);
+        resolve(data);
+      })
+      .catch((error) => {
+        // console.error('JSON 파일 로드 중 오류 발생:', error);
+        reject(error);
+      });
+  });
+};
+````
+
+#### REST API > 사용 예시
+
+&nbsp; `localhost:『PORT_NUMBER』/home/` 주소의 페이지에서 `localhost:『PORT_NUMBER』/server/example/user.json` 에서 받아온 유저들의 정보를 테이블로 출력해보겠습니다.
+
+```typescript
+// # src/component/Home/index.tsx
+
+import React, { useState, useEffect } from 'react';
+
+import { getExampleUserlist, ExampleUser } from 'api/rest/example';
+
+export const Home = () => {
+  const [exampleUserList, setExampleUserList] = useState<ExampleUser[]>();
+
+  // 또는 ExampleUser 를 가져오지 않고 타입추론 합니다.
+  // const [exampleUserList, setExampleUserList] = useState<Awaited<ReturnType<typeof getExampleUserlist>>>();
+
+  useEffect(() => {
+    (async () => setExampleUserList(await getExampleUserlist()))();
+  }, []);
+
+  return (
+    <>
+      <h4>예시 유저들의 목록은 다음과 같습니다.</h4>
+      <br />
+      {exampleUserList ? (
+        <table style={{ borderCollapse: 'collapse' }}>
+          <tr>
+            {Object.keys(exampleUserList[0]).map((header, index) => (
+              <th key={index} style={{ border: '1px solid black', padding: '14px' }}>
+                {header}
+              </th>
+            ))}
+          </tr>
+          {exampleUserList.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              {Object.keys(row).map((header, cellIndex) => (
+                <td key={cellIndex} style={{ border: '1px solid black', padding: '14px' }}>
+                  {row[header]}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </table>
+      ) : (
+        <></>
+      )}
+    </>
+  );
+};
+```
+
+&nbsp; 앞으로 AWS 나 서버를 올리게 된다면 곧바로 그 쪽으로 적용하면 됩니다.
+
+## 웹페이지 마크다운 띄우기
+
+&nbsp; 매번 HTML 코드를 작성하는 일은 괴롭습니다. 사이트 운영에 의미가 없겠죠.
+
+&nbsp; 유동적이고 지속가능한 사이트 확장을 위해서 마크다운을 사이트에 적용가능한 HTML 로 바꾸어주는 라이브러리를 사용하겠습니다.

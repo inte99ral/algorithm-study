@@ -115,7 +115,11 @@ c++의 람다식은 4 개의 부분으로 구성되어 있습니다.
   <center>
 
   ```cpp
+  // 화살표 생략, 반환 타입 추론
   function<int()> func1 = []() { return 0; };
+
+  // 반환 타입 명시
+  function<int()> func1 = []() -> int { return 0; };
   ```
 
   </center>
