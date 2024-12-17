@@ -173,7 +173,7 @@
 - 리액트 설치 명령 (타입스크립트 기반) 을 입력해주세요
 
   ```bash
-  npx create-react-app <PROJECT_NAME> --template typescript
+  npx create-react-app 『PROJECT_NAME』 --template typescript
   ```
 
 - 잘 설치가 되었는지 확인하기 위해서 `npm start` 명령어를 실행해봅시다.
@@ -181,6 +181,119 @@
   ```bash
   npm start
   ```
+
+##### react & typescript > 설치 > $\color{#FF9922} \footnotesize \textnormal{npm error code ERESOLVE 🚨}$
+
+&nbsp; 가끔 다음의 메세지 이후 create-react-app 설치가 오류를 만드는 경우가 있습니다.
+
+```bash
+Installing template dependencies using npm...
+npm error code ERESOLVE
+npm error ERESOLVE unable to resolve dependency tree
+```
+
+&nbsp; 이는 npm 7 이상에서 피어 의존성(peer dependencies) 처리 방식이 변경되어 이전 버전과 호환성 문제가 발생하는 부분에서 발생합니다.
+
+&nbsp; 이 경우 프로젝트를 삭제해주시고 다음의 세 가지 방법중 하나로 진행해주세요.
+
+1. legacy-peer-deps 옵션 활성화
+
+- npm 7 의 피어 의존성 출동을 무시하고 설치를 진행합니다.
+- 이 설정을 사용하면 npm 7 이전 버전의 알고리즘을 사용하여 의존성 문제를 해결합니다.
+
+```bash
+npm config set legacy-peer-deps true
+```
+
+2. npm 캐시 정리 후, 프로젝트 설치 재시도
+
+```bash
+npm cache clean --force
+```
+
+3. npm 의존성 무시 옵션을 사용합니다.
+
+```bash
+npx create-react-app 『PROJECT_NAME』 --use-npm --legacy-peer-deps
+```
+
+4. npm 강제 설치 옵션을 사용합니다.
+
+```bash
+npx create-react-app 『PROJECT_NAME』 --use-npm --force
+```
+
+5. create-react-app 대신 Vite 를 대신 사용합니다.
+
+```bash
+npm create vite@latest 『PROJECT_NAME』 -- --template react
+```
+
+##### react & typescript > 설치 > $\color{#FF9922} \footnotesize \textnormal{모듈 'react'에 대한 선언 파일을 찾을 수 없습니다. 🚨}$
+
+- 가끔 typescript 와 eslint, react 간에 의존성 및 호환성 문제로 설치가 제대로 진행되지 않을 때가 있습니다.
+- 별도로 react에 대한 typescript type 설정을 설치해주세요
+
+```bash
+npm install --save-dev @types/react @types/react-dom
+```
+
+##### react & typescript > 설치 > $\color{#FF9922} \footnotesize \textnormal{package.json 확인 🚨}$
+
+&nbsp; warning 이 뜨고 npm audit (npm 에서 코드 취약점을 파악하는 명령어) 를 쳤을 시에 nth-check 가 나온다면 걱정하지 하세요. npm 으로 패키지를 다운로드 받고 있다면 원래 나와야 하는 게 맞습니다. 문제의 원인은 package.json 안에 있는 react 스크립트 패키지 `"react-scripts"` 입니다. 이 오류에서는 리액트 자체가 문제인 상황입니다.
+
+&nbsp; `npm audit fix --force` 로는 해결할 수 없습니다. npm 은 해당 코드로 Node.js 앱을 돌릴 때 생기는 취약점을 경고하고 수정하는 기능(npm audit)을 가지고 있습니다. 하지만 CRA(create-react-app)는 정적 빌드 툴이고, Node.js와 같은 방식으로 작동하지 않습니다. 때문에 npm audit은 CRA의 몇몇 부분을 취약점으로 오탐지하곤 합니다.
+
+&nbsp; 따라서 npm audit 에게 `"react-scripts"` 패키지는 완성품에 포함되어서 Node.js 위에서 구동하는 용도가 아니라 개발용으로 쓰이는 패키지라는 것을 명시해준다면 문제를 해결할 수 있습니다.
+
+&nbsp; 다음과 같이 package.json 안의 "dependencies" 안에 있는 "react-scripts" 을 "devDependencies" 로 이동시켜서 개발-의존성 패키지 임을 명시해주세요.
+
+```json
+{
+  // ...
+
+  "dependencies": {
+    // ...
+    // "react-scripts": "^5.0.1" <-- 삭제해주세요
+    // ...
+  },
+  "devDependencies": {
+    // ...
+    "react-scripts": "^5.0.1"
+    // ...
+  }
+
+  // ...
+}
+```
+
+&nbsp; 그 후, npm audit 대신 (구버전)`npm audit --production` 또는 (신버전)`npm audit --omit=dev` 을 사용하면 됩니다.
+
+- `npm audit --omit=dev` 과 `npm audit --production`은 실질적으로 동일한 기능을 수행합니다. 두 명령어 모두 개발 의존성(devDependencies)을 제외하고 프로덕션 의존성만을 대상으로 보안 감사를 실행합니다. 최신 버전에서는 의존성에 대하여 더 유연하게 접근하기 위하여 --omit 명령어 쪽을 권장합니다. 이 경우엔 다른 종류의 의존성도 --omit=optional 같이 통일성 있는 명령어로 배제할 수 있기 때문입니다.
+
+&nbsp; npm이 node_modules 트리나 package-lock.json 의 수정시엔 의존성 라이브러리 버전을 상세하게 고정한 정보인 package-lock.json 이 자동생성되나 가끔 수정이 안될때가 있습니다. package-lock.json이 우선시 되므로 이 경우 package-lock.json을 삭제하거나 직접 수정해주세요
+
+##### react & typescript > 설치 > $\color{#FF9922} \footnotesize \textnormal{nth-check 🚨}$
+
+&nbsp; react-script 가 devDependencies 로 이동했어도 이미 기존 의존성에 연결되어있는 nth-check 가 여전히 오류을 일으킬 경우가 있습니다.
+
+&nbsp; -D 플래그는 --save-dev의 축약형으로, 이 패키지가 개발 과정에서만 필요하고 프로덕션 환경에서는 필요하지 않음을 나타냅니다.
+
+&nbsp; 이 -D 명령어로 devDependencies 로 nth-check 의존성 설정을 변경해주세요.
+
+```bash
+npm install -D npm-force-resolutions
+```
+
+##### react & typescript > 설치 > $\color{#FF9922} \footnotesize \textnormal{Error: error:0308010C:digital envelope routines::unsupported 🚨}$
+
+&nbsp; 이 오류는 주로 Node.js 버전과 React 프로젝트의 react-scripts 버전 간의 호환성 문제로 발생합니다.
+
+&nbsp; 글 작성 시점 기준으로 react-scripts 최신 버전은 5.0.1 입니다. 적절한 버전으로 설치해주세요.
+
+```bash
+npm install --save react-scripts@5.0.1 --force
+```
 
 #### react & typescript > 구조정리
 
@@ -200,9 +313,9 @@
 - index.css 와 App.css 파일의 내용을 theme.css 에 복사합니다.
 
   ```css
-  /* front-end\src\theme.scss */
+  /* # front-end\src\theme.css */
 
-  /* # index.css ================================================== */
+  /* ## index.css ============================================================== */
 
   body {
     margin: 0;
@@ -216,7 +329,7 @@
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
   }
 
-  /* # App.css ==================================================== */
+  /* ## App.css ================================================================ */
 
   .App {
     text-align: center;
@@ -258,7 +371,7 @@
   }
   ```
 
-- index.css 파일에 theme.css 를 임포트합니다.
+- index.tsx 파일에 theme.css 를 임포트합니다.
 
   ```typescript
   // # API & Library ==================================================
@@ -338,8 +451,26 @@
 - src/api/webVitals 폴더 내부에 index.ts 를 생성합니다.
 
   ```typescript
+  // # src/api/webVitals/index.ts
+
+  // ## Import Declaration =====================================================
+
+  // ### API & Library:
+
   import { ReportHandler } from 'web-vitals';
 
+  // ## Function ===============================================================
+
+  // ### reportWebVitals
+  /**
+   * @description
+   *
+   * If you want to start measuring performance in your app, pass a function
+   *
+   * to log results (for example: reportWebVitals(console.log)) or send to an analytics endpoint.
+   *
+   * @see Learn more: https://bit.ly/CRA-vitals
+   */
   export const reportWebVitals = (onPerfEntry?: ReportHandler) => {
     if (onPerfEntry && onPerfEntry instanceof Function) {
       import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
@@ -415,13 +546,13 @@ src/
 
 #### react & typescript > 환경설정
 
-- tsconfig.json의 compilerOptions 안에 baseUrl 을 src로 설정해주세요
+- tsconfig.json 가 없다면 tsconfig.json 를 만들어주세요. compilerOptions 안에 baseUrl 을 src로 설정해주세요
 
   ```json
-  // front-end\tsconfig.json
+  // # front-end\tsconfig.json
   {
     "compilerOptions": {
-      "baseUrl": "src", // <-- 추가
+      "baseUrl": "src", // <-- 추가 및 확인
       "target": "es5",
       "lib": ["dom", "dom.iterable", "esnext"],
       "allowJs": true,
@@ -438,46 +569,11 @@ src/
       "noEmit": true,
       "jsx": "react-jsx"
     },
-    "include": ["src"]
+    "include": ["src"] // <-- 확인
   }
   ```
 
   - 베이스 주소가 src로 설정되었기 때문에 앞으로 import 할 때, 뒤에 /../../../ 없이 주소를 적을 경우 src 부터 시작합니다.
-
-- $\color{#FF9922} \footnotesize \textnormal{package.json 확인 🚨}$
-
-  &nbsp; warning 이 뜨고 npm audit (npm 에서 코드 취약점을 파악하는 명령어) 를 쳤을 시에 nth-check 가 나온다면 걱정하지 하세요. npm 으로 패키지를 다운로드 받고 있다면 원래 나와야 하는 게 맞습니다. 문제의 원인은 package.json 안에 있는 react 스크립트 패키지 `"react-scripts"` 입니다. 이 오류에서는 리액트 자체가 문제인 상황입니다.
-
-  &nbsp; `npm audit fix --force` 로는 해결할 수 없습니다. npm 은 해당 코드로 Node.js 앱을 돌릴 때 생기는 취약점을 경고하고 수정하는 기능(npm audit)을 가지고 있습니다. 하지만 CRA(create-react-app)는 정적 빌드 툴이고, Node.js와 같은 방식으로 작동하지 않습니다. 때문에 npm audit은 CRA의 몇몇 부분을 취약점으로 오탐지하곤 합니다.
-
-  &nbsp; 따라서 npm audit 에게 `"react-scripts"` 패키지는 완성품에 포함되어서 Node.js 위에서 구동하는 용도가 아니라 개발용으로 쓰이는 패키지라는 것을 명시해준다면 문제를 해결할 수 있습니다.
-
-  &nbsp; 다음과 같이 package.json 안의 "dependencies" 안에 있는 "react-scripts" 을 "devDependencies" 로 이동시켜서 개발-의존성 패키지 임을 명시해주세요.
-
-  ```json
-  {
-    // ...
-
-    "dependencies": {
-      // ...
-      // "react-scripts": "^5.0.1" <-- 삭제해주세요
-      // ...
-    },
-    "devDependencies": {
-      // ...
-      "react-scripts": "^5.0.1"
-      // ...
-    }
-
-    // ...
-  }
-  ```
-
-  &nbsp; 그 후, npm audit 대신 (구버전)`npm audit --production` 또는 (신버전)`npm audit --omit=dev` 을 사용하면 됩니다.
-
-  - `npm audit --omit=dev` 과 `npm audit --production`은 실질적으로 동일한 기능을 수행합니다. 두 명령어 모두 개발 의존성(devDependencies)을 제외하고 프로덕션 의존성만을 대상으로 보안 감사를 실행합니다. 최신 버전에서는 의존성에 대하여 더 유연하게 접근하기 위하여 --omit 명령어 쪽을 권장합니다. 이 경우엔 다른 종류의 의존성도 --omit=optional 같이 통일성 있는 명령어로 배제할 수 있기 때문입니다.
-
-  &nbsp; npm이 node_modules 트리나 package-lock.json 의 수정시엔 의존성 라이브러리 버전을 상세하게 고정한 정보인 package-lock.json 이 자동생성되나 가끔 수정이 안될때가 있습니다. package-lock.json이 우선시 되므로 이 경우 package-lock.json을 삭제하거나 직접 수정해주세요
 
 ### eslint & prettier
 
@@ -513,7 +609,7 @@ src/
 
   - vscode 설정에서 default editor 를 prettier 로 바꿔줄 것
   - 편하게 쓰기 위해서 editor: format on save 를 true 값으로 해주면 저장 시에 자동으로 코드를 알맞게 바꿔준다.
-  - 특수 법칙을 적용할 디렉토리에 `.prettierrc.json` 파일을 생성하고 내부에 법칙을 작성한다.
+  - 특수 법칙을 적용할 디렉토리 front-end/ 폴더 안에 `.prettierrc.json` 파일을 생성하고 내부에 법칙을 작성한다.
 
     ```json
     {
@@ -576,7 +672,7 @@ src/
         "sourceType": "module"
       },
 
-      "plugins": ["react"],
+      "plugins": ["react", "@typescript-eslint"],
 
       // 프로젝트에 사용할 규칙을 설정.
       // 규칙에 추가 옵션이 있는 경우 배열로 설정 가능.
@@ -584,7 +680,10 @@ src/
       // off 또는 0 사용시 규칙을 사용하지 않음.
       // warn 또는 1 사용시 규칙을 경고로 사용.
       // error 또는 2 사용시 규칙을 오류로 사용.
-      "rules": {},
+      "rules": {
+        "prettier/prettier": ["error"], // * prettier 경고도 에러로 취급
+        "@typescript-eslint/no-empty-function": ["error", { "allow": [] }] // * 의존성 오류 제어
+      },
 
       // .로 시작하는 설정파일이나 node_modules, 외의 무시할 파일 영역
       "ignorePatterns": ["build", "dist", "public"],
@@ -598,33 +697,107 @@ src/
     }
     ```
 
-  - $\color{#FF9922} \footnotesize \textnormal{Error while loading rule '@typescript-eslint/no-unused-expressions': Cannot read properties of undefined (reading 'allowShortCircuit') 🚨}$
+##### eslint & prettier > 환경 설정 > $\color{#FF9922} \footnotesize \textnormal{Error while loading rule '@typescript-eslint/no-unused-expressions': Cannot read properties of undefined (reading 'allowShortCircuit') 🚨}$
 
-    &nbsp; 해당 에러는 `no-unused-expressions` 사용되지 않은 변수가 생기지 않도록 막습니다.
+&nbsp; 해당 에러는 `no-unused-expressions` 사용되지 않은 변수가 생기지 않도록 막습니다.
 
-    &nbsp; 문제는 코드의 무결성을 지키는 ESLint와 타입스크립트 플러그인 @typescript-eslint 의 버전의 불일치가 해당 에러를 유발한다는 점 입니다.
+&nbsp; 문제는 코드의 무결성을 지키는 ESLint와 타입스크립트 플러그인 @typescript-eslint 의 버전의 불일치가 해당 에러를 유발한다는 점 입니다.
 
-    &nbsp; 후에 해결될 문제로 보이지만 현재까지의 해결방안은 `npm install --save-dev eslint@9.14.0` 명령어를 통하여 ESLint 를 9.14 이하의 버전으로 사용하는 것 입니다.
+&nbsp; 후에 해결될 문제로 보이지만 현재까지의 해결방안은 `npm install --save-dev eslint@9.14.0` 명령어를 통하여 ESLint 를 9.14 이하의 버전으로 사용하는 것 입니다.
 
-    &nbsp; 또는 `no-unused-expressions` 규칙의 경고 단계를 원천적으로 차단하는 수준에서, 단순 경고 급으로 낮출 수도 있습니다. 다음과 같이 `.eslintrc.json` 파일의 rules 에 해당 조건을 수정해주세요.
+&nbsp; 또는 `no-unused-expressions` 규칙의 경고 단계를 원천적으로 차단하는 수준에서, 단순 경고 급으로 낮출 수도 있습니다. 다음과 같이 `.eslintrc.json` 파일의 rules 에 해당 조건을 수정해주세요.
 
-    ```json
-    {
-      // ...
+```json
+{
+  // ...
 
-      // 프로젝트에 사용할 규칙을 설정.
-      // 규칙에 추가 옵션이 있는 경우 배열로 설정 가능.
-      // 참고 : https://eslint.org/docs/latest/rules/
-      // off 또는 0 사용시 규칙을 사용하지 않음.
-      // warn 또는 1 사용시 규칙을 경고로 사용.
-      // error 또는 2 사용시 규칙을 오류로 사용.
-      "rules": {
-        "no-unused-vars": "warn"
-      }
+  // 프로젝트에 사용할 규칙을 설정.
+  // 규칙에 추가 옵션이 있는 경우 배열로 설정 가능.
+  // 참고 : https://eslint.org/docs/latest/rules/
+  // off 또는 0 사용시 규칙을 사용하지 않음.
+  // warn 또는 1 사용시 규칙을 경고로 사용.
+  // error 또는 2 사용시 규칙을 오류로 사용.
+  "rules": {
+    "no-unused-vars": "warn"
+  }
 
-      // ...
-    }
-    ```
+  // ...
+}
+```
+
+##### eslint & prettier > 환경 설정 > $\color{#FF9922} \footnotesize \textnormal{ERROR in [eslint] Failed to load plugin '@typescript-eslint' declared in '.eslintrc.json' 🚨}$
+
+- 이 오류는 ESLint와 @typescript-eslint 플러그인 또는 패키지 의존성 사이에서 생긴 버전들의 불일치로 인해 발생합니다. 원인과 해결 방안은 다음과 같습니다:
+
+다음 절차로 해결할 수 있습니다.
+
+1. 패키지 업데이트
+
+```bash
+npm update eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser
+```
+
+2. ESLint를 특정 버전으로 고정시켜 봅니다.
+
+```bash
+npm install eslint@7.32.0
+```
+
+3. 의존성 재설치
+
+   - node_modules 폴더를 삭제하고 패키지를 다시 설치합니다.
+
+```bash
+rm -rf node_modules
+npm install
+```
+
+4. TypeScript 설치 확인
+
+   - 프로젝트에 TypeScript가 제대로 설치되어 있는지 확인합니다.
+
+```bash
+npm install typescript
+```
+
+5. Node.js 버전 확인
+
+- 프로젝트에 적합한 Node.js 버전을 사용하고 있는지 확인해주세요.
+
+6. ESLint 설정 파일 검토
+
+- .eslintrc 파일의 설정을 검토하고, 필요한 플러그인과 파서가 올바르게 선언되어 있는지 확인합니다
+
+7. package.json의 ESLint config 확장 법칙 삭제
+
+```json
+// ...
+
+  "eslintConfig": {
+    "extends": [
+      "react-app" // <-- 삭제하기
+    ]
+  },
+
+// ...
+```
+
+8. Node.js 버전 확인 및 업데이트
+
+```bash
+node -v
+npm -v
+```
+
+9. npm 캐시 정리
+
+```bash
+npm cache clean --force
+```
+
+10. 프로젝트 재구축
+
+- 심각하게 꼬였다면 배를 버리는 것 또한 방법입니다. 다른 폴더에 npm project 를 다시 구축한 뒤에 폴더만 옮겨주세요.
 
 ### env 환경 변수 설정
 
@@ -639,6 +812,7 @@ src/
 
       ```txt
       REACT_APP_VERSION = v0.0.1
+      REACT_APP_NUMBER = 1
       ```
 
     <br />
@@ -652,6 +826,7 @@ src/
         interface ProcessEnv {
           NODE_ENV: 'development' | 'production';
           REACT_APP_VERSION: string;
+          REACT_APP_NUMBER: number;
         }
       }
       ```
@@ -665,10 +840,10 @@ src/
         ```typescript
         // # front-end/src/api/webVitals/index.ts
 
-        import { ReportHandler } from 'web-vitals';
+        // ...
 
         export const reportWebVitals = (onPerfEntry?: ReportHandler) => {
-          (async () => console.log(`front-end ${process.env.REACT_APP_VERSION}`))(); // <-- 추가된 코드
+          (async () => console.log(`front-end ${Number(process.env.REACT_APP_NUMBER) * 100}`))(); // <-- 추가된 코드
 
           if (onPerfEntry && onPerfEntry instanceof Function) {
             import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
@@ -776,19 +951,10 @@ src/
 
   ```typescript
   // # src/App.tsx
-  // ## API & Library ==================================================
 
   import React from 'react';
 
-  // ## Asset ==========================================================
-  // ## Style ==========================================================
-  // ## Component ======================================================
-
   const App = () => {
-    // ## Hook ===========================================================
-    // ## Method =========================================================
-    // ## Return =========================================================
-
     return <div className="App"></div>;
   };
 
@@ -2266,7 +2432,7 @@ export const Styled_HomeCard = Styled.div`
 // # src/component/Home/index.tsx
 
 import React, { useState, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import { getPost } from 'api/rest/post';
 
 import { Styled_Home, Styled_HomeCard } from './style';
@@ -2283,9 +2449,99 @@ export const Home = () => {
       <h4>예시 유저들의 목록은 다음과 같습니다.</h4>
       <br />
       <Styled_HomeCard>
-        <ReactMarkdown>{post}</ReactMarkdown>
+        <Markdown>{post}</Markdown>
       </Styled_HomeCard>
     </Styled_Home>
   );
 };
+```
+
+&nbsp; 마크다운 글의 내용이 `<ReactMarkdown>{post}</ReactMarkdown>` 에 나오는 것을 보실 수 있습니다.
+
+### 리액트 마크다운 > 심화
+
+&nbsp; 기본적인 리액트 마크다운은 가장 플레인한 마크다운 문법만을 지원합니다. HTML 태그나 테이블 생성등은 지원되지 않습니다.
+
+&nbsp; react-markdown에서 별도의 패키지 설치없이 remark-gfm 같은 remark 플러그인을 사용할 수 있습니다.<br />
+react-markdown은 remark-gfm 플러그인을 직접 지원하므로 별도의 react-remark 패키지 없이도 GitHub Flavored Markdown (GFM) 기능을 활용할 수 있습니다.
+
+<br />
+
+&nbsp; react-markdown에서는 별도의 패키지 설치없이 rehype 플러그인을 사용할 수 있습니다.<br />
+react-markdown은 내부적으로 unified, remark, rehype를 사용하여 마크다운을 HTML로 변환하고 있기 때문입니다.
+
+&nbsp; 이런 부분을 해결될 수 있도록 리액트 마크다운은 여러 플러그인을 지원합니다.
+
+&nbsp; 깃허브의 마크다운 정책과 완전히 동일한 디자인으로 구현하는 과정을 통해 익혀봅시다.
+
+1. rehypeRaw를 사용하여 HTML을 허용합니다.
+2. rehypeSanitize로 HTML을 안전하게 정화합니다.
+3. remarkGfm으로 GitHub Flavored Markdown을 지원합니다.
+4. 코드 블록에 대해 구문 강조를 적용합니다.
+5. markdown-body 클래스를 사용하여 GitHub 스타일을 적용합니다.
+6. GitHub 스타일 css 를 적용합니다.
+
+#### 리액트 마크다운 > 심화 > rehypeRaw
+
+#### github-markdown-css
+
+```bash
+npm install github-markdown-css
+```
+
+타입스크립트에서는 CSS 모듈에 대한 타입 선언이 필요할 수 있습니다. src 폴더에 다음과 같은 파일을 추가해주세요.
+
+```typescript
+// src/types.d.ts
+declare module '*.css';
+```
+
+#### remark-gfm
+
+&nbsp; 심화과정에서는 react-markdown 의 플러그인 중에서 Github의 README.md 구현과 같게 만드는 remark-gfm (GitHub Flavored Markdown, GFM) 플러그인을 적용해보겠습니다.
+
+- remark-gfm 옵션에서는 다음 기능이 추가됩니다.
+
+  - 취소선 (Strikethrough): ~~취소선~~ 형식으로 텍스트에 취소선을 적용할 수 있습니다.
+  - 테이블 (Tables): 마크다운에서 테이블을 생성하고 표시할 수 있습니다.
+  - 작업 목록 (Task lists): - [ ] 또는 - [x] 형식으로 체크박스가 있는 할 일 목록을 만들 수 있습니다.
+  - URL 자동 링크: URL을 직접 입력하면 자동으로 클릭 가능한 링크로 변환됩니다.
+
+- 터미널에서 다음 명령어로 remark-gfm 을 설치해주세요.
+
+```bash
+npm install remark-gfm
+```
+
+- ReactMarkdown 태그 remarkPlugins 옵션에서 적용시킬 수 있습니다.
+
+```tsx
+// ...
+
+import gfm from 'remark-gfm';
+
+// ...
+
+<Markdown remarkPlugins={[gfm]}>{post}</Markdown>;
+
+// ...
+```
+
+#### remark-rehype
+
+rehype-raw 사용: HTML 태그를 직접 렌더링하고 싶다면 rehype-raw 플러그인을 추가로 사용해볼 수 있습니다
+XSS 공격에 취향하기 때문에
+
+remark-rehype 를 사용하겠습니다.
+
+```bash
+npm install rehype-raw
+```
+
+```ts
+import rehypeRaw from 'rehype-raw';
+
+<ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+  {markdownContent}
+</ReactMarkdown>;
 ```
