@@ -1600,6 +1600,16 @@ export const Styled_Example = Styled.div<{ isActive: boolean }>`
     export default App;
     ```
 
+  - 각각의 임포트된 라이브러리는 다음의 역할을 합니다.
+    - BrowserRouter
+      > history API를 사용해 URL과 UI를 동기화하는 라우터입니다.
+    - Route
+      > 컴포넌트의 속성에 설정된 URL과 현재 경로가 일치하면 해당하는 컴포넌트, 함수를 렌더링한다.
+    - Link
+      > 'a'태그와 비슷합니다. to속성에 설정된 링크로 이동합니다. 기록이 history스택에 저장됩니다.
+    - Switch
+      > 자식 컴포넌트 Route또는 Redirect중 매치되는 첫 번째 요소를 렌더링합니다. Switch를 사용하면 BrowserRouter만 사용할 때와 다르게 하나의 매칭되는 요소만 렌더링한다는 점을 보장해줍니다. 사용하지 않을 경우 매칭되는 모두를 렌더링합니다.
+
 - 사이트를 로컬 주소에 올려 테스트하는 `npm start` 명령어를 통해서 작동을 확인해봅시다.
 
   - 처음 주소가 /home 으로 가는지, /qwer 같은 이상한 주소는 /error 로 보내는지 /blog 주소를 주소창에 입력하면 제대로 가는지 확인해주세요.
@@ -2304,54 +2314,11 @@ export const Home = () => {
 npm install react-markdown
 ```
 
-### 리액트 마크다운 > 예시
+### 리액트 마크다운 > 적용
 
-### 리액트 마크다운 > 예시 > 1. Server 데이터
+&nbsp; 적용예시로 Github 에서 md 파일을 렌더링하는 방법을 그대로 만들어 보겠습니다.
 
-&nbsp; 웹페이지에 띄울 마크다운 파일을 만들어봅시다.
-
-- public/server/ 폴더에 포스팅할 글들을 올릴 post/ 폴더를 만듭니다.
-- post/ 폴더에 0.md 파일을 생성해주세요.
-
-```md
-# Example 유저 내역
-
-## 목록
-
-- 홍길동
-- 전우치
-```
-
-&nbsp; 이제 `http://localhost:『PORT_NUMBER』/server/post/0.md` 주소에서 해당 파일에 접근할 수 있습니다.
-
-### 리액트 마크다운 > 예시 > 2. REST API
-
-&nbsp; REST API 환경 조성이 사전에 필요합니다.
-
-&nbsp; src/api/rest/ 폴더에 post/ 폴더를 추가한 뒤, index.ts 를 만들어주세요.
-
-```ts
-// # src/api/rest/post/index.tsx
-
-import { AxiosApi } from 'api/axios';
-
-const postAxios = AxiosApi.getAPI().getInstance('post');
-
-export const getPost = (id: number) => {
-  return new Promise<string>((resolve, reject) => {
-    postAxios
-      ?.get(`/${id}.md`, { responseType: 'text' })
-      .then((responce) => {
-        resolve(responce.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
-```
-
-### 리액트 마크다운 > 예시 > 3. 페이지에서 구현
+#### 리액트 마크다운 > 적용 > 1. 사전정리작업
 
 &nbsp; 우선 글씨가 보기 좋도록 src/theme.scss 에서 폰트를 [Pretendard](https://namu.wiki/w/Pretendard) 로 바꾸겠습니다. 또한 전체 테마에서 바탕색과 문서색을 정해주겠습니다.
 
@@ -2431,32 +2398,77 @@ export const Styled_HomeCard = Styled.div`
 ```tsx
 // # src/component/Home/index.tsx
 
-import React, { useState, useEffect } from 'react';
-import Markdown from 'react-markdown';
-import { getPost } from 'api/rest/post';
+import React from 'react';
 
 import { Styled_Home, Styled_HomeCard } from './style';
 
 export const Home = () => {
-  const [post, setPost] = useState('');
-
-  useEffect(() => {
-    (async () => setPost(await getPost(0)))();
-  }, []);
+  const post = `
+    # 마크다운 양식
+  `;
 
   return (
     <Styled_Home>
-      <h4>예시 유저들의 목록은 다음과 같습니다.</h4>
-      <br />
-      <Styled_HomeCard>
-        <Markdown>{post}</Markdown>
-      </Styled_HomeCard>
+      <Styled_HomeCard>{post}</Styled_HomeCard>
     </Styled_Home>
   );
 };
 ```
 
-&nbsp; 마크다운 글의 내용이 `<ReactMarkdown>{post}</ReactMarkdown>` 에 나오는 것을 보실 수 있습니다.
+&nbsp; `npm start` 로 확인해보면 마크다운 글의 내용이 `<Styled_HomeCard>{post}</Styled_HomeCard>` 에 나오는 것을 보실 수 있습니다.
+
+&nbsp; 이제 카드 별로 적용되는 플러그인이 마크다운 텍스트를 어떻게 렌더링하는 지 구별해서 볼 수 있습니다.
+
+#### 리액트 마크다운 > 적용 > 2. 사전정리작업
+
+### 리액트 마크다운 > 예시
+
+### 리액트 마크다운 > 예시 > 1. Server 데이터
+
+&nbsp; 웹페이지에 띄울 마크다운 파일을 만들어봅시다.
+
+- public/server/ 폴더에 포스팅할 글들을 올릴 post/ 폴더를 만듭니다.
+- post/ 폴더에 0.md 파일을 생성해주세요.
+
+```md
+# Example 유저 내역
+
+## 목록
+
+- 홍길동
+- 전우치
+```
+
+&nbsp; 이제 `http://localhost:『PORT_NUMBER』/server/post/0.md` 주소에서 해당 파일에 접근할 수 있습니다.
+
+### 리액트 마크다운 > 예시 > 2. REST API
+
+&nbsp; REST API 환경 조성이 사전에 필요합니다.
+
+&nbsp; src/api/rest/ 폴더에 post/ 폴더를 추가한 뒤, index.ts 를 만들어주세요.
+
+```ts
+// # src/api/rest/post/index.tsx
+
+import { AxiosApi } from 'api/axios';
+
+const postAxios = AxiosApi.getAPI().getInstance('post');
+
+export const getPost = (id: number) => {
+  return new Promise<string>((resolve, reject) => {
+    postAxios
+      ?.get(`/${id}.md`, { responseType: 'text' })
+      .then((responce) => {
+        resolve(responce.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+```
+
+### 리액트 마크다운 > 예시 > 3. 페이지에서 구현
 
 ### 리액트 마크다운 > 심화
 

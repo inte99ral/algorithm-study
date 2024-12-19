@@ -15,6 +15,10 @@
  * @version 2024-11-18
  * @param 값
  * @return 폭
+ * @dependency
+ * - [x] package-installed-check
+ * - [ ] package-uninstalled-check
+ *
  * @see <a href="http://gochigo.kr">고치고</a>
  * @deprecated 미권장 대체되었다
  * @throws
@@ -34,4 +38,6 @@
 
 ## JSDoc
 
-JavaScript 파일에서 JSDoc(JavaDoc과 유사한 JavaScript 문서화 도구)
+&nbsp; JavaScript 파일에서 JSDoc(JavaDoc과 유사한 JavaScript 문서화 도구)
+
+&nbsp; JSDoc 은 각 항목을 복수형으로 표기하는 것을 선호합니다.

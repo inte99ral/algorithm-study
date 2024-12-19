@@ -1,106 +1,226 @@
 # 마크다운：Markdown
 
-## TeX and LaTeX style syntax
+## 기본 문법
 
-[latex 문법](https://velog.io/@d2h10s/LaTex-Markdown-%EC%88%98%EC%8B%9D-%EC%9E%91%EC%84%B1%EB%B2%95)
+### 제목 및 단락：Header
 
-[참고 링크](https://github.blog/news-insights/product-news/math-support-in-markdown/)
+`h1 ~ h6` 까지 # 로 표현 가능합니다.
 
-$${\color{red}Red}$$
+```md
+# h1
 
-${\color{lightgreen}Light \space Green}$
+## h2
 
-$\scriptsize{\color{#FF9922}Light \space Green}$
+### h3
 
-$\color{#FF9922} \footnotesize \textnormal{package.json \space 확인 🚨}$
+#### h4
 
-When $a \ne 0$, there are two solutions to $(ax^2 + bx + c = 0)$ and they are
-$$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
+##### h5
 
-## 반응형 이미지
-
-```markdown
-<a href="#">
-  <picture>
-    <source media="(min-width: 720px)" srcset="00.svg" />
-    <img src="01.svg" width="800" height="400" alt="Click to see the source" />
-  </picture>
-</a>
+###### h6
 ```
 
-## 코드 확장/축소
+### 인용
+
+- 블록 인용：`>` 사용
+
+  > 첫번째 블록
+  >
+  > > 두번째 블록
+  > >
+  > > > 세번째 블록
+
+### 코드 블럭
+
+- 인라인 코드： \` 사용
+
+  - `[](int x, int y) -> int { return x + y; };`
+
+- 펜스드 코드 블럭：\`\`\` 사용 (언어 지정 가능)
+
+  ```cpp
+  [](int x, int y) -> int { return x + y; };
+  ```
+
+- 들여쓰기 코드 블럭: 4개의 공백 또는 1개의 탭으로 들여쓰기 (markdownlint 나 prettier 설정에 따라 불가능 할 수 있습니다.)
+
+  ```txt
+  코드 블럭을 시작합니다
+
+    들여쓰기 행이 끝날 때까지 코드 블럭입니다.
+
+  코드 블럭을 끝냅니다.
+  ```
+
+### 가운데 정렬：Align Center
+
+<center>
+『CENTER_TEXT』
+</center>
+
+### 확장/축소：Accordion
 
 <details>
   <summary>
 
 ```cpp
 int main() {
-  ... 클릭하여 확장 ...
+  ... 클릭하여 확장/축소 ...
 ```
 
   </summary>
   
 ```cpp
-  ... 클릭하여 축소 ...
-  return 0;
-}
+  cout << "Hello, World!" << endl;
 ```
 </details>
 
-## 가로 폭이 더 큰 CSS
+```cpp
+  return 0;
+}
+```
 
-- 코드블럭이나 table은 overflow 시에 스크롤 취급을 해줍니다.
-- css min-width 적용을 못하여 가로 폭이 축소되는 부분을 table을 사용하여 글씨나 공백을 이용하여 넓혀줍니다. 한 글씨가 14px 정도인게 일반적입니다.
+### 수평선
 
-<details>
-  <summary>테스트 00</summary>
+- 다음의 방법으로 수평선을 그릴 수 있습니다.
+  - `***`
+  - `* * *`
+  - `*****`
+  - `- - -`
+  - `-----`
+  - `<hr />`
 
-  <div style="overflow-x: scroll">
-    <table>
-      <tr>
-        <td>　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</td>
-      </tr>
-      <tr>
-        <td>
-          <a href="#"><img src="./.asset/마크다운：Markdown/3.jpg" width="1400px" height="400" alt="css-in-readme"></a>
-        </td>
-      </tr>
-    </table>
-  </div>
-</details>
+### 공백：No Breaking Space
 
-## 클릭 안되게 하기
+- 다음의 방법으로 마크다운 문법 Lint 나 formatter에 무관하게 유동적인 공백 사용이 가능합니다.
+  - `&nbsp` (HTML Entities 의 공백)
 
-<a href="#">
-  <img src="./.asset/마크다운：Markdown/2.svg" width="400" height="400" alt="css-in-readme">
-</a>
+### 줄바꿈：Breaking Line
 
-## 마크다운 CSS：Markdown CSS
+- 다음의 방법으로 강제개행이 가능합니다.
+  - ENTER + ENTER
+  - 공백 두 번 + ENTER
+  - `<br />`
 
-### 개요
+<center>
 
-&nbsp; 마크다운 문법은 html 태그들을 지원하나 마크다운 문서를 읽는 체계에 따라 지원하는 정도가 다릅니다. vscode 미리보기에서는 html 문법을 거의 다 지원하는 반면, Github는 악용할 여지를 없애기 위하여 일반적인 Markdown 문법을 그대로 사용하지 않습니다. 웹 사이트의 보안과 일관성을 위해 Markdown을 HTML로 변환 후 추가 사후 처리 및 정리 작업을 수행합니다. 자세한 Github 마크다운 사양은 [Github Flavored Markdown Spec 문서](https://github.github.com/gfm/)에서 확인 하실 수 있습니다.
+개행1  
+개행1
 
-&nbsp; Github 가 HTML으로 변환하는 부분에서 많은 부분을 지원하지 않게되며, 특히 CSS와 js가 적용되지 않는 부분이 치명적입니다. 그럼에도 불구하고 애니메이션이나 커스텀 디자인을 넣는 편법이 존재합니다.
+개행2
 
-&nbsp; 이 편법의 구현에는 두 가지 포인트가 있습니다.
+개행2
 
-- 첫번째 포인트는 SVG 파일을 이미지 취급하여 `<img src="./file.svg" alt="" /> ` 처럼 마크다운 문서에서 띄울 수 있다는 점 입니다.
-- 두번째 포인트는 SVG에서 `<foreignObject>` 태그를 통하여 텍스트 문서나 HTML 오브젝트를 지원한다는 부분입니다.
+개행3<br />개행3
 
-결과적으로 SVG 구현을 경유하여 HTML 오브젝트를 Markdown 문서에 간접적으로 구현이 가능합니다. 이 경우엔 결론적으론 그저 SVG 이미지를 띄운 것이기에 Github의 README.md 마크다운 문서에서도 구현이 됩니다.
+</center>
 
-### 예시
+### 표 만들기：Table
 
-[예시](https://github.com/sindresorhus/css-in-readme-like-wat?tab=readme-ov-file)
-Doc\Language_Reference\Front-End\CSS\asset\마크다운 CSS：Markdown CSS\0.svg
+#### Table > Markdown Native
 
-<details>
-  <summary>테스트 00</summary>
-  <a href="#"><img src="./.asset/마크다운：Markdown/0.svg" width="800px" height="400" alt="css-in-readme"></a>
-</details>
+&nbsp; -(하이픈) 기호를 3개 이상 사용하여 헤더 셀을 구분할 수 있습니다.
 
-<details>
-  <summary>테스트 00</summary>
-  <a href="#"><img src="./.asset/마크다운：Markdown/2.svg" width="800px" height="400" alt="css-in-readme"></a>
-</details>
+&nbsp; :(콜론) 기호로 내용을 정렬할 수 있습니다.
+
+| 첫번째(왼쪽정렬) |     두번째(가운데정렬)     | 세번째(오른쪽정렬) |
+| ---------------- | :------------------------: | -----------------: |
+| `왼쪽`           |         정렬확인1          |                abc |
+| `정렬`           |         정렬확인2          |           abcdefgh |
+| `123`            | 정렬확인,정렬확인,정렬확인 |             abcdef |
+| `456`            |        정렬확인1234        |                abc |
+
+#### Table > HTML Tag
+
+&nbsp; HTML 태그로 테이블 구현 또한 가능합니다.
+
+<table>
+<tr>
+  <th><center>첫번째(가운데정렬)</center></th>
+  <th>두번째(코드블럭)</th>
+</tr>
+<tr>
+  <td><center>1</center></td>
+  <td>
+
+```cpp
+#include <bits/stdc++.h>
+
+int main() {
+  return 0;
+}
+```
+
+  </th>
+</tr>
+</table>
+
+### 텍스트 서식
+
+- 기울임
+  - _이탤릭체_：`_이탤릭체_`
+- 굵게
+  - **볼드체**：`**볼드체**`
+- 취소선
+  - ~~취소선~~：`~~취소선~~`
+  - <del>취소선</del>：`<del>취소선</del>`
+- 밑줄
+  - <u>밑줄</u>：`<u>밑줄</u>`
+- 굵게 + 기울임
+  - **_볼드+이탤릭_**：`**_볼드+이탤릭_**`
+- 굵게 + 취소선
+  - **~~볼드+취소선~~**：`**~~볼드+취소선~~**`
+- 굵게 + 기울임 + 취소선
+  - **_~~볼드+이탤릭+취소선~~_**：`**_~~볼드+이탤릭+취소선~~_**`
+
+### 목록
+
+- 순서 없는 목록：\*, -, + 을 앞에 적습니다.
+
+  - 목록1
+  - 목록2
+
+- 순서 있는 목록：숫자와 점(.) 을 앞에 적습니다.
+  1. 목록1
+  2. 목록2
+- 체크리스트：- [ ] 또는 - [x] 사용
+  - [ ] 목록1
+  - [ ] 목록2
+
+### 참조
+
+#### 참조 > Markdown Native
+
+- 링크：`[『LINK_TEXT』](『URL』)`
+
+<center>
+
+[이미지 링크](./.asset/마크다운：Markdown/0.png)
+
+</center>
+
+- 이미지：`![『ALT_TEXT』](『URL』)`
+
+<center>
+
+![대체 텍스트](./.asset/마크다운：Markdown/0.png)
+
+</center>
+
+#### 참조 > HTML Tag
+
+- 링크：`<a href="『URL』">『LINK_TEXT』</a>`
+
+<center>
+
+<a href="./.asset/마크다운：Markdown/0.png">이미지 링크</a>
+
+</center>
+
+- 이미지：`<img src="『URL』" alt="『ALT_TEXT』" width="『WIDTH_SIZE』" height="『HEIGHT_SIZE』" />`
+
+<center>
+
+<img src="./.asset/마크다운：Markdown/0.png" alt="0" width="200" height="200" />
+
+</center>
