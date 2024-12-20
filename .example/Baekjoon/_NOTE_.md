@@ -1,4 +1,9 @@
-# 문제 코드：문제 제목：오답노트
+# <img alt="b1" src="https://d2gd6pc034wcta.cloudfront.net/tier/5.svg" width="16" /> 문제 코드：문제 제목：오답노트
+
+## 힌트
+
+- ~-~볼 힌트~~
+- ~~숨길 힌트~~
 
 1. 나머지 연산자는 분배공식을 적용할 수 있다.
 2. 거듭제곱 관련 연산은 분할 정복으로 풀지 않는다면 시간이 초과한다.
@@ -6,7 +11,11 @@
 
 ## 오답
 
-### <LANGUAGE_TYPE>：xxxx-xx-xx：<ANNOTATION_COMMENT>
+### 『LANGUAGE_TYPE』：xxxx-xx-xx：『ANNOTATION_COMMENT』
+
+## 정답
+
+### C++：2023-12-24：1차 풀이
 
 ### C++ > 1차 풀이
 

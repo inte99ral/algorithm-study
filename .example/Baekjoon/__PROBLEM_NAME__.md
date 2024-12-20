@@ -1,4 +1,4 @@
-# [문제 코드：문제 제목](https://www.google.co.kr)
+# <img alt="b1" src="https://d2gd6pc034wcta.cloudfront.net/tier/5.svg" width="16" /> [문제 코드：문제 제목](https://www.google.co.kr)
 
 <center>
 
@@ -40,7 +40,7 @@
 <br />
 <center>
 
-<table class="example">
+<table>
   <tr>
     <td><img src="./.asset/2.avif" alt="2" style="width:20vw; aspect-ratio: 1 / 1"/></td>
     <td><img src="./.asset/3.avif" alt="3" style="width:20vw; aspect-ratio: 1 / 1"/></td>
@@ -67,20 +67,35 @@
 
 &nbsp; 출력 예시
 
+## 예제
+
 <center>
-<table class="output"><tr><th>예제 입력 1</th><th>예제 출력 1</th></tr><tr><td>
+<table>
+<tr>
+  <th align="center">예제 입력 1</th>
+  <th align="center">예제 출력 1</th>
+</tr>
+<tr>
+  <td valign="top">
 
 ```txt
 5 3 2
 ```
 
-</td><td>
+  </td>
+  <td valign="top">
 
 ```txt
 10
+
+
+
+
 ```
 
-</td></tr></table>
+  </td>
+</tr>
+</table>
 </center>
 
 ## 힌트

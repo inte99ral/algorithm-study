@@ -2,23 +2,19 @@
 
 ## WARN
 
-1. <b>변수</b>：값이 바뀐 걸 인지하기.
-1. <b>포인터</b>：첫 입력시, 초기화를 0으로 했으면, null 값이 아니라 인덱스 0을 가르킨다.
-1. <b>큐</b>：스택이나 우선순위 큐에서 pop 이나 push 행동을 취하면 당연히 순서가 바뀐다.
-1. <b>조건</b>：if 문에서 배제한 케이스에 대하여 반례 체크를 해봐야 한다.
-1. <b>범위</b>：int 의 범위는 4byte 2^32. long long 또한 8byte 2^64 가 한계이다. 아무리 long 이여도 int의 세제곱을 커버하진 못한다.
+1. <b>패턴</b>：손 풀이로 수학적 처리과정을 뇌로 한번 거쳐보고 패턴 파악해보기
+2. <b>변수</b>：값이 바뀐 걸 인지하기.
+3. <b>포인터</b>：첫 입력시, 초기화를 0으로 했으면, null 값이 아니라 인덱스 0을 가르킨다.
+4. <b>큐</b>：스택이나 우선순위 큐에서 pop 이나 push 행동을 취하면 당연히 순서가 바뀐다.
+5. <b>조건</b>：if 문에서 배제한 케이스에 대하여 반례 체크를 해봐야 한다.
+6. <b>범위</b>：int 의 범위는 4byte 2^32. long long 또한 8byte 2^64 가 한계이다. 아무리 long 이여도 int의 세제곱을 커버하진 못한다.
 
 <br />
 
 ## DONE:
 
-- [x] 2023.12.27 | [BJ 2810 컵홀더 #Bronze/1 #구현 #문자열 #그리디](Problem\Solved\Baekjoon\Bronze\1\BJ_2810/__컵홀더__.md)
-- [x] 2023.12.27 | [BJ 2851 슈퍼마리오 #Bronze/1 #구현 #브루트포스 #누적합](Problem\Solved\Baekjoon\Bronze\1\BJ_2851/__슈퍼_마리오__.md)
-- [x] 2023.12.27 | [BJ 2164 카드2 #Silver/4 #자료구조 #큐](Problem\Solved\Baekjoon\Silver\4\BJ_2164/__카드2__.md)
-
 `==================================================`
 
-- [x] 2023.12.29 [BJ 15649](<Problem\Solved\Baekjoon\Silver\3\BJ_15649/__N과_M_(1)__.md>) N과 M (1) #Silver/3 #백트래킹
 - [x] 2024.01.01 | [BJ 15650 N과 M (2) #Silver/3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15650\question\info.md)
 - [x] 2024.01.02 | [BJ 15651 N과 M (3) #Silver/3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15651\question\info.md)
 - [x] 2024.01.02 | [BJ 4963 섬의 개수 #Silver/2 #그래프이론 #그래프탐색 #너비우선탐색 #깊이우선탐색](Problem\Solved\Baekjoon\Silver\2\BJ_4963\question\info.md)
@@ -47,6 +43,10 @@
 - [x] 2024-11-22：[BJ_2563](Problem\Solved\Baekjoon\Silver\4\BJ_2563/__색종이__.md) 색종이 `#SilverⅣ` `#구현`
 - [x] 2024-11-22：[BJ_2567](Problem\Solved\Baekjoon\Silver\4\BJ_2567/__색종이_2__.md) 색종이 2 `#SilverⅣ` `#구현`
 - [x] 2024-11-22：[BJ_2798](Problem\Solved\Baekjoon\Bronze\2\BJ_2798/__블랙잭__.md) 블랙잭 `#BronzeⅡ` `#브루트포스 알고리즘`
+- [x] 2024-12-20：[BJ 2810](Problem\Solved\Baekjoon\Bronze\1\BJ_2810/__컵홀더__.md) 컵홀더 `#BronzeⅠ` `#구현` `#문자열` `#그리디`
+- [x] 2024-12-20：[BJ 2851](Problem\Solved\Baekjoon\Bronze\1\BJ_2851/__슈퍼_마리오__.md) 슈퍼마리오 `#BronzeⅠ` `#구현` `#브루트포스` `#누적합`
+- [x] 2024-12-20：[BJ 2164](Problem\Solved\Baekjoon\Silver\4\BJ_2164/__카드2__.md) 카드2 `#SilverⅣ` `#자료구조` `#큐`
+- [x] 2024-12-20：[BJ 15649](<Problem\Solved\Baekjoon\Silver\3\BJ_15649/__N과_M_(1)__.md>) N과 M (1) `#SilverⅢ` `#백트래킹`
 
 <br />
 
