@@ -1,12 +1,12 @@
-# <img alt="b1" src="https://d2gd6pc034wcta.cloudfront.net/tier/5.svg" width="16" /> [문제 코드：문제 제목](https://www.google.co.kr)
+# <img alt="tier" src="https://d2gd6pc034wcta.cloudfront.net/tier/5.svg" width="16" /> [문제 코드：문제 제목](https://www.google.co.kr)
 
-<center>
+<p align=center>
 
 | 시간 제한 | 메모리 제한 |
 | :-------: | :---------: |
 |   - 초    |    - MB     |
 
-</center>
+</p>
 
 ## 문제
 

@@ -2310,116 +2310,692 @@ export const Home = () => {
 
 ### 리액트 마크다운 > 설치
 
-```bash
-npm install react-markdown
-```
+- 다음의 npm 명령어로 설치할 수 있습니다.
+
+  ```bash
+  npm install react-markdown
+  ```
 
 ### 리액트 마크다운 > 적용
 
-&nbsp; 적용예시로 Github 에서 md 파일을 렌더링하는 방법을 그대로 만들어 보겠습니다.
+- 다음과 같은 방법으로 적용됩니다.
 
-#### 리액트 마크다운 > 적용 > 1. 사전정리작업
+  ```tsx
+  import React from 'react';
+  import ReactMarkdown from 'react-markdown';
+
+  export const Example = () => {
+    const post = `
+    # 마크다운 양식의 글
+    `;
+
+    return (
+      <>
+        <ReactMarkdown>{post}</ReactMarkdown>
+      </>
+    );
+  };
+  ```
+
+### 리액트 마크다운 > 심화
+
+&nbsp; 심화 예시로 Github 에서 md 파일을 렌더링하는 방법을 그대로 만들어 보겠습니다.
+
+#### 리액트 마크다운 > 심화 > 0. 사전정리작업
 
 &nbsp; 우선 글씨가 보기 좋도록 src/theme.scss 에서 폰트를 [Pretendard](https://namu.wiki/w/Pretendard) 로 바꾸겠습니다. 또한 전체 테마에서 바탕색과 문서색을 정해주겠습니다.
 
-- src/theme.scss 에 테마 환경변수 값을 수정합니다.
-- src/theme.scss 의 사이트 전체 테마 폰트를 수정합니다.
+- **src/theme.scss 의 수정**
 
-```scss
-// # src/theme.scss
+  - src/theme.scss 의 테마 폰트를 글씨가 보기 좋도록 [Pretendard](https://namu.wiki/w/Pretendard) 로 정하겠습니다.
+  - src/theme.scss 의 사이트 전체 테마에서 바탕색과 문서색을 정해주겠습니다.
 
-// ...
+  ```scss
+  // # src/theme.scss
 
-@font-face {
-  font-family: Pretendard;
-  src: url(asset/font/PretendardVariable.ttf);
-}
+  // ...
 
-// ...
+  @font-face {
+    font-family: Pretendard;
+    src: url(asset/font/PretendardVariable.ttf);
+  }
 
-.light {
-  --color-main: #ffffff;
-  --color-sub: #f4f5f7;
-  --color-reverse: #000000;
-  --color-blur: #00000040;
-}
+  // ...
 
-.dark {
-  --color-main: #353839;
-  --color-sub: #2f2f31;
-  --color-reverse: #ffffff;
-  --color-blur: #ffffff40;
-}
+  .light {
+    --color-main: #ffffff;
+    --color-sub: #f4f5f7;
+    --color-reverse: #000000;
+    --color-blur: #00000040;
+  }
 
-// ...
+  .dark {
+    --color-main: #353839;
+    --color-sub: #2f2f31;
+    --color-reverse: #ffffff;
+    --color-blur: #ffffff40;
+  }
 
-* {
-  font-family: Pretendard;
-  font-size: 14px;
+  // ...
 
-  position: relative;
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  z-index: 1000;
-  text-decoration: none;
-}
-```
+  * {
+    font-family: Pretendard; // <--
+    font-size: 14px;
+
+    position: relative;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    z-index: 1000;
+    text-decoration: none;
+  }
+  ```
 
 &nbsp; src/component/Home/index.tsx 도 포스팅 글들을 보기좋게 정리하겠습니다. style 파일에서 스타일 컴포넌트를 생성해주세요.
 
-- src/component/Home/style.tsx 를 다음과 같이 수정합니다.
+- **src/component/Home/style.tsx 를 다음과 같이 수정합니다.**
 
-```tsx
-// # src/component/Home/style.tsx
+  ```tsx
+  // # src/component/Home/style.tsx
 
-import Styled from 'styled-components';
+  import Styled from 'styled-components';
 
-export const Styled_Home = Styled.div`
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--color-sub);
-`;
-
-export const Styled_HomeCard = Styled.div`
-  border-radius: 14px;
-  padding: 28px;
-  margin: 14px;
-  background-color: var(--color-main);
-
-  box-shadow:
-    4px 4px 10px -1px rgba(0, 0, 0, 0.25),
-    -4px -4px 10px -1px rgba(255, 255, 255, 0.25); 
-`;
-```
-
-- src/component/Home/index.tsx 를 다음과 같이 수정합니다.
-
-```tsx
-// # src/component/Home/index.tsx
-
-import React from 'react';
-
-import { Styled_Home, Styled_HomeCard } from './style';
-
-export const Home = () => {
-  const post = `
-    # 마크다운 양식
+  export const Styled_Home = Styled.div`
+    width: 100vw;
+    height: 100vh;
+    padding: 14px;
+  
+    display: flex;
+    align-items: top;
+    overflow: auto;
+  
+    background-color: var(--color-sub);
   `;
 
-  return (
-    <Styled_Home>
-      <Styled_HomeCard>{post}</Styled_HomeCard>
-    </Styled_Home>
-  );
-};
-```
+  export const Styled_HomeCard = Styled.div`
+    width: 30vw;
+    max-width: 30vw;
+    flex-shrink: 0;
+    margin: 14px;
+  
+    border-radius: 14px;
+    background-color: var(--color-main);
+    overflow: hidden;
+  
+    box-shadow:
+      4px 4px 10px -1px rgba(0, 0, 0, 0.25),
+      -4px -4px 10px -1px rgba(255, 255, 255, 0.25);
+  
+    & > div:nth-of-type(1) {
+      height: 80px;
+      min-height: 80px;
+  
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+  
+      padding: 28px;
+      background-color: #353839;
+  
+    }
+  
+    & > div:nth-of-type(2) {
+      height: calc(100% - 80px);
+      padding: 28px;
+      overflow: auto;
+    }
+  `;
+  ```
 
-&nbsp; `npm start` 로 확인해보면 마크다운 글의 내용이 `<Styled_HomeCard>{post}</Styled_HomeCard>` 에 나오는 것을 보실 수 있습니다.
+- **src/component/Home/component/Markdown_0/index.tsx**
+
+  - src/component/Home/component/Markdown_0/ 폴더를 만들고 그 안에 index.tsx 를 만들어 주세요.
+  - 이 컴포넌트는 마크다운 텍스트를 해석없이 그냥 텍스트로 보여줍니다.
+  - 마크다운을 해석해서 렌더링 한 경우와의 차이를 비교해 볼 것 입니다.
+
+  ```tsx
+  // # src/component/Home/component/Markdown_0/index.tsx
+
+  import React, { FC } from 'react';
+
+  export const Markdown_0: FC<{ children: string }> = ({ children }) => {
+    return (
+      <>
+        <div>Markdown #0</div>
+        <div>{children}</div>
+      </>
+    );
+  };
+  ```
+
+- **src/component/Home/index.tsx 를 다음과 같이 수정합니다.**
+
+  ```tsx
+  // # src/component/Home/index.tsx
+
+  import React from 'react';
+
+  import { Styled_Home, Styled_HomeCard } from './style';
+
+  export const Home = () => {
+    const post = `
+      # 마크다운 제목
+  
+      ## 마크다운 소제목
+  
+      - 목록1
+      - 목록2
+    `;
+
+    return (
+      <Styled_Home>
+        <Styled_HomeCard>
+          <Markdown_0>{post}</Markdown_0>
+        </Styled_HomeCard>
+      </Styled_Home>
+    );
+  };
+  ```
+
+&nbsp; `npm start` 로 확인해보면 마크다운을 적용하지 않았기 때문에 post 내용이 글씨 그대로 카드 안에 나타났을 것 입니다.
 
 &nbsp; 이제 카드 별로 적용되는 플러그인이 마크다운 텍스트를 어떻게 렌더링하는 지 구별해서 볼 수 있습니다.
 
-#### 리액트 마크다운 > 적용 > 2. 사전정리작업
+&nbsp; src/component/Home/index.tsx 의 post 에 여러 마크다운 문법들을 적어넣겠습니다.
+
+- **src/component/Home/index.tsx**
+
+  - post 값을 다음과 같이 수정해주세요.
+
+  ```tsx
+  // # src/component/Home/index.tsx
+
+  // ...
+
+  export const Home = () => {
+    const post = `
+    # 마크다운：Markdown
+
+    ## 기본 문법
+
+    ### 인용
+
+    - 블록 인용：\`>\` 사용
+
+      > 첫번째 블록
+      >
+      > > 두번째 블록
+      > >
+      > > > 세번째 블록
+
+    ### 코드 블럭
+
+    - 인라인 코드
+
+      - \`[](int x, int y) -> int { return x + y; };\`
+
+    - 펜스드 코드 블럭
+
+      \`\`\`cpp
+      [](int x, int y) -> int { return x + y; };
+      \`\`\`
+
+    ### 가운데 정렬：Align Center
+
+    <div align=left>
+    『LEFT_TEXT』
+    </div>
+
+    <center>
+    『CENTER_TEXT_0』
+    </center>
+
+    <div align=center>
+    『CENTER_TEXT_1』
+    </div>
+
+    <div align=right>
+    『RIGHT_TEXT』
+    </div>
+
+    ### 확장/축소：Accordion
+
+    <details>
+      <summary>
+
+    \`\`\`cpp
+    int main() {
+      ... 클릭하여 확장/축소 ...
+    \`\`\`
+
+      </summary>
+
+    \`\`\`cpp
+      cout << "Hello, World!" << endl;
+    \`\`\`
+    </details>
+
+    \`\`\`cpp
+      return 0;
+    }
+    \`\`\`
+
+    ### 수평선
+
+    ---
+
+    <hr />
+
+    ### 공백：No Breaking Space
+
+    &nbsp;공백&nbsp;공백
+
+    ### 줄바꿈：Breaking Line
+
+    개행1
+    개행1
+
+    개행2
+
+    개행2
+
+    개행3<br />개행3
+
+    ### 표：Table
+
+    #### Table > Markdown Native
+
+    | 첫번째(왼쪽정렬) | 두번째(가운데정렬) | 세번째(오른쪽정렬) |
+    | ---------------- | :----------------: | -----------------: |
+    | 왼쪽정렬         |     가운데정렬     |         오른쪽정렬 |
+
+    #### Table > HTML Tag
+
+    <table>
+    <tr>
+    <th align=left>첫번째(왼쪽정렬, 코드블럭)</th>
+    <th align=center>두번째(가운데정렬)</th>
+    <th align=right>세번째(오른쪽정렬)</th>
+    </tr>
+    <tr>
+    <td align=left>
+
+    \`\`\`cpp
+    #include <bits/stdc++.h>
+
+    int main() {
+      return 0;
+    }
+    \`\`\`
+
+    </td>
+    <td align=center>가운데정렬</td>
+    <td align=right>오른쪽정렬</td>
+    </tr>
+    </table>
+
+    ### 텍스트 서식
+
+    - _이탤릭체_
+    - **볼드체**
+    - ~~취소선~~
+    - <del>취소선</del>
+    - <u>밑줄</u>
+    - **_볼드+이탤릭_**
+    - **~~볼드+취소선~~**
+    - **_~~볼드+이탤릭+취소선~~_**
+
+    ### 목록
+
+    - 순서 없는 목록
+      - 목록1
+      - 목록2
+    - 순서 있는 목록
+      1. 목록1
+      2. 목록2
+    - 체크리스트
+      - [ ] 목록1
+      - [ ] 목록2
+
+    ### 참조
+
+    #### 참조 > Markdown Native
+
+    - [하이퍼 링크](./server/post/asset/1/0.png)
+    - ![대체 텍스트](./server/post/asset/1/0.png)
+
+    #### 참조 > HTML Tag
+
+    - <a href="./server/post/asset/1/0.png">이미지 링크</a>
+    - <img src="./server/post/asset/1/0.png" alt="0" width="200" height="200" />
+    `;
+
+  // ...
+  ```
+
+- **public/server/post/asset/1/0.png**
+
+  - 위의 `const post = ...` 값의 가장 밑의 이미지 참조 문법을 보시면 "./server/post/asset/1/0.png" 라는 주소로 이미지를 부르고 있습니다.
+  - 항목 중에서 `REST API > localhost 에 대한 이해` 항목에 나오듯, "public/server/post/asset/1/" 경로에 0.png 파일을 필요로 합니다.
+  - 이 복잡해보이는 경로는 후에 Axios를 적용하면서 사용됩니다. 일단 위의 경로를 따라 폴더를 만들어 주세요.
+  - 마크다운 문서에 띄울 png 파일을 이름을 0.png 로 하고 폴더에 넣어주세요.
+
+#### 리액트 마크다운 > 심화 > 1. 마크다운 표준 문법 적용
+
+&nbsp; 이제 React-markdown 을 적용하겠습니다. `리액트 마크다운 > 설치` 항목에서 언급된 데로 `npm install react-markdown` 명령어로 react-markdown 이 설치되어 있어야 합니다.
+
+- **src/component/Home/component/Markdown_1/index.tsx**
+
+  - src/component/Home/component/Markdown_1/ 폴더를 만들고 그 안에 index.tsx 를 만들어 주세요.
+  - `import Markdown from 'react-markdown'`
+
+  ```tsx
+  // # src/component/Home/component/Markdown_1/index.tsx
+
+  import React, { FC } from 'react';
+  import Markdown from 'react-markdown'; // <--
+
+  export const Markdown_1: FC<{ children: string }> = ({ children }) => {
+    return (
+      <>
+        <div>Markdown #1</div>
+        <div>
+          <Markdown>{children}</Markdown>
+        </div>
+      </>
+    );
+  };
+  ```
+
+- **src/component/Home/index.tsx**
+
+  - Home 에 Markdown_1 컴포넌트를 적용해주세요.
+
+  ```tsx
+  // # src/component/Home/index.tsx
+
+  import React from 'react';
+
+  import { Markdown_0 } from './component/Markdown_0';
+  import { Markdown_1 } from './component/Markdown_1';
+
+  export const Home = () => {
+    // ...
+
+    return (
+      <Styled_Home>
+        <Styled_HomeCard>
+          <Markdown_0>{post}</Markdown_0>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_1>{post}</Markdown_1>
+        </Styled_HomeCard>
+      </Styled_Home>
+    );
+  };
+  ```
+
+&nbsp; 0번과 비교해보면 좀 부실해보이지만 1번은 확실히 마크다운의 기초적인 문법이 적용되어 있습니다.
+
+&nbsp; 스타일이 적용되지 않았기 때문에 아직 비주얼적인 부분이 어색합니다.
+
+#### 리액트 마크다운 > 심화 > 2. 마크다운 깃허브 CSS 적용
+
+&nbsp; 가장 기본적인 형식만 갖춘 부분들에 CSS 을 적용하여 그럴싸하게 만들어봅시다.
+
+- **NPM 설치**
+
+  ```bash
+  npm install github-markdown-css
+  ```
+
+- **src/component/Home/component/Markdown_2/index.tsx**
+
+  - src/component/Home/component/Markdown_2/ 폴더를 만들고 그 안에 index.tsx 를 만들어 주세요.
+  - `import 'github-markdown-css/github-markdown.css';` 으로 css 를 임포트하고 대상 엘리먼트의 클래스 이름에 `markdown-body` 를 추가해주세요.
+
+  ```tsx
+  // # src/component/Home/component/Markdown_2/index.tsx
+
+  import React, { FC } from 'react';
+  import Markdown from 'react-markdown';
+  import 'github-markdown-css/github-markdown.css'; // <--
+
+  export const Markdown_2: FC<{ children: string }> = ({ children }) => {
+    return (
+      <>
+        <div>Markdown #2</div>
+        <div>
+          <Markdown className={'markdown-body'}>{children}</Markdown> {/* <--  */}
+        </div>
+      </>
+    );
+  };
+  ```
+
+- **src/component/Home/index.tsx**
+
+  - Home 에 Markdown_1 컴포넌트를 적용해주세요.
+
+  ```tsx
+  // # src/component/Home/index.tsx
+
+  // ...
+
+  import { Markdown_2 } from './component/Markdown_2';
+
+  // ...
+
+  export const Home = () => {
+    // ...
+
+    return (
+      <Styled_Home>
+        <Styled_HomeCard>
+          <Markdown_0>{post}</Markdown_0>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_1>{post}</Markdown_1>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_2>{post}</Markdown_2>
+        </Styled_HomeCard>
+      </Styled_Home>
+    );
+  };
+  ```
+
+&nbsp; 이전보다 훨씬 그럴싸한 모습을 갖추기 시작했습니다.
+
+&nbsp; 다만 아직 HTML 태그의 경우나 코드블럭, 취소선 등이 적용
+
+#### 리액트 마크다운 > 심화 > 3. 마크다운 확장 문법 적용
+
+&nbsp; GitHub 나 최신 markdown 에디터들은 기존 마크다운 문법에 몇 가지 기능을 추가하여 커스터마이징을 하였습니다. 대표적인 기능들은 다음과 같습니다.
+
+- 테이블
+- 체크박스
+- 자동링크변환
+- 취소선
+
+&nbsp; remark 을 이용하면 마크다운 문법을 확장하거나 커스터마이징 할 수 있습니다.
+
+&nbsp; remark 는 마크다운 처리에 특화되어 있는 unified 생태계의 일부로, 문서 처리를 위한 도구입니다.
+
+&nbsp; remark 는 마크다운을 파싱하여 mdast(Markdown Abstract Syntax Tree)로 변환해주며, 구문을 검사하고 변경하는 기능을 가지고 있습니다.
+
+&nbsp; react-markdown 에서는 remark 플러그인을 지원합니다. GitHub 의 커스터마이징과 일치하는 플러그인으로는 GFM (Github Flavored Markdown) 이 있습니다.
+
+- **remark 플러그인 GFM 설치**
+
+  ```bash
+  npm install remark-gfm
+  ```
+
+- **src/component/Home/component/Markdown_3/index.tsx**
+
+  - src/component/Home/component/Markdown_3/ 폴더를 만들고 그 안에 index.tsx 를 만들어 주세요.
+  - `import gfm from 'remark-gfm';` 로 리액트를 임포트해줍니다.
+  - react-markdown 의 remarkPlugins 옵션 배열에 remark-gfm 를 넣어줍니다.
+
+  ```tsx
+  // # src/component/Home/component/Markdown_3/index.tsx
+
+  import React, { FC } from 'react';
+  import Markdown from 'react-markdown';
+  import GFM from 'remark-gfm'; // <--
+
+  import 'github-markdown-css/github-markdown.css';
+
+  export const Markdown_3: FC<{ children: string }> = ({ children }) => {
+    return (
+      <>
+        <div>Markdown #3</div>
+        <div>
+          <Markdown
+            className={'markdown-body'}
+            remarkPlugins={[GFM]} // <--
+          >
+            {children}
+          </Markdown>
+        </div>
+      </>
+    );
+  };
+  ```
+
+#### 리액트 마크다운 > 심화 > 4. HTML 태그 적용
+
+&nbsp; Markdown 문법은 HTML 문법을 포괄적으로 받아들이기도 합니다.
+
+&nbsp; 단순 문서라면 마크다운 문법만으로도 충분하나 블로그나 설명문에 HTML 의 문법이 더해지면 iframe, 복잡한 표, 또는 사용자 정의 HTML 구조 등 훨씬 풍부한 표현이 가능해지기 때문입니다.
+
+&nbsp; Github 의 마크다운 정책 또한 HTML 문법을 제한적으로 수용합니다. 하지만 일반적인 마크다운 파서는 마크다운의 문법이 아닌 HTML 태그를 단순 텍스트로 처리하거나 아예 무시하기 때문에 별도의 처리가 필요합니다.
+
+&nbsp; rehype 를 이용하면 HTML 요소를 마크다운 문서에 적용할 수 있습니다.
+
+&nbsp; rehype 는 HTML 처리에 특화되어 있는 unified 생태계의 일부로, 문서 처리를 위한 도구입니다.
+
+&nbsp; rehype 는 HTML을 파싱하여 hast(HTML Abstract Syntax Tree)로 변환해주며, HTML 구조를 검사하고 생성하는 기능을 가지고 있습니다.
+
+&nbsp; react-markdown 에서는 rehype 플러그인을 지원합니다. 원시 HTML 태그를 파싱하여 적절한 HTML 구조로 해석해주는 플러그인으로 rehype-raw 가 있습니다.
+
+- **rehype 플러그인 rehype-raw 설치**
+
+  ```bash
+  npm install rehype-raw
+  ```
+
+- **src/component/Home/component/Markdown_4/index.tsx**
+
+  - src/component/Home/component/Markdown_4/ 폴더를 만들고 그 안에 index.tsx 를 만들어 주세요.
+  - `import raw from 'rehype-raw';` 로 리액트를 임포트해줍니다.
+  - react-markdown 의 rehypePlugins 옵션 배열에 rehype-raw 를 넣어줍니다.
+
+  ```tsx
+  // # src/component/Home/component/Markdown_4/index.tsx
+
+  import React, { FC } from 'react';
+  import Markdown from 'react-markdown';
+  import GFM from 'remark-gfm';
+  import RAW from 'rehype-raw'; // <--
+
+  import 'github-markdown-css/github-markdown.css';
+
+  export const Markdown_4: FC<{ children: string }> = ({ children }) => {
+    return (
+      <>
+        <div>Markdown #4</div>
+        <div>
+          <Markdown
+            className={'markdown-body'}
+            remarkPlugins={[GFM]}
+            rehypePlugins={[RAW]} // <--
+          >
+            {children}
+          </Markdown>
+        </div>
+      </>
+    );
+  };
+  ```
+
+#### 리액트 마크다운 > 심화 > 5. XSS(Cross-Site Scripting) 취약점 보완
+
+&nbsp; GitHub README와 동일한 `보안 정책` 을 따르기 위해서는 XSS(Cross-Site Scripting) 보안 취약점을 막아야합니다.
+
+&nbsp; XSS 공격은 웹 애플리케이션의 취약점을 이용하여 공격자가 악성 스크립트를 삽입하고 공격 대상의 브라우저에서 실행되도록 하는 공격 기법입니다.
+
+&nbsp; 기본적으로 rehype 는 HTML 파싱을 하는 과정에서 HTML 입력에 대한 필터링을 하지 않기 때문에, 이 과정에서 악성 스크립트가 포함된 HTML을 그대로 처리할 위험성이 있습니다.
+
+&nbsp; rehype-sanitize 를 이용하면 HTML 을 정화하여 악성코드의 기능을 살균 소독하듯이 무력화 시킬 수 있습니다. 또한, 허용된 HTML 태그만 렌더링되도록 제어하여 차단할 수도 있습니다.
+
+- **rehype 플러그인 rehype-sanitize 설치**
+
+  ```bash
+  npm install rehype-sanitize
+  ```
+
+- **src/component/Home/component/Markdown_5/index.tsx**
+
+  - src/component/Home/component/Markdown_5/ 폴더를 만들고 그 안에 index.tsx 를 만들어 주세요.
+  - `import STZ, { defaultSchema } from 'rehype-sanitize';` 로 임포트해줍니다.
+  - react-markdown 의 rehypePlugins 옵션 배열에 rehype-sanitize 객체를 넣어줍니다.
+  - rehype-sanitize 객체의 두번째 값은 보안 정책을 제어하는 옵션입니다. 가장 기본적인 보안 정보를 담은 객체 defaultSchema 를 ... 스프레드 연산자로 풀어서 넣어주세요.
+
+  ```tsx
+  // # src/component/Home/component/Markdown_5/index.tsx
+
+  import React, { FC } from 'react';
+  import Markdown from 'react-markdown';
+  import GFM from 'remark-gfm';
+  import RAW from 'rehype-raw';
+  import STZ, { defaultSchema } from 'rehype-sanitize'; // <--
+
+  import 'github-markdown-css/github-markdown.css';
+
+  export const Markdown_5: FC<{ children: string }> = ({ children }) => {
+    return (
+      <>
+        <div>Markdown #4</div>
+        <div>
+          <Markdown
+            className={'markdown-body'}
+            remarkPlugins={[GFM]}
+            rehypePlugins={[RAW, [STZ, { ...defaultSchema }]]} // <--
+          >
+            {children}
+          </Markdown>
+        </div>
+      </>
+    );
+  };
+  ```
+
+  - Github 와 완벽하게 같은 보안 정책은 다음의 설정으로 맞출 수 있습니다.
+
+- rehype-sanitize의 기본 스키마를 확장하여 GitHub의 보안 정책과 유사한 설정을 만듭니다.
+- GitHub에서 허용하는 코드 블록 언어 클래스를 추가합니다.
+- GitHub의 구문 강조 클래스를 span 요소에 허용합니다.
+- GitHub에서 사용하는 특정 클래스명(예: user-mention, issue-link 등)을 허용합니다.
+- GitHub 마크다운에서 지원하는 추가 HTML 요소(예: details, summary)를 허용합니다.
+
+#### 리액트 마크다운 > 심화 > X. css + 추가
+
+&nbsp; 심화 3단계에서도 몇몇 태그에 CSS 는 적용이 되어있지 않습니다.
+
+&nbsp; 대표적으로 `~~취소선~~` 의 경우 취소선이 적용되지 않았습니다.
+
+&nbsp; style.tsx 로 추가적인 CSS 적용을 해주도록 하겠습니다.
+
+- **src/component/Home/component/Markdown_3/style.tsx**
+
+  - src/component/Home/component/Markdown_2/ 폴더를 만들고 그 안에 style.tsx 를 만들어 주세요.
+  - 취소선의 경우
+
+- **src/component/Home/component/Markdown_3/index.tsx**
+
+- **src/component/Home/index.tsx**
 
 ### 리액트 마크다운 > 예시
 
