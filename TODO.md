@@ -23,6 +23,22 @@
 <img alt="1" src="./.example\Baekjoon\asset\2.avif" width="200" height="200">
 </p>
 
+<div align=left>
+『LEFT_TEXT』
+</div>
+
+<center>
+『CENTER_TEXT_0』
+</center>
+
+<div align=center>
+『CENTER_TEXT_1』
+</div>
+
+<div align=right>
+『RIGHT_TEXT』
+</div>
+
 ## WARN
 
 1. <b>패턴</b>：손 풀이로 수학적 처리과정을 뇌로 한번 거쳐보고 패턴 파악해보기
