@@ -15,6 +15,14 @@
 </table>
 </p>
 
+<p align=center>
+테스트1
+</p>
+
+<p align=center>
+<img alt="1" src="./.example\Baekjoon\asset\2.avif" width="200" height="200">
+</p>
+
 ## WARN
 
 1. <b>패턴</b>：손 풀이로 수학적 처리과정을 뇌로 한번 거쳐보고 패턴 파악해보기
@@ -30,7 +38,7 @@
 
 `==================================================`
 
-- [x] 2024.01.01 | [BJ 15650 N과 M (2) #Silver/3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15650\question\info.md)
+- [x] 2024.01.01 | [BJ 15650 N과 M (2) #Silver/3 #백트래킹](.\Problem\Solved\Baekjoon\Silver\3\BJ_15650\question\info.md)
 - [x] 2024.01.02 | [BJ 15651 N과 M (3) #Silver/3 #백트래킹](Problem\Solved\Baekjoon\Silver\3\BJ_15651\question\info.md)
 - [x] 2024.01.02 | [BJ 4963 섬의 개수 #Silver/2 #그래프이론 #그래프탐색 #너비우선탐색 #깊이우선탐색](Problem\Solved\Baekjoon\Silver\2\BJ_4963\question\info.md)
 - [x] 2024.01.17 | [BJ 1992 쿼드트리 #Silver/1 #분할정복 #재귀](Problem\Solved\Baekjoon\Silver\1\BJ_1992\question\info.md)
