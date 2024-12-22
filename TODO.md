@@ -39,6 +39,8 @@
 『RIGHT_TEXT』
 </div>
 
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-c1">1</span>)
+
 ## WARN
 
 1. <b>패턴</b>：손 풀이로 수학적 처리과정을 뇌로 한번 거쳐보고 패턴 파악해보기
