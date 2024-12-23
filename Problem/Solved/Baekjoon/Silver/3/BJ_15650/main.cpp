@@ -1,42 +1,47 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-void comb(int N, int R);
-void combRecur(vector<int> origin, vector<int> fixed, int N, int R, int selected, int length);
+#ifndef ONLINE_JUDGE
+#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::cin.rdbuf(fs.is_open()?((std::istream*)&fs)->rdbuf():((std::istream*)new std::stringstream(INPUT_DATA))->rdbuf())
+#else
+#define SET_IO(INPUT_PATH) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr)
+#endif
 
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
-  cout.tie(nullptr);
+  SET_IO("_INPUT_.txt");
   
-  freopen("Problem\\Solved\\Baekjoon\\Silver\\3\\BJ_15650\\question\\input.txt", "rt", stdin);
+  int N;
+  int R;
+  int* data;
+  int size;
 
-  int N, M;
-  cin >> N >> M;
+  cin >> N;
+  cin >> R;
+  data = new int[R]();
+  size = 0;
 
-  comb(N, M);
-  return 0;
-}
+  while (data[0] < N) {
+    if (size == R) {
+      for (int r = 0; r < R; r++) cout << data[r] + 1 << ' ';
+      cout << '\n';
 
-void comb(int N, int R) {
-  vector<int> origin;
-  vector<int> fixed;
-  for(int n = 1; n <= N; n++) origin.push_back(n);
-  combRecur(origin, fixed, N, R, -1, 0);
-}
+      size--;
+      data[size]++;
 
-void combRecur(vector<int> origin, vector<int> fixed, int N, int R, int selected, int length) {
-  if(length == R) {
-    for(int i : fixed) cout << i << ' ';
-    cout << '\n';
-    return;
+      continue;
+    }
+
+    if (data[size] == N) {
+      data[size] = 0;
+      size--;
+      data[size]++;
+      continue;
+    }
+
+    if ((size == 0) || (data[size - 1] < data[size])) size++;
+    else data[size]++;
   }
-
-  for(int n = selected + 1; n < N; n++) {
-    fixed.push_back(origin.at(n));
-    combRecur(origin, fixed, N, R, n, length + 1);
-    fixed.pop_back();
-  }
+  
+  delete[] data;
 }

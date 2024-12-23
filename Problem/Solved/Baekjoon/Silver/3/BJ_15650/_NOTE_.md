@@ -7,7 +7,7 @@
 
 ## 오답
 
-### 『LANGUAGE_TYPE_01』：xxxx-xx-xx：『ANNOTATION_COMMENT』
+### 『LANGUAGE_TYPE_01』：2024-01-01：『ANNOTATION_COMMENT』
 
 - 반례 못찾음
 
@@ -19,7 +19,7 @@
 
 ### 『LANGUAGE_TYPE_02』：xxxx-xx-xx：『ANNOTATION_COMMENT』
 
-- 방법 찾음
+- 2024-01-01
 
 ```『LANGUAGE_TYPE_02』
 『CODE_LINE』

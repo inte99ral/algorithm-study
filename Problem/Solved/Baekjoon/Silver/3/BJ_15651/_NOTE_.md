@@ -5,20 +5,11 @@
 - ~-~볼 힌트~~
 - ~~숨길 힌트~~
 
-## 오답
-
-### 『LANGUAGE_TYPE_01』：xxxx-xx-xx：『ANNOTATION_COMMENT』
-
-- 반례 못찾음
-
-```『LANGUAGE_TYPE_01』
-『CODE_LINE』
-```
-
 ## 정답
 
 ### 『LANGUAGE_TYPE_02』：xxxx-xx-xx：『ANNOTATION_COMMENT』
 
+- 2024.01.02
 - 방법 찾음
 
 ```『LANGUAGE_TYPE_02』

@@ -1,26 +1,24 @@
 # <img alt="tier" src="https://d2gd6pc034wcta.cloudfront.net/tier/5.svg" width="16" /> [문제 코드：문제 제목](https://www.google.co.kr)
 
-<p align=center>
+<div align=center>
 
 | 시간 제한 | 메모리 제한 |
 | :-------: | :---------: |
 |   - 초    |    - MB     |
 
-</p>
+<div >
 
 ## 문제
 
 &nbsp; 문제의 그림예시 `<그림 1>`
 
-<center>
+<p align=center>
 <img src="./asset/1.png" alt=1 width="400" height="200" />
-</center>
-<br />
+</p>
 
 &nbsp; 문제의 입력 예시 `<입력 1>`
 
-<br />
-<center>
+<div align=center>
 
 ```text
 0 2 0 1 0
@@ -32,8 +30,7 @@
 
 0은 빈 칸, 1은 집, 2는 치킨집이다.
 
-</center>
-<br />
+</div>
 
 &nbsp; 문제의 표 예시 `<표 1>`
 
@@ -41,18 +38,18 @@
 <center>
 
 <table>
-  <tr>
-    <td><img src="./.asset/2.avif" alt="2" style="width:20vw; aspect-ratio: 1 / 1"/></td>
-    <td><img src="./.asset/3.avif" alt="3" style="width:20vw; aspect-ratio: 1 / 1"/></td>
-  </tr>
-  <tr>
-    <td>다리의 총 길이: 13</td>
-    <td>다리의 총 길이: 9</td>
-  </tr>
-  <tr>
-    <td>D는 2와 4를 연결하는 다리이고,<br />3과는 연결되어 있지 않다.</td>
-    <td>&nbsp;</td>
-  </tr>
+<tr>
+<td><img src="./.asset/2.avif" alt="2" style="width:20vw; aspect-ratio: 1 / 1"/></td>
+<td><img src="./.asset/3.avif" alt="3" style="width:20vw; aspect-ratio: 1 / 1"/></td>
+</tr>
+<tr>
+<td>다리의 총 길이: 13</td>
+<td>다리의 총 길이: 9</td>
+</tr>
+<tr>
+<td>D는 2와 4를 연결하는 다리이고,<br />3과는 연결되어 있지 않다.</td>
+<td>&nbsp;</td>
+</tr>
 </table>
 
 </center>
@@ -72,18 +69,18 @@
 <center>
 <table>
 <tr>
-  <th align="center">예제 입력 1</th>
-  <th align="center">예제 출력 1</th>
+<th align="center">예제 입력 1</th>
+<th align="center">예제 출력 1</th>
 </tr>
 <tr>
-  <td valign="top">
+<td valign="top">
 
 ```txt
 5 3 2
 ```
 
-  </td>
-  <td valign="top">
+</td>
+<td valign="top">
 
 ```txt
 10
@@ -93,7 +90,7 @@
 
 ```
 
-  </td>
+</td>
 </tr>
 </table>
 </center>

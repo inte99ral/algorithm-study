@@ -9,8 +9,6 @@
 - vscode-styled-components
 - TODO Highlight
 
-<br />
-
 ## Convention
 
 ### Directory Structure
@@ -2561,14 +2559,14 @@ export const Home = () => {
     ### 확장/축소：Accordion
 
     <details>
-      <summary>
+    <summary>
 
     \`\`\`cpp
     int main() {
       ... 클릭하여 확장/축소 ...
     \`\`\`
 
-      </summary>
+    </summary>
 
     \`\`\`cpp
       cout << "Hello, World!" << endl;
@@ -2661,22 +2659,22 @@ export const Home = () => {
 
     #### 참조 > Markdown Native
 
-    - [하이퍼 링크](./server/post/asset/1/0.png)
-    - ![대체 텍스트](./server/post/asset/1/0.png)
+    - [하이퍼 링크](./server/post/9/0.png)
+    - ![대체 텍스트](./server/post/9/0.png)
 
     #### 참조 > HTML Tag
 
-    - <a href="./server/post/asset/1/0.png">이미지 링크</a>
-    - <img src="./server/post/asset/1/0.png" alt="0" width="200" height="200" />
+    - <a href="./server/post/9/0.png">이미지 링크</a>
+    - <img src="./server/post/9/0.png" alt="0" width="200" height="200" />
     `;
 
   // ...
   ```
 
-- **public/server/post/asset/1/0.png**
+- **public/server/post/1/0.png**
 
-  - 위의 `const post = ...` 값의 가장 밑의 이미지 참조 문법을 보시면 "./server/post/asset/1/0.png" 라는 주소로 이미지를 부르고 있습니다.
-  - 항목 중에서 `REST API > localhost 에 대한 이해` 항목에 나오듯, "public/server/post/asset/1/" 경로에 0.png 파일을 필요로 합니다.
+  - 위의 `const post = ...` 값의 가장 밑의 이미지 참조 문법을 보시면 "./server/post/9/0.png" 라는 주소로 이미지를 부르고 있습니다.
+  - 항목 중에서 `REST API > localhost 에 대한 이해` 항목에 나오듯, "public/server/post/9/" 경로에 0.png 파일을 필요로 합니다.
   - 이 복잡해보이는 경로는 후에 Axios를 적용하면서 사용됩니다. 일단 위의 경로를 따라 폴더를 만들어 주세요.
   - 마크다운 문서에 띄울 png 파일을 이름을 0.png 로 하고 폴더에 넣어주세요.
 
@@ -2974,48 +2972,264 @@ export const Home = () => {
 
   - Github 와 완벽하게 같은 보안 정책은 다음의 설정으로 맞출 수 있습니다.
 
-- rehype-sanitize의 기본 스키마를 확장하여 GitHub의 보안 정책과 유사한 설정을 만듭니다.
-- GitHub에서 허용하는 코드 블록 언어 클래스를 추가합니다.
-- GitHub의 구문 강조 클래스를 span 요소에 허용합니다.
-- GitHub에서 사용하는 특정 클래스명(예: user-mention, issue-link 등)을 허용합니다.
-- GitHub 마크다운에서 지원하는 추가 HTML 요소(예: details, summary)를 허용합니다.
+- **rehype-sanitize의 기본 스키마를 확장하여 GitHub의 보안 정책과 유사한 설정을 만듭니다.**
 
-#### 리액트 마크다운 > 심화 > X. css + 추가
+  - GitHub에서 허용하는 코드 블록 언어들을 추가합니다.
+  - GitHub에서 사용하는 특정 클래스명(예: align, width, height 등)을 허용합니다.
+  - GitHub 마크다운에서 지원하는 추가 HTML 요소(예: img, input, code, details, summary)를 허용합니다.
 
-&nbsp; 심화 3단계에서도 몇몇 태그에 CSS 는 적용이 되어있지 않습니다.
+  ```tsx
+  // # src/component/Home/component/Markdown_5/index.tsx
 
-&nbsp; 대표적으로 `~~취소선~~` 의 경우 취소선이 적용되지 않았습니다.
+  import React, { FC } from 'react';
+  import Markdown from 'react-markdown';
+  import GFM from 'remark-gfm';
+  import RAW from 'rehype-raw';
+  import STZ from 'rehype-sanitize';
+
+  import 'github-markdown-css/github-markdown.css';
+
+  export const Markdown_5: FC<{ children: string }> = ({ children }) => {
+    // * GitHub 스타일의 보안 스키마 정의
+    const githubSchema = {
+      // ** 태그의 허용할 속성들을 명시적으로 정의
+      attributes: {
+        // *** 모든 태그에게 허용하는 속성
+        '*': ['className', 'id', 'align'],
+
+        // *** 허용하는 코드 블록 언어 속성
+        code: ['language-js', 'language-python', 'language-ruby', 'language-java'],
+
+        // *** 허용하는 링크 속성
+        a: ['href', 'title', 'target', 'user-mention', 'team-mention', 'issue-link', 'commit-link'],
+
+        // *** 허용하는 이미지 태그 속성
+        img: ['src', 'alt', 'title', 'width', 'height'],
+
+        // *** 허용하는 체크박스 속성
+        input: ['type', 'checked', 'disabled'],
+      },
+
+      // ** 허용하는 HTML 태그 명
+      tagNames: [
+        'h1',
+        'h2',
+        'h3',
+        'h4',
+        'h5',
+        'h6',
+        'p',
+        'div',
+        'strong',
+        'em',
+        'del',
+        'a',
+        'img',
+        'ol',
+        'ul',
+        'li',
+        'input',
+        'pre',
+        'code',
+        'blockquote',
+        'table',
+        'thead',
+        'tbody',
+        'tr',
+        'th',
+        'td',
+        'br',
+        'hr',
+        'details',
+        'summary',
+      ],
+
+      // ** 추가 보안 설정
+      protocols: {
+        href: ['http', 'https', 'mailto', 'tel', '#'],
+        src: ['http', 'https'],
+      },
+      clobberPrefix: 'user-content-',
+      clobber: ['name', 'id'],
+      strip: ['script', 'style', 'xml'],
+      allowComments: false,
+      allowDoctypes: false,
+    };
+
+    return (
+      <>
+        <div>Markdown #5</div>
+        <div>
+          <Markdown
+            className={'markdown-body'}
+            remarkPlugins={[GFM]}
+            rehypePlugins={[RAW, [STZ, githubSchema]]} // <--
+          >
+            {children}
+          </Markdown>
+        </div>
+      </>
+    );
+  };
+  ```
+
+#### 리액트 마크다운 > 심화 > 6. 다듬기
+
+&nbsp; 심화 5단계에서도 몇몇 태그에 CSS 는 적용이 되어있지 않습니다.
+
+&nbsp; 대표적으로 `~~취소선~~` 의 경우 취소선이 적용되지 않을 때가 있습니다.
 
 &nbsp; style.tsx 로 추가적인 CSS 적용을 해주도록 하겠습니다.
 
-- **src/component/Home/component/Markdown_3/style.tsx**
+- **src/component/Home/component/Markdown_6/style.tsx**
 
-  - src/component/Home/component/Markdown_2/ 폴더를 만들고 그 안에 style.tsx 를 만들어 주세요.
-  - 취소선의 경우
+  - src/component/Home/component/Markdown_6/ 폴더를 만들고 그 안에 style.tsx 를 만들어 주세요.
+  - style.tsx 에서 스타일을 몰아서 처리하기 위하여 `github-markdown-css` 를 참조하도록 하겠습니다.
+  - 취소선은 scss 문법 기준 `& .markdown-body del` 에 해당합니다. `text-decoration: line-through;` 로 가운데를 긋는 선이 그어지도록 설정하겠습니다.
 
-- **src/component/Home/component/Markdown_3/index.tsx**
+  ```tsx
+  // # src/component/Home/component/Markdown_6/style.tsx
+
+  // ## Documentation ==========================================================
+  /** */
+
+  // ## Import Declaration =====================================================
+
+  // ### API & Library:
+
+  import Styled from 'styled-components';
+
+  // ### Style:
+
+  import githubMarkdownCss from 'github-markdown-css/github-markdown.css';
+
+  // ## Style ==================================================================
+
+  export const Styled_MarkdownBody = Styled.div`
+    ${githubMarkdownCss}
+  
+    & .markdown-body del {
+      text-decoration: line-through;
+    }
+  `;
+  ```
+
+- **src/component/Home/component/Markdown_6/index.tsx**
+
+  - style.tsx 의 Styled_MarkdownBody 를 가져와서 Markdown 태그를 감싸주세요.
+
+  ```tsx
+  // # src/component/Home/component/Markdown_6/index.tsx
+
+  // ...
+
+  import { Styled_MarkdownBody } from './style'; // <--
+
+  export const Markdown_6: FC<{ children: string }> = ({ children }) => {
+    // ...
+
+    return (
+      <>
+        <div>Markdown #6</div>
+        <Styled_MarkdownBody>
+          <Markdown
+            className={'markdown-body'}
+            remarkPlugins={[GFM]}
+            rehypePlugins={[RAW, [STZ, githubSchema]]} // <--
+          >
+            {children}
+          </Markdown>
+        </Styled_MarkdownBody>
+      </>
+    );
+  };
+  ```
 
 - **src/component/Home/index.tsx**
 
-### 리액트 마크다운 > 예시
+  - Home 에 Markdown_6 컴포넌트를 적용해주세요.
 
-### 리액트 마크다운 > 예시 > 1. Server 데이터
+  ```tsx
+  // # src/component/Home/index.tsx
+
+  import React from 'react';
+
+  import { Markdown_0 } from './component/Markdown_0';
+  import { Markdown_1 } from './component/Markdown_1';
+  import { Markdown_2 } from './component/Markdown_2';
+  import { Markdown_3 } from './component/Markdown_3';
+  import { Markdown_4 } from './component/Markdown_4';
+  import { Markdown_5 } from './component/Markdown_5';
+  import { Markdown_6 } from './component/Markdown_6';
+
+  export const Home = () => {
+    // ...
+
+    return (
+      <Styled_Home>
+        <Styled_HomeCard>
+          <Markdown_0>{post}</Markdown_0>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_1>{post}</Markdown_1>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_2>{post}</Markdown_2>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_3>{post}</Markdown_3>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_4>{post}</Markdown_4>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_5>{post}</Markdown_5>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_6>{post}</Markdown_6>
+        </Styled_HomeCard>
+      </Styled_Home>
+    );
+  };
+  ```
+
+&nbsp; 완성되었습니다. 이제 여러분은 여러분의 페이지에서 github 스타일을 완벽하게 구현할 수 있게 되었습니다.
+
+### 리액트 마크다운 > API 화
+
+&nbsp; 이제 어디서든 응용할 수 있도록 API 화를 시키도록 하겠습니다.
+
+&nbsp; 우선 데이터를 REST API 를 통해서 가져오도록 하겠습니다.
+
+### 리액트 마크다운 > API 화 > 1. Server 데이터
 
 &nbsp; 웹페이지에 띄울 마크다운 파일을 만들어봅시다.
 
-- public/server/ 폴더에 포스팅할 글들을 올릴 post/ 폴더를 만듭니다.
-- post/ 폴더에 0.md 파일을 생성해주세요.
+&nbsp; `리액트 마크다운 > 심화 > 0. 사전정리작업` 문단에서 `REST API > localhost 에 대한 이해` 문단의 정보를 기반으로 하여 "public/server/post/9/" 경로에 0.png 파일을 넣었던 것 기억나시나요?
 
-```md
-# Example 유저 내역
+&nbsp; 이제 "public/server/post/9" 경로에 "index.md" 라는 마크다운 파일을 만들고 REST API 로 불러올 것 입니다.
 
-## 목록
+&nbsp; 굳이 예제로 9 을 글 번호로 정한 이유는 0 번 에셋 번호와 헷갈리지 않도록 일부러 다른 번호가 되도록 하기 위함이었습니다. "public/server/post/9/0.png" 는 9번 글의 0번 에셋 임을 명시합니다.
 
-- 홍길동
-- 전우치
-```
+&nbsp; 이 디렉터리 구조는 "public/server/post/『POST_NUMBER』/index.md" 파일이 참조하는 에셋은 "public/server/post/『POST_NUMBER』/『ASSET_NUMBER』" 로 찾을 수 있도록 한 구조입니다.
 
-&nbsp; 이제 `http://localhost:『PORT_NUMBER』/server/post/0.md` 주소에서 해당 파일에 접근할 수 있습니다.
+&nbsp; 최대한 서버없이 RESTful 한 척을 유지하기 위한 구조이기 때문에 응용하실 때는 이 구조를 따르지 않으셔도 됩니다.
+
+- **public/server/post/9/index.md**
+
+  - public/server/post/9/ 폴더에 index.md 파일을 만들어 주세요.
+  - 테스트 용으로 가볍게 적겠습니다.
+
+  ```md
+  # Example 유저 내역
+
+  ## 목록
+
+  - 홍길동
+  - 전우치
+  ```
+
+&nbsp; 이제 `http://localhost:『PORT_NUMBER』/server/post/0/index.md` 주소에서 해당 파일에 접근할 수 있습니다.
 
 ### 리액트 마크다운 > 예시 > 2. REST API
 
