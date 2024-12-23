@@ -18,7 +18,7 @@ int main() {
 
   cin >> N;
   cin >> R;
-  data = new int[R]();
+  data = new int[N]();
   size = 0;
 
   while (data[0] < N) {
@@ -38,7 +38,8 @@ int main() {
       continue;
     }
 
-    size++;
+    if ((size == 0) || (data[size - 1] <= data[size])) size++;
+    else data[size]++;
   }
 
   delete[] data;
