@@ -9,6 +9,10 @@
 
 ### 『LANGUAGE_TYPE_01』：xxxx-xx-xx：『ANNOTATION_COMMENT』
 
+- | 메모리  | 시간 | 코드 길이 |
+  | :-----: | :--: | :-------: |
+  | 2024 KB | 0 ms |   843 B   |
+
 - 반례 못찾음
 
 ```『LANGUAGE_TYPE_01』
@@ -18,6 +22,10 @@
 ## 정답
 
 ### 『LANGUAGE_TYPE_02』：xxxx-xx-xx：『ANNOTATION_COMMENT』
+
+- | 메모리  | 시간 | 코드 길이 |
+  | :-----: | :--: | :-------: |
+  | 2024 KB | 0 ms |   843 B   |
 
 - 방법 찾음
 

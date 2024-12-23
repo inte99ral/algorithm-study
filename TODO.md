@@ -61,12 +61,9 @@
 ## DONE:
 
 - [x] 2024-12-20：[BJ 15649](<./Problem/Solved/Baekjoon/Silver/3/BJ_15649/__N과_M_(1)__.md>) N과 M (1) `#SilverⅢ` `#백트래킹`
-
-- [x] 2024-12-xx：[BJ 15650](<./Problem/Solved/Baekjoon/Silver/3/BJ_15650/__N과_M_(2)__.md>) N과 M (2) `#SilverⅢ` `#백트래킹`
-
-- [x] 2024-01-02：[BJ 15651](<./Problem/Solved/Baekjoon/Silver/3/BJ_15651/__N과_M_(3)__.md>) N과 M (3) `#SilverⅢ` `#백트래킹`
-
-- [x] 2024-xx-xx：[BJ 15652](<./Problem/Solved/Baekjoon/Silver/3/BJ_15652/__N과_M_(4)__.md>) N과 M (4) `#SilverⅢ` `#백트래킹`
+- [x] 2024-12-23：[BJ 15650](<./Problem/Solved/Baekjoon/Silver/3/BJ_15650/__N과_M_(2)__.md>) N과 M (2) `#SilverⅢ` `#백트래킹`
+- [x] 2024-12-23：[BJ 15651](<./Problem/Solved/Baekjoon/Silver/3/BJ_15651/__N과_M_(3)__.md>) N과 M (3) `#SilverⅢ` `#백트래킹`
+- [x] 2024-12-23：[BJ 15652](<./Problem/Solved/Baekjoon/Silver/3/BJ_15652/__N과_M_(4)__.md>) N과 M (4) `#SilverⅢ` `#백트래킹`
 
 `==================================================`
 

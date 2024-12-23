@@ -1,4 +1,4 @@
-# <img alt="tier" src="https://d2gd6pc034wcta.cloudfront.net/tier/8.svg" width="16" /> [BJ 15651：N과 M (3)](https://www.acmicpc.net/problem/15651)
+# <img alt="s3" src="https://d2gd6pc034wcta.cloudfront.net/tier/8.svg" width="16" /> [BJ 15651：N과 M (3)](https://www.acmicpc.net/problem/15651)
 
 <div align=center>
 
