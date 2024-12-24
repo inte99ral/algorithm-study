@@ -15,9 +15,35 @@ using namespace std;
 int main() {
   SET_IO("5");
 
-  map<string,string> n;
+  {
+    int x = 1;
+    int arr[5] = {0, 1, 2, 3, 4};
 
-  n["inte"] = "gral";
+    arr[x] = arr[x++];
+
+    for (int i = 0; i < 5; i++) cout << arr[x];
+    cout << '\n';
+  }
+
+  {
+    int x = 1;
+    int arr[5] = {0, 1, 2, 3, 4};
+
+    arr[x++] = arr[x];
+
+    for (int i = 0; i < 5; i++) cout << arr[x];
+    cout << '\n';
+  }
+
+  {
+    int x = 1;
+    int arr[5] = {0, 1, 2, 3, 4};
+
+    arr[x++] = arr[x++];
+
+    for (int i = 0; i < 5; i++) cout << arr[x];
+    cout << '\n';
+  }
 
   return 0;
 }

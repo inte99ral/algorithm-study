@@ -2,35 +2,145 @@
 
 ## 목차
 
-- [중복순열]()
-  - [정의](#-중복순열--정의)
-  - [구현 0：수학적 경우의 수](#-중복순열--구현-0수학적-경우의-수mathematical-calculation)
+- [중복순열](#중복순열permutation-with-repetition)
+  - [정의](#중복순열--정의)
+  - [구현 0：수학적 경우의 수](#중복순열--구현-0수학적-경우의-수mathematical-calculation)
+- [직순열](#직순열permutation)
 
 ## 중복순열：Permutation With Repetition
 
-### ■ 중복순열 > 정의
+### 중복순열 > 정의
 
 &nbsp; 서로 다른 n개의 원소에서 r (단, 0 < r ≤ n)개를 중복을 허용하고 순서에 상관있게 일렬로 배열하는 것을 중복순열(Permutation With Repetition)이라고 합니다.
 
-### ■ 중복순열 > 구현 0：수학적 경우의 수：Mathematical Calculation
+### 중복순열 > 구현 0：수학적 경우의 수：Mathematical Calculation
 
 &nbsp; 가장 직관적으로 이해할 수 있습니다. 번호가 적혀져있는 N 개의 구슬을 뽑고 다시 섞은 뒤에 뽑는 것을 R 번 반복하면 나오는 경우의 수는 N 의 R제곱일 것 입니다.
 
-<center>
+<div align=center>
 
 $_{n}\mathrm{\Pi}_{r}=n^r$
 
-</center>
+</div>
+
+### 중복순열 > 구현 1：지역적 풀이 - For 루프：Inline Solution - For Loop Based
+
+### 중복순열 > 구현 2：지역적 풀이 - While 루프：Inline Solution - While Loop Based
+
+&nbsp; 알고리즘은 For 루프와 완벽히 똑같습니다. i 루프, j 루프... 루프 안으로 들어가는 상황과 루프 밖으로 나오는 상황을 if 문으로 구현하기 때문에 전체 원소 수 N 값과 뽑을 수 R 값을 유동적으로 바꿀 수 있다.
+
+&nbsp; data[] 배열은 for 루프의 각 i, j, ... 깊이 마다의 변수에 해당하는 값입니다.
+
+&nbsp; size 값은 select 된 배열의 크기이면서 동시에 for 루프의 깊이를 의미합니다.
+
+&nbsp; 코드로는 다음과 같이 만들 수 있습니다.
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#ifndef ONLINE_JUDGE
+#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::cin.rdbuf(fs.is_open()?((std::istream*)&fs)->rdbuf():((std::istream*)new std::stringstream(INPUT_DATA))->rdbuf())
+#else
+#define SET_IO(INPUT_PATH) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr)
+#endif
+
+int main() {
+  SET_IO("_INPUT_.txt");
+
+  int N;
+  int R;
+  int* data;
+  int size;
+
+  cin >> N;
+  cin >> R;
+  data = new int[R]();
+  size = 0;
+
+  while (data[0] < N) {
+    if (size == R) {
+      for (int r = 0; r < R; r++) cout << data[r] + 1 << ' ';
+      cout << '\n';
+
+      size--;
+      data[size]++;
+      continue;
+    }
+
+    if (data[size] == N) {
+      data[size] = 0;
+      size--;
+      data[size]++;
+      continue;
+    }
+
+    size++;
+  }
+
+  delete[] data;
+}
+```
+
+#### 중복순열 > 구현 2 > C++
+
+### 중복순열 > 구현 4：재귀적 풀이 - DFS：Recursive Solution - DFS
+
+```cpp
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void permRep(int N, int R);
+void permRepRecur(vector<int> origin, vector<int> fixed, int N, int R, int length);
+
+int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
+
+  freopen("Problem\\Solved\\Baekjoon\\Silver\\3\\BJ_15651\\question\\input.txt", "rt", stdin);
+
+  int N, M;
+  cin >> N >> M;
+
+  permRep(N, M);
+  return 0;
+}
+
+void permRep(int N, int R) {
+  vector<int> origin;
+  vector<int> fixed;
+  for(int n = 1; n <= N; n++) origin.push_back(n);
+  permRepRecur(origin, fixed, N, R, 0);
+}
+
+void permRepRecur(vector<int> origin, vector<int> fixed, int N, int R, int length) {
+  if(length == R) {
+    for(int i : fixed) cout << i << ' ';
+    cout << '\n';
+    return;
+  }
+
+  for(int n = 0; n < N; n++) {
+    fixed.push_back(origin.at(n));
+    permRepRecur(origin, fixed, N, R, length + 1);
+    fixed.pop_back();
+  }
+}
+```
 
 ## 직순열：Permutation
 
-### ■ 직순열 > 정의
+### 직순열 > 정의
 
 &nbsp; 서로 다른 n개의 원소에서 r (단, 0 < r ≤ n)개를 중복없이 순서에 상관있게 일렬로 배열하는 것을 직순열이라고 합니다.
 
 &nbsp; 원형으로 나열하는 원순열과 대칭을 불허하는 염주순열도 있지만 `통상적인 표현`으로 순열이라 함은 이 직순열을 말합니다.
 
-### ■ 직순열 > 구현 0：수학적 경우의 수：Mathematical Calculation
+### 직순열 > 구현 0：수학적 경우의 수：Mathematical Calculation
 
 &nbsp; N 개를 순서대로 나열하는 모든 경우의 수 N! 에서 R 개만을 본다면, 뽑지 않은 것 N-R 개들이 나열된 (N - R)! 만큼이 중복되므로 나누어 해당 경우의 가짓수를 제거해주면 됩니다.
 
@@ -85,7 +195,7 @@ int main() {
 }
 ```
 
-### ■ 직순열 > 구현 1：지역적 풀이 - For 루프：Inline Solution - For Loop Based
+### 직순열 > 구현 1：지역적 풀이 - For 루프：Inline Solution - For Loop Based
 
 &nbsp; 지역적으로 뽑을 수 만큼 직접 For 루프 코드를 작성하여 중복되지 않는 경우의 수를 모두 구현합니다.
 
@@ -535,7 +645,7 @@ class Permutation {
 }
 ```
 
-### ■ 직순열 > 구현 5：재귀적 풀이 - Swap：Recursive Solution - Swap
+### 직순열 > 구현 5：재귀적 풀이 - Swap：Recursive Solution - Swap
 
 &nbsp; 1 ~ 4 까지의 결과값을 유심히 관찰하면 다음과 같은 사실을 알 수 있습니다. 각 원소가 이전의 결과와 중복되지 않는 조건을 지키며 본래 있던 위치가 아닌 곳으로 이동시키고 출력하면 순열의 결과값과 일치합니다. 여기서 두 원소의 위치를 바꾸고 출력한 뒤에 원 위치로 돌려준다면 별도의 체크 없이도 논리상 중복이 없게 됩니다. (원본 그대로 출력되는 경우는 자기와 자기의 위치를 바꾼 상태로 출력될 것 입니다.) 이것이 Swap 알고리즘 입니다.
 
@@ -609,7 +719,7 @@ void permRecur(int* origin, int* countPtr, int N, int R, int size) {
 }
 ```
 
-### ■ 직순열 > 구현 6：반복자 풀이：Iterator Solution
+### 직순열 > 구현 6：반복자 풀이：Iterator Solution
 
 &nbsp; 1 ~ 4 번의 출력값들을 자세히 보면 순열 데이터의 오름차순 출력 과정은 원본 배열이 오름차순 배열에서 시작하여 내림차순으로 정렬되는 과정과 같다는 것을 눈치챌 수 있습니다. (시작은 오름차순) 1 - 2 - 3 >>> (끝은 역순으로 뒤집은 내림차순) 3 - 2 - 1
 
@@ -732,7 +842,7 @@ bool next_perm(It begin, It end) {
 }
 ```
 
-### ■ 직순열 > 구현 7： 스프레드 연산자 풀이：Spread Solution
+### 직순열 > 구현 7： 스프레드 연산자 풀이：Spread Solution
 
 - javascript 의 map 함수와 스프레드 연산자 Spread Operator 를 활용하면 식이 엄청나게 단순해 집니다.
 
