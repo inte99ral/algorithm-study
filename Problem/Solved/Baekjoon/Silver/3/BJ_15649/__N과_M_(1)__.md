@@ -1,12 +1,8 @@
 # <img alt="s3" src="https://d2gd6pc034wcta.cloudfront.net/tier/8.svg" width="16" /> [BJ 15649：N과 M (1)](https://www.acmicpc.net/problem/15649)
 
-<div align=center>
-
-| 시간 제한 | 메모리 제한 |
-| :-------: | :---------: |
-|   1 초    |   512 MB    |
-
-</div>
+- | 시간 제한 | 메모리 제한 |
+  | :-------: | :---------: |
+  |   1 초    |   512 MB    |
 
 ## 문제
 
