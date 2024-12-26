@@ -85,11 +85,15 @@
 |`#SilverⅢ`
 | `#백트래킹`
 
-|x
+|2024-12-25
 |[BJ 15657](<./Problem/Solved/Baekjoon/Silver/3/BJ_15657/__N과_M_(8)__.md>)
 |N과 M (8)
 |`#SilverⅢ`
 | `#백트래킹`
+
+|x
+|[BJ 15663](<./Problem/Solved/Baekjoon/Silver/3/BJ_15663/__N과_M_(9)__.md>)
+|||
 
 ---
 
