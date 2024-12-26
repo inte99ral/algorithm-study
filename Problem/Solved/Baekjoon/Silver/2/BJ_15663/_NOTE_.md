@@ -1,3 +1,23 @@
+# <img alt="s2" src="https://d2gd6pc034wcta.cloudfront.net/tier/9.svg" width="16" /> [BJ 15663：N과 M (9)](https://www.acmicpc.net/problem/15663)：오답노트
+
+## 힌트
+
+- ~~순열을 구하되 겹치는 값들은 순서를 고려하여야 합니다.~~
+
+## 정답
+
+### C++：2024-12-23：인라인 풀이
+
+- | 메모리  | 시간 | 코드 길이 |
+  | :-----: | :--: | :-------: |
+  | 2020 KB | 4 ms |   984 B   |
+
+- while 루프 구조로 풀었습니다.
+- isDuplicated 논리 값으로 본인이 중복되는 값인지 확인합니다.
+- sort 소팅과정을 거쳤기 때문에 나와 중복되는 값이 바로 origin 배열에서 바로 앞의 인덱스에 있다면 이 값은 중복되는 값임을 의미합니다.
+- origin 배열에서 바로 앞의 인덱스가 select 배열에 선택된 이후에만 선택이 가능하도록 하여 순서를 유지시킵니다.
+
+```cpp
 #include <bits/stdc++.h>
 
 #ifndef ONLINE_JUDGE
@@ -46,15 +66,21 @@ int main() {
       continue;
     }
 
-    bool isSelected = false;
+    bool isDuplicated = (data[size] != 0) && (origin[data[size] - 1] == origin[data[size]]);
+    bool isOk = !isDuplicated;
+
     for (int r = 0; r < size; r++) {
       if (data[r] == data[size]) {
-        isSelected = true;
-        break;
-      } 
+        isOk = false;
+        continue;
+      }
+
+      if ((isDuplicated) && (data[r] == data[size] - 1)) {
+        isOk = true;
+      }
     }
 
-    if (!isSelected) {
+    if (isOk) {
       select[size] = origin[data[size]];
       size++;
     }
@@ -68,3 +94,4 @@ int main() {
   delete[] data;
   return 0;
 }
+```

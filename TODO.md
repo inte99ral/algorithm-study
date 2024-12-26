@@ -1,52 +1,5 @@
 # TODO
 
-## TEST
-
-<div align=center>
-
-<table>
-<tr>
-  <th>HEADER 1</th>
-  <th>HEADER 2</th>
-</tr>
-<tr>
-  <td>1</td>
-  <td align=right>2</td>
-</tr>
-</table>
-
-| HEADER 1 | HEADER 2 |
-| :------- | -------: |
-| 3        |        4 |
-
-</div>
-
-<p align=center>
-테스트1
-</p>
-
-<p align=center>
-<img alt="1" src="./.example\Baekjoon\asset\2.avif" width="200" height="200">
-</p>
-
-<div align=left>
-『LEFT_TEXT』
-</div>
-
-<center>
-『CENTER_TEXT_0』
-</center>
-
-<div align=center>
-『CENTER_TEXT_1』
-</div>
-
-<div align=right>
-『RIGHT_TEXT』
-</div>
-
-<span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-c1">1</span>)
-
 ## WARN
 
 1. <b>패턴</b>：손 풀이로 수학적 처리과정을 뇌로 한번 거쳐보고 패턴 파악해보기
@@ -66,34 +19,11 @@
 | 2024-12-23 | [BJ 15650](<./Problem/Solved/Baekjoon/Silver/3/BJ_15650/__N과_M_(2)__.md>) | N과 M (2) | `#SilverⅢ` | `#백트래킹` |
 | 2024-12-23 | [BJ 15651](<./Problem/Solved/Baekjoon/Silver/3/BJ_15651/__N과_M_(3)__.md>) | N과 M (3) | `#SilverⅢ` | `#백트래킹` |
 | 2024-12-23 | [BJ 15652](<./Problem/Solved/Baekjoon/Silver/3/BJ_15652/__N과_M_(4)__.md>) | N과 M (4) | `#SilverⅢ` | `#백트래킹` |
-
-|2024-12-24
-|[BJ 15654](<./Problem/Solved/Baekjoon/Silver/3/BJ_15654/__N과_M_(5)__.md>)
-|N과 M (5)
-|`#SilverⅢ`
-| `#백트래킹`
-
-|2024-12-24
-|[BJ 15655](<./Problem/Solved/Baekjoon/Silver/3/BJ_15655/__N과_M_(6)__.md>)
-|N과 M (6)
-|`#SilverⅢ`
-| `#백트래킹`
-
-|2024-12-24
-|[BJ 15656](<./Problem/Solved/Baekjoon/Silver/3/BJ_15656/__N과_M_(7)__.md>)
-|N과 M (7)
-|`#SilverⅢ`
-| `#백트래킹`
-
-|2024-12-25
-|[BJ 15657](<./Problem/Solved/Baekjoon/Silver/3/BJ_15657/__N과_M_(8)__.md>)
-|N과 M (8)
-|`#SilverⅢ`
-| `#백트래킹`
-
-|x
-|[BJ 15663](<./Problem/Solved/Baekjoon/Silver/3/BJ_15663/__N과_M_(9)__.md>)
-|||
+| 2024-12-24 | [BJ 15654](<./Problem/Solved/Baekjoon/Silver/3/BJ_15654/__N과_M_(5)__.md>) | N과 M (5) | `#SilverⅢ` | `#백트래킹` |
+| 2024-12-24 | [BJ 15655](<./Problem/Solved/Baekjoon/Silver/3/BJ_15655/__N과_M_(6)__.md>) | N과 M (6) | `#SilverⅢ` | `#백트래킹` |
+| 2024-12-24 | [BJ 15656](<./Problem/Solved/Baekjoon/Silver/3/BJ_15656/__N과_M_(7)__.md>) | N과 M (7) | `#SilverⅢ` | `#백트래킹` |
+| 2024-12-25 | [BJ 15657](<./Problem/Solved/Baekjoon/Silver/3/BJ_15657/__N과_M_(8)__.md>) | N과 M (8) | `#SilverⅢ` | `#백트래킹` |
+| 2024-12-26 | [BJ 15663](<./Problem/Solved/Baekjoon/Silver/2/BJ_15663/__N과_M_(9)__.md>) | N과 M (9) | `#SilverⅡ` | `#백트래킹` |
 
 ---
 
