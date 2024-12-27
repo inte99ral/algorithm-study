@@ -16,33 +16,38 @@ int main() {
   SET_IO("5");
 
   {
-    int x = 1;
-    int arr[5] = {0, 1, 2, 3, 4};
+    // set<int> iSet;
 
-    arr[x] = arr[x++];
-
-    for (int i = 0; i < 5; i++) cout << arr[x];
-    cout << '\n';
+    // iSet.emplace(1);
+    // if(iSet.find(1) != iSet.end()) {
+    //   cout << "Y";
+    // }
+    // else {
+    //   cout << "N";
+    // }
   }
 
   {
-    int x = 1;
-    int arr[5] = {0, 1, 2, 3, 4};
+    set<int> iSet;
 
-    arr[x++] = arr[x];
+    iSet.insert(9);
+    iSet.insert(1);
+    iSet.insert(9);
+    iSet.insert(7);
+    iSet.insert(8);
+    iSet.insert(2);
+    iSet.insert(5);
+    iSet.insert(7);
 
-    for (int i = 0; i < 5; i++) cout << arr[x];
+    vector<int> iVec(iSet.begin(), iSet.end());
+
+    int* iArr = iVec.data();
+    int* tArr;
+    tArr = vector<int>(iSet.begin(), iSet.end()).data();
+
+    for(int i = 0; i < (int)iVec.size(); i++) cout << iArr[i] << ' ';
     cout << '\n';
-  }
-
-  {
-    int x = 1;
-    int arr[5] = {0, 1, 2, 3, 4};
-
-    arr[x++] = arr[x++];
-
-    for (int i = 0; i < 5; i++) cout << arr[x];
-    cout << '\n';
+    for(int i = 0; i < (int)iVec.size(); i++) cout << tArr[i] << ' ';
   }
 
   return 0;

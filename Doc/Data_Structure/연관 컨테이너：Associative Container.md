@@ -32,9 +32,9 @@
 
 ​
 
-## Set
+## 집합：Set
 
-### 집합：Set
+### Set
 
 - set 컨테이너는 균형 이진탐색 트리(Balanced Binary Search Tree)인 Red-Black 트리를 기반으로 합니다.
 
@@ -43,11 +43,15 @@
   1. 내부 원소들은 중복되지 않는다.
   2. 삽입하는 순서에 상관없이 정렬되서 입력이 된다.
 
-#### 집합：Set：Create
+#### 집합：Set > Create
 
 - `set<T>`
 
-#### 집합：Set：Read
+#### 집합：Set > Create
+
+- `set<int, compare> sets; `
+
+#### 집합：Set > Read
 
 - `find`
 
@@ -68,7 +72,7 @@ else
 cout << "내가 찾는 원소가 있습니다" <<endl;
 ```
 
-#### 집합：Set：Update
+#### 집합：Set > Update
 
 - Update：`insert & emplace`
 
@@ -175,9 +179,17 @@ int main(void) {
 
 ### Multiset
 
-## 맵：Map
+## Map Container：맵 컨테이너
 
-### 맵 > 맵：Map
+### Map：맵
+
+#### Map > Create
+
+```cpp
+std::map<int, std::string> iMap;
+
+iMap.insert({1, "first"});
+```
 
 #### 맵 > 맵 > Read
 
@@ -191,6 +203,21 @@ for(std::map<int,int>::iterator it = m.begin(); it != m.end(); ++it) {
   value.push_back(it->second);
   std::cout << "Key: " << it->first << std::endl;
   std::cout << "Value: " << it->second << std::endl;
+}
+
+for(auto itr : map) {
+  cout << p->first << " " << p->second << '\n';
+}
+
+for(pair<string, int> p : map) {
+  cout << p.first << " " << p.second << '\n';
+}
+
+// * 존재 판별
+if(map.find("Pig") != map.end()) {
+  // 존재 O
+} else {
+  // 존재 X
 }
 ```
 
@@ -224,8 +251,6 @@ int main() {
   return 0;
 }
 ```
-
-#### 큐 > 우선순위 큐 > Create
 
 ### 맵 > 정렬없는 맵：Unordered Map
 

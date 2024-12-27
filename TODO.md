@@ -1,5 +1,16 @@
 # TODO
 
+## Coding Convention
+
+```txt
+『PROBLEM_CODE』
+  ├─ __『PROBLEM_NAME』__.md (문제내용)
+  ├─ _NOTES_.md (오답노트)
+  ├─ _INPUT_.txt (입력내용)
+  │
+  └─ Main.{cpp | java | js ...} (문제 풀이 코드)
+```
+
 ## WARN
 
 1. <b>패턴</b>：손 풀이로 수학적 처리과정을 뇌로 한번 거쳐보고 패턴 파악해보기
@@ -24,6 +35,18 @@
 | 2024-12-24 | [BJ 15656](<./Problem/Solved/Baekjoon/Silver/3/BJ_15656/__N과_M_(7)__.md>) | N과 M (7) | `#SilverⅢ` | `#백트래킹` |
 | 2024-12-25 | [BJ 15657](<./Problem/Solved/Baekjoon/Silver/3/BJ_15657/__N과_M_(8)__.md>) | N과 M (8) | `#SilverⅢ` | `#백트래킹` |
 | 2024-12-26 | [BJ 15663](<./Problem/Solved/Baekjoon/Silver/2/BJ_15663/__N과_M_(9)__.md>) | N과 M (9) | `#SilverⅡ` | `#백트래킹` |
+
+|2024-12-27
+|[BJ 15664](<./Problem/Solved/Baekjoon/Silver/2/BJ_15664/__N과_M_(10)__.md>)
+|N과 M (10)
+|`#SilverⅡ`
+|`#백트래킹`
+
+|2024-12-27
+|[BJ 15665](<./Problem/Solved/Baekjoon/Silver/2/BJ_15665/__N과_M_(11)__.md>)
+|N과 M (11)
+|`#SilverⅡ`
+|`#백트래킹`
 
 ---
 
