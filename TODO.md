@@ -48,6 +48,12 @@
 |`#SilverⅡ`
 |`#백트래킹`
 
+|x
+|[BJ 15666](<./Problem/Solved/Baekjoon/Silver/2/BJ_15666/__M과_N_(12)__.md>)
+|N과 M (12)
+|`#SilverⅡ`
+|`#백트래킹`
+
 ---
 
 - [x] 2024.01.02 | [BJ 4963 섬의 개수 #Silver/2 #그래프이론 #그래프탐색 #너비우선탐색 #깊이우선탐색](Problem\Solved\Baekjoon\Silver\2\BJ_4963\question\info.md)
