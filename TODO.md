@@ -48,7 +48,7 @@
 |`#SilverⅡ`
 |`#백트래킹`
 
-|x
+|2024-12-29
 |[BJ 15666](<./Problem/Solved/Baekjoon/Silver/2/BJ_15666/__M과_N_(12)__.md>)
 |N과 M (12)
 |`#SilverⅡ`
