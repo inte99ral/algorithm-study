@@ -15,11 +15,11 @@
 
 &nbsp; 가장 직관적으로 이해할 수 있습니다. 번호가 적혀져있는 N 개의 구슬을 뽑고 다시 섞은 뒤에 뽑는 것을 R 번 반복하면 나오는 경우의 수는 N 의 R제곱일 것 입니다.
 
-<center>
+<div align=center>
 
 $_{n}\mathrm{H}_{r} = C'(n, r) = \binom{n+r-1}{r} = \binom{n+r-1}{n-1}$
 
-</center>
+</div>
 
 ## 조합
 
