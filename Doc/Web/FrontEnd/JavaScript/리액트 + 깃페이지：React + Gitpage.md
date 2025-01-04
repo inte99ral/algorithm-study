@@ -2516,6 +2516,26 @@ export const Home = () => {
 
     ## 기본 문법
 
+    ### 수식
+
+    - n<sup>r</sup>
+    - A<sub>k</sub>
+
+    - When $a \ne 0$, there are two solutions to $(ax^2 + bx + c = 0)$ and they are
+      $$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
+
+    \$\${\color{red}Red}\$\$
+
+    - \${\color{lightgreen}Light \space Green}\$
+
+    - \$\color{#FF9922} \footnotesize \textnormal{일반 텍스트}\$
+
+    <div align=center>
+
+    \$_{n}\mathrm{H}_{r} = C'(n, r) = \binom{n+r-1}{r} = \binom{n+r-1}{n-1}\$
+
+    </div>
+
     ### 인용
 
     - 블록 인용：\`>\` 사용
@@ -3090,20 +3110,8 @@ export const Home = () => {
   ```tsx
   // # src/component/Home/component/Markdown_6/style.tsx
 
-  // ## Documentation ==========================================================
-  /** */
-
-  // ## Import Declaration =====================================================
-
-  // ### API & Library:
-
   import Styled from 'styled-components';
-
-  // ### Style:
-
   import githubMarkdownCss from 'github-markdown-css/github-markdown.css';
-
-  // ## Style ==================================================================
 
   export const Styled_MarkdownBody = Styled.div`
     ${githubMarkdownCss}
@@ -3116,6 +3124,8 @@ export const Home = () => {
 
 - **src/component/Home/component/Markdown_6/index.tsx**
 
+  - src/component/Home/component/Markdown_6/ 폴더를 만들고 그 안에 index.tsx 를 만들어 주세요.
+  - Markdown_5/index.tsx 와 나머지 설정은 전부 동일합니다.
   - style.tsx 의 Styled_MarkdownBody 를 가져와서 Markdown 태그를 감싸주세요.
 
   ```tsx
@@ -3195,15 +3205,227 @@ export const Home = () => {
 
 &nbsp; 완성되었습니다. 이제 여러분은 여러분의 페이지에서 github 스타일을 완벽하게 구현할 수 있게 되었습니다.
 
-### 리액트 마크다운 > API 화
+### 리액트 마크다운 > 심화 > 7. LaTeX 적용
 
-&nbsp; 이제 어디서든 응용할 수 있도록 API 화를 시키도록 하겠습니다.
+&nbsp; 가끔 수식의 적용이 필요할 경우가 있습니다. github의 마크다운 문서는 LaTeX 문법 기반의 수식 표현을 지원합니다.
 
-&nbsp; 우선 데이터를 REST API 를 통해서 가져오도록 하겠습니다.
+- **필요 플러그인 설치**
 
-### 리액트 마크다운 > API 화 > 1. Server 데이터
+  ```bash
+  # remark-math, rehype-katex, katex 설치
+  npm install remark-math rehype-katex katex
+  ```
 
-&nbsp; 웹페이지에 띄울 마크다운 파일을 만들어봅시다.
+- **src/component/Home/component/Markdown_7/style.tsx**
+
+  - src/component/Home/component/Markdown_7/ 폴더를 만들고 그 안에 style.tsx 를 만들어 주세요.
+  - Markdown_6/style.tsx 와 마찬가지로 기존 `github-markdown-css` 가 참조됩니다.
+  - LaTeX 수식 구현을 웹화면에 최적화한 KaTeX 플러그인 CSS `katex/dist/katex.min.css` 를 적용합니다.
+  - `& .katex msup mn` 의 예시 처럼 index.tsx 에서 `output: 'mathml'` 옵션이 적용되어 있다면 svg 로 만들지 않고 HTML 엘리먼트로 변형하기 때문에 CSS 적용이 가능합니다.
+
+  ```tsx
+  // # src/component/Home/component/Markdown_7/style.tsx
+
+  import Styled from 'styled-components';
+
+  import githubMarkdownCss from 'github-markdown-css/github-markdown.css';
+  import katexCss from 'katex/dist/katex.min.css'; // <--
+
+  export const Styled_MarkdownBody = Styled.div`
+    ${githubMarkdownCss}
+    ${katexCss} // <--
+  
+    & .katex msup mn { margin-top: 0.1rem; font-size: 0.7em; } // <--
+    & .markdown-body del { text-decoration: line-through; }
+  `;
+  ```
+
+- **src/component/Home/component/Markdown_7/index.tsx**
+
+  - src/component/Home/component/Markdown_7/ 폴더를 만들고 그 안에 index.tsx 를 만들어 주세요.
+  - style.tsx 의 Styled_MarkdownBody 를 가져와서 Markdown 태그를 감싸주세요.
+  - githubSchema에 LaTeX 렌더링에 필요한 태그와 속성을 추가했습니다.
+  - rehypeKatex 플러그인에 { strict: false } 옵션을 추가하여 더 유연한 LaTeX 파싱을 허용합니다.
+
+  ```tsx
+  // # src/component/Home/component/Markdown_7/index.tsx
+
+  import React, { FC } from 'react';
+  import Markdown from 'react-markdown';
+  import GFM from 'remark-gfm';
+  import MAT from 'remark-math'; // <--
+  import RAW from 'rehype-raw';
+  import STZ from 'rehype-sanitize';
+  import KTX from 'rehype-katex'; // <--
+
+  import { Styled_MarkdownBody } from './style';
+
+  // ### Markdown_7
+  export const Markdown_7: FC<{ children: string }> = ({ children }) => {
+    // #### Variable:
+    // ##### githubSchema
+    /**
+     * @description
+     *
+     * GitHub 스타일의 커스텀 보안 스키마 입니다.
+     *
+     * - githubSchema
+     *   - attributes : 태그의 허용할 옵션
+     *     - '*' : 모든 태그에서 허용할 옵션
+     *     - 『HTML_TAG』: 해당 태그에서 허용할 옵션
+     *     - code : 코드 블럭에서 허용할 옵션 및 언어
+     *       - /^language-./ : 정규표현식, 모든 언어 옵션 허용
+     *       - 'language-cpp' : C++
+     *       - 'language-csharp' : C#
+     *       - 'language-go' : Go
+     *       - 'language-java' : Java
+     *       - {'language-javascript' | 'language-typescript'} : {JavaScript | TypeScript}
+     *       - 'language-php' : PHP
+     *       - 'language-python' : Python
+     *       - 'language-ruby' : Ruby
+     *       - 'language-rust' : Rust
+     *       - {'language-shell' | 'language-bash'} : Shell
+     *       - 'language-swift': Swift
+     *       - 'language-sql' : SQL
+     *       - 'language-kotlin' : Kotlin
+     *   - tagNames : 허용할 태그
+     *   - protocols : 허용하는 프로토콜 보안 설정
+     *   - clobberPrefix
+     *   - clobber
+     *   - strip
+     *   - allowComments
+     *   - allowDoctypes
+     */
+    const githubSchema = {
+      attributes: {
+        '*': ['className', 'id', 'align'],
+        input: ['type', 'checked', 'disabled'],
+        img: ['src', 'alt', 'title', 'width', 'height'],
+        code: [/^language-./, ['math-inline', 'math-display']], // <--
+        a: ['href', 'title', 'target', 'user-mention', 'team-mention', 'issue-link', 'commit-link'],
+        span: ['className', 'style'],
+        div: ['className', 'style'],
+      },
+      tagNames: [
+        'h1',
+        'h2',
+        'h3',
+        'h4',
+        'h5',
+        'h6',
+        'p',
+        'strong',
+        'b',
+        'em',
+        'del',
+        'a',
+        'img',
+        'ol',
+        'ul',
+        'li',
+        'input',
+        'pre',
+        'code',
+        'blockquote',
+        'table',
+        'thead',
+        'tbody',
+        'tr',
+        'th',
+        'td',
+        'br',
+        'hr',
+        'details',
+        'summary',
+        'sup',
+        'sub',
+        // * LaTeX 렌더링에 필요한 태그 추가
+        'span',
+        'div',
+        'svg',
+        'path',
+        'annotation',
+      ],
+      protocols: {
+        href: ['http', 'https', 'mailto', 'tel', '#'],
+        src: ['http', 'https'],
+      },
+      clobberPrefix: 'user-content-',
+      clobber: ['name', 'id'],
+      strip: ['script', 'style', 'xml'],
+      allowComments: false,
+      allowDoctypes: false,
+    };
+
+    return (
+      <>
+        <div>Markdown #7</div>
+        <Styled_MarkdownBody>
+          <Markdown
+            className={'markdown-body'}
+            remarkPlugins={[GFM, MAT]} // <--
+            rehypePlugins={[RAW, [STZ, githubSchema], [KTX, { strict: false, output: 'mathml' }]]} // <--
+          >
+            {children}
+          </Markdown>
+        </Styled_MarkdownBody>
+      </>
+    );
+  };
+  ```
+
+- **src/component/Home/index.tsx**
+
+  - Home 에 Markdown_7 컴포넌트를 적용해주세요.
+
+  ```tsx
+  // # src/component/Home/index.tsx
+
+  import React from 'react';
+
+  // ...
+
+  import { Markdown_7 } from './component/Markdown_7';
+
+  // ...
+
+  export const Home = () => {
+    // ...
+
+    return (
+      <Styled_Home>
+        <Styled_HomeCard>
+          <Markdown_0>{post}</Markdown_0>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_1>{post}</Markdown_1>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_2>{post}</Markdown_2>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_3>{post}</Markdown_3>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_4>{post}</Markdown_4>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_5>{post}</Markdown_5>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_6>{post}</Markdown_6>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_7>{post}</Markdown_7>
+        </Styled_HomeCard>
+      </Styled_Home>
+    );
+  };
+  ```
+
+### 리액트 마크다운 > 심화 > 8. REST API 적용
+
+&nbsp; 마크다운 데이터를 REST API 를 통해서 가져오도록 하겠습니다.
 
 &nbsp; `리액트 마크다운 > 심화 > 0. 사전정리작업` 문단에서 `REST API > localhost 에 대한 이해` 문단의 정보를 기반으로 하여 "public/server/post/9/" 경로에 0.png 파일을 넣었던 것 기억나시나요?
 
@@ -3229,25 +3451,43 @@ export const Home = () => {
   - 전우치
   ```
 
-&nbsp; 이제 `http://localhost:『PORT_NUMBER』/server/post/0/index.md` 주소에서 해당 파일에 접근할 수 있습니다.
+  &nbsp; 이제 `http://localhost:『PORT_NUMBER』/server/post/9/index.md` 주소에서 해당 파일에 접근할 수 있습니다.
 
-### 리액트 마크다운 > 예시 > 2. REST API
+- **src/api/rest/post/index.ts**
 
-&nbsp; REST API 환경 조성이 사전에 필요합니다.
+  &nbsp; REST API 환경 조성이 사전에 필요합니다.
 
-&nbsp; src/api/rest/ 폴더에 post/ 폴더를 추가한 뒤, index.ts 를 만들어주세요.
+  &nbsp; src/api/rest/ 폴더에 post/ 폴더를 추가한 뒤, index.ts 를 만들어주세요.
 
 ```ts
 // # src/api/rest/post/index.tsx
 
+// ## Documentation ==========================================================
+/**
+ * @description
+ *
+ * 포스팅 될 글들을 마크다운 양식으로 다루는 함수들 입니다.
+ *
+ * @author inte99ral
+ * @version 2024-12-13
+ */
+
+// ## Import Declaration =====================================================
+
+// ### API & Library:
+
 import { AxiosApi } from 'api/axios';
 
+// ## Variable & Constant ====================================================
+
 const postAxios = AxiosApi.getAPI().getInstance('post');
+
+// ## Function ===============================================================
 
 export const getPost = (id: number) => {
   return new Promise<string>((resolve, reject) => {
     postAxios
-      ?.get(`/${id}.md`, { responseType: 'text' })
+      ?.get(`/${id}/index.md`, { responseType: 'text' })
       .then((responce) => {
         resolve(responce.data);
       })
@@ -3257,6 +3497,12 @@ export const getPost = (id: number) => {
   });
 };
 ```
+
+### 리액트 마크다운 > API 화
+
+&nbsp; 이제 어디서든 응용할 수 있도록 API 화를 시키도록 하겠습니다.
+
+&nbsp; 우선 데이터를 REST API 를 통해서 가져오도록 하겠습니다.
 
 ### 리액트 마크다운 > 예시 > 3. 페이지에서 구현
 
