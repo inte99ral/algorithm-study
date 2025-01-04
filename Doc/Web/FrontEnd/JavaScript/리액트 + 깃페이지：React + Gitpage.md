@@ -136,7 +136,12 @@
   npm update <MODULE_NAME>
 
   # 특정 모듈 특정 버전 업데이트
-  npm install --save <MODULE_NAME>@^<VERSION_NUMBER>
+
+  npm install 『MODULE_NAME』@『VERSION_NUMBER』.『VERSION_MINOR_NUMBER』
+
+  # 특정 모듈 특정 버전의 최신 버전 업데이트
+
+  npm install 『MODULE_NAME』@^『VERSION_NUMBER』
 
   # package.json 모듈 전체 업데이트
   npm install -g npm-check-updates
