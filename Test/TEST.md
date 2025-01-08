@@ -1,8 +1,8 @@
 # 테스트
 
-## 코드 하이라이트
+### 코드 하이라이트
 
-### C++
+#### C++
 
 ```cpp
 #include <bits/stdc++.h>
@@ -24,7 +24,7 @@ int main() {
 }
 ```
 
-### Java
+#### Java
 
 ```java
 package Baekjoon;
@@ -48,7 +48,7 @@ public class Main {
 
 ```
 
-### JavaScript
+#### JavaScript
 
 ```js
 const reader = {

@@ -25,19 +25,19 @@
 
 - Github 에 계정이 있으셔야 합니다.
 - 계정을 생성했거나 이미 계정이 있으시다면, 이제 여러분의 깃허브 계정명 `<GITHUB_ID>` 를 아셔야합니다.<br />
-  프로필 화면에서 닉네임 밑에 씌여있으며, 프로필 페이지 주소를 봐도 https://github.com/`<GITHUB_ID>` 형식이므로 확인할 수 있습니다.
+  프로필 화면에서 닉네임 밑에 씌여있으며, 프로필 페이지 주소를 봐도 `https://github.com/『GITHUB_ID』` 형식이므로 확인할 수 있습니다.
 
-#### Gitpage.io > `<GITHUB_ID>`.github.io 배포용 프로젝트 생성
+#### Gitpage.io > 『GITHUB_ID』.github.io 배포용 프로젝트 생성
 
-- 깃허브에 `<GITHUB_ID>`.github.io 라는 이름으로 프로젝트를 만듭니다.
+- 깃허브에 `『GITHUB_ID』.github.io` 라는 이름으로 프로젝트를 만듭니다.
 
-  - 예를들어 `<GITHUB_ID>` 가 inte99ral 인 유저는 inte99ral.github.io 라는 이름의 프로젝트를 만들면됩니다. <b>(다른 이름이면 안됩니다!)</b>
+  - 예를들어 『GITHUB_ID』 가 inte99ral 인 유저는 inte99ral.github.io 라는 이름의 프로젝트를 만들면됩니다. <b>(다른 이름이면 안됩니다!)</b>
   - 이 프로젝트에 올린 index.html 페이지가 그대로 여러분의 페이지가 됩니다.
-  - 프로젝트 `<GITHUB_ID>`.github.io 에 index.html 파일을 생성한 뒤에 넣어봅시다.<br />
+  - 프로젝트 `『GITHUB_ID』.github.io` 에 index.html 파일을 생성한 뒤에 넣어봅시다.<br />
     Hello, world! 라는 글씨가 한가운데에 적혀있는 페이지 예시 입니다.
 
     ```html
-    <!-- <GITHUB_ID>.github.io/index.html -->
+    <!-- 『GITHUB_ID』.github.io/index.html -->
     <!DOCTYPE html>
     <html>
       <head>
@@ -59,13 +59,13 @@
     </html>
     ```
 
-- 적용되기에 1~2 분의 정도 시간은 걸리지만 인터넷 브라우저를 키고 https://`<GITHUB_ID>`.github.io/ 라는 주소로 접속하시면 hello, world! 라는 문구가 띄어진 것을 볼 수 있습니다.
+- 적용되기에 1~2 분의 정도 시간은 걸리지만 인터넷 브라우저를 키고 `https://『GITHUB_ID』.github.io/` 라는 주소로 접속하시면 hello, world! 라는 문구가 띄어진 것을 볼 수 있습니다.
 
-#### Gitpage.io > `<GITHUB_ID>`.github.io.dev 개발용 프로젝트 생성
+#### Gitpage.io > 『GITHUB_ID』.github.io.dev 개발용 프로젝트 생성
 
-- 깃허브에 `<GITHUB_ID>`.github.io.dev 라는 프로젝트를 만듭니다.
+- 깃허브에 `『GITHUB_ID』.github.io.dev` 라는 프로젝트를 만듭니다.
 - 이 프로젝트는 개발용으로 쓰일 공간입니다.
-- 여기서 개발을 한 뒤, 빌드한 완제품을 `<GITHUB_ID>`.github.io 배포용 프로젝트로 옮깁니다.
+- 여기서 개발을 한 뒤, 빌드한 완제품을 `『GITHUB_ID』.github.io` 배포용 프로젝트로 옮깁니다.
 - 이렇게 분리를 하는 이유는 수많은 코드, 개발용 에셋들과 배포용 제품이 섞이지 않게 하기 위한 목적과 개발 진행 사항에 배포되어 있는 사이트가 영향을 받게하지 않기 위함입니다.
 
 ### npm (Node Package Manager) 환경 구현
@@ -2521,23 +2521,21 @@ export const Home = () => {
 
     ## 기본 문법
 
-    ### 수식
+    ### Latex 수식
 
     - n<sup>r</sup>
     - A<sub>k</sub>
 
-    - When $a \ne 0$, there are two solutions to $(ax^2 + bx + c = 0)$ and they are
-      $$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
+    - When $a \\ne 0$, there are two solutions to $(ax^2 + bx + c = 0)$ and they are
+      $$ x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a} $$
 
-    \$\${\color{red}Red}\$\$
+    - \${\\color{lightgreen}Light \\space Green}\$
 
-    - \${\color{lightgreen}Light \space Green}\$
-
-    - \$\color{#FF9922} \footnotesize \textnormal{일반 텍스트}\$
+    - \$\\color{#FF9922} \\footnotesize \\textnormal{일반 텍스트}\$
 
     <div align=center>
 
-    \$_{n}\mathrm{H}_{r} = C'(n, r) = \binom{n+r-1}{r} = \binom{n+r-1}{n-1}\$
+    \$_{n}\\mathrm{H}_{r} = C'(n, r) = \\binom{n+r-1}{r} = \\binom{n+r-1}{n-1}\$
 
     </div>
 
@@ -2563,23 +2561,92 @@ export const Home = () => {
       [](int x, int y) -> int { return x + y; };
       \`\`\`
 
+    ### 코드 하이라이트
+
+    - C++
+
+    \`\`\`cpp
+    #include <bits/stdc++.h>
+
+    #ifndef ONLINE_JUDGE
+    #define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::cin.rdbuf(fs.is_open()?((std::istream*)&fs)->rdbuf():((std::istream*)new std::stringstream(INPUT_DATA))->rdbuf())
+    #else
+    #define SET_IO(INPUT_PATH) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr)
+    #endif
+
+    using namespace std;
+
+    int main() {
+      SET_IO("_INPUT_.txt");
+
+      for (string buf; cin >> buf;) cout << buf << endl;
+
+      return 0;
+    }
+    \`\`\`
+
+    - Java
+
+    \`\`\`java
+    package Baekjoon;
+
+    import java.io.BufferedReader;
+    import java.io.FileInputStream;
+    import java.io.IOException;
+    import java.io.InputStreamReader;
+
+    public class Main {
+      public static void main(String[] args) throws IOException {
+        System.setIn(new FileInputStream("__INPUT__.txt"));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        for (String line = br.readLine(); line != null; line = br.readLine()) System.out.println(line);
+
+        br.close();
+        return;
+      }
+    }
+
+    \`\`\`
+
+    - JavaScript
+
+    \`\`\`js
+    const reader = {
+      fullLine: () => this.fullLine,
+      hasMoreLines: () => !!this.fullLine[this.lineIndex],
+      readLine: (() => {
+        this.lineIndex = 0;
+        this.fullLine = require('fs')
+          // .readFileSync('dev/stdin') // * 터미널 입력
+          .readFileSync('__INPUT__.txt') // * 로컬 __INPUT__.txt 입력
+          .toString()
+          .split(/\r\n|\r|\n/gm);
+
+        return () => this.fullLine[this.lineIndex++];
+      })(),
+    };
+
+    while (reader.hasMoreLines()) console.log(reader.readLine());
+    \`\`\`
+
     ### 가운데 정렬：Align Center
 
-    <div align=left>
-    『LEFT_TEXT』
-    </div>
+      <div align=left>
+      『LEFT_TEXT』
+      </div>
 
-    <center>
-    『CENTER_TEXT_0』
-    </center>
+      <center>
+      『CENTER_TEXT_0』
+      </center>
 
-    <div align=center>
-    『CENTER_TEXT_1』
-    </div>
+      <div align=center>
+      『CENTER_TEXT_1』
+      </div>
 
-    <div align=right>
-    『RIGHT_TEXT』
-    </div>
+      <div align=right>
+      『RIGHT_TEXT』
+      </div>
 
     ### 확장/축소：Accordion
 
@@ -2588,18 +2655,19 @@ export const Home = () => {
 
     \`\`\`cpp
     int main() {
-      ... 클릭하여 확장/축소 ...
+    ... 클릭하여 확장/축소 ...
     \`\`\`
 
     </summary>
 
     \`\`\`cpp
-      cout << "Hello, World!" << endl;
+    cout << "Hello, World!" << endl;
     \`\`\`
+
     </details>
 
     \`\`\`cpp
-      return 0;
+    return 0;
     }
     \`\`\`
 
@@ -2607,7 +2675,7 @@ export const Home = () => {
 
     ---
 
-    <hr />
+      <hr />
 
     ### 공백：No Breaking Space
 
@@ -2634,33 +2702,34 @@ export const Home = () => {
 
     #### Table > HTML Tag
 
-    <table>
-    <tr>
-    <th align=left>첫번째(왼쪽정렬, 코드블럭)</th>
-    <th align=center>두번째(가운데정렬)</th>
-    <th align=right>세번째(오른쪽정렬)</th>
-    </tr>
-    <tr>
-    <td align=left>
+      <table>
+      <tr>
+      <th align=left>첫번째(왼쪽정렬, 코드블럭)</th>
+      <th align=center>두번째(가운데정렬)</th>
+      <th align=right>세번째(오른쪽정렬)</th>
+      </tr>
+      <tr>
+      <td align=left>
 
     \`\`\`cpp
     #include <bits/stdc++.h>
 
     int main() {
-      return 0;
+    return 0;
     }
     \`\`\`
 
-    </td>
-    <td align=center>가운데정렬</td>
-    <td align=right>오른쪽정렬</td>
-    </tr>
-    </table>
+      </td>
+      <td align=center>가운데정렬</td>
+      <td align=right>오른쪽정렬</td>
+      </tr>
+      </table>
 
     ### 텍스트 서식
 
     - _이탤릭체_
     - **볼드체**
+    - <b>볼드체</b>
     - ~~취소선~~
     - <del>취소선</del>
     - <u>밑줄</u>
@@ -2692,6 +2761,7 @@ export const Home = () => {
     - <a href="./server/post/9/0.png">이미지 링크</a>
     - <img src="./server/post/9/0.png" alt="0" width="200" height="200" />
     `;
+
 
   // ...
   ```
@@ -2836,10 +2906,10 @@ export const Home = () => {
 
 &nbsp; GitHub 나 최신 markdown 에디터들은 기존 마크다운 문법에 몇 가지 기능을 추가하여 커스터마이징을 하였습니다. 대표적인 기능들은 다음과 같습니다.
 
-- 테이블
-- 체크박스
-- 자동링크변환
-- 취소선
+- 취소선 (Strikethrough): ~~취소선~~ 형식으로 텍스트에 취소선을 적용할 수 있습니다.
+- 테이블 (Tables): 마크다운에서 테이블을 생성하고 표시할 수 있습니다.
+- 작업 목록 (Task lists): - [ ] 또는 - [x] 형식으로 체크박스가 있는 할 일 목록을 만들 수 있습니다.
+- URL 자동 링크: URL을 직접 입력하면 자동으로 클릭 가능한 링크로 변환됩니다.
 
 &nbsp; remark 을 이용하면 마크다운 문법을 확장하거나 커스터마이징 할 수 있습니다.
 
@@ -3240,7 +3310,8 @@ export const Home = () => {
     ${githubMarkdownCss}
     ${katexCss} // <--
   
-    & .katex msup mn { margin-top: 0.1rem; font-size: 0.7em; } // <--
+    & .katex msup mn { font-size: 0.7em; } // <--
+    & .katex mrow { margin-top: 0.1rem; } // <--
     & .markdown-body del { text-decoration: line-through; }
   `;
   ```
@@ -3428,7 +3499,483 @@ export const Home = () => {
   };
   ```
 
-### 리액트 마크다운 > 심화 > 8. REST API 적용
+### 리액트 마크다운 > 심화 > 8. 코드 하이라이트 적용
+
+&nbsp; 코드 블럭에 IDE 처럼 하이라이트 색상을 부여하여 구문 강조를 적용하면 코드의 가독성이 좋아집니다.
+
+&nbsp; github 도 몇 가지 언어에 대해서 코드 하이라이트를 지원합니다.
+
+&nbsp; github 와 완전히 일치하는 하이라이트 스타일을 구현하는 쪽은 훨씬 복잡하기 때문에 이 부분은 react-syntax-highlighter 에서 지원하는 다른 스타일로 대체 하겠습니다.
+
+- **필요 플러그인 설치**
+
+  ```bash
+  # react-syntax-highlighter 과 타입정보 패키지를 설치합니다.
+  # 설치된 버전이 다를 경우, 같은 버전으로 맞춰주세요.
+  npm install react-syntax-highlighter @types/react-syntax-highlighter;
+  ```
+
+- **src/component/Home/component/Markdown_8/style.tsx**
+
+  - src/component/Home/component/Markdown_8/ 폴더를 만들고 그 안에 style.tsx 를 만들어 주세요.
+  - Markdown_7/style.tsx 와 마찬가지로 기존 `github-markdown-css` 가 참조됩니다.
+  - Markdown_7/style.tsx 와 마찬가지로 기존 `katex/dist/katex.min.css` 가 참조됩니다.
+  - `& .syntax-highlighter { background-color: transparent !important; }` 코드를 추가하여 배경색은 스타일의 영향을 받지 않도록 막겠습니다.
+
+  ```tsx
+  // # src/component/Home/component/Markdown_8/style.tsx
+
+  import Styled from 'styled-components';
+
+  import githubMarkdownCss from 'github-markdown-css/github-markdown.css';
+  import katexCss from 'katex/dist/katex.min.css';
+
+  // ## Style ==================================================================
+
+  export const Styled_MarkdownBody = Styled.div`
+    ${githubMarkdownCss}
+    ${katexCss}
+  
+    & .syntax-highlighter { background-color: transparent !important; } // <--
+    & .katex msup mn { font-size: 0.7em; }
+    & .katex mrow { margin-top: 0.1rem; }
+    & .markdown-body del { text-decoration: line-through; }
+  `;
+  ```
+
+- **src/component/Home/component/Markdown_8/index.tsx**
+
+  - src/component/Home/component/Markdown_8/ 폴더를 만들고 그 안에 index.tsx 를 만들어 주세요.
+  - style.tsx 의 Styled_MarkdownBody 를 가져와서 Markdown 태그를 감싸주세요.
+  - 필요한 라이브러리들을 임포트해주세요.
+    - Light 또는 Prism 을 SyntaxHighlighter 이름으로 임포트 합니다. 나중에 종류를 바꿀 때에 유용합니다.
+    - 필요한 코드블록 스타일을 찾아 임포트합니다.
+      - Light 의 경우 `'react-syntax-highlighter/dist/esm/styles/hljs'` 경로에 있습니다.
+      - Prism 의 경우 `'react-syntax-highlighter/dist/esm/styles/prism'` 경로에 있습니다.
+    - 필요한 언어 정보를 찾아 임포트합니다.
+      - Light 의 경우 `'react-syntax-highlighter/dist/esm/languages/hljs/...'` 경로에 있습니다.
+      - Prism 의 경우 `'react-syntax-highlighter/dist/esm/languages/prism/...'` 경로에 있습니다.
+  - `const supportedLanguages: string[]` 스트링 배열을 선언하여 적용할 코드블럭 종류를 정해주세요.
+  - 적용할 코드 스타일을 신택스 하이라이터의 registerLanguage 함수로 등록해주세요.
+  - `const components = {...}` 객체로 code 태그를 신택스 하이라이터 컴포넌트로 변환하는 코드를 작성합니다.
+  - react-markdown의 components 속성에 앞에서 만든 components 객체를 적용합니다.
+
+  ```tsx
+  // # src/component/Home/component/Markdown_8/index.tsx
+
+  // ...
+
+  import { Components } from 'react-markdown/lib/index';
+  import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+  import { vs as SyntaxStyle } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+  import cpp from 'react-syntax-highlighter/dist/esm/languages/hljs/cpp';
+  import java from 'react-syntax-highlighter/dist/esm/languages/hljs/java';
+  import js from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
+
+  // ...
+
+  export const Markdown_8: FC<{ children: string }> = ({ children }) => {
+    // ...
+
+    /**
+     * @description 적용할 코드블럭 언어의 종류를 지정합니다.
+     */
+    const supportedLanguages: string[] = ['cpp', 'java', 'javascript'];
+    SyntaxHighlighter.registerLanguage('cpp', cpp);
+    SyntaxHighlighter.registerLanguage('java', java);
+    SyntaxHighlighter.registerLanguage('javascript', js);
+
+    // ...
+
+    /**
+     * @description 코드블럭 태그 <code></code> 를 스타일에 맞게 <SyntaxHighlighter></SyntaxHighlighter> 로 변환하는 조건을 정합니다.
+     */
+    const components = {
+      code: ({
+        inline,
+        className,
+        children,
+        ...props
+      }: {
+        inline?: boolean;
+        className?: string;
+        children: React.ReactNode;
+      }) => {
+        const match = /language-(\w+)/.exec(className || '');
+        return !inline && match && supportedLanguages.includes(match[1]) ? (
+          <SyntaxHighlighter
+            class="syntax-highlighter"
+            style={SyntaxStyle}
+            language={match[1]}
+            PreTag="div"
+            {...props}
+          >
+            {String(children).replace(/\n$/, '')}
+          </SyntaxHighlighter>
+        ) : (
+          <code className={className} {...props}>
+            {children}
+          </code>
+        );
+      },
+    } as Components;
+
+    // ...
+
+    return (
+      <>
+        <div>Markdown #8</div>
+        <Styled_MarkdownBody>
+          <Markdown
+            className={'markdown-body'}
+            remarkPlugins={[GFM, MAT]}
+            rehypePlugins={[RAW, [STZ, githubSchema], [KTX, { strict: false, output: 'mathml' }]]}
+            components={components} // <--
+          >
+            {children}
+          </Markdown>
+        </Styled_MarkdownBody>
+      </>
+    );
+  };
+  ```
+
+- **src/component/Home/index.tsx**
+
+  - Home 에 Markdown_8 컴포넌트를 적용해주세요.
+
+  ```tsx
+  // # src/component/Home/index.tsx
+
+  import React from 'react';
+
+  // ...
+
+  import { Markdown_8 } from './component/Markdown_8';
+
+  // ...
+
+  export const Home = () => {
+    // ...
+
+    return (
+      <Styled_Home>
+        <Styled_HomeCard>
+          <Markdown_0>{post}</Markdown_0>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_1>{post}</Markdown_1>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_2>{post}</Markdown_2>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_3>{post}</Markdown_3>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_4>{post}</Markdown_4>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_5>{post}</Markdown_5>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_6>{post}</Markdown_6>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_7>{post}</Markdown_7>
+        </Styled_HomeCard>
+        <Styled_HomeCard>
+          <Markdown_8>{post}</Markdown_8>
+        </Styled_HomeCard>
+      </Styled_Home>
+    );
+  };
+  ```
+
+### 리액트 마크다운 > 심화 > 9. API 화
+
+&nbsp; 이제 어디서든 응용할 수 있도록 API 화를 시키도록 하겠습니다.
+
+&nbsp; 사실상 심화 8 까지 과정을 묶어서 api 폴더로 옮기면 됩니다.
+
+- **src/api/markdown/style.tsx**
+
+  - src/api/markdown/ 폴더를 만들고 그 안에 다음과 같이 style.tsx 를 만들어주세요.
+
+  ```tsx
+  // # src/api/markdown/style.tsx
+
+  // ## Documentation ==========================================================
+  /**
+   *
+   * 마크다운 양식의 세부적인 스타일을 조정합니다.
+   *
+   * @dependencies
+   * - [x] github-markdown-css
+   * - [x] katex
+   */
+
+  // ## Import Declaration =====================================================
+
+  // ### API & Library:
+
+  import Styled from 'styled-components';
+
+  // ### Style:
+
+  import githubMarkdownCss from 'github-markdown-css/github-markdown.css';
+  import katexCss from 'katex/dist/katex.min.css';
+
+  // ## Style ==================================================================
+
+  export const Styled_Markdown = Styled.div`
+    ${githubMarkdownCss}
+    ${katexCss}
+  
+    & .syntax-highlighter { background-color: transparent !important; }
+    & .katex msup mn { font-size: 0.7em; }
+    & .katex mrow { margin-top: 0.1rem; }
+    & .markdown-body del { text-decoration: line-through; }
+  `;
+  ```
+
+  - **src/api/markdown/index.tsx**
+
+  - src/api/markdown/ 폴더를 만들고 그 안에 다음과 같이 index.tsx 를 만들어주세요.
+
+  ```tsx
+  // # src/api/markdown/index.tsx
+
+  // ## Documentation ==========================================================
+  /**
+   * @description
+   *
+   * 마크다운 양식을 읽는 리액트 컴포넌트 API 입니다.
+   *
+   * @dependencies
+   * - [x] react-markdown
+   * - [x] remark-gfm
+   * - [x] remark-math
+   * - [x] rehype-raw
+   * - [x] rehype-sanitize
+   * - [x] rehype-katex
+   * - [x] react-syntax-highlighter
+   * - [x] @types/react-syntax-highlighter
+   *
+   * @author inte99ral
+   * @version 2024-12-15
+   */
+
+  // ## Import Declaration =====================================================
+
+  // ### API & Library:
+
+  import React, { FC } from 'react';
+  import ReactMarkdown from 'react-markdown';
+  import { Components } from 'react-markdown/lib/index';
+
+  import GFM from 'remark-gfm';
+  import MAT from 'remark-math';
+
+  import RAW from 'rehype-raw';
+  import STZ from 'rehype-sanitize';
+  import KTX from 'rehype-katex';
+
+  import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+  import { vs as SyntaxStyle } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+  import cpp from 'react-syntax-highlighter/dist/esm/languages/hljs/cpp';
+  import java from 'react-syntax-highlighter/dist/esm/languages/hljs/java';
+  import js from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
+
+  // ### Style:
+  import { Styled_Markdown } from './style';
+
+  // ## Variable & Constant ====================================================
+
+  const supportedLanguages: string[] = ['cpp', 'java', 'javascript'];
+  SyntaxHighlighter.registerLanguage('cpp', cpp);
+  SyntaxHighlighter.registerLanguage('java', java);
+  SyntaxHighlighter.registerLanguage('javascript', js);
+
+  // ## Component ==============================================================
+
+  // ### Markdown
+  export const Markdown: FC<{ children: string }> = ({ children }) => {
+    // #### Variable:
+    // ##### schema
+    /**
+     * @description
+     *
+     * 커스텀 보안 정보가 담긴 스키마 입니다.
+     *
+     * - schema
+     *   - attributes : 태그의 허용할 옵션
+     *     - '*' : 모든 태그에서 허용할 옵션
+     *     - 『HTML_TAG』: 해당 태그에서 허용할 옵션
+     *     - code : 코드 블럭에서 허용할 옵션 및 언어
+     *       - /^language-./ : 정규표현식, 모든 언어 옵션 허용
+     *       - 'language-cpp' : C++
+     *       - 'language-csharp' : C#
+     *       - 'language-go' : Go
+     *       - 'language-java' : Java
+     *       - {'language-javascript' | 'language-typescript'} : {JavaScript | TypeScript}
+     *       - 'language-php' : PHP
+     *       - 'language-python' : Python
+     *       - 'language-ruby' : Ruby
+     *       - 'language-rust' : Rust
+     *       - {'language-shell' | 'language-bash'} : Shell
+     *       - 'language-swift': Swift
+     *       - 'language-sql' : SQL
+     *       - 'language-kotlin' : Kotlin
+     *   - tagNames : 허용할 태그
+     *   - protocols : 허용하는 프로토콜 보안 설정
+     *   - clobberPrefix
+     *   - clobber
+     *   - strip
+     *   - allowComments
+     *   - allowDoctypes
+     */
+    const schema = {
+      attributes: {
+        '*': ['className', 'id', 'align'],
+        input: ['type', 'checked', 'disabled'],
+        img: ['src', 'alt', 'title', 'width', 'height'],
+        code: [/^language-./, ['math-inline', 'math-display']], // <--
+        a: ['href', 'title', 'target', 'user-mention', 'team-mention', 'issue-link', 'commit-link'],
+        span: ['className', 'style'],
+        div: ['className', 'style'],
+      },
+      tagNames: [
+        'h1',
+        'h2',
+        'h3',
+        'h4',
+        'h5',
+        'h6',
+        'p',
+        'strong',
+        'b',
+        'em',
+        'del',
+        'a',
+        'img',
+        'ol',
+        'ul',
+        'li',
+        'input',
+        'pre',
+        'code',
+        'blockquote',
+        'table',
+        'thead',
+        'tbody',
+        'tr',
+        'th',
+        'td',
+        'br',
+        'hr',
+        'details',
+        'summary',
+        'sup',
+        'sub',
+        'span',
+        'div',
+        'svg',
+        'path',
+        'annotation',
+      ],
+      protocols: {
+        href: ['http', 'https', 'mailto', 'tel', '#'],
+        src: ['http', 'https'],
+      },
+      clobberPrefix: 'user-content-',
+      clobber: ['name', 'id'],
+      strip: ['script', 'style', 'xml'],
+      allowComments: false,
+      allowDoctypes: false,
+    };
+
+    // ##### components
+    /**
+     * @description 코드블럭 태그 <code></code> 를 스타일에 맞게 <SyntaxHighlighter></SyntaxHighlighter> 로 변환하는 조건을 정합니다.
+     */
+    const components = {
+      code: ({
+        inline,
+        className,
+        children,
+        ...props
+      }: {
+        inline?: boolean;
+        className?: string;
+        children: React.ReactNode;
+      }) => {
+        const match = /language-(\w+)/.exec(className || '');
+        return !inline && match && supportedLanguages.includes(match[1]) ? (
+          <SyntaxHighlighter
+            class="syntax-highlighter"
+            style={SyntaxStyle}
+            language={match[1]}
+            PreTag="div"
+            {...props}
+          >
+            {String(children).replace(/\n$/, '')}
+          </SyntaxHighlighter>
+        ) : (
+          <code className={className} {...props}>
+            {children}
+          </code>
+        );
+      },
+    } as Components;
+
+    // #### Return:
+    return (
+      <Styled_Markdown>
+        <ReactMarkdown
+          className={'markdown-body'}
+          remarkPlugins={[GFM, MAT]}
+          rehypePlugins={[RAW, [STZ, schema], [KTX, { strict: false, output: 'mathml' }]]}
+          components={components}
+        >
+          {children}
+        </ReactMarkdown>
+      </Styled_Markdown>
+    );
+  };
+  ```
+
+&nbsp; 이제부터 언제나 `import { Markdown } from 'api/markdown';` 으로 마크다운을 읽을 수 있습니다.
+&nbsp; Home/index.tsx 에서도 다음과 같이 바로 사용할 수 있습니다.
+
+- **src/component/Home/index.tsx**
+
+  - Home 에 Markdown api 를 사용합니다.
+
+  ```tsx
+  // # src/component/Home/index.tsx
+
+  import React from 'react';
+  import { Markdown } from 'api/markdown'; // <--
+
+  // ...
+
+  export const Home = () => {
+    // ...
+
+    return (
+      <Styled_Home>
+        // ...
+        <Styled_HomeCard>
+          <div>Markdown #9</div> // <--
+          <Markdown>{post}</Markdown> // <--
+        </Styled_HomeCard>
+      </Styled_Home>
+    );
+  };
+  ```
+
+### 리액트 마크다운 > 심화 > 10. REST API 적용
 
 &nbsp; 마크다운 데이터를 REST API 를 통해서 가져오도록 하겠습니다.
 
@@ -3503,98 +4050,39 @@ export const getPost = (id: number) => {
 };
 ```
 
-### 리액트 마크다운 > API 화
+- **src/component/Home/index.tsx**
 
-&nbsp; 이제 어디서든 응용할 수 있도록 API 화를 시키도록 하겠습니다.
+  - Home 에 REST API 를 적용해주세요.
 
-&nbsp; 우선 데이터를 REST API 를 통해서 가져오도록 하겠습니다.
+  ```tsx
+  // # src/component/Home/index.tsx
 
-### 리액트 마크다운 > 예시 > 3. 페이지에서 구현
+  import React from 'react';
 
-### 리액트 마크다운 > 심화
+  // ...
 
-&nbsp; 기본적인 리액트 마크다운은 가장 플레인한 마크다운 문법만을 지원합니다. HTML 태그나 테이블 생성등은 지원되지 않습니다.
+  import React, { useState, useEffect } from 'react';
+  import { getPost } from 'api/rest/post';
 
-&nbsp; react-markdown에서 별도의 패키지 설치없이 remark-gfm 같은 remark 플러그인을 사용할 수 있습니다.<br />
-react-markdown은 remark-gfm 플러그인을 직접 지원하므로 별도의 react-remark 패키지 없이도 GitHub Flavored Markdown (GFM) 기능을 활용할 수 있습니다.
+  // ...
 
-<br />
+  export const Home = () => {
+    // ...
 
-&nbsp; react-markdown에서는 별도의 패키지 설치없이 rehype 플러그인을 사용할 수 있습니다.<br />
-react-markdown은 내부적으로 unified, remark, rehype를 사용하여 마크다운을 HTML로 변환하고 있기 때문입니다.
+    const [post, setPost] = useState('');
 
-&nbsp; 이런 부분을 해결될 수 있도록 리액트 마크다운은 여러 플러그인을 지원합니다.
+    useEffect(() => {
+      (async () => {
+        setPost(await getPost(1));
+      })();
+    }, []);
 
-&nbsp; 깃허브의 마크다운 정책과 완전히 동일한 디자인으로 구현하는 과정을 통해 익혀봅시다.
+    // ...
 
-1. rehypeRaw를 사용하여 HTML을 허용합니다.
-2. rehypeSanitize로 HTML을 안전하게 정화합니다.
-3. remarkGfm으로 GitHub Flavored Markdown을 지원합니다.
-4. 코드 블록에 대해 구문 강조를 적용합니다.
-5. markdown-body 클래스를 사용하여 GitHub 스타일을 적용합니다.
-6. GitHub 스타일 css 를 적용합니다.
+    return <Styled_Home>...</Styled_Home>;
+  };
+  ```
 
-#### 리액트 마크다운 > 심화 > rehypeRaw
+&nbsp; 이제 마크다운의 적용이 끝났습니다.
 
-#### github-markdown-css
-
-```bash
-npm install github-markdown-css
-```
-
-타입스크립트에서는 CSS 모듈에 대한 타입 선언이 필요할 수 있습니다. src 폴더에 다음과 같은 파일을 추가해주세요.
-
-```typescript
-// src/types.d.ts
-declare module '*.css';
-```
-
-#### remark-gfm
-
-&nbsp; 심화과정에서는 react-markdown 의 플러그인 중에서 Github의 README.md 구현과 같게 만드는 remark-gfm (GitHub Flavored Markdown, GFM) 플러그인을 적용해보겠습니다.
-
-- remark-gfm 옵션에서는 다음 기능이 추가됩니다.
-
-  - 취소선 (Strikethrough): ~~취소선~~ 형식으로 텍스트에 취소선을 적용할 수 있습니다.
-  - 테이블 (Tables): 마크다운에서 테이블을 생성하고 표시할 수 있습니다.
-  - 작업 목록 (Task lists): - [ ] 또는 - [x] 형식으로 체크박스가 있는 할 일 목록을 만들 수 있습니다.
-  - URL 자동 링크: URL을 직접 입력하면 자동으로 클릭 가능한 링크로 변환됩니다.
-
-- 터미널에서 다음 명령어로 remark-gfm 을 설치해주세요.
-
-```bash
-npm install remark-gfm
-```
-
-- ReactMarkdown 태그 remarkPlugins 옵션에서 적용시킬 수 있습니다.
-
-```tsx
-// ...
-
-import gfm from 'remark-gfm';
-
-// ...
-
-<Markdown remarkPlugins={[gfm]}>{post}</Markdown>;
-
-// ...
-```
-
-#### remark-rehype
-
-rehype-raw 사용: HTML 태그를 직접 렌더링하고 싶다면 rehype-raw 플러그인을 추가로 사용해볼 수 있습니다
-XSS 공격에 취향하기 때문에
-
-remark-rehype 를 사용하겠습니다.
-
-```bash
-npm install rehype-raw
-```
-
-```ts
-import rehypeRaw from 'rehype-raw';
-
-<ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-  {markdownContent}
-</ReactMarkdown>;
-```
+## 사이트 디자인

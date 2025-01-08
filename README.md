@@ -28,7 +28,7 @@
 | :-------: | :-------: | :----: | :----: | :------- |
 
 |2024.01.02
-|[BJ 4963](Problem\Solved\Baekjoon\Silver\2\BJ_4963\question\info.md)
+|[BJ 4963](./Problem/Solved/Baekjoon/Silver/2/BJ_4963/__섬의_개수__.md)
 |섬의 개수
 |#Silver/2
 |#그래프이론 #그래프탐색 #너비우선탐색 #깊이우선탐색
