@@ -6,7 +6,6 @@
 #define SET_IO(INPUT_PATH) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr)
 #endif
 
-
 using namespace std;
 
 int main() {
@@ -15,15 +14,54 @@ int main() {
   for(int X, Y; cin >> X >> Y;) {
     if (X == 0) break;
 
-    vector<vector<int>> matrix(Y, vector<int>(X, -1));
+    int count = 0;
+    int dy[9] = {-1, -1, -1, 0, 0, 0, 1, 1, 1};
+    int dx[9] = {-1, 0, 1, -1, 0, 1, -1, 0, 1};
+    vector<vector<int>> matrix(Y + 2, vector<int>(X + 2));
+    vector<vector<bool>> visited(Y + 2, vector<bool>(X + 2));
 
-    for (int y = 0; y < Y; y++) {
-      for (int x = 0; x < X; x++) {
-        cout << matrix[y][x] << " ";
+    for (int y = 1; y < Y + 1; y++) {
+      for (int x = 1; x < X + 1; x++) {
+        cin >> matrix[y][x];
       }
-      cout << "\n";
     }
 
+    for (int y = 1; y < Y + 1; y++) {
+      for (int x = 1; x < X + 1; x++) {
+        if (matrix[y][x] == 0) continue;
+        if (visited[y][x] == true) continue;
+
+        count++;
+
+        stack<pair<int, int>> task;
+        task.emplace(y, x);
+      
+        while (!task.empty()) {
+          int currY = task.top().first;
+          int currX = task.top().second;
+          task.pop();
+
+          matrix[currY][currX] = count;
+          visited[currY][currX] = true;
+
+          for (int i = 0; i < 9; i++) {
+            int nextY = currY + dy[i];
+            int nextX = currX + dx[i];
+
+            if (matrix[nextY][nextX] == 0) continue;
+            if (visited[nextY][nextX]) continue;
+
+            matrix[nextY][nextX] = count;
+            visited[nextY][nextX] = true;
+
+            task.emplace(nextY, nextX);
+          }
+        }
+      }
+    }
+
+    cout << count << "\n";
   }
+  
   return 0;
 }
