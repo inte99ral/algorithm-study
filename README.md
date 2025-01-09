@@ -27,13 +27,17 @@
 | 풀이 일자 | 문제 코드 | 문제명 | 난이도 | 해시태그 |
 | :-------: | :-------: | :----: | :----: | :------- |
 
-|2024.01.02
+|2024.01.02 -> 2025-01-09
 |[BJ 4963](./Problem/Solved/Baekjoon/Silver/2/BJ_4963/__섬의_개수__.md)
 |섬의 개수
 |#Silver/2
 |#그래프이론 #그래프탐색 #너비우선탐색 #깊이우선탐색
 
-- [x] 2024.01.17 | [BJ 1992 쿼드트리 #Silver/1 #분할정복 #재귀](Problem\Solved\Baekjoon\Silver\1\BJ_1992\question\info.md)
+|2024.01.17
+|[BJ 1992](./Problem/Solved/Baekjoon/Silver/1/BJ_1992/__쿼드트리__.md)
+|쿼드트리
+|#Silver/1
+
 - [x] 2024.03.22 | [BJ 15686 치킨 배달 #Gold/5 #그래프탐색](Problem\Failed\Baekjoon\Gold\5\BJ_15686\question\info.md)
 
 ---

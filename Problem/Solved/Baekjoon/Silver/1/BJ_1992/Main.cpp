@@ -1,43 +1,48 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
+
+#ifndef ONLINE_JUDGE
+#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::cin.rdbuf(fs.is_open()?((std::istream*)&fs)->rdbuf():((std::istream*)new std::stringstream(INPUT_DATA))->rdbuf())
+#else
+#define SET_IO(INPUT_PATH) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr)
+#endif
 
 using namespace std;
 
-string quadTree(vector<vector<bool>> &matrix, int X, int Y, int L);
+string quadTree(int Y, int X, int L, vector<vector<char>>* matrix);
 
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
-  cout.tie(nullptr);
+  SET_IO("_INPUT_.txt");
 
-  freopen("Problem\\Solved\\Baekjoon\\Silver\\1\\BJ_1992\\question\\input.txt", "rt", stdin);
-  
   int N;
-  vector<vector<bool>> matrix;
+  vector<vector<char>> matrix;
 
   cin >> N;
   cin.ignore();
+  matrix = vector<vector<char>>(N, vector<char>(N, 0));
 
-  for(int y = 0; y < N; y++) {
-    vector<bool> v;
-    char rawInput[N + 1];
-    cin.getline(rawInput, N + 1);
-
-    for(int n = 0; n < N; n++) v.push_back(rawInput[n] == '1');
-    matrix.push_back(v);
+  for (int y = 0; y < N; y++) {
+    for (int x = 0; x < N; x++) cin.get(matrix[y][x]);
+    cin.ignore();
   }
 
-  cout << quadTree(matrix, 0, 0, N);
+  cout << quadTree(0, 0, N, &matrix);
   return 0;
 }
 
-string quadTree(vector<vector<bool>> &matrix, int X, int Y, int L) {
-  if(L == 1) return matrix[Y][X]? "1" : "0";
-  string UL = quadTree(matrix, X, Y, (L >> 1));
-  string UR = quadTree(matrix, X + (L >> 1), Y, (L >> 1));
-  string DL = quadTree(matrix, X, Y + (L >> 1), (L >> 1));
-  string DR = quadTree(matrix, X + (L >> 1), Y + (L >> 1), (L >> 1));
-  
-  if((UL.length() == 1) && (UL == UR) && (UL == DL) && (UL == DR)) return UL;
-  return '(' + UL + UR + DL + DR + ')';
+string quadTree(int Y, int X, int L, vector<vector<char>>* matrixRef) {
+  if (L == 1) {
+    return string(1, (*matrixRef)[Y][X]);
+  }
+
+  string LU = quadTree(Y, X, L >> 1, matrixRef);
+  string RU = quadTree(Y, X + (L >> 1), L >> 1, matrixRef);
+  string LD = quadTree(Y + (L >> 1), X, L >> 1, matrixRef);
+  string RD = quadTree(Y + (L >> 1), X + (L >> 1), L >> 1, matrixRef);
+  string full = LU + RU + LD + RD;
+
+  if ((full.length() == 4) && (LU == RU) && (RU == LD) && (LD == RD)) {
+    return LU;
+  }
+
+  return '(' + full + ')';
 }
