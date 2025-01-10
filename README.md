@@ -33,12 +33,16 @@
 |#Silver/2
 |#그래프이론 #그래프탐색 #너비우선탐색 #깊이우선탐색
 
-|2024.01.17
+|2024.01.17 -> 2025-01-09
 |[BJ 1992](./Problem/Solved/Baekjoon/Silver/1/BJ_1992/__쿼드트리__.md)
 |쿼드트리
 |#Silver/1
 
-- [x] 2024.03.22 | [BJ 15686 치킨 배달 #Gold/5 #그래프탐색](Problem\Failed\Baekjoon\Gold\5\BJ_15686\question\info.md)
+|2024.03.22
+|[BJ 15686](Problem\Failed\Baekjoon\Gold\5\BJ_15686\question\info.md)
+|치킨 배달
+|#Gold/5
+|#그래프탐색
 
 ---
 
