@@ -53,6 +53,35 @@
 
 [mingw, msys2, cygwin, 어떤 것을 설치해야 할까?](https://woogyun.tistory.com/651)
 
+MinGW만 사용하는 경우
+
+장점
+
+- 설치가 간단하고 용량이 작음
+- 윈도우 네이티브 실행 파일 생성에 최적화
+- 가볍고 빠른 실행 속도
+
+단점
+
+- 일부 POSIX 기능 지원 제한
+- 패키지 관리와 업데이트가 불편
+
+MSYS2와 함께 사용하는 경우
+
+장점
+
+- Pacman 패키지 관리자로 패키지의 쉬운 설치와 업데이트로 관리가 편해집니다.
+- MSYS2는 GCC와 관련 도구들의 최신 버전을 빠르게 제공합니다
+- MSYS2 환경은 Linux와 유사해 크로스 플랫폼 개발이 수월하며 POSIX 호환성이 더 뛰어납니다.
+- MSYS2는 활발한 커뮤니티 지원을 받고 있어 문제 해결이 쉽습니다.
+
+단점
+
+- 설치 용량이 더 큼
+- 초기 설정이 약간 복잡할 수 있음
+
+결론적으로, 단순한 윈도우 네이티브 애플리케이션 개발에는 MinGW만으로도 충분할 수 있지만, 보다 복잡하고 다양한 개발 환경을 원한다면 MSYS2와 함께 MinGW-w64를 사용하는 것이 좋습니다.
+
 https://www.msys2.org/
 
 https://m.blog.naver.com/adapriest/220981306872
@@ -95,6 +124,10 @@ MinGW는 MSYS와의 결합으로 구동된다. MSYS는 Minimal SYStem의 약자�
 윈도우 파일 입출력 시 파일을 제대로 읽지 못하는 등의 문제가 있고, Visual Studio에서만 쓰이는 비표준 확장 함수도 제공하고 있기 때문에 C/C++ 입문자에게는 권장할 만한 것이 못 된다는 의견이 있으나, 이는 MS Windows의 로캘 문제에서 비롯된다. Windows의 경우 Windows 10 RS5에 표준 로캘을 UTF-8로 사용하는 옵션[1]이 베타로 추가되어 있으나 이 옵션은 기본값이 아니기에 전역 시스템 로캘은 별도로 설정된 로캘을 따르게 된다. Windows에서 유니코드 Aware한 프로그램을 작성하는 경우 기본적으로 wchar_t 와 같은 와이드바이트 형식 (Windows 에서는 UTF-16)을 사용하게 되며, 기본적으로는 시스템의 MBCS를 따르게 되어 일반적인 방법으로는 파일에 접근하는 방법이 전무하다. C의 fopen()의 프로토타입은 const char\* 형식만 존재하고 이는 MBCS를 따르기 때문에 로캘에서 벗어나는 파일명은 접근할 수 없다. MSVC의 경우 비표준 함수인 const wchar_t 오버라이드를 제공하고 있으나, 표준이 아닌 관계로 libc를 사용하는 GCC의 경우 이러한 파일에 접근할 수 있는 방법이 CreateFileW()와 같은 OS 자체의 API를 사용하는 것 이외에는 방법이 존재하지 않는다. 또한 콘솔의 wprintf() 또한 콘솔의 기본값은 역시나 시스템 로캘을 따르며 이 또한 로캘을 벗어나는 문자열의 정상적인 출력을 위해서는 WriteConsoleW()를 사용하여야 하는 등, Windows가 사용하는 MBCS의 문제점이지 MSYS 환경의 문제점이 아니다.
 
 Cygwin의 기능은 WSL로 확실히 대체되었지만, MinGW는 윈도우 환경을 그대로 유지하되 리눅스 명령어만 사용해야 할 경우[2] 유용하게 쓰일 수 있어 여전히 필요성이 있는 소프트웨어이다.
+
+### MSYS2
+
+### MinGW
 
 ### 3 > 설치과정
 
@@ -217,6 +250,220 @@ SJLJ 구현의 경우, Exception의 발생여부와 관계없이 항상 SJLJ 구
 - [DWARF](https://stackoverflow.com/questions/15670169/what-is-difference-between-sjlj-vs-dwarf-vs-seh)
 
 ## 4. 컴파일러 세팅
+
+### Makefile Tools
+
+&nbsp; 개발 시에 컴파일러에게 어떻게 빌드해야 하는 지 명령을 줘야합니다. 여기에는 라이브러리 인터페이스 경로, 라이브러리 참조 경로 설정, 라이브러리 링크 목록, 컴파일 할 대상 코드 파일 목록, 빌드된 출력 파일 경로 등의 정보 등 여러 정보들이 들어갑니다.
+
+&nbsp; 이걸 코딩 때 마다 하면 정말 귀찮습니다. Makefile Tools는 Visual Studio Code에서 Makefile로 관리하여 컴파일 환경 관리를 쉽게 만들어 줍니다.
+
+#### Makefile Tools > 사용방법
+
+1. VSCode 확장 마켓플레이스에서 "Makefile Tools" 확장을 검색하여 설치해주세요.
+2. 프로젝트 **루트 디렉토리**에 "Makefile" 이라는 이름의 파일을 생성합니다
+3. Makefile에 필요한 빌드 규칙과 타겟을 작성합니다. 상세설명은 밑에 별도로 하겠습니다.
+4. `ctrl + ｀` 로 vscode 쉘을 열고 make 명령어를 입력하면 됩니다. 상세설명은 밑에 별도로 하겠습니다.
+
+#### Makefile Tools > Makefile 파일 작성법
+
+Makefile은 프로젝트 빌드 자동화를 위한 도구입니다. 기본적인 Makefile 작성법은 다음과 같습니다.
+
+```Makefile
+variable
+
+target: dependencies
+    commands
+```
+
+- variable: 변수 정의
+- target: 생성할 파일 이름
+- dependencies: target을 만드는 데 필요한 파일들
+- commands: target을 만들기 위해 실행할 명령어 (반드시 탭으로 들여쓰기)
+
+- 변수 정의는 다음과 같이 `=` 등호로 정의합니다.
+
+```Makefile
+CC = gcc
+CFLAGS = -Wall -g
+```
+
+- 정의된 변수들은 `$` 를 이용해서 사용할 수 있습니다.
+
+```Makefile
+$(CC)
+$(CFLAGS)
+```
+
+- 자동적으로 적용되는 시스템 변수들은 다음과 같이 쓸 수 있습니다.
+
+  - $@: 현재 타겟의 이름
+  - $<: 첫 번째 의존성 파일 이름
+  - $^: 모든 의존성 파일 이름
+
+- 예를 들면 다음과 같이 사용됩니다.
+
+```Makefile
+%.o: %.c
+    $(CC) $(CFLAGS) -c $< -o $@
+```
+
+- `make target` 으로 타겟팅하여 여러 명령어를 골라서 쓸 수 있습니다.
+
+```Makefile
+CC = gcc
+CFLAGS = -Wall -g
+OBJS = main.o helper.o
+TARGET = myprogram
+
+$(TARGET): $(OBJS)
+    $(CC) $(OBJS) -o $(TARGET)
+
+%.o: %.c
+    $(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+    rm -f $(OBJS) $(TARGET)
+
+.PHONY: clean
+```
+
+- 타겟팅하지 않는다면 Makefile의 첫 번째로 언급된 타겟이 디폴트 값으로 실행대상이 됩니다. 단, 마침표(.)로 시작하는 타겟은 슬래시(/)를 포함하지 않는 한 기본 목표로 취급되지 않습니다
+- 기본 목표를 명시적으로 지정하고 싶다면 .DEFAULT_GOAL 특수 변수를 사용할 수 있습니다
+
+```Makefile
+.DEFAULT_GOAL := mytarget
+```
+
+- 관례적으로 많은 Makefile에서는 'all'이라는 이름의 타겟을 첫 번째로 정의하여 기본 목표로 사용합니다. 이 'all' 타겟은 보통 프로젝트에서 빌드하고자 하는 모든 것들을 의존성으로 가집니다.
+
+#### Makefile Tools > Makefile 명령어
+
+`make` 명령어를 입력하면 정해둔 빌드 규칙과 타겟대로 자동으로 컴파일을 진행합니다. 상세한 명령어는 다음과 같습니다.
+
+- `make build`: 프로젝트를 빌드합니다. 기본 작업으로 설정되어 있기 때문에 `make` 만 입력해도 됩니다.
+- `make clean`: 빌드 산출물을 정리합니다.
+- `make run`: 프로그램을 실행합니다.
+- `make debug`: 디버그 모드로 빌드합니다.
+
+### tasks.json
+
+&nbsp; vscode의 빌드자동화를 Makefile 를 거치지 않고 네이티브하게 직접 조정합니다.
+
+&nbsp; vscode shell 에서 미리 정의되어 있는 내장 변수를 사용하거나 파이프, 리다이렉션등의 기능을 활용하여 더 복잡한 기능을 자동화 할 수 있습니다.
+
+- 경로 관련 변수
+
+  - ${workspaceFolder}: 현재 VSCode에서 열린 작업 폴더의 경로
+  - ${workspaceFolderBasename}: 작업 폴더의 이름 (슬래시 없이)
+  - ${file}: 현재 열린 파일의 전체 경로
+  - ${fileWorkspaceFolder}: 현재 열린 파일이 속한 작업 폴더
+  - ${relativeFile}: 작업 폴더를 기준으로 한 현재 파일의 상대 경로
+  - ${fileDirname}: 현재 파일이 있는 디렉토리 경로
+  - ${fileExtname}: 현재 파일의 확장자
+
+- 파일명 관련 변수
+
+  - ${fileBasename}: 현재 파일의 기본 이름 (확장자 포함)
+  - ${fileBasenameNoExtension}: 현재 파일의 기본 이름 (확장자 제외)
+
+- 에디터 관련 변수
+
+  - ${lineNumber}: 현재 활성 파일에서 선택된 라인 번호
+  - ${selectedText}: 현재 활성 파일에서 선택된 텍스트
+
+- 시스템 관련 변수
+
+  - ${userHome}: 사용자의 홈 폴더 경로
+  - ${pathSeparator}: 운영 체제에 따른 경로 구분자 (macOS/Linux: '/', Windows: '')
+  - ${execPath}: VSCode 실행 파일의 경로
+
+- 기타 변수
+  - ${env:Name}: 환경 변수 참조 (예: ${env:USERNAME})
+  - ${config:Name}: VSCode 설정 참조 (예: ${config:editor.fontSize})
+
+&nbsp; tasks.json 파일에서 tasks 리스트 내 객체의 type 항목은 작업의 실행 방식을 결정합니다. 주요 type으로는 cppbuild, process, shell이 있습니다.
+
+- shell
+  - 복잡한 명령어 또는 스크립트 실행에 적합합니다.
+  - 시스템의 셸(예: bash, cmd.exe)을 통해 명령을 실행합니다.
+  - 셸의 기능(파이프, 리다이렉션 등)을 사용할 수 있습니다.
+  - 가장 유연하며, 복잡한 명령어 시퀀스를 실행할 수 있습니다.
+  - 예시
+
+```json
+{
+  "type": "shell",
+  "label": "Run multiple commands",
+  "command": "echo 'Building...' && make && echo 'Running...' && ./myprogram",
+  "options": {
+    "cwd": "${workspaceFolder}"
+  },
+  "group": "build"
+}
+```
+
+- process
+
+  - 단순한 프로그램 실행에 적합합니다.
+  - 운영 체제의 프로세스를 직접 실행합니다.
+  - 셸을 거치지 않고 프로그램을 직접 실행하므로 더 빠르고 안전할 수 있습니다.
+  - 단일 프로그램을 직접 실행하며, 셸 기능은 사용할 수 없습니다.
+  - 명령어와 인수를 분리하여 지정해야 합니다.
+  - 예시
+
+```json
+{
+  "type": "process",
+  "label": "Run Python script",
+  "command": "python",
+  "args": ["${file}"],
+  "options": {
+    "cwd": "${workspaceFolder}"
+  },
+  "group": "test"
+}
+```
+
+- cppbuild
+
+  - 쉘 작업이 아니라 컴파일러를 실행하고 args 인자값을 넘겨주기에 process 타입과 같으나 C/C++ 프로젝트를 위한 특화된 빌드 작업 유형입니다.
+  - 빌드에 최적화되어 있으며, 컴파일러 설정을 자동화합니다.
+  - 컴파일러 경로와 인수를 자동으로 설정합니다.
+  - 문제 매칭(problem matching)이 자동으로 구성됩니다.
+  - 예시
+
+```json
+{
+  "type": "cppbuild",
+  "label": "C/C++: g++ build active file",
+  "command": "/usr/bin/g++",
+  "args": ["-g", "${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}.exe"],
+  "options": {
+    "cwd": "${workspaceFolder}"
+  },
+  "problemMatcher": ["$gcc"],
+  "group": {
+    "kind": "build",
+    "isDefault": true
+  }
+}
+```
+
+&nbsp; tasks.json 의 "type": "process"인 경우, command는 실행할 프로세스의 이름이며, 추가 인수는 args 항목에 지정합니다.
+
+&nbsp; "type": "shell"인 경우, command는 셸에서 실행될 전체 명령줄입니다.
+
+&nbsp; "type": "cppbuild" 는 매우 특이한 타입입니다. 자동으로 `cmd /c chcp 65001>nul && gcc ...` 옵션으로 상당히 네이티브하고 윈도우 오류가 적도록 빌드를 시도합니다.
+
+"type": "shell"은 명령을 셸에서 실행함을 나타냅니다.
+"label": 작업의 이름입니다. VSCode UI에서 이 이름으로 작업을 식별합니다.
+"command": 실행할 명령어입니다. 여기서는 모두 "make"입니다.
+"args": make 명령에 전달할 인수입니다.
+"options": 작업 실행 옵션입니다. "cwd"는 작업 디렉토리를 지정합니다.
+"problemMatcher": 컴파일러 출력을 파싱하여 오류와 경고를 표시합니다.
+"group": 작업의 그룹을 지정합니다. "build" 그룹의 작업은 빌드 단축키로 실행할 수 있습니다.
+
+&nbsp; 장점. 터미널 종류 등 세밀한 조정가능
 
 ## N-1. VScode 세팅
 
