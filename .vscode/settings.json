@@ -1,55 +1,58 @@
+// # settings.json
+
+// ## Documentation ==========================================================
 /*
  * ctrl + , 누르고 세팅에 적용하기
  *
  * 자주 쓰는 확장들
- * # Default ==============================
- * Material Icon Theme
- * TODO Highlight
- * Code Runner
- * Git Graph
- * indent-rainbow
- * IntelliCode
- * IntelliCode API Usage Examples
- * WSL
+ * ### Default:
+ * [x] Material Icon Theme
+ * [x] TODO Highlight
+ * [x] Git Graph
+ * [x] indent-rainbow
+ * [x] IntelliCode
+ * [x] IntelliCode API Usage Examples
+ * [x] WSL
  *
- * # MarkDown ==============================
- * Markdown All in One
- * markdownlint
+ * ### MarkDown:
+ * [x] Markdown All in One
+ * [x] markdownlint
  *
- * # HTML & JavaScript ====================
- * Live Server
- * Auto Rename Tag
- * Auto Close Tag
- * ES7+ React/Redux/React-Native snippets
- * ESLint
- * Prettier - Code formatter
- * Prettier ESLint
- * vscode-styled-components
+ * ### HTML & JavaScript:
+ * [x] Live Server
+ * [x] Auto Rename Tag
+ * [x] Auto Close Tag
+ * [x] ES7+ React/Redux/React-Native snippets
+ * [x] ESLint
+ * [x] Prettier - Code formatter
+ * [x] Prettier ESLint
+ * [x] vscode-styled-components
  *
- * # C++ ==================================
- * C/C++
- * C/C++ Extension Pack
- * C/C++ Themes
- * CMake
- * CMake Tools
+ * ### C++:
+ * [x] C/C++
+ * [x] C/C++ Extension Pack
+ * [x] C/C++ Themes
+ * [x] CMake
+ * [x] CMake Tools
  *
- * # Java ==================================
- * Extension Pack for Java
- * Debugger for Java
- * Java prettier formatter
- * Language Support for Java(TM) by Red Hat
- * Maven for Java
- * Project Manager for Java
- * Test Runner for Java
+ * ### Java:
+ * [x] Extension Pack for Java
+ * [x] Debugger for Java
+ * [x] Java prettier formatter
+ * [x] Language Support for Java(TM) by Red Hat
+ * [x] Maven for Java
+ * [x] Project Manager for Java
+ * [x] Test Runner for Java
  */
 
+// ## Setting ================================================================
 {
-  // # Default ============================================================
+  // ### Default:
   "explorer.compactFolders": false, // 폴더 경로 압축 여부
   "workbench.colorTheme": "Visual Studio Light - C++", // vscode theme
   "typescript.updateImportsOnFileMove.enabled": "never", // 파일 위치를 바꿀 때, 참조하는 경로들을 자동으로 수정할 지 여부
 
-  // # material-icon-theme ================================================
+  // ### material-icon-theme:
   "workbench.iconTheme": "material-icon-theme",
   "material-icon-theme.folders.associations": {
     "component": "components",
@@ -62,7 +65,7 @@
     "Unsolved": "Error"
   },
 
-  // # Todo highlight =====================================================
+  // ### Todo highlight:
   "todohighlight.isEnable": true,
   "todohighlight.include": [
     "**/*.js",
@@ -91,7 +94,7 @@
   ],
   "todohighlight.keywords": [],
 
-  // # Formatter ==========================================================
+  // ### Formatter:
   "html.format.extraLiners": "",
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
@@ -113,7 +116,7 @@
     "MD033": false // Don't lint : Inline HTML
   },
 
-  // # Terminal ===========================================================
+  // ### Terminal:
   "terminal.integrated.profiles.windows": {
     "PowerShell": {
       "source": "PowerShell",

@@ -9,11 +9,13 @@
 # * remove .vscode from the .gitignore for save default .vscode setting 
 
 # Dependencies ============================================================
+# /.vscode
 /node_modules
 /.pnp
 .pnp.js
 
 # Testing =================================================================
+# /test
 /coverage
 
 # Production ==============================================================

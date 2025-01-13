@@ -18,9 +18,9 @@
  * @version 2024-11-18
  */
 
+// ## Import Declaration =====================================================
 
-// ## API & Library ==========================================================
-
+// ### API & Library:
 #include <bits/stdc++.h>
 
 #ifndef ONLINE_JUDGE
