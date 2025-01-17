@@ -10,6 +10,52 @@
 using namespace std;
 
 int main() {
-  SET_IO("_INPUT.txt");
+  SET_IO("_INPUT_.txt");
+
+  int dwarf[9] = {};
+  int sum = 0;
+
+  for (int n = 0; n < 9; n++) {
+    cin >> dwarf[n];
+    sum += dwarf[n];
+  }
+
+  sum -= 100;
+
+  {
+    int data[2] = {};
+    int size = 0;
+
+    while (data[0] != 9) {
+      if (size == 2) {
+        if (sum == dwarf[data[0]] + dwarf[data[1]]) break;
+
+        size--;
+        data[size]++; 
+        continue;
+      }
+
+      if (data[size] == 9) {
+        data[size] = 0;
+        size--;
+        data[size]++;
+        continue;
+      }
+
+      if ((size != 0) && (data[size - 1] >= data[size])) {
+        data[size]++;
+        continue;
+      }
+
+      size++;
+    }
+
+    for (int n = 0; n < 9; n++) {
+      if ((n != data[0]) && (n != data[1])) {
+        cout << dwarf[n] << "\n";
+      }
+    }
+  }
+
   return 0;
 }
