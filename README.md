@@ -27,6 +27,12 @@
 | 풀이 일자 | 문제 코드 | 문제명 | 난이도 | 해시태그 |
 | :-------- | :-------- | :----- | :----- | :------- |
 
+|2024-10-26
+|[BJ 3040](./Problem/Failed/Baekjoon/Bronze/2/BJ_3040/__백설_공주와_일곱_난쟁이__.md)
+|백설 공주와 일곱 난쟁이
+|`#BronzeⅡ`
+|`#브루트포스`
+
 ---
 
 - [x] 2024-03-22 | [BJ 7576](Problem\Failed\Baekjoon\Gold\5\BJ_7576\question\info.md) 토마토 `#GoldⅤ` `#그래프` `#그래프 탐색` `#너비 우선 탐색`
@@ -87,7 +93,6 @@
 
 ## TODO:
 
-- [x] 2024-10-26：[BJ 3040](Problem\Failed\Baekjoon\Bronze\2\BJ_3040\info\question.md) 백설공주와일곱난쟁이 `#BronzeⅡ` `#브루트포스`
 - [ ] BJ 2999 비밀이메일
 - [ ] BJ 3985 롤케이크
 - [ ] BJ 3052 나머지

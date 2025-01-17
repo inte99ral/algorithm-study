@@ -1,4 +1,4 @@
-# <img alt="tier" src="https://d2gd6pc034wcta.cloudfront.net/tier/5.svg" width="16" /> [문제 코드：문제 제목](https://www.naver.com/)：오답노트
+# <img alt="b2" src="https://d2gd6pc034wcta.cloudfront.net/tier/4.svg" width="16" /> [BJ 3040：공주와 일곱 난쟁이](https://www.acmicpc.net/problem/3040)：오답노트
 
 ## 힌트
 
