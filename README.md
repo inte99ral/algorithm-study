@@ -24,17 +24,6 @@
 
 ## DONE:
 
-| 풀이 일자 | 문제 코드 | 문제명 | 난이도 | 해시태그 |
-| :-------- | :-------- | :----- | :----- | :------- |
-
-|2024-10-26
-|[BJ 3040](./Problem/Failed/Baekjoon/Bronze/2/BJ_3040/__백설_공주와_일곱_난쟁이__.md)
-|백설 공주와 일곱 난쟁이
-|`#BronzeⅡ`
-|`#브루트포스`
-
----
-
 - [x] 2024-03-22 | [BJ 7576](Problem\Failed\Baekjoon\Gold\5\BJ_7576\question\info.md) 토마토 `#GoldⅤ` `#그래프` `#그래프 탐색` `#너비 우선 탐색`
 - [x] 2024-04-04 | [BJ 17135](Problem\Solved\Baekjoon\Gold\3\BJ_17135\question\info.md) 캐슬 디펜스 `#GoldⅢ` `#구현` `#그래프` `#브루트포스` `#너비우선탐색`
 - [x] 2024-04-23 | [BJ 2252](Problem\Solved\Baekjoon\Gold\3\BJ_2252\question\info.md) 줄 세우기 `#GoldⅢ` `#그래프` `#위상 정렬` `#방향 비순환 그래프`
@@ -84,7 +73,21 @@
 
 ## FIXME:
 
-- [x] 2024-10-18：[BJ 5397](Problem\Failed\Baekjoon\Silver\2\BJ_5397\question\info.md) 키로거 `#SilverⅡ` `#자료구조` `#스택` `#연결 리스트`
+| 풀이 일자 | 문제 코드 | 문제명 | 난이도 | 해시태그 |
+| :-------- | :-------- | :----- | :----- | :------- |
+
+|2024-10-26
+|[BJ 3040](./Problem/Failed/Baekjoon/Bronze/2/BJ_3040/__백설_공주와_일곱_난쟁이__.md)
+|백설 공주와 일곱 난쟁이
+|`#BronzeⅡ`
+|`#브루트포스`
+
+|2024-10-18
+|[BJ 5397](./Problem/Failed/Baekjoon/Silver/2/BJ_5397/__키로거__.md)
+|키로거
+|`#SilverⅡ`
+|`#자료구조` `#스택` `#연결 리스트`
+
 - [x] 2024-10-25 | [BJ 1629](Problem\Unsolved\Baekjoon\Silver\1\BJ_1629\question\info.md) 곱셈 `#SilverⅠ`
 - [ ] 2024-06-16 | [BJ 11726](Problem\Solved\Baekjoon\Gold\1\BJ_17472\question\info.md) 2×n 타일링 `#SilverⅢ`
 - [ ] 2024-xx-xx：[SWEA 20671](Problem\Unsolved\SWEA\D5\SWEA_20671\question\info.md) 숫자 카드 `#D5`

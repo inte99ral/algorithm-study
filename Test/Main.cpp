@@ -8,16 +8,41 @@
 
 using namespace std;
 
+
+void combRecur(int N, int R, int data, int index, int size) {
+  if (size == R) {
+    for (int n = 0; n < N; n++) {
+      if (data & (1 << n)) {
+        cout << n + 1 << " ";
+      }
+    }
+    cout << "\n";
+    return;
+  }
+
+  if (index == N) {
+    return;
+  }
+
+  combRecur(N, R, data | (1 << index), index + 1, size + 1);
+  combRecur(N, R, data, index + 1, size);
+}
+
+void comb(int N, int R) {
+  combRecur(N, R, 0, 0, 0);
+}
+
 int main() {
-  thread t1(func2, "task1", 5);
-  thread t2(func2, "task2", 5);
+  SET_IO("_INPUT_.txt");
 
-  cout << "Main thread: Waiting for threads to finish..." << endl;
+  int N;
+  int R;
 
-  t1.join();
-  t2.join();
+  cin >> N;
+  cin >> R;
 
-  cout << "Main thread: All threads have finished." << endl;
+  comb(N, R);
 
   return 0;
 }
+

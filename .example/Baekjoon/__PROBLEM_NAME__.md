@@ -1,4 +1,4 @@
-# <img alt="『티어』" src="https://d2gd6pc034wcta.cloudfront.net/tier/5.svg" width="16" /> [『문제코드』：『문제제목』](https://www.acmicpc.net/problem/『문제코드』)
+# <img alt="『티어』" src="https://d2gd6pc034wcta.cloudfront.net/tier/5.svg" width="16" /> [『문제코드』](https://www.acmicpc.net/problem/『문제코드』)：『문제제목』
 
 - | 시간 제한 | 메모리 제한 |
   | :-------: | :---------: |
