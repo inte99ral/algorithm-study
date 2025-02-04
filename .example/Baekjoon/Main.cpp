@@ -24,11 +24,14 @@
 #include <bits/stdc++.h>
 
 #ifndef ONLINE_JUDGE
-#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::cin.rdbuf(fs.is_open()?((std::istream*)&fs)->rdbuf():((std::istream*)new std::stringstream(INPUT_DATA))->rdbuf())
+#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream IO_FS(INPUT_DATA);std::streambuf *IO_BACKUP=std::cin.rdbuf(IO_FS.is_open()?((std::istream*)&IO_FS)->rdbuf():((std::istream*)new std::stringstream(INPUT_DATA))->rdbuf())
+#define TEST_IO(TEST_CODE) TEST_CODE
+#define UNSET_IO() std::cin.rdbuf(IO_BACKUP)
 #else
 #define SET_IO(INPUT_PATH) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr)
+#define TEST_IO(TEST_CODE) ((void) 0)
+#define UNSET_IO() ((void) 0)
 #endif
-
 
 using namespace std;
 

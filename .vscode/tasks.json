@@ -88,6 +88,7 @@
       "group": {
         "kind": "test",
         "isDefault": true
+        // "isDefault": false
       },
       "command": "${fileDirname}/${fileBasenameNoExtension}.exe",
       "options": {
@@ -103,6 +104,7 @@
       "type": "process",
       "group": {
         "kind": "test",
+        // "isDefault": true
         "isDefault": false
       },
       "command": "java",
@@ -120,6 +122,7 @@
       "type": "process",
       "group": {
         "kind": "test",
+        // "isDefault": true
         "isDefault": false
       },
       "command": "node",

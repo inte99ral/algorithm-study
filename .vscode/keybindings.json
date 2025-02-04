@@ -11,7 +11,7 @@
   },
   // 실행
   {
-    "key": "ctrl+alt+r",
+    "key": "ctrl+alt+x",
     "command": "workbench.action.tasks.test"
   }
 ]

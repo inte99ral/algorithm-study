@@ -35,6 +35,71 @@ vector<vector<int>> matrix(y, vector<int> (x));
 [리스트](https://chanheess.tistory.com/154)
 [반복자 응용](https://velog.io/@jh991012/%EB%B0%B1%EC%A4%80C-5397%EB%B2%88-%ED%82%A4%EB%A1%9C%EA%B1%B0)
 
+### List : Create
+
+- C++ list 컨테이너에서 insert 함수는 지정된 위치 앞에 새로운 요소를 삽입하고, 삽입된 새 요소를 가리키는 iterator를 반환합니다
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+  { // * list iter insert return
+    std::list<int> l = {1, 2, 3, 4, 5};
+    std::list<int>::iterator iter = next(l.begin(), 2);
+    iter = l.insert(iter, 10);
+    iter = l.insert(iter, 20);
+    iter = l.insert(iter, 30);
+
+    for (int i : l) cout << i << " ";
+    cout << "\n";
+  }
+
+  { // * list iter insert
+    std::list<int> l = {1, 2, 3, 4, 5};
+    auto iter = l.begin();
+    ++iter;
+    iter++;
+    l.insert(iter, 10);
+    l.insert(iter, 20);
+    l.insert(iter, 30);
+
+    for (int i : l) cout << i << " ";
+    cout << "\n";
+  }
+}
+```
+
+### List : Delete
+
+- 원소를 가르키는 iter 를 넣으면 삭제합니다. 다음 iter 를 반환합니다.
+- c++ 11 이후부터는 next() 를 지원합니다.
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+  { // * iter next 테스트
+    list<char> lc;
+
+    lc.push_back('0');
+    lc.push_back('1');
+    lc.push_back('2');
+    lc.push_back('3');
+    lc.push_back('4');
+    lc.push_back('5');
+    lc.push_back('6');
+
+    // auto it = next(lc.begin(), 3);
+
+    lc.erase(next(lc.begin(), 3));
+
+    cout << string(lc.begin(), lc.end()) << "\n";
+  }
+}
+```
+
 ## 덱：Deque
 
 ### 덱 > 덱：Deque (Double-Ended Queue)

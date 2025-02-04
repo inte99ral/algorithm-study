@@ -4,6 +4,24 @@
 
 ## 응용 예시
 
+### 특정 조건에 맞춰서 입출력 스트림 조건 바꾸기
+
+```cpp
+#ifndef ONLINE_JUDGE
+
+#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream IO_FS(INPUT_DATA);std::streambuf *IO_BACKUP=std::cin.rdbuf(IO_FS.is_open()?((std::istream*)&IO_FS)->rdbuf():((std::istream*)new std::stringstream(INPUT_DATA))->rdbuf())
+
+#define UNSET_IO() std::cin.rdbuf(IO_BACKUP)
+
+#else
+
+#define SET_IO(INPUT_PATH) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr)
+
+#define UNSET_IO() ((void) 0)
+
+#endif
+```
+
 ### 내부 문자열을 입출력 스트림에 집어넣기
 
 ```cpp
@@ -49,6 +67,7 @@ int main() {
 ### 내부 문자열을 입출력 스트림에 집어넣기 매크로화
 
 - c++ 다형성을 이용하여 `INPUT_DATA` 경로에 파일이 있을 경우엔 `ifstream` 의 스트림버퍼를 가져옵니다. 없을 경우에는 `INPUT_DATA` 문자열에 대한 `stringstream` 의 스트림버퍼를 적용하는 매크로를 생성합니다.
+- `*IO_BACKUP` 이라는 포인터 변수에 cin 쉘 입출력 스트림을 백업 해두고 `UNSET_IO()` 매크로에서 백업된 입출력스트림을 다시 cin 에 연결시킵니다.
 
 ```cpp
 #include <iostream>
@@ -56,9 +75,11 @@ int main() {
 #include <fstream>
 
 #ifndef ONLINE_JUDGE
-#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::cin.rdbuf(fs.is_open()?((std::istream*)&fs)->rdbuf():((std::istream*)new std::stringstream(INPUT_DATA))->rdbuf())
+#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream IO_FS(INPUT_DATA);std::streambuf *IO_BACKUP=std::cin.rdbuf(IO_FS.is_open()?((std::istream*)&IO_FS)->rdbuf():((std::istream*)new std::stringstream(INPUT_DATA))->rdbuf())
+#define UNSET_IO() std::cin.rdbuf(IO_BACKUP)
 #else
 #define SET_IO(INPUT_PATH) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr)
+#define UNSET_IO() ((void) 0)
 #endif
 
 
