@@ -9,7 +9,7 @@
 &nbsp; 문제의 그림예시 `<그림 1>`
 
 <p align=center>
-<img src="./asset/1.png" alt=1 width="400" height="200" />
+<img src="./asset/1.png" alt="01" width="400" height="200" />
 </p>
 
 &nbsp; 문제의 입력 예시 `<입력 1>`

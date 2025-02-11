@@ -1,0 +1,390 @@
+# 깃：Git
+
+## 공식 문서
+
+- https://git-scm.com/docs
+
+- [참고 링크](https://velog.io/@delilah/GitHub-Git-%EB%AA%85%EB%A0%B9%EC%96%B4-%EB%AA%A8%EC%9D%8C)
+
+<br />
+
+## Git 명령어 목록
+
+<center>
+<table class="example">
+<tr class="center">
+  <th>동작</th>
+  <th>명령어</th>
+</tr>
+<tr>
+  <td>GIT 설정</td>
+  <td>
+
+```bash
+git config --list #전체 설정 확인, :상태에서 q를 누르면 git bash에서 나가진다.
+git config user.name #사용자 이름 확인
+git config user.email #사용자 이메일 확인
+
+git config --global user.name "사용자 이름" #사용자 이름 설정
+git config --global user.email "사용자 이메일" #사용자 이메일 설정
+```
+
+</td>
+</tr>
+<tr>
+  <td>저장소<br />신규 생성</td>
+  <td>
+
+```bash
+git init
+```
+
+</td>
+</tr>
+  <tr>
+  <td>저장소<br />복제 &<br />변경사항<br />수용</td>
+  <td>
+
+```bash
+git clone "https://.. URL" #URL 주소
+git clone "/로컬/저장소/경로" #로컬 디렉토리 주소
+
+git pull #저장소의 변경사항을 모두 수용합니다.
+git pull origin "대상브랜치" #저장소 해당 브랜치의 변경사항을 모두 수용합니다.
+
+git fetch #변경사항을 가져오되 병합은 하지 않습니다.
+git merge "대상 브랜치 이름" # 대상 브랜치의 변경사항을 현재 브랜치에 병합합니다.
+
+git merge --no-ff 『대상 브랜치 이름』 # 병합 시에 반드시 병합 커밋을 형성합니다.병합할 두 브랜치가 Fast-Forward 관계에 있을 때 하나의 브랜치로 보고 병합 커밋을 생성하지 않으며 포인터만 넘기는 것을 허용하지 않습니다. 반드시 병합 커밋을 형성합니다.
+```
+
+</td>
+</tr>
+  </tr>
+  <tr>
+  <td>변경사항 적용</td>
+  <td>
+
+```bash
+git status #git이 관리하고있는 파일들의 상태를 보여줍니다.
+
+git add "파일명" #해당 파일의 변경을 스테이지에 올립니다.
+git add * #모든 변경을 스테이지에 올립니다.
+git add . #.gitignore 제외, 모든 변경을 스테이지에 올립니다.
+
+git commit -m "(따옴표 포함)커밋 메시지" #스테이징 영역에 올라와 있던 변경사항들을 브랜치에 적용합니다.
+
+git push origin "브랜치 이름" #브랜치를 원본 저장소로 전송합니다.
+
+git reset #add 전부 취소
+git reset HEAD "파일명" #해당 파일 add 취소
+git reset HEAD^ #가장 최신 커밋 1개 삭제
+git reset HEAD^ #가장 최신 커밋 1개 삭제
+git reset HEAD^^^^^ #가장 최신 커밋 5개 삭제
+```
+
+</td>
+</tr>
+  <tr>
+  <td>브랜치 생성</td>
+  <td>
+
+```bash
+git branch #브랜치 목록과 현 브랜치를 보여줍니다.
+git branch -v #브랜치목록과 마지막 커밋 상세정보까지 보여줍니다.
+git branch -r #Origin 원본 저장소 브랜치목록을 보여줍니다.
+git branch -a #모든 브랜치목록을 보여줍니다.
+
+git branch "브랜치 이름" #브랜치를 생성합니다.
+git branch -d "브랜치 이름" #브랜치를 삭제합니다.
+git push origin "브랜치 이름" #브랜치를 원본 저장소로 전송합니다.
+
+git checkout "브랜치 이름" #해당 브랜치로 이동
+git checkout -b "브랜치 이름" #해당 브랜치를 생성과 동시에 이동
+```
+
+</td>
+</tr>
+<tr>
+  <td>갱신 및 병합</td>
+  <td>
+
+```bash
+git branch #브랜치 목록
+
+git merge [브랜치명]
+```
+
+</td>
+</tr>
+</table>
+</center>
+
+<br />
+
+## Git 대상 제외：gitignore
+
+- [참고링크](https://help.github.com/articles/ignoring-files/)
+
+- 예시 : React 기본 생성 파일
+
+  ```txt
+  # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+  # dependencies
+  /node_modules
+  /.pnp
+  .pnp.js
+
+  # testing
+  /coverage
+
+  # production
+  /build
+
+  # misc
+  .DS_Store
+  .env.local
+  .env.development.local
+  .env.test.local
+  .env.production.local
+
+  npm-debug.log*
+  yarn-debug.log*
+  yarn-error.log*
+  ```
+
+## Git 도구
+
+### Github Desktop
+
+### Source Tree
+
+## Git 컨벤션
+
+- [참고링크](https://velog.io/@shin6403/Git-git-%EC%BB%A4%EB%B0%8B-%EC%BB%A8%EB%B2%A4%EC%85%98-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0)
+
+### 커밋 메세지
+
+&nbsp; Git 에서 커밋 메시지를 작성할 때, 따옴표를 닫지 않고 엔터키를 사용하면 여러 줄의 메세지를 작성할 수 있습니다.
+
+```bash
+git commit -m "첫 번째 줄
+두 번째 줄
+세 번째 줄"
+```
+
+&nbsp; 커밋 메시지는 일반적으로 유형 (Type), 제목(Subject), 본문(Body), 꼬리말(Footer) 의 세 부분으로 구성됩니다.
+
+```bash
+git commit -m "
+『type』: 『subject』
+
+『body』
+
+『footer』
+"
+```
+
+&nbsp; 커밋 메시지는 관습적으로 다음의 원칙을 권장합니다.
+
+- 유형 (Type)
+
+  - 유형은 변경 사항의 성격을 나타냅니다. 일반적으로 다음의 유형들을 사용합니다.
+
+  - <table>
+    <tr>
+      <th>타입</th>
+      <th>설명</th>
+    </tr>
+    <tr>
+      <td>feat</td>
+      <td>새로운 기능 추가</td>
+    </tr>
+    <tr>
+      <td>fix</td>
+      <td>버그 수정</td>
+    </tr>
+    <tr>
+      <td>docs</td>
+      <td>문서 수정</td>
+    </tr>
+    <tr>
+      <td>style</td>
+      <td>코드 포맷팅 (기능 변경 없음)</td>
+    </tr>
+    <tr>
+      <td>refactor</td>
+      <td>코드 리팩토링 (기능 변경 없음)</td>
+    </tr>
+    <tr>
+      <td>test</td>
+      <td>테스트 코드 추가 또는 수정</td>
+    </tr>
+    <tr>
+      <td>chore</td>
+      <td>빌드 작업, 패키지 매니저 설정 등 기타 작업</td>
+    </tr>
+    <tr>
+      <td>ci</td>
+      <td>CI 설정 및 스크립트 변경</td>
+    </tr>
+    </table>
+
+- 제목 (Subject)
+
+  - 제목은 50자 이내로 작성합니다.
+  - 명령형 동사로 작성하는 것이 원칙입니다.
+  - 첫 글자는 대문자로 시작합니다.
+  - 제목 끝에 마침표는 생략합니다.
+
+- 본문 (Body)
+
+  - 본문은 선택사항이며 제목과 본문을 한 줄 띄워 구분합니다.
+  - 본문은 72자마다 줄을 바꾸는 것이 권장됩니다.
+  - 변경 사항의 이유와 맥락을 설명하며, "무엇"과 "왜"에 초점을 맞춥니다.
+
+- 꼬리말 (Footer)
+
+  - 꼬리말은 선택사항이며 `Closes #123`, `See also: #456` 같이 커밋과 관련된 이슈 번호나 참고 사항을 추가합니다.
+
+&nbsp; 커밋 메세지의 예시는 다음과 같습니다.
+
+```bash
+git commit -m "
+feat: Add login functionality
+
+Implemented user authentication using JWT.
+Added login API endpoint and integrated it with the frontend.
+
+Closes #45
+"
+```
+
+### 브랜치 구조 / 전략
+
+#### Git flow
+
+<center>
+  <img src="./.asset/Git：깃/00.png" alt="00" width="400" height="400" />
+</center>
+<br />
+
+&nbsp; Git Flow 전략은 Vincent Driessen이 제안한 브랜치 관리 전략으로, 소프트웨어 개발과 배포 프로세스를 체계적으로 관리하기 위한 방법입니다. 이 전략은 협업과 릴리즈 주기를 효율적으로 관리하기 위해 설계되었으며, 총 5가지 브랜치를 사용합니다.
+
+1. <b>Master(Main)</b>
+
+   - 배포할 안정적인 상태인 브랜치입니다.
+   - Release 또는 Hotfix 브랜치의 검증된 코드 만이 병합되어 올라옵니다.
+   - 실제 릴리즈 이력을 태그로 기록하여 버전을 관리합니다.
+
+2. <b>Develop</b>
+
+   - 릴리즈를 준비하는 개발 완료된 코드들이 대기하는 브랜치입니다.
+   - Master 브랜치에서 분기하여 만들어집니다.
+   - 기능 개발이 완료된 feature 브랜치들이 병합되어 올라오며 안정성 테스트를 거칩니다.
+   - 검증된 Develop 코드는 후에 언급될 Release 브랜치로 분기합니다.
+
+3. <b>Feature</b>
+
+   - 새로운 기능 개발을 위한 브랜치입니다.
+   - Develop 브랜치에서 분기하여 생성하고, 작업 완료 후 다시 Develop에 병합하여 올립니다.
+   - 병합 시 병합 이력을 남기지 않으면 브랜치 기록 전체가 하나의 브랜치로 통합되어 버리는 문제가 발생할 수 있습니다. --no-ff 옵션을 사용하거나 github desktop을 사용 중이라면 병합 시에 "Create a merge commit" 항목을 선택하고 병합해주세요.
+
+    <center>
+      <img src="./.asset/Git：깃/01.jpg" alt="01" width="400" height="260" />
+    </center>
+
+4. <b>Release</b>
+
+   - 최상단 브랜치인 Master(Main) 에 올리기 위한 최종 수정 및 테스트용 브랜치 입니다.
+   - 안정성이 확인된 Develop 브랜치에서 분기합니다.
+   - 준비가 완료되면 Master와 Develop 에 병합하는 것으로 전체 코드의 릴리즈 버전을 동기화 합니다.
+
+5. <b>Hotfix</b>
+   - 배포된 버전에서 긴급하게 발생한 문제를 수정하기 위한 브랜치입니다.
+   - Master에서 분기하며, 수정 후 Master와 Develop에 병합합니다.
+
+#### GitHub Flow
+
+<center>
+  <img src="./.asset/Git：깃/02.png" alt="02" width="400" height="300" />
+</center>
+<br />
+
+&nbsp; GitHub Flow 전략은 간단하고 빠른 개발 사이클을 가진 프로젝트에 적합한 브랜치 전략으로, GitHub에서 제안되었습니다.
+
+&nbsp; Git Flow 의 브랜치 중에서 main 과 feature 만 사용하며, Git Flow 에서 develop, release 단계에서 진행하는 코드 리뷰 및 안정성 테스트는 GitHub의 Pull Request 기능으로 대체합니다.
+
+1. <b>main</b>
+
+   - 배포되는 최상단의 브랜치입니다.
+   - 새로운 기능이나 버그 수정을 위하여 단일 브랜치만을 허용합니다.
+
+2. <b>Feature</b>
+
+   - 새로운 기능 개발을 위한 브랜치입니다.
+   - 작업 완료 후 Pull Request(= GitLab 의 Merge Request)를 생성하여 코드 리뷰 및 테스트를 진행합니다.
+   - Pull Request 승인 후 main 브랜치에 병합합니다. 병합 후 즉시 배포합니다(CI/CD 자동화 추천).
+
+#### GitLab Flow
+
+<center>
+  <img src="./.asset/Git：깃/03.png" alt="03" width="400" height="200" />
+</center>
+<br />
+
+&nbsp; GitLab Flow는 GitHub Flow와 Git Flow의 장점을 결합하여 다양한 환경에서 유연하게 사용할 수 있는 전략입니다. 이 전략은 복잡한 프로젝트와 지속적인 배포 환경에 적합합니다.
+
+&nbsp; GitLab Flow 는 main, feature 브랜치는 온전히 개발용으로만 사용하며, pre-production, production 브랜치에서 배포합니다.
+
+1. <b>main</b>
+
+   - 개발의 최상단 브랜치입니다.
+   - Git Flow 의 develop 브랜치와 동일한 역할을 수행합니다.
+
+2. <b>Feature</b>
+
+   - 새로운 기능 개발을 위한 브랜치입니다.
+   - 작업 완료 후 Merge Request(= GitHub 의 Pull Request)를 생성하여 코드 리뷰 및 테스트를 진행합니다.
+   - Merge Request 승인 후 main 브랜치에 병합합니다.
+
+3. <b>pre-production</b>
+
+   - 개발 단계 master와 배포 단계 production 사이의 중간 단계로, 통합 테스트를 위해 사용됩니다.
+   - Git Flow 의 release 브랜치와 동일한 역할을 수행합니다.
+   - 안정성 테스트 및 QA 가 끝났다면 production 브랜치로 병합하여 배포할 준비를 합니다.
+
+4. <b>production</b>
+
+   - 실제 배포 환경을 위한 브랜치로, Git Flow의 master 브랜치와 유사한 역할을 합니다.
+
+### 이슈
+
+이슈의 기본적인 템플릿은 다음과 같습니다.
+
+```text
+『Label』: 『Title』(이슈명)
+--------------------
+# (레이블): (이슈 내용)
+
+## 상세설명 (Description)
+- 무엇이 필요한가?
+- 왜 필요한가?
+
+## 작업 항목 (Milestone)
+- [ ] 작업 1
+- [ ] 작업 2
+
+- | 29  | 30  | 31  |
+  | :-: | :-: | :-: |
+  |  ◻  |  ◼  |  ◼  |
+
+
+## 담당자 (Assignee)
+- 담당자
+
+## 참고 (Reference)
+- 관련 문서
+- 참고 링크
+```
