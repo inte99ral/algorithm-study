@@ -13,5 +13,10 @@
   {
     "key": "ctrl+alt+x",
     "command": "workbench.action.tasks.test"
+  },
+  // 깃 그래프
+  {
+    "key": "ctrl+alt+g",
+    "command": "git-graph.view"
   }
 ]
