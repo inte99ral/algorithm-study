@@ -2253,57 +2253,69 @@ export const getTestDataByFetch = () => {
 
 #### REST API > 사용 예시
 
-&nbsp; `localhost:『PORT_NUMBER』/home/` 주소의 페이지에서 `localhost:『PORT_NUMBER』/server/example/user.json` 에서 받아온 유저들의 정보를 테이블로 출력해보겠습니다.
+- **실전과 비슷하게 같은 url 안에서 받아오는 방법**
 
-```typescript
-// # src/component/Home/index.tsx
+  &nbsp; `localhost:『PORT_NUMBER』/home/` 주소의 페이지에서 `localhost:『PORT_NUMBER』/server/example/user.json` 에서 받아온 유저들의 정보를 테이블로 출력해보겠습니다.
 
-import React, { useState, useEffect } from 'react';
+  ```typescript
+  // # src/component/Home/index.tsx
 
-import { getExampleUserlist, ExampleUser } from 'api/rest/example';
+  import React, { useState, useEffect } from 'react';
 
-export const Home = () => {
-  const [exampleUserList, setExampleUserList] = useState<ExampleUser[]>();
+  import { getExampleUserlist, ExampleUser } from 'api/rest/example';
 
-  // 또는 ExampleUser 를 가져오지 않고 타입추론 합니다.
-  // const [exampleUserList, setExampleUserList] = useState<Awaited<ReturnType<typeof getExampleUserlist>>>();
+  export const Home = () => {
+    const [exampleUserList, setExampleUserList] = useState<ExampleUser[]>();
 
-  useEffect(() => {
-    (async () => setExampleUserList(await getExampleUserlist()))();
-  }, []);
+    // 또는 ExampleUser 를 가져오지 않고 타입추론 합니다.
+    // const [exampleUserList, setExampleUserList] = useState<Awaited<ReturnType<typeof getExampleUserlist>>>();
 
-  return (
-    <>
-      <h4>예시 유저들의 목록은 다음과 같습니다.</h4>
-      <br />
-      {exampleUserList ? (
-        <table style={{ borderCollapse: 'collapse' }}>
-          <tr>
-            {Object.keys(exampleUserList[0]).map((header, index) => (
-              <th key={index} style={{ border: '1px solid black', padding: '14px' }}>
-                {header}
-              </th>
-            ))}
-          </tr>
-          {exampleUserList.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              {Object.keys(row).map((header, cellIndex) => (
-                <td key={cellIndex} style={{ border: '1px solid black', padding: '14px' }}>
-                  {row[header]}
-                </td>
+    useEffect(() => {
+      (async () => setExampleUserList(await getExampleUserlist()))();
+    }, []);
+
+    return (
+      <>
+        <h4>예시 유저들의 목록은 다음과 같습니다.</h4>
+        <br />
+        {exampleUserList ? (
+          <table style={{ borderCollapse: 'collapse' }}>
+            <tr>
+              {Object.keys(exampleUserList[0]).map((header, index) => (
+                <th key={index} style={{ border: '1px solid black', padding: '14px' }}>
+                  {header}
+                </th>
               ))}
             </tr>
-          ))}
-        </table>
-      ) : (
-        <></>
-      )}
-    </>
-  );
-};
-```
+            {exampleUserList.map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                {Object.keys(row).map((header, cellIndex) => (
+                  <td key={cellIndex} style={{ border: '1px solid black', padding: '14px' }}>
+                    {row[header]}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </table>
+        ) : (
+          <></>
+        )}
+      </>
+    );
+  };
+  ```
 
-&nbsp; 앞으로 AWS 나 서버를 올리게 된다면 곧바로 그 쪽으로 적용하면 됩니다.
+- **Github API 를 이용하는 방법**
+
+  &nbsp; Github 의 raw 데이터 API 를 사용하는 방법 또한 존재합니다. 이 경우에 통상적으로 다음의 구조의 url 로 raw 데이터를 받아올 수 있습니다.
+
+  ```text
+  https://raw.githubusercontent.com/『USER_NAME』/『REPOSITORY_NAME』/『BRANCH_NAME』/『DIRECTORY_PATH』/『FILE_NAME』
+  ```
+
+  &nbsp; 원하는 데이터를 깃허브에서 찾은 뒤에 우상단 raw 를 클릭하면 주소를 얻을 수 있습니다.
+
+&nbsp; 앞으로 AWS 나 서버를 올리게 된다면 곧바로 그 주소에 맞춰 수정하면 됩니다.
 
 ## 리액트 마크다운
 

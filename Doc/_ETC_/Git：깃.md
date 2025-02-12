@@ -388,3 +388,33 @@ Closes #45
 - 관련 문서
 - 참고 링크
 ```
+
+## Git 플랫폼
+
+## GitHub
+
+&nbsp; GitHub 는 마이크로소프트 산하의 Git 플랫폼입니다. 개발자 컨퍼런스, 커뮤니티, 프로젝트 공유, Git 호스팅 기능 등 개발자 친화적인 정책을 유지하고 있기에 많은 사용자가 사용하고 있습니다.
+
+### GitHub API
+
+#### Github Action
+
+&nbsp; 젠킨스처럼 Github에서 빌드를 위한 컨테이너를 제공합니다. CI/CD를 위한 워크플로를 자동화할 수 있습니다.
+
+### GitHub 특수 레포지토리
+
+#### GitHub profile
+
+- 본인의 깃허브 아이디와 동일하게 `『GITHUB_ID』` 라는 이름으로 레포지토리를 만들게 되면 자동으로 특수한 역할을 수행합니다.
+
+- 이 레포지토리에 올린 readme.md 는 깃허브의 프로필을 장식합니다.
+
+- [프로필 꾸미기 참조 링크](https://github.com/rzashakeri/beautify-github-profile)
+
+#### GitPage.io
+
+- `『GITHUB_ID』.github.io` 라는 이름으로 레포지토리를 만들게 되면 자동으로 특수한 역할을 수행합니다.
+
+- 이 레포지토리에 올린 index.html 파일은 자동으로 `https://『GITHUB_ID』.github.io/` 이라는 url 로 배포됩니다.
+
+## GitLab
