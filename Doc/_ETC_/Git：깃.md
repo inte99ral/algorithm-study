@@ -409,7 +409,7 @@ Closes #45
 
 - 이 레포지토리에 올린 readme.md 는 깃허브의 프로필을 장식합니다.
 
-- [프로필 꾸미기 참조 링크](https://github.com/rzashakeri/beautify-github-profile)
+- [프로필 꾸미기 참고 링크](https://github.com/rzashakeri/beautify-github-profile)
 
 #### GitPage.io
 

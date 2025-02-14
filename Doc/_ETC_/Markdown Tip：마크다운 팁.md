@@ -104,3 +104,9 @@ Doc\Language_Reference\Front-End\CSS\asset\마크다운 CSS：Markdown CSS\0.svg
   <summary>테스트 00</summary>
   <a href="#"><img src="./.asset/마크다운：Markdown/2.svg" width="800px" height="400" alt="css-in-readme"></a>
 </details>
+
+- 852px 정도가 github 규격에 적합합니다.
+
+<center>
+<a href="#"><img src="./asset/svg/00.svg" width="852" height="284" alt="css-in-readme"></a>
+</center>
