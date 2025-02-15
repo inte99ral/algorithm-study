@@ -1,6 +1,6 @@
-# 컴파일러：GCC
+# Library：라이브러리
 
-## 외부 라이브러리 추가
+## GCC 외부 라이브러리 추가
 
 ### $\color{#FF9922} \footnotesize \textnormal{주의 사항 🚨}$
 

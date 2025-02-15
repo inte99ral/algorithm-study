@@ -1,3 +1,10 @@
+# IO：입출력
+
+## 예시
+
+### 문자열을 입력받아서 배열화
+
+```js
 // Read ====================
 const input = {
   hasNextLine: () => !!this.fullLine[this.lineIndex],
@@ -37,3 +44,4 @@ function solution(jobs) {
 
 // Answer ====================
 console.log('[answer]: ', solution(jobs));
+```
