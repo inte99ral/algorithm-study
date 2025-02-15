@@ -72,14 +72,24 @@ git add "파일명" #해당 파일의 변경을 스테이지에 올립니다.
 git add * #모든 변경을 스테이지에 올립니다.
 git add . #.gitignore 제외, 모든 변경을 스테이지에 올립니다.
 
+git commit #내장 텍스트 에디터로 커밋메시지를 작성합니다.
+# i 편집모드 진입
+# esc 현재모드 나가기
+# :wq -> enter 저장 후 종료
+
+# * 텍스트 파일로 커밋메시지를 작성합니다.
+echo "# 커밋 메시지" > commit_message.txt
+git commit -F commit_message.txt
+
 git commit -m "(따옴표 포함)커밋 메시지" #스테이징 영역에 올라와 있던 변경사항들을 브랜치에 적용합니다.
+git commit -m "(따옴표 포함)커밋 메시지
 
 git push origin "브랜치 이름" #브랜치를 원본 저장소로 전송합니다.
 
 git reset #add 전부 취소
 git reset HEAD "파일명" #해당 파일 add 취소
 git reset HEAD^ #가장 최신 커밋 1개 삭제
-git reset HEAD^ #가장 최신 커밋 1개 삭제
+git reset HEAD~1 #윈도우버전 가장 최신 커밋 1개 삭제
 git reset HEAD^^^^^ #가장 최신 커밋 5개 삭제
 ```
 
@@ -177,8 +187,7 @@ git commit -m "첫 번째 줄
 &nbsp; 커밋 메시지는 일반적으로 유형 (Type), 제목(Subject), 본문(Body), 꼬리말(Footer) 의 세 부분으로 구성됩니다.
 
 ```bash
-git commit -m "
-『type』: 『subject』
+git commit -m "『type』: 『subject』
 
 『body』
 
@@ -260,6 +269,14 @@ Added login API endpoint and integrated it with the frontend.
 Closes #45
 "
 ```
+
+### Gitmoji
+
+- [참고 링크](https://gitmoji.dev/)
+
+- 커밋메세지의 직관성을 위하여 커밋메시지에 이모티콘을 적용하는 경우도 있습니다.
+
+- 깃허브는 커밋된 메시지의 ":『EMOJI_NAME』:" 이라고 적힌 부분을 자동으로 이모지로 바꿔줍니다.
 
 ### 브랜치 구조 / 전략
 
