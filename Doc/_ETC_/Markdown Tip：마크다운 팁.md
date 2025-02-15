@@ -1,4 +1,4 @@
-# 마크다운：Markdown
+# Markdown Tip：마크다운 팁
 
 ## TeX and LaTeX style syntax
 
@@ -90,22 +90,110 @@ int main() {
 
 결과적으로 SVG 구현을 경유하여 HTML 오브젝트를 Markdown 문서에 간접적으로 구현이 가능합니다. 이 경우엔 결론적으론 그저 SVG 이미지를 띄운 것이기에 Github의 README.md 마크다운 문서에서도 구현이 됩니다.
 
+&nbsp; github 기준으로 852px 정도의 넓이가 적당합니다.
+
+&nbsp; 예를 들어 다음과 같은 html 페이지라면
+
+```html
+<!DOCTYPE html>
+<html>
+  <style>
+    @font-face {
+      font-family: NanumSquareNeoEb;
+      src: url(../font/NanumSquareNeo/NanumSquareNeo-dEb.ttf);
+    }
+
+    :root {
+      --size-width: 852px; /* width value */
+      --size-height: 284px; /* height value */
+    }
+
+    * {
+      font-family: NanumSquareNeoEb;
+      box-sizing: border-box;
+      background-color: inherit;
+      padding: 0;
+      margin: 0;
+      border: 0;
+    }
+
+    body {
+      /* border: 1px solid black; <===== Test line */
+      width: var(--size-width);
+      height: var(--size-height);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .header {
+      width: calc(100% - 12px);
+      height: calc(100% - 12px);
+      border-radius: 24px;
+
+      /* background: linear-gradient(150deg, #6aa5e3, #6866e9); */
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+
+      /* color: white; */
+      font-size: 24px;
+      overflow: hidden;
+    }
+
+    .outer {
+      box-shadow: 4px 4px 10px -1px rgba(0, 0, 0, 0.25), -4px -4px 10px -1px rgba(255, 255, 255, 0.25);
+    }
+
+    .inner {
+      box-shadow: inset 4px 4px 10px -1px rgba(0, 0, 0, 0.25), inset -4px -4px 10px -1px rgba(255, 255, 255, 0.25);
+    }
+  </style>
+  <body>
+    <div class="header outer">
+      <div>Hello, world!</div>
+      <div>안녕, 세계!</div>
+    </div>
+  </body>
+</html>
+```
+
+&nbsp; 다음과 같이 svg 파일 이미지로 바꿀 수 있습니다.
+
+```html
+<svg fill="none" viewBox="0 0 852 284" width="852" height="284" xmlns="http://www.w3.org/2000/svg">
+  <foreignObject width="100%" height="100%">
+    <div id="html" xmlns="http://www.w3.org/1999/xhtml">
+      <style>
+        <!-- ... 생략 ... -->
+      </style>
+      <body>
+        <!-- ... 생략 ... -->
+      </body>
+    </div>
+  </foreignObject>
+</svg>
+```
+
+&nbsp; 이것을 마크다운 문서에 적용해주시면 됩니다.
+
+```md
+<center>
+<a href="#"><img src="./asset/svg/00.svg" width="852" height="284" alt="css-in-readme"></a>
+</center>
+```
+
 ### 예시
 
 [예시](https://github.com/sindresorhus/css-in-readme-like-wat?tab=readme-ov-file)
 Doc\Language_Reference\Front-End\CSS\asset\마크다운 CSS：Markdown CSS\0.svg
 
-<details>
-  <summary>테스트 00</summary>
-  <a href="#"><img src="./.asset/마크다운：Markdown/0.svg" width="800px" height="400" alt="css-in-readme"></a>
-</details>
+<a href="#"><img src="./.asset/마크다운：Markdown/0.svg" width="800px" height="400" alt="css-in-readme"></a>
 
-<details>
-  <summary>테스트 00</summary>
-  <a href="#"><img src="./.asset/마크다운：Markdown/2.svg" width="800px" height="400" alt="css-in-readme"></a>
-</details>
-
-- 852px 정도가 github 규격에 적합합니다.
+<a href="#"><img src="./.asset/마크다운：Markdown/2.svg" width="800px" height="400" alt="css-in-readme"></a>
 
 <center>
 <a href="#"><img src="./asset/svg/00.svg" width="852" height="284" alt="css-in-readme"></a>
