@@ -1,5 +1,22 @@
 # Markdown Tip：마크다운 팁
 
+## 스타일리쉬 블록
+
+- Note 블록
+
+  > [!NOTE]
+  > DON'T DELETE THE `package.json` file!
+
+- Warning 블록
+
+  > [!WARNING]
+  > DON'T DELETE THE `package.json` file!
+
+- Important 블록
+
+  > [!IMPORTANT]
+  > Read the contribution guideline before adding a pull request.
+
 ## TeX and LaTeX style syntax
 
 [latex 문법](https://velog.io/@d2h10s/LaTex-Markdown-%EC%88%98%EC%8B%9D-%EC%9E%91%EC%84%B1%EB%B2%95)
@@ -16,6 +33,8 @@ $\color{#FF9922} \footnotesize \textnormal{package.json \space 확인 🚨}$
 
 When $a \ne 0$, there are two solutions to $(ax^2 + bx + c = 0)$ and they are
 $$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
+
+SASS > $\color{#FF9922} \footnotesize \textbf{node-sass 에러 🚨}$
 
 ## 반응형 이미지
 
@@ -182,7 +201,7 @@ int main() {
 
 ```md
 <center>
-<a href="#"><img src="./asset/svg/00.svg" width="852" height="284" alt="css-in-readme"></a>
+<a href="#"><img alt="alt-message" src="./asset/svg/00.svg" width="852"></a>
 </center>
 ```
 
