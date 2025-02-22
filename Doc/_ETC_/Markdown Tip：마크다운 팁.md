@@ -205,6 +205,12 @@ int main() {
 </center>
 ```
 
+### 외부 리소스 관련 문제
+
+&nbsp; 외부 리소스 로딩 제한, 경로 참조 시 보안 정책 또는 렌더링 환경 차이로 인해 외부 에셋을 가져오지 못합니다.
+
+&nbsp; Base64 임베딩 인코딩하여 대체해주세요.
+
 ### 예시
 
 [예시](https://github.com/sindresorhus/css-in-readme-like-wat?tab=readme-ov-file)

@@ -130,6 +130,24 @@
       "options": {
         "cwd": "${fileDirname}"
       }
+    },
+
+    // ## Python ======================================
+    // ### Python：.py 파일 실행 =======================
+    {
+      "label": "Python：.py 파일 실행",
+      "detail": "py 파일을 파이썬 인터프리터로 실행합니다.",
+      "type": "process",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+        // "isDefault": false
+      },
+      "command": "python",
+      "args": ["${fileDirname}/${fileBasenameNoExtension}.py"],
+      "options": {
+        "cwd": "${fileDirname}"
+      }
     }
   ]
 }
