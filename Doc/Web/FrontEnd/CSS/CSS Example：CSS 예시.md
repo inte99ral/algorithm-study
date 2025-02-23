@@ -8,7 +8,15 @@
 </a>
 </center>
 
-## Wave
+## Gradient：색상 그라데이션 예제
+
+<center>
+<a href="#">
+<img alt="01" src="./.asset/CSS Example：CSS 예시/01/01.svg" width="852" />
+</a>
+</center>
+
+## Wave：파도 효과
 
 <center>
 <a href="#">
