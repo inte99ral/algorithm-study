@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <!-- # HTML LINE START ===================================================== -->
+  <style>
+    @keyframes move-x {
+      0% {
+        mask-position: 0 0;
+      }
+      100% {
+        mask-position: 1000px 0;
+      }
+    }
+
+    @keyframes move-x-reverse {
+      0% {
+        mask-position: 0 0;
+      }
+      100% {
+        mask-position: -1000px 0;
+      }
+    }
+
+    :root {
+      --url-wave: url(./image/wave-reverse\ 1280-160.png);
+      --size-width: 852px; /* width value */
+      --size-height: 426px; /* height value */
+
+      --size-header: calc(var(--size-height) - 140px); /* header height value */
+    }
+
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+      border: 0;
+    }
+
+    body {
+      position: relative;
+      width: var(--size-width);
+      height: var(--size-height);
+
+      /* # TEST LINE ============================================================== */
+      border: 1px solid black;
+    }
+
+    .header-container {
+      position: relative;
+      width: var(--size-width);
+      height: calc(var(--size-height) - 120px);
+      overflow: hidden;
+    }
+
+    .header {
+      position: absolute;
+      top: calc(12px - var(--size-header));
+      left: 12px;
+      width: calc(var(--size-width) - 24px);
+      height: calc(var(--size-height) - 24px);
+      background-image: linear-gradient(
+        45deg,
+        #fc80ff,
+        #f480ff,
+        #d289ff,
+        #b795ff,
+        #9ca2ff,
+        #72b8ff,
+        #43d5ff,
+        #11fcff
+      );
+
+      box-shadow: inset 4px 4px 10px -1px rgba(0, 0, 0, 0.25),
+        inset -4px -4px 10px -1px rgba(255, 255, 255, 0.25);
+    }
+
+    #header-1 {
+      display: flex;
+      justify-content: center;
+      padding-top: 100px;
+    }
+
+    #header-1 > p {
+      font-size: 72px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0);
+
+      text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.25), 1px 1px 1px rgba(0, 0, 0, 0.1);
+    }
+
+    .wave-container {
+      position: relative;
+      width: var(--size-width);
+      height: 120px;
+    }
+
+    .wave {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: var(--size-width);
+      height: 120px;
+
+      mask-image: var(--url-wave);
+      mask-position: 0px 0px;
+      mask-size: 1000px 100px;
+      mask-repeat: repeat no-repeat;
+      overflow: hidden;
+    }
+
+    #wave-1 {
+      mask-image: var(--url-wave);
+      mask-position: 200px 200px;
+      animation: move-x 30s linear infinite;
+      animation-delay: 0s;
+    }
+
+    #wave-2 {
+      mask-image: var(--url-wave),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+      animation: move-x-reverse 15s linear infinite;
+      animation-delay: -5s;
+      bottom: 10px;
+    }
+
+    #wave-3 {
+      mask-image: var(--url-wave),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+      animation: move-x 30s linear infinite;
+      animation-delay: -2s;
+      bottom: 5px;
+    }
+
+    #wave-4 {
+      mask-image: var(--url-wave),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+      animation: move-x 10s linear infinite;
+      animation-delay: -5s;
+      bottom: 5px;
+    }
+
+    .wave-float {
+      position: absolute;
+      top: calc(12px - var(--size-header));
+      left: calc(50% - 50px);
+      width: 100px;
+      height: 100px;
+      background-color: black;
+    }
+  </style>
+  <body>
+    <div class="header-container">
+      <div class="header" id="header-1" style="--size-header: 0px">
+        <p>Hello, world!</p>
+      </div>
+      <div class="wave-float" style="--size-header: 0px"></div>
+    </div>
+    <div class="wave-container">
+      <div class="wave" id="wave-1">
+        <div class="wave" id="wave-2">
+          <div class="wave" id="wave-3">
+            <div class="wave" id="wave-4">
+              <div class="header"></div>
+              <!-- <div class="wave-float"></div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <!-- # HTML LINE END ======================================================= -->
+</html>
