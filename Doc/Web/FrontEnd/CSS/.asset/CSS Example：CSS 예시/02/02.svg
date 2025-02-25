@@ -1,101 +1,101 @@
-<svg fill="none" viewBox="0 0 852 284" width="852" height="284" xmlns="http://www.w3.org/2000/svg">
+<svg fill="none" viewBox="0 0 852 1704" width="852" height="1704" xmlns="http://www.w3.org/2000/svg">
 <foreignObject width="100%" height="100%">
 
 <div id="html" xmlns="http://www.w3.org/1999/xhtml">
   <!-- # HTML LINE START ===================================================== -->
   <style>
-    @keyframes move-x {
-      0% {
-        background-position-x: 0;
-      }
-      100% {
-        background-position-x: 1000px;
-      }
-    }
-
-    @keyframes move-x-reverse {
-      0% {
-        background-position-x: 0;
-      }
-      100% {
-        background-position-x: -1000px;
-      }
-    }
-
     :root {
       --size-width: 852px; /* width value */
-      --size-height: 284px; /* height value */
+      --size-height: 1704px; /* height value */
     }
 
     * {
+      font-family: NanumSquareNeoRg;
+      box-sizing: border-box;
       padding: 0;
       margin: 0;
+      border: 0;
     }
 
     body {
-      /* # TEST LINE ============================================================== */
-      border: 1px solid black;
+      /* # TEST LINE ==============================================================
+      border: 1px solid black; */
       width: var(--size-width);
       height: var(--size-height);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
-    section {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      background-color: #3586ff;
-      overflow: hidden;
+    .outer {
+      box-shadow: 4px 4px 10px -1px rgba(0, 0, 0, 0.25),
+        -4px -4px 10px -1px rgba(255, 255, 255, 0.25);
     }
 
-    section .wave {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100px;
-      background-image: url(./image/wave.png);
-      background-size: 1000px 100px;
+    .inner {
+      box-shadow: inset 4px 4px 10px -1px rgba(0, 0, 0, 0.25),
+        inset -4px -4px 10px -1px rgba(255, 255, 255, 0.25);
     }
 
-    section .wave.wave-1 {
-      animation: move-x 30s linear infinite;
-      z-index: 1000;
-      opacity: 1;
-      animation-delay: 0s;
-      bottom: 0;
+    .header {
+      width: calc(100% - 24px);
+      height: calc(12.5% - 24px);
+      border-radius: 24px;
+      margin: 6px;
     }
 
-    section .wave.wave-2 {
-      animation: move-x-reverse 15s linear infinite;
-      z-index: 999;
-      opacity: 0.5;
-      animation-delay: -5s;
-      bottom: 10px;
+    #header-1 {
+      background-image: linear-gradient(150deg, #6aa5e3, #6866e9);
     }
 
-    section .wave.wave-3 {
-      animation: move-x 30s linear infinite;
-      z-index: 998;
-      opacity: 0.2;
-      animation-delay: -2s;
-      bottom: 15px;
+    #header-2 {
+      background-image: linear-gradient(
+        45deg,
+        #fc80ff,
+        #f480ff,
+        #d289ff,
+        #b795ff,
+        #9ca2ff,
+        #72b8ff,
+        #43d5ff,
+        #11fcff
+      );
     }
 
-    section .wave.wave-4 {
-      animation: move-x 10s linear infinite;
-      z-index: 997;
-      opacity: 0.7;
-      animation-delay: -5s;
-      bottom: 20px;
+    #header-3 {
+      background-image: linear-gradient(150deg, #fed1c7, #fe8dc6);
+    }
+
+    #header-4 {
+      background-image: linear-gradient(-30deg, #feb683, #ff8993);
+    }
+
+    #header-5 {
+      background-image: linear-gradient(135deg, #26bbac, #bcfb69);
+    }
+
+    #header-6 {
+      background-image: linear-gradient(-45deg, #8d42ff, #01e973);
+    }
+
+    #header-7 {
+      background-image: linear-gradient(-30deg, #b576f6, #9a4fe9);
+    }
+
+    #header-8 {
+      background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
     }
   </style>
   <body>
-    <section>
-      <div class="wave wave-1"></div>
-      <div class="wave wave-2"></div>
-      <div class="wave wave-3"></div>
-      <div class="wave wave-4"></div>
-    </section>
+    <div class="header outer" id="header-1"></div>
+    <div class="header outer" id="header-2"></div>
+    <div class="header outer" id="header-3"></div>
+    <div class="header outer" id="header-4"></div>
+    <div class="header outer" id="header-5"></div>
+    <div class="header outer" id="header-6"></div>
+    <div class="header outer" id="header-7"></div>
+    <div class="header outer" id="header-8"></div>
   </body>
   <!-- # HTML LINE END ======================================================= -->
 </div>
