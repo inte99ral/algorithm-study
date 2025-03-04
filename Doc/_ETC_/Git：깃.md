@@ -132,6 +132,57 @@ git merge [브랜치명]
 
 <br />
 
+## Git Tip：Git 사용 팁
+
+### 특정 폴더만 클론하기
+
+- 1. 클론 받을 폴더를 생성 및 이동해주세요.
+
+  &nbsp; 파일탐색기로 GUI 작업으로 가능하고 다음과 같이 터미널 작업으로도 가능합니다.
+
+  ```bash
+  mkdir 『FOLDER_NAME』
+  cd 『FOLDER_NAME』
+  git init
+  ```
+
+- 2. git remote 로 원격 저장소를 연결해주세요.
+
+  ```bash
+  git remote add origin 『REMOTE_URL』
+  ```
+
+git remote add origin https://github.com/leotorrez/ZZ-Model-Importer-Assets
+
+- 3. Sparse Checkout 기능을 활성화 시켜주세요.
+
+  &nbsp; Sparse Checkout 은 대규모 저장소에서 특정 파일이나 디렉토리만을 선택적으로 체크아웃할 수 있게 해주는 기능입니다. 다음의 명령어를 통하여 기능을 활성화 시킬 수 있습니다.
+
+  ```bash
+  git config core.sparseCheckout true
+  ```
+
+- 4. checkout 폴더 경로를 잡아주세요.
+
+  ```bash
+  # 현재 설정에 계속 추가하는 방식
+  echo 『REPOSITORY_FOLDER_PATH』 >> .git/info/sparse-checkout
+
+  # 경로 리셋하고 다시 설정
+  git sparse-checkout set 『REPOSITORY_FOLDER_PATH_1』 『REPOSITORY_FOLDER_PATH_2』
+
+  # 현재 설정 확인하기
+  cat .git/info/sparse-checkout
+  ```
+
+&nbsp; 레포지토리의 폴더 경로는 오리진 레포지토리 기준에서 폴더까지의 경로입니다. 예를들어 repo1 이라는 이름의 레포지토리의 folder1 폴더만 가져오고 싶다면 『REPOSITORY_FOLDER_PATH』는 `folder1/` 입니다. 따옴표 입력시 오류가 생길 때가 있습니다.
+
+- 5. pull 명령어로 내려받습니다.
+
+  ```bash
+  git pull origin main
+  ```
+
 ## Git 대상 제외：gitignore
 
 - [참고링크](https://help.github.com/articles/ignoring-files/)
@@ -174,14 +225,85 @@ git merge [브랜치명]
 
 - [참고링크](https://velog.io/@shin6403/Git-git-%EC%BB%A4%EB%B0%8B-%EC%BB%A8%EB%B2%A4%EC%85%98-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0)
 
+### 브랜치 네임
+
+&nbsp; 브랜치 이름은 프로젝트의 효율적인 관리와 협업을 위해서 팀에서 정한 법칙을 따르는 것이 좋습니다. 아래는 일반적인 규칙입니다.
+
+- 소문자를 사용하는 것을 원칙으로 합니다.
+- 단어 사이는 하이픈(-) 으로 구분합니다.
+- 간결하게 쓰는 것을 원칙으로 합니다.
+- 접두사는 다음 종류 위주로 사용하여 브랜치 생성 목적을 명확히 합니다.
+
+  - <table>
+    <tr>
+      <th>브랜치 접두사</th>
+      <th>목적</th>
+      <th>예시</th>
+    </tr>
+    <tr>
+      <td>feature/</td>
+      <td>새로운 기능 개발</td>
+      <td>feature/login-system</td>
+    </tr>
+    <tr>
+      <td>bugfix/</td>
+      <td>버그 수정</td>
+      <td>bugfix/login-error</td>
+    </tr>
+    <tr>
+      <td>hotfix/</td>
+      <td>긴급한 프로덕션 버그 수정</td>
+      <td>hotfix/security-vulnerability</td>
+    </tr>
+    <tr>
+      <td>release/</td>
+      <td>새로운 버전 배포 준비</td>
+      <td>release/v1.2.0</td>
+    </tr>
+    <tr>
+      <td>refactor/</td>
+      <td>코드 리팩토링 (기능 변경 없음)</td>
+      <td>refactor/improve-performance</td>
+    </tr>
+    <tr>
+      <td>docs/</td>
+      <td>문서 업데이트</td>
+      <td>docs/api-guide</td>
+    </tr>
+    <tr>
+      <td>test/</td>
+      <td>테스트 관련 변경</td>
+      <td>test/integration-tests</td>
+    </tr>
+    <tr>
+      <td>chore/</td>
+      <td>빌드 작업, 패키지 매니저 설정 등</td>
+      <td>chore/update-dependencies</td>
+    </tr>
+    </table>
+
 ### 커밋 메세지
 
-&nbsp; Git 에서 커밋 메시지를 작성할 때, 따옴표를 닫지 않고 엔터키를 사용하면 여러 줄의 메세지를 작성할 수 있습니다.
+&nbsp; Git 에서 커밋 메시지를 작성할 때, 리눅스 계열에선 따옴표를 닫지 않고 엔터키를 사용하면 여러 줄의 메세지를 작성할 수 있습니다.
 
 ```bash
 git commit -m "첫 번째 줄
 두 번째 줄
 세 번째 줄"
+```
+
+&nbsp; 윈도우에서는 -m 없이 텍스트 에디터를 이용하여 작성하거나, -F 를 통해 텍스트 파일로 메세지를 작성할 수 있습니다.
+
+```bash
+# * 내장 텍스트 에디터로 커밋메시지를 작성합니다.
+git commit
+# i 편집모드 진입
+# esc 현재모드 나가기
+# :wq -> enter 저장 후 종료
+
+# * 텍스트 파일로 커밋메시지를 작성합니다.
+echo "# 커밋 메시지" > commit_message.txt
+git commit -F commit_message.txt
 ```
 
 &nbsp; 커밋 메시지는 일반적으로 유형 (Type), 제목(Subject), 본문(Body), 꼬리말(Footer) 의 세 부분으로 구성됩니다.
@@ -406,9 +528,7 @@ Closes #45
 - 참고 링크
 ```
 
-## Git 플랫폼
-
-## GitHub
+## GitHub 플랫폼
 
 &nbsp; GitHub 는 마이크로소프트 산하의 Git 플랫폼입니다. 개발자 컨퍼런스, 커뮤니티, 프로젝트 공유, Git 호스팅 기능 등 개발자 친화적인 정책을 유지하고 있기에 많은 사용자가 사용하고 있습니다.
 
@@ -433,5 +553,3 @@ Closes #45
 - `『GITHUB_ID』.github.io` 라는 이름으로 레포지토리를 만들게 되면 자동으로 특수한 역할을 수행합니다.
 
 - 이 레포지토리에 올린 index.html 파일은 자동으로 `https://『GITHUB_ID』.github.io/` 이라는 url 로 배포됩니다.
-
-## GitLab
