@@ -28,8 +28,41 @@ using namespace std;
 int main() {
   SET_IO("_INPUT_.txt");
 
-  for (string s; cin >> s;) {
-    cout << s << "\n";
+  int T;
+  string line;
+
+  cin >> T;
+  cin.ignore();
+  
+  for (int t = 0; t < T; t++) {
+    getline(cin, line);
+    list<char> cList;
+    list<char>::iterator iter = cList.begin();
+
+    for (char c : line) {
+      switch (c) {
+       case '<':
+        if (iter == cList.begin()) break;
+        iter--;
+        break;
+
+       case '>':
+        if (iter == cList.end()) break;
+        iter++;
+        break;
+
+       case '-':
+        if (iter == cList.begin()) break;
+        iter = cList.erase(--iter);
+       break;
+      
+       default:
+        iter = ++(cList.emplace(iter, c));
+        break;
+      }
+    }
+    
+    cout << string(cList.begin(), cList.end()) << "\n";
   }
 
   UNSET_IO();
