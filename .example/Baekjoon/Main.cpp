@@ -59,7 +59,7 @@ using namespace std;
 // ## Implements Definition ==================================================
 
 // ### Main
-int main() {
+int main(int argc, char* argv[]) {
   // freopen("__INPUT__.txt", "rt", stdin);
 
   // SET_IO(

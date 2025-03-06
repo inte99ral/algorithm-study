@@ -1,61 +1,72 @@
 #include <bits/stdc++.h>
 
 #ifndef ONLINE_JUDGE
-#define SET_IO(INPUT_DATA) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);std::ifstream fs(INPUT_DATA);std::cin.rdbuf(fs.is_open()?((std::istream*)&fs)->rdbuf():((std::istream*)new std::stringstream(INPUT_DATA))->rdbuf())
-#else
-#define SET_IO(INPUT_PATH) std::ios::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr)
-#endif
+  #define SET_IO(INPUT_DATA) \
+    std::ios::sync_with_stdio(false); \
+    std::cin.tie(nullptr); \
+    std::cout.tie(nullptr); \
+    std::istream* IO_S = (std::filesystem::exists(INPUT_DATA)) \
+      ? (std::istream*) new std::ifstream(INPUT_DATA) \
+      : (std::istream*) new std::stringstream(INPUT_DATA); \
+    std::streambuf* IO_BACKUP = std::cin.rdbuf(IO_S->rdbuf())
 
+  #define UNSET_IO() \
+    std::cin.rdbuf(IO_BACKUP); \
+    delete IO_S
+    
+#else
+  #define SET_IO(INPUT_DATA) \
+    std::ios::sync_with_stdio(false); \
+    std::cin.tie(nullptr); \
+    std::cout.tie(nullptr)
+
+  #define UNSET_IO() ((void) 0)
+#endif
 
 using namespace std;
 
 int main() {
   SET_IO("_INPUT_.txt");
+  int count = 0;
+  int origin[9] = {};
+  int data[2] = {};
+  int size = 0;
 
-  int dwarf[9] = {};
-  int sum = 0;
-
-  for (int n = 0; n < 9; n++) {
-    cin >> dwarf[n];
-    sum += dwarf[n];
+  for (int i = 0; i < 9; i++) {
+    cin >> origin[i];
+    count += origin[i];
   }
 
-  sum -= 100;
+  count -= 100;
 
-  {
-    int data[2] = {};
-    int size = 0;
-
-    while (data[0] != 9) {
-      if (size == 2) {
-        if (sum == dwarf[data[0]] + dwarf[data[1]]) break;
-
-        size--;
-        data[size]++; 
-        continue;
-      }
-
-      if (data[size] == 9) {
-        data[size] = 0;
-        size--;
-        data[size]++;
-        continue;
-      }
-
-      if ((size != 0) && (data[size - 1] >= data[size])) {
-        data[size]++;
-        continue;
-      }
-
-      size++;
+  while (data[0] != 9) {
+    if (size == 2) {
+      if (count == origin[data[0]] + origin[data[1]]) break;
+      size--;
+      data[size]++;
+      continue;
     }
 
-    for (int n = 0; n < 9; n++) {
-      if ((n != data[0]) && (n != data[1])) {
-        cout << dwarf[n] << "\n";
-      }
+    if (data[size] == 9) {
+      data[size] = 0;
+      size--;
+      data[size]++;
+      continue;
     }
+
+    if ((size > 0) && (data[size] <= data[size - 1])) {
+      data[size]++;
+      continue;
+    }
+
+    size++;
   }
 
+  for (int i = 0; i < 9; i++) {
+    if ((i == data[0]) || (i == data[1])) continue;
+    cout << origin[i] << "\n";
+  }
+
+  UNSET_IO();
   return 0;
 }
