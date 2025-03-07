@@ -28,28 +28,6 @@
 
 </div>
 
-&nbsp; 문제의 표 예시 `<표 1>`
-
-<br />
-<center>
-
-<table>
-<tr>
-<td><img src="./.asset/2.avif" alt="2" style="width:20vw; aspect-ratio: 1 / 1"/></td>
-<td><img src="./.asset/3.avif" alt="3" style="width:20vw; aspect-ratio: 1 / 1"/></td>
-</tr>
-<tr>
-<td>다리의 총 길이: 13</td>
-<td>다리의 총 길이: 9</td>
-</tr>
-<tr>
-<td>D는 2와 4를 연결하는 다리이고,<br />3과는 연결되어 있지 않다.</td>
-<td>&nbsp;</td>
-</tr>
-</table>
-
-</center>
-
 &nbsp; 답을 구하라.
 
 ## 입력
@@ -62,34 +40,51 @@
 
 ## 예제
 
-<center>
-<table>
-<tr>
-<th align="center">예제 입력 1</th>
-<th align="center">예제 출력 1</th>
-</tr>
-<tr>
-<td valign="top">
+- <table>
+  <tr>
+  <th align="center">예제 입력 1</th>
+  <th align="center">예제 출력 1</th>
+  </tr>
+  <tr>
+  <td valign="top">
 
-```txt
-5 3 2
-```
+  ```txt
+  7
+  ```
 
-</td>
-<td valign="top">
+  </td>
+  <td valign="top">
 
-```txt
-10
+  ```txt
+  10
+  ```
 
+  </td>
+  </tr>
+  </table>
 
+- <table>
+  <tr>
+  <th align="center">예제 입력 2</th>
+  <th align="center">예제 출력 2</th>
+  </tr>
+  <tr>
+  <td valign="top">
 
+  ```txt
+  8
+  ```
 
-```
+  </td>
+  <td valign="top">
 
-</td>
-</tr>
-</table>
-</center>
+  ```txt
+  22
+  ```
+
+  </td>
+  </tr>
+  </table>
 
 ## 힌트
 

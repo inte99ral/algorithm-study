@@ -345,7 +345,7 @@ git commit -m "『type』: 『subject』
       <td>코드 포맷팅 (기능 변경 없음)</td>
     </tr>
     <tr>
-      <td>refactor</td>
+      <td>refactor | rfct</td>
       <td>코드 리팩토링 (기능 변경 없음)</td>
     </tr>
     <tr>
