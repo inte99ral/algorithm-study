@@ -392,6 +392,26 @@ Closes #45
 "
 ```
 
+### Pull Request 메세지
+
+&nbsp; Pull Request (깃랩에선 Merge Request 라고 부릅니다.) 는 프로젝트 관리자에게 브랜치 간의 병합 요청을 하는 것 입니다.
+
+&nbsp; Pull Request 메세지는 제목과 내용이 간결하며 왜 병합해야 하는지, 병합하는 브랜치의 목적이 뭔지, 어떤 변화가 있는 지를 적어야합니다.
+
+```txt
+PR: main ⤎ refactor-BJ-3040
+```
+
+```txt
+# PR: main ⤎ refactor-BJ-3040
+ BJ_3040 문제 풀이의 구조를 변경한 브랜치를 Main 에 올리려는 요청입니다.
+
+## Commit list
+- rfct: Modify BJ_5397 structure
+  - "...  \BJ_3040\_NOTE_.md" 오답노트 파일이 생성되었습니다.
+  - BJ_3040 폴더 위치가 "...  \Problem\Failed\  ..." 에서 "...  \Problem\Solved\  ..." 로 바뀌었습니다.
+```
+
 ### Gitmoji
 
 - [참고 링크](https://gitmoji.dev/)
