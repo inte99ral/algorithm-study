@@ -16,10 +16,18 @@
 </a>
 </center>
 
+## A○○○○ Gradient：어디서 많이 본 그라데이션 예제
+
+<center>
+<a href="#">
+<img alt="01" src="./.asset/CSS Example：CSS 예시/02/02.svg" width="852" />
+</a>
+</center>
+
 ## Wave：파도 효과
 
 <center>
 <a href="#">
-<img alt="01" src="./.asset/CSS Example：CSS 예시/01/01.svg" width="852" />
+<img alt="01" src="./.asset/CSS Example：CSS 예시/02/02.svg" width="852" />
 </a>
 </center>

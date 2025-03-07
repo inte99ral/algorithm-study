@@ -16,10 +16,10 @@ def convertToBase64(inputPath, outputPath):
   print(f"Base64 인코딩된 이미지가 {outputPath}에 저장되었습니다.")
 
 # input path
-inputPath = "00.ttf"
+inputPath = "input.ttf"
 
 # output path
-outputPath = "00.txt"
+outputPath = "output.txt"
 
 # 출력할 디렉토리가 없는 경우엔 생성
 # os.makedirs(os.path.dirname(outputPath), exist_ok=True)
