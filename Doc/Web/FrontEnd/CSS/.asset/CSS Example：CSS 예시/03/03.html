@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+  <!-- # HTML LINE START ===================================================== -->
+  <style>
+    @keyframes move-x {
+      0% {
+        mask-position: 0 var(--size-mask);
+      }
+      100% {
+        mask-position: 1000px var(--size-mask);
+      }
+    }
+
+    @keyframes move-x-reverse {
+      0% {
+        mask-position: 0 var(--size-mask);
+      }
+      100% {
+        mask-position: -1000px var(--size-mask);
+      }
+    }
+
+    @keyframes move-y {
+      0% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      10% {
+        transform: translateY(4px) rotate(-4deg);
+      }
+      20% {
+        transform: translateY(16px) rotate(-8deg);
+      }
+      30% {
+        transform: translateY(38px) rotate(-10deg);
+      }
+
+      /* */
+
+      40% {
+        transform: translateY(54px) rotate(-4deg);
+      }
+      50% {
+        transform: translateY(60px) rotate(0deg);
+      }
+      60% {
+        transform: translateY(54px) rotate(4deg);
+      }
+
+      /* */
+
+      70% {
+        transform: translateY(38px) rotate(10deg);
+      }
+
+      80% {
+        transform: translateY(16px) rotate(8deg);
+      }
+      90% {
+        transform: translateY(4px) rotate(4deg);
+      }
+
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+    }
+
+    :root {
+      --size-width: 852px; /* width value */
+      --size-height: 426px; /* height value */
+      --size-wave: 120px; /* wave height value */
+      --size-mask: 0px; /* mask height value */
+    }
+
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+      border: 0;
+    }
+
+    body {
+      position: relative;
+      width: var(--size-width);
+      height: var(--size-height);
+      overflow: hidden;
+
+      /* # TEST LINE ============================================================== */
+      border: 1px solid black;
+    }
+
+    .header {
+      position: absolute;
+      top: calc(12px - var(--size-wave));
+      left: 12px;
+      width: calc(var(--size-width) - 24px);
+      height: calc(var(--size-height) - 24px);
+      z-index: -1;
+      background-image: linear-gradient(-45deg, #8d42ff, #01e973);
+
+      box-shadow: 4px 4px 10px -1px rgba(0, 0, 0, 0.25),
+        -4px -4px 10px -1px rgba(255, 255, 255, 0.25);
+    }
+
+    .wave > .header {
+      box-shadow: 4px 4px 10px -1px rgba(0, 0, 0, 0.1), -4px -4px 10px -1px rgba(255, 255, 255, 0.1);
+    }
+
+    .header-container {
+      position: relative;
+      width: var(--size-width);
+      height: calc(var(--size-height) - 120px);
+      overflow: hidden;
+    }
+
+    .header-content {
+      height: 100%;
+      width: 100%;
+
+      display: flex;
+      align-items: start;
+      justify-content: center;
+
+      color: white;
+      font-size: 32pt;
+      font-weight: 900;
+    }
+
+    .header-content > p {
+      animation: move-y 30s linear infinite;
+      animation-delay: -25s;
+    }
+
+    .wave-container {
+      --size-wave: 0px;
+
+      position: relative;
+      width: var(--size-width);
+      height: 120px;
+    }
+
+    .wave-content {
+      position: relative;
+      z-index: 999;
+      height: 100%;
+      width: 100%;
+    }
+
+    #wave-float {
+      animation: move-y 30s linear infinite;
+      /* animation-delay: -25s; 정확한 싱크 */
+      animation-delay: -24.4s;
+
+      position: absolute;
+      left: calc(50% - 30px);
+      bottom: 0px;
+      width: 60px;
+      height: 120px;
+    }
+
+    #wave-float-boat {
+      width: 60px;
+      height: 60px;
+
+      background-image: url('./image/mayflower-ship.png');
+      background-position: center bottom;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .wave {
+      position: absolute;
+      bottom: 0px;
+      left: 0;
+      width: var(--size-width);
+      height: 120px;
+
+      mask-image: url('./image/wave.png');
+      mask-size: 1000px 120px;
+      mask-position: 0 var(--size-mask);
+      mask-repeat: repeat no-repeat;
+      overflow: hidden;
+    }
+
+    #wave-1 {
+      --size-mask: 20px;
+
+      animation: move-x 30s linear infinite;
+      z-index: 1000;
+      opacity: 1;
+      animation-delay: 0s;
+    }
+
+    #wave-2 {
+      --size-mask: 10px;
+
+      animation: move-x-reverse 15s linear infinite;
+      z-index: 990;
+      opacity: 0.5;
+      animation-delay: -5s;
+    }
+
+    #wave-3 {
+      --size-mask: 5px;
+
+      animation: move-x 30s linear infinite;
+      z-index: 980;
+      opacity: 0.2;
+      animation-delay: -2s;
+    }
+
+    #wave-4 {
+      --size-mask: 0px;
+
+      animation: move-x 10s linear infinite;
+      z-index: 970;
+      opacity: 0.7;
+      animation-delay: -5s;
+    }
+  </style>
+  <body>
+    <div class="wave-container">
+      <div class="wave" id="wave-1">
+        <div class="header"></div>
+      </div>
+      <div class="wave-content">
+        <div id="wave-float">
+          <div id="wave-float-boat"></div>
+        </div>
+      </div>
+      <div class="wave" id="wave-2">
+        <div class="header"></div>
+      </div>
+      <div class="wave" id="wave-3">
+        <div class="header"></div>
+      </div>
+      <div class="wave" id="wave-4">
+        <div class="header"></div>
+      </div>
+    </div>
+    <div class="header-container">
+      <div class="header"></div>
+      <div class="header-content">
+        <p>To Infinity, and Beyond!</p>
+      </div>
+    </div>
+  </body>
+  <!-- # HTML LINE END ======================================================= -->
+</html>
