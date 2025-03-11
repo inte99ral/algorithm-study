@@ -1,10 +1,21 @@
 # 깃：Git
 
-## 공식 문서
+## 목차
 
-- https://git-scm.com/docs
+- [참고 문서](.\Git：깃.md#참고-문서)
+- [Git 명령어 목록](.\Git：깃.md#git-명령어-목록)
+- [Git 사용 팁](.\Git：깃.md#git-도구)
+- [Git 도구](.\Git：깃.md#git-도구)
+- [Git 컨벤션](.\Git：깃.md#git-컨벤션)
+  - [작명법](.\Git：깃.md#작명법)
+    - [브랜치 네임](.\Git：깃.md#브랜치-네임)
+    - [커밋 메세지](.\Git：깃.md#커밋-메세지)
+    - [Pull Request 메세지](.\Git：깃.md#pull-request-메세지)
 
-- [참고 링크](https://velog.io/@delilah/GitHub-Git-%EB%AA%85%EB%A0%B9%EC%96%B4-%EB%AA%A8%EC%9D%8C)
+## 참고 문서
+
+- [참고 링크：Git 공식 페이지](https://git-scm.com/docs)
+- [참고 링크：Git 명령어 모음](https://velog.io/@delilah/GitHub-Git-%EB%AA%85%EB%A0%B9%EC%96%B4-%EB%AA%A8%EC%9D%8C)
 
 <br />
 
@@ -132,7 +143,7 @@ git merge [브랜치명]
 
 <br />
 
-## Git Tip：Git 사용 팁
+## Git 사용 팁
 
 ### 특정 폴더만 클론하기
 
@@ -183,7 +194,7 @@ git remote add origin https://github.com/leotorrez/ZZ-Model-Importer-Assets
   git pull origin main
   ```
 
-## Git 대상 제외：gitignore
+### Git 대상 제외：gitignore
 
 - [참고링크](https://help.github.com/articles/ignoring-files/)
 
@@ -225,7 +236,9 @@ git remote add origin https://github.com/leotorrez/ZZ-Model-Importer-Assets
 
 - [참고링크](https://velog.io/@shin6403/Git-git-%EC%BB%A4%EB%B0%8B-%EC%BB%A8%EB%B2%A4%EC%85%98-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0)
 
-### 브랜치 네임
+### 작명법
+
+#### 브랜치 네임
 
 &nbsp; 브랜치 이름은 프로젝트의 효율적인 관리와 협업을 위해서 팀에서 정한 법칙을 따르는 것이 좋습니다. 아래는 일반적인 규칙입니다.
 
@@ -282,7 +295,7 @@ git remote add origin https://github.com/leotorrez/ZZ-Model-Importer-Assets
     </tr>
     </table>
 
-### 커밋 메세지
+#### 커밋 메세지
 
 &nbsp; Git 에서 커밋 메시지를 작성할 때, 리눅스 계열에선 따옴표를 닫지 않고 엔터키를 사용하면 여러 줄의 메세지를 작성할 수 있습니다.
 
@@ -392,7 +405,7 @@ Closes #45
 "
 ```
 
-### Pull Request 메세지
+#### Pull Request 메세지
 
 &nbsp; Pull Request (깃랩에선 Merge Request 라고 부릅니다.) 는 프로젝트 관리자에게 브랜치 간의 병합 요청을 하는 것 입니다.
 
@@ -415,7 +428,7 @@ BJ_3040 문제 풀이의 구조를 변경한 브랜치를 Main 에 올리는 요
   - BJ_3040 폴더 위치가 "...  \Problem\Failed\  ..." 에서 "...  \Problem\Solved\  ..." 로 바뀌었습니다.
 ```
 
-### Gitmoji
+#### Gitmoji
 
 - [참고 링크](https://gitmoji.dev/)
 
