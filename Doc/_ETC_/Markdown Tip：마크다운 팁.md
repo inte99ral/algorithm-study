@@ -69,7 +69,7 @@ int main() {
 ## 가로 폭이 더 큰 CSS
 
 - 코드블럭이나 table은 overflow 시에 스크롤 취급을 해줍니다.
-- css min-width 적용을 못하여 가로 폭이 축소되는 부분을 table을 사용하여 글씨나 공백을 이용하여 넓혀줍니다. 한 글씨가 14px 정도인게 일반적입니다.
+- css min-width 적용을 못하여 가로 폭이 축소되는 부분을 table을 사용하여 글씨나 공백을 이용하여 넓혀줍니다. 한 글씨가 14px ~ 16px 정도인게 일반적입니다.
 
 <details>
   <summary>테스트 00</summary>
@@ -109,7 +109,7 @@ int main() {
 
 결과적으로 SVG 구현을 경유하여 HTML 오브젝트를 Markdown 문서에 간접적으로 구현이 가능합니다. 이 경우엔 결론적으론 그저 SVG 이미지를 띄운 것이기에 Github의 README.md 마크다운 문서에서도 구현이 됩니다.
 
-&nbsp; github 기준으로 852px 정도의 넓이가 적당합니다.
+&nbsp; github 기준으로 고정 넓이 수치는 852px 정도의 넓이가 적당합니다. 물론 `<img alt="00" src="00.svg" style="max-width: 100%; height: auto;" />` 처럼 max-width 의 넓이에 비례하는 가변수치로 처리할 수도 있습니다.
 
 &nbsp; 예를 들어 다음과 같은 html 페이지라면
 
