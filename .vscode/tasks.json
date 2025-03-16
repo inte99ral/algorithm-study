@@ -140,8 +140,8 @@
       "type": "process",
       "group": {
         "kind": "test",
-        "isDefault": true
-        // "isDefault": false
+        // "isDefault": true
+        "isDefault": false
       },
       "command": "python",
       "args": ["${fileDirname}/${fileBasenameNoExtension}.py"],
