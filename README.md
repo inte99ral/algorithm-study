@@ -70,7 +70,6 @@
 | 2025-01-09 | [BJ 1992](./Problem/Solved/Baekjoon/Silver/1/BJ_1992/__쿼드트리__.md)                | 쿼드트리                | `#SilverⅠ` | `#분할 정복` `#재귀`        |
 | 2025-01-13 | [BJ 15686](./Problem/Solved/Baekjoon/Gold/5/BJ_15686/__치킨_배달__.md)               | 치킨 배달               | `#GoldⅤ`   | `#그래프탐색`               |
 | 2025-03-07 | [BJ 3040](./Problem/Solved/Baekjoon/Bronze/2/BJ_3040/__백설_공주와_일곱_난쟁이__.md) | 백설 공주와 일곱 난쟁이 | `#BronzeⅡ` | `#브루트포스`               |
-| 2025-03-07 | [BJ 5397](./Problem/Solved/Baekjoon/Silver/2/BJ_5397/__키로거__.md)                  | 키로거                  | `#SilverⅡ` | `#자료구조` `#리스트`       |
 
 <br />
 
@@ -79,13 +78,18 @@
 | 풀이 일자 | 문제 코드 | 문제명 | 난이도 | 해시태그 |
 | :-------- | :-------- | :----- | :----- | :------- |
 
-| 2024-10-18
-| [BJ 5397](./Problem/Solved/Baekjoon/Silver/2/BJ_5397/__키로거__.md)  
-| 키로거  
+| 2025-03-16
+| [BJ 5397](./Problem/Unsolved/Baekjoon/Silver/2/BJ_5397/__키로거__.md)  
+| 키로거
 | `#SilverⅡ`
-| `#자료구조` `#리스트`
+| `#?`
 
-- [x] 2024-10-25 | [BJ 1629](Problem\Unsolved\Baekjoon\Silver\1\BJ_1629\question\info.md) 곱셈 `#SilverⅠ`
+| 2025-03-16
+| [BJ 1629](Problem\Unsolved\Baekjoon\Silver\1\BJ_1629\question\info.md)
+| 곱셈
+| `#SilverⅠ`
+| `#?`
+
 - [ ] 2024-06-16 | [BJ 11726](Problem\Solved\Baekjoon\Gold\1\BJ_17472\question\info.md) 2×n 타일링 `#SilverⅢ`
 - [ ] 2024-xx-xx | [SWEA 20671](Problem\Unsolved\SWEA\D5\SWEA_20671\question\info.md) 숫자 카드 `#D5`
 - [ ] 2024-xx-xx | BJ 2999 비밀이메일
