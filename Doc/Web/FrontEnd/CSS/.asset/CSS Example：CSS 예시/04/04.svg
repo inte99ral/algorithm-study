@@ -2,7 +2,8 @@
 <foreignObject width="100%" height="100%">
 
 <div id="html" xmlns="http://www.w3.org/1999/xhtml">
-  <!-- # HTML LINE START ===================================================== -->
+  <!-- # HTML LINE START ========================================================= -->
+  <!-- ## STYLE ================================================================== -->
   <style>
     :root {
       --url-wave: url('data:image/png;base64, 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');
@@ -44,8 +45,6 @@
         transform: translateY(54px) rotate(-16deg);
       }
 
-      /* */
-
       40% {
         transform: translateY(66px) rotate(-6deg);
       }
@@ -55,8 +54,6 @@
       60% {
         transform: translateY(66px) rotate(6deg);
       }
-
-      /* */
 
       70% {
         transform: translateY(54px) rotate(16deg);
@@ -86,12 +83,12 @@
       width: var(--size-width);
       height: var(--size-height);
 
-      /* ### TEST LINE ============================================================ */
+      /* - TEST LINE =============================================================== */
       /* border: 1px solid black; */
       /* background-color: #00ff00; */
     }
 
-    /* ## header ================================================================ */
+    /* ### Header ================================================================ */
 
     .header {
       position: relative;
@@ -124,17 +121,43 @@
         #fc80ff
       );
 
-      /**/
       box-shadow: inset 4px 4px 10px -1px rgba(0, 0, 0, 0.25),
         inset -4px -4px 10px -1px rgba(255, 255, 255, 0.25);
-      /**/
     }
 
     .wave-container .header-background {
       top: calc(12px - var(--size-height) + 176px);
     }
 
-    /* ## header container ====================================================== */
+    .content-container .header-background {
+      top: calc(176px + 16px + 12px - var(--size-height));
+    }
+
+    /* ### Content Container ===================================================== */
+
+    .content-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+
+      z-index: 1;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .content-header {
+      position: absolute;
+      top: calc(var(--size-height) - 176px - 16px);
+      width: 100%;
+      height: 32px;
+      overflow: hidden;
+    }
+
+    /* ### Header Container ====================================================== */
 
     .header-container {
       position: relative;
@@ -143,10 +166,9 @@
       overflow: hidden;
     }
 
-    /* ## wave container ======================================================== */
+    /* ### Wave Container ======================================================== */
 
     .wave-container {
-      margin-top: -2px;
       position: relative;
       width: var(--size-width);
       height: 176px;
@@ -225,11 +247,20 @@
       animation-delay: -5s;
     }
   </style>
+  <!-- ## BODY =================================================================== -->
   <body>
     <div class="header">
+      <!-- ### Content Container ===================================================== -->
+      <div class="content-container">
+        <div class="content-header">
+          <div class="header-background"></div>
+        </div>
+      </div>
+      <!-- ### Header Container ====================================================== -->
       <div class="header-container">
         <div class="header-background"></div>
       </div>
+      <!-- ### Wave Container ======================================================== -->
       <div class="wave-container">
         <div class="wave" id="wave-1">
           <div class="wave-content">
@@ -248,7 +279,7 @@
       </div>
     </div>
   </body>
-  <!-- # HTML LINE END ======================================================= -->
+  <!-- # HTML LINE END =========================================================== -->
 </div>
 
 </foreignObject>
