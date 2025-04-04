@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+
+#ifndef ONLINE_JUDGE
+  #define SET_IO(INPUT_DATA) \
+    std::ios::sync_with_stdio(false); \
+    std::cin.tie(nullptr); \
+    std::cout.tie(nullptr); \
+    std::istream* IO_S = (std::filesystem::exists(INPUT_DATA)) \
+      ? (std::istream*) new std::ifstream(INPUT_DATA) \
+      : (std::istream*) new std::stringstream(INPUT_DATA); \
+    std::streambuf* IO_BACKUP = std::cin.rdbuf(IO_S->rdbuf())
+
+  #define UNSET_IO() \
+    std::cin.rdbuf(IO_BACKUP); \
+    delete IO_S
+    
+#else
+  #define SET_IO(INPUT_DATA) \
+    std::ios::sync_with_stdio(false); \
+    std::cin.tie(nullptr); \
+    std::cout.tie(nullptr)
+
+  #define UNSET_IO() ((void) 0)
+#endif
+
+using namespace std;
+
+int main(int argc, char* argv[]) {
+  SET_IO("_INPUT_.txt");
+
+  int N;
+  int* arr;
+
+  cin >> N;
+  arr = new int[N + 1]();
+
+
+  { // * MEMO 00
+    /**
+     * 수학적으로 접근했어야하는 문제
+     * x * 2 크기 직사각형을 1 * 2 또는 2 * 1 타일로 채우는 모든 경우의 수를 출력하는 함수 f(x) 이 있다고 가정한다.
+     * 그렇다면 임의의 값 N 에 대하여 f(N - 1), f(N - 2) 과 f(N) 의 관계를 생각해 볼 수 있다.
+     * x * 2 직사각형을 1 * 2 또는 2 * 1 타일로 빈틈없이 채우는 방법은 1 * 2 타일 하나로 넣는 방법과 2 * 1 타일 두 개를 포개서 넣는 방법 뿐이다. 따라서 f(N) = (맨 끝을 수직으로 1 * 2 타일 하나로 넣은 경우의 수) + (맨 끝을 수평으로 2 * 1 타일 두 개로 넣은 경우의 수) 라고 나눠서 생각해 볼 수 있다.
+     * 맨 끝을 수직으로 1 * 2 타일 하나로 넣은 경우의 수를 생각해보자.
+     * 1 * 2 타일을 넣고 남은 공간은 (N - 1) * 2 크기 이다. 따라서 이는 f(N - 1) 과 같다.
+     * 맨 끝을 수평으로 2 * 1 타일 두 개로 넣은 경우의 수를 생각해보자.
+     * 1 * 2 타일을 넣고 남은 공간은 (N - 2) * 2 크기 이다. 따라서 이는 f(N - 2) 과 같다.
+     * 그로 인하여 다음의 점화식이 성립된다. f(N) = f(N - 2) + f(N - 1)
+     */
+  }
+
+  { // * TASK 0: 루프 연산
+    for (int n = 0; n <= N; n++) {
+      if (n <= 2) {
+        arr[n] = n;
+        continue;
+      }
+
+      arr[n] = (arr[n - 2] + arr[n - 1]) % 10007;
+    }
+  }
+
+  cout << arr[N];
+
+  UNSET_IO();
+  return 0;
+}
