@@ -9,6 +9,10 @@
 &nbsp; 문제의 그림예시 `<그림 1>`
 
 <p align=center>
+<img src="./asset/00.png" alt="00" style="max-width: 50%; height: auto;" />
+</p>
+
+<p align=center>
 <img src="./asset/1.png" alt="01" width="400" height="200" />
 </p>
 
