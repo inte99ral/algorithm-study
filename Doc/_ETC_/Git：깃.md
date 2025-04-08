@@ -170,6 +170,10 @@ git remote add origin https://github.com/leotorrez/ZZ-Model-Importer-Assets
   &nbsp; Sparse Checkout 은 대규모 저장소에서 특정 파일이나 디렉토리만을 선택적으로 체크아웃할 수 있게 해주는 기능입니다. 다음의 명령어를 통하여 기능을 활성화 시킬 수 있습니다.
 
   ```bash
+  # 현재 설정 확인하기
+  git config core.sparseCheckout
+
+  # 선택적 체크아웃 설정을 참으로 변경
   git config core.sparseCheckout true
   ```
 
