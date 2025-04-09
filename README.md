@@ -103,7 +103,7 @@
 
 ## TODO:
 
-- 대기
+- 진행 중
   | 2024-xx-xx
   | [SWEA 20671](Problem\Unsolved\SWEA\D5\SWEA_20671\question\info.md)
   | 숫자 카드
