@@ -58,7 +58,7 @@ const long long MOD_NUM = 1000000007;
 
 // ### Main
 
-int main() {
+int main(int argc, char* argv[]) {
 
 	// SET_IO(
   //   "INNER1 \n"
@@ -67,10 +67,7 @@ int main() {
   // );
 
 	SET_IO("_INPUT_.txt");
-
 	int T;
-	int N;
-
 	cin >> T;
 
 	for(int t = 1; t <= T; t++) {

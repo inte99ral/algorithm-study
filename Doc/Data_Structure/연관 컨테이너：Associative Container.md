@@ -177,7 +177,7 @@ int main(void) {
 }​
 ```
 
-### Multiset
+### Multiset：중복 허용 집합
 
 ## Map Container：맵 컨테이너
 
