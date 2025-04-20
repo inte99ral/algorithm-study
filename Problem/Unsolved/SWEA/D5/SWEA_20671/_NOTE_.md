@@ -1,3 +1,23 @@
+# `D5` [SWEA 20671](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AY5gD-HaQ-MDFAVL)：숫자 카드：오답노트
+
+## 힌트
+
+- ~ ~도저히 모르겠어서 포인트 벌고 재도전하기~~
+- ~~정직하게 모든 조합을 찾으려고하면 가짓수만 2의 n 승 입니다.~~
+
+## 오답
+
+### C++：2025-04-15：동적계획법을 사용하여 연산의 최소화
+
+- | 메모리 |   시간   | 코드 길이 |
+  | :----: | :------: | :-------: |
+  |   -    | 시간초과 |     -     |
+
+- 나머지 연산의 분배법칙을 활용하여 큰 수를 10진수 숫자들로 분리하여 연산을 시도했습니다.
+- 10진수 숫자의 경우 동적계획법을 통해 10^n = 10 \* 10^(n - 1) 을 활용하여 풀었습니다.
+- 허나 2^n 의 경우의 수 자체가 압박이었던 나머지 시간초과가 발생하였습니다.
+
+```cpp
 #define LOCAL_JUDGE 0 // <-- 로컬파일 입력용
 
 // # 제한 시간 초과남
@@ -17,7 +37,7 @@
   #define UNSET_IO() \
     std::cin.rdbuf(IO_BACKUP); \
     delete IO_S
-    
+
 #else
   #define SET_IO(INPUT_DATA) \
     std::ios::sync_with_stdio(false); \
@@ -98,3 +118,4 @@ int main(int argc, char* argv[]) {
 	UNSET_IO();
 	return 0;
 }
+```

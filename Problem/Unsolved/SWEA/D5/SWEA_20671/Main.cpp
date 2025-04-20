@@ -1,8 +1,12 @@
 #define LOCAL_JUDGE 0 // <-- 로컬파일 입력용
 
-// # 제한 시간 초과남
+#define TEST bits/stdc++.h
+
+// # 『DIRECTORY_PATH』
 
 #include <bits/stdc++.h>
+
+#include "./src/"
 
 #ifdef LOCAL_JUDGE
   #define SET_IO(INPUT_DATA) \
@@ -29,17 +33,42 @@
 
 using namespace std;
 
-const long long MOD_NUM = 1000000007;
+long long MOD_NUM = 1000000007;
 
-int main(int argc, char* argv[]) {
-	SET_IO("_INPUT_.txt");
-	int T;
-  cin >> T;
+long long stollMod00(const string &s) {
+  return stoll(s) % MOD_NUM;
+}
 
-	for(int t = 1; t <= T; t++) {
-    int N;
-	}
+long long stollMod01(const string &s) {
+  long long ret = 0;
+  for (char digit : s) {
+    ret = (ret * 10 + (digit - '0')) % MOD_NUM;
+  }
+  return ret;
+}
 
-	UNSET_IO();
-	return 0;
+long long stollMod02(const string &s) {
+  long long ret = 0;
+  for (char digit : s) {
+    ret = (ret * 10 + (digit - '0')) % MOD_NUM;
+  }
+  return ret;
+}
+
+int main() {
+  SET_IO("_INPUT_.txt");
+
+  string str = "1546722115";
+  long long l0, l1, l2;
+
+  l0 = stoll(str) % MOD_NUM;
+  l1 = stollMod00(str);
+
+  cout << l0 << "\n";
+  cout << l1 << "\n";
+
+
+
+  UNSET_IO();
+  return 0;
 }

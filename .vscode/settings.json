@@ -128,7 +128,7 @@
       "source": "Git Bash"
     }
   },
-  // "terminal.integrated.defaultProfile.windows": "PowerShell", // Default terminal
+  "terminal.integrated.defaultProfile.windows": "Command Prompt", // Default terminal
   "cmake.configureOnOpen": false,
   "cmake.showOptionsMovedNotification": false,
   "files.associations": {
