@@ -47,9 +47,15 @@
 
 - `set<T>`
 
-#### 집합：Set > Create
-
 - `set<int, compare> sets; `
+
+```cpp
+set<int, compare> sets;
+
+auto cmp = [](int a, int b) { return a > b; };
+// set 선언 시 Compare 타입을 decltype(cmp)로 지정
+std::set<int, decltype(cmp)> s(cmp);
+```
 
 #### 집합：Set > Read
 
