@@ -80,7 +80,7 @@
 
 - 대기
   | 2025-03-16
-  | [BJ 5397](./Problem/Unsolved/Baekjoon/Silver/2/BJ_5397/__키로거__.md)  
+  | [BJ 5397](./Problem/Unsolved/Baekjoon/Silver/2/BJ_5397/__키로거__.md)
   | 키로거
   | `#SilverⅡ`
   | `#?`
@@ -99,15 +99,15 @@
   | `#SilverⅢ`
   | `#?`
 
+- 대기
+  | 2024-xx-xx
+  | [SWEA 20671](./Problem/Failed/SWEA/D5/SWEA_20671/__숫자_카드__.md)
+  | 숫자 카드
+  | `#D5`
+
 <br />
 
 ## TODO:
-
-- 진행 중
-  | 2024-xx-xx
-  | [SWEA 20671](Problem\Unsolved\SWEA\D5\SWEA_20671\question\info.md)
-  | 숫자 카드
-  | `#D5`
 
 - 대기
   | 2024-xx-xx
