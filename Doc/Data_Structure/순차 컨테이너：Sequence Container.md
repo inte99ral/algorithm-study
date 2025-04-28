@@ -128,6 +128,8 @@ int main() {
 
 #### 큐 > 우선순위 큐 > Create
 
+- compare 함수 지정
+
 ```cpp
 // priority_queue<자료형> 변수명
 // priority_queue<자료형, 컨테이너, 비교함수> 변수명

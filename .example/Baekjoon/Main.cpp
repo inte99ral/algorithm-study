@@ -2,6 +2,8 @@
 
 // ## Documentation ==========================================================
 /**
+ * @name 『PROBLEM_CODE』
+ * 
  * @description
  * 각 함수에 대한 설명이 아니라
  *
@@ -20,7 +22,7 @@
 
 /**
  * 예시
- * BJ_xxxx
+ * @name BJ_xxxx
  * @see "https://www.acmicpc.net/problem/xxxx"
  * @version xxxx-xx-xx
  */
@@ -28,6 +30,7 @@
 // ## Import Declaration =====================================================
 
 // ### API & Library:
+
 #include <bits/stdc++.h>
 // #include <iostream>
 // #include <fstream>
@@ -56,6 +59,8 @@
 
   #define UNSET_IO() ((void) 0)
 #endif
+
+// ### Namespace:
 
 using namespace std;
 

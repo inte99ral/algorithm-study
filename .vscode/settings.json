@@ -10,9 +10,6 @@
  * [x] TODO Highlight
  * [x] Git Graph
  * [x] indent-rainbow
- * [x] IntelliCode
- * [x] IntelliCode API Usage Examples
- * [x] WSL
  *
  * ### MarkDown:
  * [x] Markdown All in One
@@ -49,7 +46,7 @@
 {
   // ### Default:
   "explorer.compactFolders": false, // 폴더 경로 압축 여부
-  "workbench.colorTheme": "Visual Studio Light - C++", // vscode theme
+  "workbench.colorTheme": "Visual Studio Light", // vscode theme
   "typescript.updateImportsOnFileMove.enabled": "never", // 파일 위치를 바꿀 때, 참조하는 경로들을 자동으로 수정할 지 여부
 
   // ### material-icon-theme:
@@ -131,7 +128,7 @@
       "source": "Git Bash"
     }
   },
-  // "terminal.integrated.defaultProfile.windows": "PowerShell", // Default terminal
+  "terminal.integrated.defaultProfile.windows": "Command Prompt", // Default terminal
   "cmake.configureOnOpen": false,
   "cmake.showOptionsMovedNotification": false,
   "files.associations": {
