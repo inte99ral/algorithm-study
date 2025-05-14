@@ -46,8 +46,8 @@
 
 - <table>
   <tr>
-  <th align="center">예제 입력 1</th>
-  <th align="center">예제 출력 1</th>
+  <th>예제 입력 1</th>
+  <th>예제 출력 1</th>
   </tr>
   <tr>
   <td valign="top">
@@ -69,8 +69,8 @@
 
 - <table>
   <tr>
-  <th align="center">예제 입력 2</th>
-  <th align="center">예제 출력 2</th>
+  <th>예제 입력 2</th>
+  <th>예제 출력 2</th>
   </tr>
   <tr>
   <td valign="top">

@@ -51,203 +51,271 @@
 
 ## 3. 컴파일러 설치
 
-[mingw, msys2, cygwin, 어떤 것을 설치해야 할까?](https://woogyun.tistory.com/651)
-
-MinGW만 사용하는 경우
-
-장점
-
-- 설치가 간단하고 용량이 작음
-- 윈도우 네이티브 실행 파일 생성에 최적화
-- 가볍고 빠른 실행 속도
-
-단점
-
-- 일부 POSIX 기능 지원 제한
-- 패키지 관리와 업데이트가 불편
-
-MSYS2와 함께 사용하는 경우
-
-장점
-
-- Pacman 패키지 관리자로 패키지의 쉬운 설치와 업데이트로 관리가 편해집니다.
-- MSYS2는 GCC와 관련 도구들의 최신 버전을 빠르게 제공합니다
-- MSYS2 환경은 Linux와 유사해 크로스 플랫폼 개발이 수월하며 POSIX 호환성이 더 뛰어납니다.
-- MSYS2는 활발한 커뮤니티 지원을 받고 있어 문제 해결이 쉽습니다.
-
-단점
-
-- 설치 용량이 더 큼
-- 초기 설정이 약간 복잡할 수 있음
-
-결론적으로, 단순한 윈도우 네이티브 애플리케이션 개발에는 MinGW만으로도 충분할 수 있지만, 보다 복잡하고 다양한 개발 환경을 원한다면 MSYS2와 함께 MinGW-w64를 사용하는 것이 좋습니다.
-
-https://www.msys2.org/
-
-https://m.blog.naver.com/adapriest/220981306872
-
-GCC vs LLVM/Clang
-각 리포지토리에 있는 모든 패키지를 빌드하는 데 사용되는 기본 컴파일러/툴체인입니다.
-
-- GCC 기반 환경:
-
-현재 널리 테스트/사용됨
-포트란 지원
-MINGW 환경에도 Clang 패키지가 존재하지만, 이 패키지는 여전히 GNU 링커와 GNU C++ 라이브러리를 사용합니다. 예를 들어 업스트림에서 GCC보다 Clang을 선호하는 경우 Clang을 사용하여 패키지를 빌드하는 경우도 있습니다.
-
-- LLVM/Clang 기반 환경:
-
-LLVM 도구만 사용하며, 링커로 LLD, C++ 표준 라이브러리로 LIBC++를 사용합니다.
-Clang은 ASAN 지원 제공
-TLS(Thread-local storage) 네이티브 지원
-LLD는 LD보다 빠르지만 LD가 지원하는 모든 기능을 지원하지는 않습니다.
-일부 도구는 동등한 GNU 도구와 기능 패리티가 부족합니다.
-Microsoft Windows 10에서 ARM64/AArch64 아키텍처 지원
-
-- GCC
-  GNU Compiler Collection, GCC
-
-GNU 프로젝트의 오픈 소스 컴파일러 컬렉션. 유닉스/리눅스 계열 플랫폼의 사실상 표준 컴파일러다. 리처드 스톨먼이 1987년에 만들었다.
-
-처음에는 C 컴파일러였으며 'GNU C Compiler'의 약어였다. 하지만 기능이 추가되면서 C++ 같은 다른 언어도 지원하게 되었고, 'GNU Compiler Collection'으로 이름을 변경하였다. 물론 약어는 여전히 GCC이다. 공식적으로 지원하는 언어는 C(gcc), C++(g++), Objective-C(gobjc), Fortran(gfortran), Ada(gnat), Go(gccgo), D(gdc)이다. Java(gcj)는 GCC 7.1 버전부터 지원이 중단되었다. GNU 진영에서는 GCC로 컴파일을 하고 Make를 이용해 빌드하는 것이 일반적이다.
-
-원래는 C로 구현되었으나 2013년에 구현 언어를 C++로 모두 변경하였다. # 만들어진지 수십년 된 컴파일러라 최적화는 매우 잘 되어 있지만, 기존 코드의 구조가 시대적 한계로 인해 오늘날 관점에서는 상당히 더러워서 신규 인력이 거의 유입되지 않았기 때문이다.
-
-- MinGW
-
-MinGW(Minimalist GNU for Windows)라는 윈도우용 포크도 존재하여 여러 오픈 소스 프로그램들을 윈도우에서 돌아가게 하는 데 일조하고 있다.
-
-MinGW는 MSYS와의 결합으로 구동된다. MSYS는 Minimal SYStem의 약자로, 윈도우에서 유닉스의 터미널 환경을 제공해 주며 이를 통해 MinGW와 GCC를 설치하는 것이다. MSYS와 비슷한 형태를 가진 Cygwin은 단순 터미널이 아닌 일종의 가상머신으로, 윈도우 위에 POSIX 레이어를 새로 얹어 상당히 무거운 반면 MinGW는 POSIX 호환성을 포기한 대신 윈도우 환경과 네이티브로 연결되기 때문에 더 빠른 성능을 제공한다. 이런 이유로 유닉스에서 POSIX API를 이용하는 소스 코드를 작성했을 경우 MinGW로는 컴파일이 불가능하다. Windows 10 Anniversary Update에서는 WSL(Windows Subsystem for Linux)이라는 이름으로 리눅스 API가 윈도우 커널 내부에 직접 탑재되었으므로, 윈도우에서 POSIX 환경을 이용하고 싶다면 WSL을 이용하면 된다.
-
-기존의 MSYS 1.0은 32비트 운영체제만 지원한다는 문제점이 있었는데, 이에 따라 MSYS2 기반의 MinGW-w64가 제작되어 64비트 윈도우 환경을 지원하게 되었다. 참고로 윈도우 환경에서의 GCC는 기존의 유닉스, 리눅스용 GCC와 동일하게 작동하지 않는 경우가 있다. 와이드바이트 관련 예약어나 함수(wchar_t, wprintf(), wcstok() 등)가 대표적인 예.
-
-윈도우 파일 입출력 시 파일을 제대로 읽지 못하는 등의 문제가 있고, Visual Studio에서만 쓰이는 비표준 확장 함수도 제공하고 있기 때문에 C/C++ 입문자에게는 권장할 만한 것이 못 된다는 의견이 있으나, 이는 MS Windows의 로캘 문제에서 비롯된다. Windows의 경우 Windows 10 RS5에 표준 로캘을 UTF-8로 사용하는 옵션[1]이 베타로 추가되어 있으나 이 옵션은 기본값이 아니기에 전역 시스템 로캘은 별도로 설정된 로캘을 따르게 된다. Windows에서 유니코드 Aware한 프로그램을 작성하는 경우 기본적으로 wchar_t 와 같은 와이드바이트 형식 (Windows 에서는 UTF-16)을 사용하게 되며, 기본적으로는 시스템의 MBCS를 따르게 되어 일반적인 방법으로는 파일에 접근하는 방법이 전무하다. C의 fopen()의 프로토타입은 const char\* 형식만 존재하고 이는 MBCS를 따르기 때문에 로캘에서 벗어나는 파일명은 접근할 수 없다. MSVC의 경우 비표준 함수인 const wchar_t 오버라이드를 제공하고 있으나, 표준이 아닌 관계로 libc를 사용하는 GCC의 경우 이러한 파일에 접근할 수 있는 방법이 CreateFileW()와 같은 OS 자체의 API를 사용하는 것 이외에는 방법이 존재하지 않는다. 또한 콘솔의 wprintf() 또한 콘솔의 기본값은 역시나 시스템 로캘을 따르며 이 또한 로캘을 벗어나는 문자열의 정상적인 출력을 위해서는 WriteConsoleW()를 사용하여야 하는 등, Windows가 사용하는 MBCS의 문제점이지 MSYS 환경의 문제점이 아니다.
-
-Cygwin의 기능은 WSL로 확실히 대체되었지만, MinGW는 윈도우 환경을 그대로 유지하되 리눅스 명령어만 사용해야 할 경우[2] 유용하게 쓰일 수 있어 여전히 필요성이 있는 소프트웨어이다.
-
-### MSYS2
-
-### MinGW
-
-### 3 > 설치과정
-
-[공식 사이트](https://www.mingw-w64.org/)
-
-minGW 의 패키지 구분은 3단계로 나뉘어집니다.
-
-쓰레드 모델에 따라 posix 인지 win32인지, 예외처리에서 sjlj 인지 seh 인지에 따라 갈립니다.
-
-### 3 > 간단 설명
-
-ucrt-x86_64-posix-seh 다운로드 받으시면 됩니다.
-
-### 3 > 상세 설명
-
-#### Runtime：`MSVCRT` vs `UCRT`
-
-C 표준 라이브러리에는 두 가지 변형이 있습니다.
-
-##### ◎ Runtime > 단순 설명
-
-[MSVCRT vs UCRT](https://wikidocs.net/219735)
-어찌보면 msvcrt와 ucrt는 항상 ucrt를 사용하므로 동의어입니다.
-
-[설명](https://forums.swift.org/t/proper-support-for-msvcrt-linkage/24423)
-MSVCRT (Microsoft Visual C Runtime)
-
-[설명](https://lifeisforu.tistory.com/310)
-Universal CRT
-
-Microsoft Windows의 C 표준 라이브러리에는 두 가지 변형이 있습니다.
-
-MSVCRT(Microsoft Visual C++ Runtime)는 모든 Microsoft Windows 버전에서 기본적으로 사용할 수 있지만, 이전 버전과의 호환성 문제로 인해 C99와 호환되지 않으며 일부 기능이 누락되어 있습니다.
-
-예를 들어 printf() 함수군과 같이 C99와 호환되지는 않지만...
-mingw-w64는 많은 경우 C99와 호환되도록 대체 함수를 제공합니다.
-UTF-8 로케일을 지원하지 않습니다.
-내부 구조와 데이터 유형이 다르기 때문에 MSVCRT와 연결된 바이너리를 UCRT와 혼합해서는 안 됩니다. (더 엄밀히 말하면, 서로 다른 타깃용으로 빌드된 객체 파일이나 정적 라이브러리를 혼합해서는 안 됩니다. 서로 다른 CRT용으로 빌드된 DLL은 DLL 경계를 넘어 CRT 객체(예: FILE\*)를 공유하지 않는 한 혼합할 수 있습니다. MSVC 컴파일된 바이너리에도 동일한 규칙이 적용되는데, MSVC는 기본적으로 UCRT를 사용하기 때문입니다(변경하지 않은 경우).
-모든 버전의 Microsoft Windows에서 기본적으로 작동합니다.
-UCRT(유니버설 C 런타임)는 최신 버전으로 Microsoft Visual Studio에서도 기본적으로 사용됩니다. 코드가 MSVC로 컴파일된 것처럼 작동하고 동작합니다.
-
-빌드 시와 런타임 모두에서 MSVC와의 호환성이 향상됩니다.
-Windows 10에서만 기본적으로 제공되며 이전 버전에서는 직접 제공하거나 사용자가 설치해야 합니다.
-
-#### CPU architecture：`x86_64` vs `i686`
-
-##### ◎ CPU architecture > 단순 설명
-
-&nbsp; x86_64는 64비트, i686은 32비트를 말하며 본인 컴퓨터에 맞는 걸 쓰시면 됩니다.
-
-&nbsp; 다음의 두 방법으로 원도우가 몇 비트 기반인지를 확인할 수 있습니다.
-
-- 윈도우키+R -> dxdiag, 운영체제 항목 확인
-- 시작표시줄 윈도우 로고 우클릭 -> 시스템, 시스템 종류 항목 확인
-
-##### ◎ CPU architecture > 상세 설명
-
-&nbsp; 컴퓨터의 뇌인 CPU 의 종류와 컴퓨터의 수학연습공책인 레지스터 크기 차이에 따른 구분입니다.
-
-&nbsp; 자세히 설명하면 레지스터란 CPU가 계산을 할 때 계산의 중간 결과를 일시적으로 저장하는 고속의 전용 영역을 말합니다. 32비트와 64비트 연산의 차이는 수학문제를 풀 때, 가로세로 3.2cm 종이조각에 문제를 푸는 것과 6.4cm 포스트잇에 문제를 푸는 것의 차이와 같습니다.
-
-&nbsp; 당연히 숫자가 큰 것이 좋습니다. 32비트보다 64비트가 속도도 빠르고 더 많은 메모리 사용도 가능합니다. 하지만 운영체제가 32비트인 경우엔 64비트가 성능발휘를 못하여 오히려 문제가 생깁니다. 그렇기에 본인 운영체제나 플랫폼의 비트 기반을 따라가는 것이 맞습니다.
-
-##### ◎ CPU architecture > TMI 설명
-
-&nbsp; 의문이 생기시진 않았나요? 왜 그냥 32비트, 64비트라고 표현하지 않고 이상한 이름을 쓰는 걸까요? 코딩을 공부하면서 x86 이나 amd64 같은 표현도 본 적 있을 지 모릅니다.
-
-&nbsp; 잠시 32비트와 64비트에 대해 끝없이 불어난 이 별명들에 얽힌 이야기를 풀겠습니다.
-
-&nbsp; 범인은 인텔입니다. 세상이 16비트에서 32비트, 그리고 32비트를 넘어 64비트로 발전하는 과정에서 인텔이 고집을 부리는 바람에 별명이 엄청나게 많아진 겁니다. 이 시기에 인텔은 16비트 프로세서용 아키텍처인 IA-16, 32비트용 IA-32 다음 버전으로 64비트 시장을 노리며 IA-64(아이테니엄)라는 아키텍처를 출시합니다.
-
-&nbsp; 여기서 인텔은 큰 실수를 합니다. 아이테니엄 IA-64는 32비트인 IA-32와의 호환성이 전혀 없는 상태로 출시되었습니다. 아직 64비트의 시대가 아니었기 때문에 32비트 프로그램이 대다수였고, IA-64는 32비트를 직접 구동할 수 없어 전부 에뮬레이션을 거쳐 실행했습니다. 당연히 이때마다 성능저하가 일어났습니다.
-
-&nbsp; 이를 AMD에선 `AMD64`라는 이름으로, 기존 IA-32와 호환되면서도 64비트인 아키텍처를 출시합니다. 기존 32비트를 속도 하락 없이 그대로 구동하며 동시에 64비트 명령어를 사용할 수 있었으니 그야말로 모범답안이었습니다. 이렇게 AMD64는 현 시점에서도 절대다수의 CPU가 채택하는 64비트의 사실상 표준이 됩니다.
-
-&nbsp; IA-64를 지지하며 고집을 부리던 인텔은 결국 포기하고 AMD64를 라이선스받아 자사 CPU에 탑재하기에 이릅니다. 이때 차마 AMD라는 이름은 쓸 수 없었으므로 `IA-32e`, `EM64T`, `Intel64` 등 명칭이 더 생겨납니다.
-
-&nbsp; 인텔은 16비트 시절 전설과도 같은 칩셋 8086에 적용된 아키텍처, 그리고 그 호환 프로세서와 후속작을 x86이라고 불러왔습니다. i386(Intel 의 80386 CPU 계열의 CPU), i586(Intel 의 80586 CPU 계열의 Pentium CPU), i686(Intel 의 80686 CPU 계열의 Pentium Pro 이상의 CPU)이 이 x86에 해당합니다. 32비트 시대에도 해당 칩셋들은 x86 명령어셋을 사용했고 이 때문에 32비트 체계를 관습적으로 `x86`이라고 부르게 된 것입니다. 인텔은 32비트의 x86 명령어셋을 64비트로 확장했다는 의미로 `x86*64` 또는 `x86-64` 또는 `x86_64` 라고도 이름 붙였습니다.
-
-&nbsp; x86이라는 이름을 통해 x와 숫자 두 개의 조합이 익숙해지니 사람들은 여기서 따와서 64비트를 `x64`라고 부르기 시작합니다. 또 다시 이것이 익다보니 "64비트가 x64 면, 32비트는?" 라는 인식이 생겨 32비트를 `x32` 라고도 부르게 됬습니다.
-
-&nbsp; 이런 환장할 칩셋의 역사로 인하여 혼란스러워 하는 사람들이 많지만 통상적으로는 x32, x86, i386, i686, IA-32 와 같이 64 숫자가 없으면 32비트, x64, x86_64, amd64, EM64T, Intel64 처럼 64 숫자가 있으면 64비트 입니다.
-
-==============================
-
-- Posix Thread：`posix` vs `win32`
-
-C++11 규격에 thread 지원이 포함된 이후로. 표준 규격에 부합하는 Compiler는 어떤 형태로든 Posix 규격에 맞는 Thread Mechanism을 제공해야 했습니다.
-MinGW도 이에 따라 Thread 지원이 되기 시작하면서 버전이 나뉘었습니다.
-
-- Exception Handling：`sjlj` vs `seh`
-
-SEH (Structured Exception Handling, 구조적 예외 처리)
-
-응용프로그램 실행을 종료하는 이벤트가 발생하는 시기를 제어할 수 있습니다. 이러한 이벤트를 구조적 예외 또는 짧게 예외라고 합니다. 이러한 예외를 처리하는 메커니즘을 SEH(구조적 예외 처리 )라고 합니다.
-
-Java 같은 언어가 thread를 사용할 때, 언어 상에서는 Runnable 상속 객체로 간단히 구현되지만, 내부적으로는 Debugging을 위한 Stack Trace와 각 언어가 지원하는 Exception Handling과 맞물리며 복잡해집니다.
-
-[window try catch](https://learn.microsoft.com/ko-kr/cpp/cpp/try-except-statement?view=msvc-170)
-MinGW에서도 Posix 규격에 맞는 Thread를 지원하기 위하여, 이런 구현을 가지고 있는데,
-특히 Windows는 c언어에서도 구조화된 Exception Handling을 지원하는 전용 확장까지 있습니다.
-
-구조화된 예외 처리를 지원하는 Microsoft 전용 확장입니다.
-
-Keyword를 가지고 있어서 Unix-like한 OS와는 다른 구조를 가지므로, 구현이 더 복잡해진다.
-
-SJLJ 구현의 경우, Exception의 발생여부와 관계없이 항상 SJLJ 구문을 수행해야 하기 때문에 overhead가 있다는 의견이 대부분이다. Platform 호환성에 있어서는 좋지만, 성능에 민감하다면 일단 제외를 할 필요가 있다.
-
-또한, Win32 Threading Model을 쓰던, Posix Threading Model을 쓰던, 결국은 표준에서 권장하는
-
-사용방식에 따라 프로그램 구현을 해야 하고, 프로그램을 구현하는 입장에서는 두 방식의 차이가
-
-두드러지지 않기 때문에 선호하는 것을 쓰면 된다.
-
-보편적으로는 x86_64-posix-seh 씁니다.
-
-#### Exception Handling Model：`SEH` vs `SJLJ` vs `DWARF`
-
-- [SEH, SJLJ, DWARF](https://klutzy.github.io/blog/2015/03/05/mingw/)
-- [DWARF](https://stackoverflow.com/questions/15670169/what-is-difference-between-sjlj-vs-dwarf-vs-seh)
+### 컴파일러 선택
+
+&nbsp; 먼저 컴파일러를 무엇으로 선택할 지를 결정해야합니다.
+
+&nbsp; 주로 GNU 프로젝트의 GCC, LLVM 의 Clang 중 하나를 선택합니다.
+
+<table>
+  <tr>
+    <th></th>
+    <th>GCC</th>
+    <th>LLVM/Clang</th>
+  </tr>
+  <tr>
+    <td>특징</td>
+    <td>
+      <li>GNU 링커와 GNU C++ 라이브러리를 사용</li>
+      <li>GNU 프로젝트의 컴파일러 컬렉션</li>
+    </td>
+    <td><li>링커로 LLD, 표준 라이브러리로 LIBC++를 사용</li>
+    <li>LLVM 도구만 사용</li>
+    </td>
+  </tr>
+  <tr>
+    <td>장점</td>
+    <td>
+      <li>유닉스/리눅스 계열의 사실상 표준</li>
+      <li>포트란까지 폭 넓은 언어 지원</li>
+      <li>높은 호환성 및 안정성</li>
+    </td>
+    <td>
+      <li>MIT 라이센스</li>
+      <li>오류 메세지가 직관적이고 색상 강조</li>
+      <li>최신식 설계로 컴파일이 빠르고 유지보수에 강함</li>
+    </td>
+  </tr>
+  <tr>
+    <td>단점</td>
+    <td>
+      <li>GPL 라이선스</li>
+      <li>단일 모놀리식 구조로 모듈화가 제한적</li>
+      <li>오류 메시지 출력 방식이 복잡함</li>
+    </td>
+    <td>
+      <li>사용자 폭이 좁음</li>
+      <li>일부 도구는 동등한 GNU 도구와 비교하면 부족함</li>
+      <li>x86/64 환경에서 최적화 성능 부족</li>
+    </td>
+  </tr>
+</table>
+
+&nbsp; 둘 다 장단점이 존재하지만, 어차피 GNU 프로젝트의 GCC 를 윈도우즈 OS 에서 사용하기 위해서는 MinGW(Minimalist GNU for Windows) 라는 윈도우용 포크가 필요한데 이 MinGW 는 Clang 컴파일러 또한 지원합니다.
+
+&nbsp; 그렇기 때문에 여기 설명에서는 더 확장성이 높은 GNU 프로젝트의 GCC 컴파일러를 기반으로 설명하겠습니다.
+
+### 컴파일 환경 선택
+
+&nbsp; 방금 말했듯이 C++ 언어 컴파일을 위해서는 컴파일러 뿐 아니라 MinGW 같이 그 기본 환경부터 맞춰주어야 합니다. 다음의 선택지가 있습니다.
+
+- 아예 POSIX 호환 unix 환경을 통으로 윈도우즈에 구현하는 <b>cygwin</b>
+- POSIX 호환은 못하나 unix 라이브러리를 제공하는 경량화 cygwin, <b>MSYS</b>
+- 극단적으로 경량화하여 최소한의 컴파일러와 명령어를 탑재한 <b>MinGW</b>
+
+&nbsp; POSIX 호환 unix 시스템을 윈도우에서 사용해야 하면 cygwin 이 필요합니다. 하지만 c++ 개발만 할 상황에 cygwin처럼 거대한 시스템을 설치할 이유는 없습니다.
+
+&nbsp; 보통은 다양한 패키지를 지원하는 MSYS2 와 극단적으로 경량화한 MinGW 사이에서 고민하게 됩니다.
+
+<table>
+<tr>
+  <th></th>
+  <th>MinGW만 사용하는 경우</th>
+  <th>MSYS2와 함께 사용하는 경우</th>
+</tr>
+<tr>
+  <td><b>장점</b></td>
+  <td>
+    <li>설치가 간단하고 용량이 작음</li>
+    <li>가볍고 빠른 실행 속도</li>
+    <li>윈도우 네이티브 실행 파일 생성에 최적화</li>
+  </td>
+  <td>
+    <li>GCC와 관련 도구들의 최신 버전 제공</li>
+    <li>Pacman 으로 패키지 관리가 편함</li>
+    <li>Linux와 유사해 POSIX 호환성이 뛰어남</li>
+  </td>
+</tr>
+<tr>
+  <td><b>단점</b></td>
+  <td>
+    <li>일부 POSIX 기능 지원 제한</li>
+    <li>패키지 관리와 업데이트가 불편</li>
+  </td>
+  <td>
+    <li>설치 용량이 더 큼</li>
+    <li>초기 설정이 약간 복잡할 수 있음</li>
+  </td>
+</tr>
+</table>
+
+&nbsp; 알고리즘 문제 풀이 정도의 레벨에선 MinGW 만 써도 무관하나, 조금만 더 복잡한 프로그램을 개발하고 싶을 때 바로 발목이 잡히게 되므로 개인적으론 MSYS 환경을 추천합니다.
+
+### 컴파일 환경(MSYS2) 설치
+
+&nbsp; 64비트 환경의 MSYS, MSYS2는 [공식 사이트](https://www.msys2.org/)에서 설치파일을 다운로드 받을 수 있습니다.
+
+&nbsp; 적절한 폴더를 지정하여 설치가 끝나셨다면 해당 폴더에 MSYS 가 지원하는 플랫폼들이 보일 것 입니다. 크게는 다음으로 정리됩니다.
+
+<table>
+  <tr>
+    <th>⟍</th>
+    <th>ucrt64</th>
+    <th>mingw64</th>
+    <th>clang64</th>
+    <th>msys2</th>
+  </tr>
+  <tr>
+    <td>특징</td>
+    <td>최신 Windows(Windows 10 이상)에서 권장되는 환경입니다. Universal C Runtime(UCRT)을 사용합니다. 앞으로의 표준 환경으로 추천됩니다.</td>
+    <td>오래된 MSVCRT(Microsoft Visual C++ Runtime)를 사용합니다. 구버전 Windows와의 호환성이 필요하다면 선택할 수 있습니다.</td>
+    <td>LLVM/Clang 기반 컴파일러를 사용하는 환경입니다. 크로스 플랫폼 관리나 코드 결함을 크로스 체크할 때 선택됩니다.</td>
+    <td>MSYS POSIX 환경을 실행하는 기본 터미널 런처입니다. 리눅스 명령어와 유닉스 도구를 사용할 수 있게 해줍니다</td>
+  </tr>
+    <tr>
+    <td>바이너리 경로</td>
+    <td>『설치된MSYS경로』\ucrt64\bin</td>
+    <td>『설치된MSYS경로』\mingw64\bin</td>
+    <td>『설치된MSYS경로』\clang64\bin</td>
+    <td>『설치된MSYS경로』\usr\bin</td>
+  </tr>
+</table>
+
+&nbsp; mingw64 도 문제없이 동작하지만 최신 환경에서는 ucrt64 를 사용하는 것이 권장됩니다. ucrt64 가 C++ 개발에 가장 무난한 선택입니다
+
+&nbsp; 이제 Windows OS 터미널이 MSYS 에 접근할 수 있도록 경로를 알려줘야 합니다. Windows 는 환경변수 중 Path 라는 변수에 경로가 들어가있다면 필요할 때, 그 경로를 탐색하여 접근합니다.
+
+&nbsp; 다음은 ucrt64 환경의 경로를 Path 환경 변수에 추가하는 방법입니다.
+
+- 작업표시줄 윈도우 로고에 우클릭을 하면 나오는 메뉴에서 시스템을 클릭해 주세요.
+- 시스템 창의 "고급 시스템 설정" 을 누르고 상단 탭 중에서 고급 항목에서 "환경 변수" 를 클릭하여 환경 변수를 수정할 수 있습니다.
+- "Path" 라는 환경 변수를 클릭 후, "편집(I)" 버튼을 눌러 환경 변수 편집 창을 띄워주세요.
+- 바이너리 경로 "『설치된 MSYS경로, 개개인마다 다르니 확인해주세요.』\ucrt64\bin" 를 추가합니다.
+
+&nbsp; 각 플랫폼마다 별도의 패키지 저장소와 설치 경로를 사용하기 때문에 ucrt64 에서 설치한 패키지와 설정은 다른 플랫폼에 영향을 주지 않습니다.
+
+&nbsp; 또한, 여러 환경을 동시에 PATH에 넣지 말고, 한 번에 하나의 환경만 사용해야 합니다. 그래야 컴파일러 충돌 없이 원하는 환경에서 빌드할 수 있습니다.
+
+### 컴파일러(gcc) 설치
+
+&nbsp; 리눅스나 우분투, 또는 윈도우즈를 처음 설치했을 때처럼 내부적으로는 설치된 것이 없습니다.
+
+&nbsp; 이제 MSYS2 ucrt64 환경에서 우리의 목표 gcc 컴파일러를 설치하도록 하겠습니다.
+
+&nbsp; MSYS 는 pacman 이라는 패키지매니저가 필요한 패키지를 설치 및 관리를 해줍니다.
+
+&nbsp; 리눅스의 apt 이나 노드의 npm 같은 패키지관리자에 익숙하신 분은 다음의 명령어표를 보시면 이해하기 쉬우실 겁니다.
+
+<details>
+<summary>명령어 표</summary>
+<table>
+<tr>
+  <th><center>⟍</center></th>
+  <th>apt</th>
+  <th>npm</th>
+  <th>pacman</th>
+</tr>
+<tr>
+  <td>이름 유래</td>
+  <td>advanced package tool</td>
+  <td>node pkgmakeinst</td>
+  <td>package manager</td>
+</tr>
+<tr>
+  <th colspan="4"><center>- 패키지 설치 및 제거 -</center></th>
+</tr>
+<tr>
+  <td>패키지 설치</td>
+  <td>sudo apt install 『패키지 이름』</td>
+  <td>npm install 『패키지 이름』</td>
+  <td>pacman -S 『패키지 이름』</td>
+</tr>
+<tr>
+  <td>패키지 제거</td>
+  <td>sudo apt remove 『패키지 이름』</td>
+  <td>npm uninstall 『패키지 이름』</td>
+  <td>pacman -R 『패키지 이름』</td>
+</tr>
+<tr>
+  <td>패키지 설정/의존성까지 완전소거</td>
+  <td>sudo apt purge 『패키지 이름』</td>
+  <td>(uninstall 시 완전소거)</td>
+  <td>pacman -Rns 『패키지 이름』</td>
+</tr>
+<tr>
+  <td>필요 없는 패키지(고아 패키지) 제거</td>
+  <td>sudo apt autoremove</td>
+  <td>npm prune</td>
+  <td>pacman -Rns $(pacman -Qdtq)</td>
+</tr>
+<tr>
+  <td>패키지 캐시 삭제</td>
+  <td>sudo apt clean</td>
+  <td>npm cache clean --force</td>
+  <td>pacman -Scc</td>
+</tr>
+<tr>
+  <th colspan="4"><center>- 패키지 DB -</center></th>
+</tr>
+<tr>
+  <td>패키지 DB 검색</td>
+  <td>apt search 『검색어』</td>
+  <td>npm search 『검색어』</td>
+  <td>pacman -Ss 『검색어』</td>
+</tr>
+<tr>
+  <td>패키지 DB 상세정보</td>
+  <td>apt show 『패키지 이름』</td>
+  <td>npm info 『패키지 이름』</td>
+  <td>pacman -Si 『패키지 이름』</td>
+</tr>
+<tr>
+  <td>패키지 DB 업데이트</td>
+  <td>sudo apt update</td>
+  <td>(항상 최신 DB)</td>
+  <td>pacman -Sy</td>
+</tr>
+<tr>
+  <th colspan="4"><center>- 설치된 패키지 관리 -</center></th>
+</tr>
+<tr>
+  <td>설치된 패키지 목록</td>
+  <td>apt list --installed</td>
+  <td>npm list --global	</td>
+  <td>pacman -Q</td>
+</tr>
+<tr>
+  <td>설치된 패키지 검색</td>
+  <td>apt list --installed 『검색어』</td>
+  <td>npm ls 『검색어』</td>
+  <td>pacman -Qs 『검색어』</td>
+</tr>
+<tr>
+  <td>업그레이드 가능한 패키지 목록</td>
+  <td>apt list --upgradable</td>
+  <td>npm outdated</td>
+  <td>pacman -Qu</td>
+</tr>
+<tr>
+  <td>설치된 모든 패키지 업그레이드</td>
+  <td>sudo apt upgrade</td>
+  <td>npm update</td>
+  <td>pacman -Su</td>
+</tr>
+<tr>
+  <td>설치된 특정 패키지 업그레이드</td>
+  <td>sudo apt install 『패키지 이름』</td>
+  <td>npm update 『패키지 이름』</td>
+  <td>pacman -S 『패키지 이름』</td>
+</tr>
+</table>
+</details>
+
+&nbsp; 따라서 gcc 를 설치하기 위해서 다음의 명령어를 입력해 주세요.
+
+```bash
+pacman -S mingw-w64-ucrt-x86_64-gcc
+```
 
 ## 4. 컴파일러 세팅
 
