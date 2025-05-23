@@ -974,6 +974,8 @@ int main() {
 ```md
 <center>
 <a href="#"><img alt="alt-message" src="./asset/svg/00.svg" width="852"></a>
+
+<img alt="03" src="./asset/-.svg" style="max-width: 100%; height: auto;" />
 </center>
 ```
 

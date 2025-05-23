@@ -79,6 +79,20 @@ while ($true) {
 }
 ```
 
+## 파워쉘 보안 실행정책
+
+파워쉘은 기본값으로 Restricted 를 실행정책으로 유지합니다.
+
+Restricted 실행정책은 모든 스크립트 실행이 차단합니다. 이 모드에서는 PowerShell 콘솔에서 직접 명령을 입력하는 것만 가능합니다.
+
+```powershell
+# 현재 세션에만 적용 (임시적인 해결)
+Set-ExecutionPolicy RemoteSigned -Scope Process -Force
+
+# 영구적 적용
+Set-ExecutionPolicy RemoteSigned -Scope LocalMachine -Force
+```
+
 ## 키보드 입력
 
 ```powershell
@@ -292,15 +306,46 @@ notepad $PROFILE
 - `Add` 버튼을 눌러 test.ps1 파일을 추가합니다. 다음으로 넘어갑니다.
 - 설치 후 작업에 대한 창이 뜹니다. 여기서 Install Program 입력 상자에 설치가 끝나면 파워쉘을 키고 test.ps1 을 구동시키는 명령어를 직접 작성합니다.
 
-  - ```powershell
-    powershell.exe -ExecutionPolicy Bypass -File test.ps1
+  - &nbsp;
+
+    ```powershell
+    powershell.exe -ExecutionPolicy Bypass -File run.ps1
     ```
 
-  - Post Install Command 항목은 설치 직후 커맨드나 프로그램 구동 이후에 추가로 실행할 작업입니다. 보통 쓸 일이 없습니다.
+  - 또는 위의 구동 명령어를 작성한 run.bat 파일을 만들고 전단계에서 `Add` 해준 뒤에 `cmd /c run.bat` 명령어를 install program 에 입력합니다.
+    전체 경로(폴더 + 파일명)가 260자(MAX_PATH) 를 넘으면 파일을 제대로 인식하지 못하는 문제가 생길 수 있어 이 쪽이 더 안정적인 방법입니다.
+  - iexpress 가 정상인 구동을 하지 못할 때, 다음의 코드로 디버깅을 해볼 수 있습니다.
+
+    ```bat
+    @ECHO OFF
+
+    :: 경로명시
+    cd /d "%~dp0"
+
+    :: 경로확인
+    explorer "%CD%"
+
+    :: 파일생성 대기 루프
+    :wait
+    if not exist "%CD%\code.ps1" (
+      ECHO "NOW LOADING..."
+      timeout /t 1 >nul
+      goto wait
+    )
+
+    :: -NoExit
+    powershell.exe -NoExit -ExecutionPolicy Bypass -File "%CD%\code.ps1"
+
+    PAUSE>NUL
+    EXIT
+    ```
+
+- Post Install Command 항목은 설치 직후 커맨드나 프로그램 구동 이후에 추가로 실행할 작업입니다. 보통 쓸 일이 없습니다.
 
 - 창표시 옵션은 Default 로 고르고 다음으로 넘어갑니다.
 - 완료 메시지는 No message 로 고르고 다음으로 넘어갑니다.
 - `C:/test.exe` 같은 느낌으로 패키지 저장 위치와 파일명을 지정합니다.
+  - "Store files using Long File Name inside Package" 옵션을 선택하지 않을 경우에 iexpress는 영문+숫자+언더스코어 이외의 공백 같은 특수문자가 포함되었거나, 8글자 이상의 파일은 DOS 시절의 영향으로 Short File Name 으로 이름을 왜곡시켜서 넣습니다. 예를들어 code.ps1 은 CODE~1.ps1 같은 이름으로 왜곡됩니다.
 - 재부팅이 필요없을때는 No restart 를 선택합니다. 다음으로 넘어갑니다.
 - SED 파일을 남겨놓아 재수정할 필요성이 없다면 남기지 않는 쪽을 선택해주세요. 다음으로 넘어갑니다.
 - 패키지가 생성됩니다.
@@ -351,6 +396,19 @@ Invoke-ps2exe .\test.ps1 .\test.exe -icon .\myicon.ico
 ```
 
 &nbsp; 더 복합적인 설정은 .rc 설정파일을 같이 컴파일하거나 `Resource Hacker` 를 이용해주세요.
+
+### 디지털 서명 받기
+
+시그스토어(sigstore)
+sigstore는 구글, 레드햇, 퍼듀 대학이 협력해 만든 오픈소스 프로젝트로, 리눅스 재단이 관리합니다.
+
+개발자가 자신의 소프트웨어 릴리스나 아티팩트에 무료로 디지털 서명할 수 있도록 지원합니다.
+
+OpenID 기반 인증을 사용해, 개발자는 자신의 이메일이나 GitHub 계정 등으로 인증 후 소프트웨어에 서명할 수 있습니다.
+
+서명 정보는 공개 로그에 저장되어 투명성과 위변조 방지가 보장됩니다.
+
+sigstore의 핵심 구성요소로는 서명 클라이언트, 투명성 로그(Rekor), 루트 인증기관(Fulcio) 등이 있으며, 모두 오픈소스로 제공됩니다.
 
 ## 템플릿
 
@@ -453,9 +511,29 @@ $lines = Select-String -Path "a.ps1" -Pattern "\$data=0" | ForEach-Object { $_.L
 $firstLine = (Select-String -Path "a.ps1" -Pattern "\$data=0" | Select-Object -First 1).LineNumber
 ```
 
+### 상위 폴더 없을 시 생성
+
+```powershell
+# 상위 폴더가 없으면 먼저 생성
+$dir = "c:/test00/test01"
+
+# 또는 전체경로에서 폴더경로만 추출
+$dir = Split-Path "c:/test00/test01/test02.exe"
+
+# 없을시 생성, -Force 옵션으로 상위폴더까지 한번에 다 만들기
+if (-not (Test-Path $dir)) {
+  # Out-Null 출력 없애기
+  New-Item -Path $dir -ItemType Directory -Force | Out-Null
+}
+
+# 파일 생성 또는 내용 비우기
+Set-Content "c:/test00/test01/test02.exe" ""
+```
+
 ### MSYS2 쉘 호출
 
 ```powershell
+$msysPath = "D:\Program Files\MSYS2\msys64\"
 function msys {
   [CmdletBinding(PositionalBinding=$false)]
   param (
@@ -519,7 +597,11 @@ function msys {
     # msys -set -path ============================================================
 
     if ($set) {
-      if (!(Test-Path -Path ($set + "msys2_shell.cmd"))) {
+      if (Test-Path -Path ($set + "\msys2_shell.cmd")) {
+        $set += "\";
+        Echo $set
+      }
+      elseif (!(Test-Path -Path ($set + "msys2_shell.cmd"))) {
         Echo "ERROR: `"$set`" Invalid path."
         return
       }
@@ -687,7 +769,7 @@ function msys {
 ### MSYS2 쉘 호출 함수 설치
 
 ```powershell
-function InstallMsys {
+function InstallMsysTool {
   $answer = Read-Host "This will modify the `$PROFILE file. Continue? (Y/N)"
   if ($answer -eq "Y" -or $answer -eq "y") {
     Write-Host "Proceeding..."
@@ -703,6 +785,10 @@ function InstallMsys {
 
   $answer = Read-Host "Do you want to completely overwrite the `$PROFILE file, or select 'N' to prepend the content to it? (Y/N)"
   if ($answer -eq "Y" -or $answer -eq "y" -or $answer -eq "N" -or $answer -eq "n") {
+    if (-not (Test-Path (Split-Path $PROFILE))) {
+      New-Item -Path (Split-Path $PROFILE) -ItemType Directory -Force | Out-Null
+    }
+
     if ($answer -eq "Y" -or $answer -eq "y") {
       Write-Host "Proceeding overwrite..."
       Set-Content -Path $PROFILE -Value "" -NoNewline
@@ -775,7 +861,11 @@ function InstallMsys {
       '    # msys -set -path ============================================================'
       ''
       '    if ($set) {'
-      '      if (!(Test-Path -Path ($set + "msys2_shell.cmd"))) {'
+      '      if (Test-Path -Path ($set + "\msys2_shell.cmd")) {'
+      '        $set += "\";'
+      '        Echo $set'
+      '      }'
+      '      elseif (!(Test-Path -Path ($set + "msys2_shell.cmd"))) {'
       '        Echo "ERROR: `"$set`" Invalid path."'
       '        return'
       '      }'
@@ -946,7 +1036,7 @@ function InstallMsys {
   }
 }
 
-InstallMsys
+InstallMsysTool
 
 Write-Host "The task is finished. Press Enter to close the window..."
 Read-Host

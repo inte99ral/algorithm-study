@@ -15,7 +15,7 @@
       },
       "command": "g++",
       "args": [
-        "${fileDirname}\\**.cpp",
+        "${file}",
         "-o",
         "${fileDirname}\\${fileBasenameNoExtension}.exe",
         "-O2", // loop unrolling, function inlining, 메모리 및 속도희생을 제외한 모든 범위 최적화
@@ -75,7 +75,22 @@
         "-O2",
         "-static",
         "-std=gnu++17"
-      ]
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": {
+        "owner": "cpp",
+        "fileLocation": ["relative", "${workspaceRoot}"],
+        "pattern": {
+          "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        }
+      }
     },
 
     // # Test & Run ===================================

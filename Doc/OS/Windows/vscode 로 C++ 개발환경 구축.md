@@ -314,7 +314,16 @@
 &nbsp; 따라서 gcc 를 설치하기 위해서 다음의 명령어를 입력해 주세요.
 
 ```bash
+# 관련기능 전부 설치
+pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
+
+
+# 최소한으로 gcc 만 설치
 pacman -S mingw-w64-ucrt-x86_64-gcc
+
+# 설치 및 버전 확인
+g++ --v
+gcc --v
 ```
 
 ## 4. 컴파일러 세팅
@@ -518,6 +527,8 @@ pacman -S mingw-w64-ucrt-x86_64-gcc
 ### tasks.json 상세설명 > command
 
 #### tasks.json 상세설명 > command > include 폴더 포함
+
+- 특정 MinGW/MinGW-w64 배포판이 와일드카드 확장(wildcard expansion, globbing)을 자체적으로 지원하도록 빌드된 경우. 경로에 `**` 와일드 카드 적용이 가능합니다.
 
 - 다음의 예시는 include 폴더의 cpp 까지 포함하려면 명령어를 다음과 같이 바꿔야합니다.
 

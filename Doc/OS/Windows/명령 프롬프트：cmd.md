@@ -99,6 +99,7 @@ ECHO %var%
 @Echo off
 
 :: * set 은 변수에 값을 입력하는 명령입니다.
+::   사이에 공백이 있어선 안됩니다.
 :: set <variable>=<value>
 set A=10
 set B=20
@@ -791,6 +792,48 @@ EXIT
 ```
 
 ## 템플릿
+
+### 파워쉘에 파싱
+
+#### 파워쉘에 일반적 파싱
+
+```bat
+@ECHO OFF
+cd /d "%~dp0"
+
+:: 파일 대기 루프
+:wait
+if not exist "%CD%\code.ps1" (
+  ECHO "NOW LOADING..."
+  timeout /t 1 >nul
+  goto wait
+)
+
+:: 파싱 코드
+powershell.exe -ExecutionPolicy Bypass -File "%CD%\code.ps1"
+```
+
+#### 파워쉘에 관리자 권한 파싱
+
+- -ArgumentList에 '...'로 감싸진 문자열이 들어가면,
+  내부의 "%CD%\co de.ps1"은 이미 따옴표로 감싸진 상태이므로
+  PowerShell이 이를 하나의 인자로 인식할 수 있어야 합니다.
+
+&nbsp; 문제는 관리자 권한 실행을 위해서는 외부 파워쉘(Start-Process powershell) -> 내부 파워쉘(powershell -Command) 인자를 넘기는 이중처리가 필요하며, Windows 명령줄 인자 파서와 PowerShell의 파서를 거치며 이 과정에서 인자 내부 따옴표가 사라집니다.
+
+&nbsp; 공백이 있을 경우
+
+&nbsp; 역슬래시+따옴표를 해두면 실제 따옴표로 변환되어 하나의 인자로 전달됩니다.
+
+```bat
+`powershell -Command "Start-Process powershell -ArgumentList '-ExecutionPolicy Bypass -File "%CD%\example.ps1"' -Verb RunAs"`
+
+
+:: 띄어쓰기 있을 시 역슬래시
+`powershell -Command "Start-Process powershell -ArgumentList '-ExecutionPolicy Bypass -File \"%CD%\exa mple.ps1\"' -Verb RunAs"`
+```
+
+### 컴퓨터 종료 배치 파일
 
 - 컴퓨터 종료 배치 파일
 

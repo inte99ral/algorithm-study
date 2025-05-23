@@ -234,7 +234,44 @@ git remote add origin https://github.com/leotorrez/ZZ-Model-Importer-Assets
 
 ### Github Desktop
 
+&nbsp; Github Desktop 은 GUI 를 통해 별도의 명령어 없이 Git 관리를 할 수 있도록 도와주는 프로그램입니다.
+
+- Version Tag 적용하기
+
+  &nbsp; History 탭으로 이동합니다.
+
+  &nbsp; 태그를 적용할 커밋을 마우스 오른쪽 클릭후 "태그 만들기..."(Create Tag...) 를 선택합니다.
+
+  &nbsp; 태그 이름(예를 들어 "v1.0.1")을 입력하고 "태그 만들기..."(Create Tag...) 를 클릭해주세요.
+
+  &nbsp; 상단탭의 활성화된 "Push origin" 버튼을 눌러 푸시해주세요.
+
+  &nbsp; GitHub 웹사이트의 Releases 탭에서 해당 태그를 기반으로 릴리즈를 생성할 수 있습니다. "Create release from tag"를 통해 릴리즈 노트와 함께 공식 릴리즈로 관리할 수 있습니다.
+
 ### Source Tree
+
+### Git Graph
+
+&nbsp; Git Graph 는 VScode 확장으로 VScode 에서 Git 의 상태를 그래프를 통해 볼 수 있도록 도와줍니다.
+
+- 단축키 설정하기
+
+  &nbsp; `ctrl + k` 입력 후 -> `ctrl + s` 입력 하여 바로가기 키 설정창을 띄울 수 있습니다.
+
+  &nbsp; json 으로 직접 git graph 단축키를 적용하면 다음 단축키 입력시 git graph 를 볼 수 있습니다.
+
+  ```json
+  [
+    ...
+
+    {
+      "key": "ctrl+alt+g",
+      "command": "git-graph.view"
+    },
+
+    ...
+  ]
+  ```
 
 ## Git 컨벤션
 
