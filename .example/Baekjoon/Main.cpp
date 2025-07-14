@@ -86,5 +86,6 @@ int main(int argc, char* argv[]) {
     cout << buf << endl;
   }
 
+  UNSET_IO();
   return 0;
 }

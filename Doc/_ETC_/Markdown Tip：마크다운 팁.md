@@ -2,20 +2,30 @@
 
 ## 스타일리쉬 블록
 
+- Tip 블록
+
+  > [!TIP]
+  > DON'T DELETE THE `package.json` file!
+
 - Note 블록
 
   > [!NOTE]
-  > DON'T DELETE THE `package.json` file!
-
-- Warning 블록
-
-  > [!WARNING]
   > DON'T DELETE THE `package.json` file!
 
 - Important 블록
 
   > [!IMPORTANT]
   > Read the contribution guideline before adding a pull request.
+
+- Warning 블록
+
+  > [!WARNING]
+  > DON'T DELETE THE `package.json` file!
+
+- Caution 블록
+
+  > [!CAUTION]
+  > 조심해야 할 사항을 안내합니다.
 
 ## TeX and LaTeX 문법
 

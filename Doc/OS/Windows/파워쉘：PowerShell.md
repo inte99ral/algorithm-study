@@ -278,6 +278,135 @@ New-Item -Path $PROFILE -ItemType File -Force
 notepad $PROFILE
 ```
 
+## 확장과 치환：Expansions and Substitutions
+
+&nbsp; 리눅스에선 먼저 명령문을 tokens (words) 으로 분리한 다음 해석해야할 표현식이 있을 경우에 변수확장, 산술확장, 명령치환을 거쳐 최종 변경된 명령문을 만들게 됩니다. 그리고나서 마지막으로 불필요한 quotes 을 삭제 처리하고 작업에 들어갑니다.
+
+[참고 링크](https://mug896.github.io/bash-shell/expansions_and_substitutions.html)
+
+리눅스의 확장(`Expansion, ${}, $(), $(())`) 은 left-to-right 순서로 동시처리 됩니다.
+
+- parameter expansion (파라미터 확장) : $var or ${var}
+- arithmetic expansion (산술 확장) : $((expression))
+- command substitution (명령 대체) : $(command)
+- Process substitution (작업 치환)
+
+파워쉘도 동일하게 이것이 가능합니다.
+
+task.json 은 옵션을 통해 다른 쉘에게 명령을 넘기는 것도 가능합니다.
+
+cmd 보다 파워쉘이 가진 기능이 많은 만큼 이쪽으로 g++ 명령을 호출하면 편리해집니다.
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "파워쉘1",
+      "detail": "파워파워쉘",
+      "type": "shell",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      // * 파워쉘로 실행하는 옵션입니다
+      "options": {
+        "shell": {
+          "executable": "powershell.exe"
+        }
+      },
+      "command": "dir"
+    }
+  ]
+}
+```
+
+https://cloudsns.wordpress.com/2012/10/09/get-childitem%EC%9D%98-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EC%9D%B8-filter%EC%99%80-include%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/
+Get-Childitem -Path $home -Recurse -Force -Filter \*.txt 가장 빠른 방법
+
+- 파워쉘로 경로 출력
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "[PS] 파워쉘 컴파일 범위 테스트 코드",
+      "type": "shell",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "options": {
+        "shell": {
+          "executable": "powershell.exe"
+        }
+      },
+      "command": "echo",
+      "args": [
+        "\"$((Get-ChildItem",
+        "-Path",
+        "${fileDirname}",
+        "-Recurse",
+        "-Include",
+        "*.?pp).FullName)\""
+      ]
+    }
+  ]
+}
+```
+
+- 파워쉘로 컴파일
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "[PS] 파워쉘 컴파일 코드",
+      "type": "shell",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "command": "g++",
+      "args": [
+        "$((Get-ChildItem",
+        "-Path",
+        "${fileDirname}",
+        "-Recurse",
+        "-Force",
+        "-Filter",
+        "*.?pp).FullName)",
+        "-o",
+        "${fileDirname}\\${fileBasenameNoExtension}.exe",
+        "-O2",
+        "-Wall",
+        "-static",
+        "-std=gnu++17"
+      ]
+    }
+  ]
+}
+```
+
+- 마찬가지로 실행시키는 작업을 만드시면 됩니다.
+
+  ```json
+  // tasks.json 앞 부분...
+  { // * Execute 바이너리 실행(Windows)
+    "label": "exe 파일 실행",
+    "detail": "현재 폴더에서 cpp 파일과 같은 이름의 exe 파일을 구동합니다.",
+    "type": "process",
+    "group": {
+      "kind": "test",
+      "isDefault": true
+    },
+    "command": "${fileDirname}/${fileBasenameNoExtension}.exe"
+  },
+  // ...tasks.json 뒷 부분
+  ```
+
 ## 파워쉘 스크립트 파일 .ps1
 
 파워쉘 스크립트 파일의 확장자는 .ps1 입니다.

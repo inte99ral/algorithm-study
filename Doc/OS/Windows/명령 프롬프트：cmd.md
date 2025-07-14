@@ -729,6 +729,70 @@ FOR /F "usebackq" %%a IN (`dir %~dp0 /a-d /s /b ^| findstr /e "\.cpp"`) DO (
 :: # CMD：.cpp 파일들을 탐색한 후, "변수"에 넣고 출력합니다 =================
 :: ## <DIRECTORY_PATH> 경로 밑의 .cpp 파일들의 경로를 cpps 파일에 저장한 뒤 ECHO 로 출력합니다
 ::(FOR /F "usebackq" %i IN (`dir/a-d/s/b <DIRECTORY_PATH> ^|findstr/e ".cpp"`) DO @(@<NUL SET/P= "%i " >> cpps.txt)) & CALL SET/P cpps=<cpps.txt & CALL ECHO "[CPP_PATH]: %cpps:~0,-1%" & DEL/Q cpps.txt
+
+:: # CMD：.cpp 파일들을 탐색한 후, "변수"에 넣고 gcc 로 빌드합니다 ==========
+::(FOR /F "usebackq" %i IN (`dir/a-d/s/b <DIRECTORY_PATH> ^|findstr/e ".cpp"`) DO @(CALL SET cpps=%cpps% %i)) & CALL g++ %cpps:~7% -o ${fileDirname}\\${fileBasenameNoExtension}.exe
+```
+
+여기서 앞에 srcs 변수 초기화를 해주고 2^>nul 에러 출력 리다이렉션까지 추가해주면 다음과 같은 명령어로 g++ 컴파일 명령을 할 수 있습니다.
+
+<center>
+
+`
+@(CALL SET "srcs= ") && (FOR /F "usebackq" %i IN (`DIR/A-D/S/B ${fileDirname}\\src 2^>nul ^|findstr/e ".cpp"`) DO @(CALL SET "srcs=%srcs% %i")) && CALL g++ %srcs:~2% ${file} -o ${fileDirname}\\${fileBasenameNoExtension}.exe
+`
+
+</center>
+
+이를 tasks.json 에 맞춰서 폼을 변경하면 다음과 같습니다.
+
+```json
+{
+  "command": "@(CALL",
+  "args": [
+    // * cpp 파일 목록 초기화
+    "SET",
+    "\"srcs= \")",
+    "&&",
+    // * FOR dir cpp 파일 검색
+    "(FOR",
+    "/F",
+    "\"usebackq\"",
+    "%i",
+    "IN",
+    "(`DIR/A-D/S/B",
+    "${fileDirname}\\src",
+    // ** 에러 출력 리다이렉션
+    "2^>nul",
+    "^|findstr/e",
+    "\".cpp\"`)",
+    "DO",
+    "@(CALL",
+    "SET",
+    "\"srcs=%srcs% %i\"",
+    "))",
+    "&",
+    // * g++
+    "CALL",
+    "g++",
+    // ** g++ > 타겟팅
+    "%srcs:~2%",
+    "${file}",
+    "-o${fileDirname}\\${fileBasenameNoExtension}.exe",
+    // ** g++ > 옵션
+    "-O2",
+    "-Wall",
+    "-static",
+    "-std=gnu++17",
+    // ** g++ > 참조 설정
+    "-ID:\\Program Files\\boost\\include\\boost-1_87",
+    "-LD:\\Program Files\\boost\\lib",
+    "-lboost_system-mgw14-mt-d-x64-1_87",
+    "-lboost_thread-mgw14-mt-d-x64-1_87",
+    "-lwsock32",
+    "-lws2_32"
+  ]
+},
 ```
 
 ## 괄호와 캐롯
