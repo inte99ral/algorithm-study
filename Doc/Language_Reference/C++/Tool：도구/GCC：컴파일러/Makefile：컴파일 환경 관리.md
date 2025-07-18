@@ -1,5 +1,20 @@
 # Makefile：컴파일 환경 관리
 
+## 목차
+
+- [Makefile：컴파일 환경 관리](#makefile컴파일-환경-관리)
+  - [목차](#목차)
+  - [개요](#개요)
+  - [사용 방법](#사용-방법)
+  - [Makefile 파일 작성법](#makefile-파일-작성법)
+  - [Makefile 내장 변수](#makefile-내장-변수)
+  - [Makefile 명령어](#makefile-명령어)
+  - [Makefile 타겟팅](#makefile-타겟팅)
+  - [Makefile 파일 디버깅](#makefile-파일-디버깅)
+    - [ERROR "Makefile:4: \*\*\* missing separator. Stop."](#error-makefile4--missing-separator-stop)
+
+## 개요
+
 &nbsp; 개발 시에 컴파일러에게 어떻게 빌드해야 하는 지 명령을 줘야합니다. 여기에는 라이브러리 인터페이스 경로, 라이브러리 참조 경로 설정, 라이브러리 링크 목록, 컴파일 할 대상 코드 파일 목록, 빌드된 출력 파일 경로 등의 정보 등 여러 정보들이 들어갑니다.
 
 &nbsp; 이걸 코딩 때 마다 하면 정말 귀찮습니다. Makefile Tools는 Visual Studio Code에서 Makefile로 관리하여 컴파일 환경 관리를 쉽게 만들어 줍니다.
@@ -113,3 +128,37 @@ clean:
 ```
 
 - 관례적으로 많은 Makefile에서는 'all'이라는 이름의 타겟을 첫 번째로 정의하여 기본 목표로 사용합니다. 이 'all' 타겟은 보통 프로젝트에서 빌드하고자 하는 모든 것들을 의존성으로 가집니다.
+
+## Makefile 파일 디버깅
+
+### ERROR "Makefile:4: \*\*\* missing separator. Stop."
+
+&nbsp; commands 는 반드시 tab 으로만 구분되어야합니다. spacebar 로는 인식이 안됩니다. 반대의 경우로 target 과 dependencies 는 공백으로 구분되어야합니다. tab 이 입력되면 commands 와 혼동합니다. 다음의 구분자 차이가 섞일 경우 make 는 명령을 제대로 수행하지 못하여 위의 오류를 출력합니다.
+
+&nbsp; 해결하기 위해서 우선 문장에 tab 이 사용되었는 지 구분하는 명령을 통해 체크할 수 있습니다.
+
+- 줄 앞 문자(TAB/SPACE) 확인
+
+  - 리눅스의 경우 : `cat -A Makefile`
+  - 윈도우 파워쉘의 경우 : `` Get-Content Makefile | ForEach-Object { ($\_ -replace "`t", "[TAB]") -replace " ", "[SP]" } ``
+  - 원도우 파워쉘에서 줄 번호까지 출력하기 :
+
+    ```powershell
+    Get-Content Makefile | ForEach-Object -Begin { $i=1 } -Process {
+        "$i`t" + (($_ -replace "`t", "[TAB]") -replace " ", "[SP]")
+        $i++
+    }
+    ```
+
+- 변수 선언 줄 중 TAB 문자로 시작하는 줄 찾기
+
+  - 리눅스의 경우 : `grep -Pn '^\t[A-Z_]+\s*:=' Makefile`
+  - 윈도우 파워쉘의 경우 : `Select-String -Pattern "^\t[A-Z_]+\s*:=" -Path Makefile`
+  - 원도우 파워쉘에서 줄 번호까지 출력하기 :
+
+    ```powershell
+    Get-Content Makefile | ForEach-Object -Begin { $i=1 } -Process {
+        if ($_ -match "^\t[A-Z_]+\s*:=") { "$i: $_" }
+        $i++
+    }
+    ```

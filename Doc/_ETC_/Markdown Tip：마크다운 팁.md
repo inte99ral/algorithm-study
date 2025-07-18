@@ -1,5 +1,17 @@
 # Markdown Tip：마크다운 팁
 
+## Table of Contents：목차 생성
+
+&nbsp; Markdown All in One 확장에 포함된 기능입니다.
+
+&nbsp; `ctrl + shift + P` 입력 등으로 명령 팔레트를 열고 `> Markdown All in One: Create Table of Contents` 명령을 실행하면 목차가 생성됩니다.
+
+&nbsp; settings.json 에서 설정을 조정할 수 있습니다.
+
+- 자동 갱신 해제 : `"markdown.extension.toc.updateOnSave": false`
+- 헤더 깊이 설정 : `"markdown.extension.toc.levels": "1..3"   // 1에서 3단계 헤딩까지만 포함`
+- 목차 표기 변경 `"markdown.extension.toc.orderedList": false // 숫자 아닌 불릿(•)으로 표시할지 여부`
+
 ## 스타일리쉬 블록
 
 - Tip 블록

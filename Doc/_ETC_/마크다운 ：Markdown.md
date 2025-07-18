@@ -52,11 +52,23 @@
   코드 블럭을 끝냅니다.
   ```
 
-### 가운데 정렬：Align Center
+### 정렬：Align
+
+<div align=left>
+『LEFT_TEXT』
+</div>
 
 <center>
-『CENTER_TEXT』
+『CENTER_TEXT_0』
 </center>
+
+<div align=center>
+『CENTER_TEXT_1』
+</div>
+
+<div align=right>
+『RIGHT_TEXT』
+</div>
 
 ### 확장/축소：Accordion
 
@@ -123,37 +135,64 @@ int main() {
 
 &nbsp; :(콜론) 기호로 내용을 정렬할 수 있습니다.
 
-| 첫번째(왼쪽정렬) |     두번째(가운데정렬)     | 세번째(오른쪽정렬) |
-| ---------------- | :------------------------: | -----------------: |
-| `왼쪽`           |         정렬확인1          |                abc |
-| `정렬`           |         정렬확인2          |           abcdefgh |
-| `123`            | 정렬확인,정렬확인,정렬확인 |             abcdef |
-| `456`            |        정렬확인1234        |                abc |
+| 첫번째(왼쪽정렬) | 두번째(가운데정렬) | 세번째(오른쪽정렬) |
+| ---------------- | :----------------: | -----------------: |
+| 왼쪽정렬         |     가운데정렬     |         오른쪽정렬 |
 
 #### Table > HTML Tag
 
-&nbsp; HTML 태그로 테이블 구현 또한 가능합니다.
+&nbsp; Table HTML 태그를 이용해서 섬세하게 테이블을 만드는 것 또한 가능합니다.
 
-<table>
-<tr>
-  <th><center>첫번째(가운데정렬)</center></th>
-  <th>두번째(코드블럭)</th>
-</tr>
-<tr>
-  <td><center>1</center></td>
-  <td>
+- <table>
+  <tr>
+    <th align=left>코드블럭</th>
+  </tr>
+  <tr>
+    <td align=left>
 
-```cpp
-#include <bits/stdc++.h>
+  ```cpp
+  #include <bits/stdc++.h>
 
-int main() {
-  return 0;
-}
-```
+  int main() {
+    return 0;
+  }
+  ```
 
-  </th>
-</tr>
-</table>
+    </td>
+  </tr>
+  </table>
+
+<br />
+
+- <table>
+  <tr>
+    <th align=left>첫번째(왼쪽정렬)</th>
+    <td align=left>왼쪽정렬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <th align=center>두번째(가운데정렬)</th>
+    <td align=center>가운데정렬</td>
+  </tr>
+  <tr>
+    <th align=right>세번째(오른쪽정렬)</th>
+    <td align=right>오른쪽정렬</td>
+  </tr>
+  </table>
+
+<br />
+
+- <table>
+  <tr>
+    <th valign=top>첫번째(상단정렬)</th>
+    <th valign=middle>두번째(중단정렬)</th>
+    <th valign=bottom>세번째(하단정렬)</th>
+  </tr>
+  <tr>
+    <td valign=top>상단정렬<br /><br /><br /></td>
+    <td valign=middle>중단정렬</td>
+    <td valign=bottom>하단정렬</td>
+  </tr>
+  </table>
 
 ### 텍스트 서식
 

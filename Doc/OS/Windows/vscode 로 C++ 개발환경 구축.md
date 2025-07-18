@@ -973,8 +973,9 @@ gcc --v
       "detail": "경로 밑의 .cpp 파일을 찾은 후에 경로를 파일에 저장합니다.",
       "type": "cppbuild",
       "group": {
-        "kind": "test",
-        "isDefault": true
+        "isDefault": true,
+        // "isDefault": false,
+        "kind": "test"
       },
       "command": "(FOR",
       "args": [
@@ -1322,11 +1323,12 @@ clean:
         "command": "mingw32-make",
         "args": [],
         "group": {
-          "kind": "build",
-          "isDefault": true
+          "isDefault": true,
+          // "isDefault": false,
+          "kind": "build"
         },
         "options": {
-          "cwd": "${workspaceFolder}"
+          "cwd": "${fileDirname}"
         },
         "problemMatcher": []
       }

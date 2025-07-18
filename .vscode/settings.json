@@ -10,6 +10,9 @@
  * [x] TODO Highlight
  * [x] Git Graph
  * [x] indent-rainbow
+ * [x] IntelliCode
+ * [x] IntelliCode API Usage Examples
+ * [x] WSL
  *
  * ### MarkDown:
  * [x] Markdown All in One
@@ -93,6 +96,7 @@
 
   // ### Formatter:
   "html.format.extraLiners": "",
+  "editor.renderWhitespace": "all", // show space & tab
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
   "editor.accessibilitySupport": "off",
@@ -128,7 +132,7 @@
       "source": "Git Bash"
     }
   },
-  "terminal.integrated.defaultProfile.windows": "Command Prompt", // Default terminal
+  // "terminal.integrated.defaultProfile.windows": "PowerShell", // Default terminal
   "cmake.configureOnOpen": false,
   "cmake.showOptionsMovedNotification": false,
   "files.associations": {
@@ -226,5 +230,6 @@
     "typeinfo": "cpp",
     "valarray": "cpp",
     "variant": "cpp"
-  }
+  },
+  "makefile.configureOnOpen": false
 }
