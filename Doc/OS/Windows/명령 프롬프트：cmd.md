@@ -4,6 +4,10 @@
 
 - [공식 문서](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd)
 
+## cmd 열기
+
+실행(Win + R) 에서 cmd를 관리자 권한 실행(Ctrl + Shift + Enter) 하면 바로 관리자 권한으로 cmd 를 열 수 있습니다.
+
 ## 배치 파일：Batch File
 
 - 마이크로소프트사의 DOS 운영체제인 MS-DOS에서 명령어 입력이 번거롭거나 익숙하지 않은 사용자를 위해 만들어졌다.
