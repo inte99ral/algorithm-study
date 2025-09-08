@@ -9,11 +9,11 @@
 &nbsp; 문제의 그림예시 `<그림 1>`
 
 <p align=center>
-<img src="./asset/00.png" alt="00" style="max-width: 50%; height: auto;" />
+<img src="." alt="." width="896" style="width: 100%" />
 </p>
 
 <p align=center>
-<img src="./asset/1.png" alt="01" width="400" height="200" />
+<img src="./asset/1.png" alt="01" width="448" style="width: 50%" />
 </p>
 
 &nbsp; 문제의 입력 예시 `<입력 1>`
@@ -45,50 +45,64 @@
 ## 예제
 
 - <table>
-  <tr>
-  <th>예제 입력 1</th>
-  <th>예제 출력 1</th>
-  </tr>
-  <tr>
-  <td valign="top">
-
-  ```txt
-  7
-  ```
-
-  </td>
-  <td valign="top">
+    <tr>
+    <th>예제 입력 3</th>
+    <th>예제 출력 3</th>
+    </tr>
+    <tr>
+    <td valign="top">
 
   ```txt
   10
+  5
+  1 1
+  1 2
+  1 3
+  1 4
+  7 8
   ```
 
-  </td>
-  </tr>
-  </table>
+    </td>
+    <td valign="top">
+
+  ```txt
+  4
+  5
+  ```
+
+    </td>
+    </tr>
+    </table>
 
 - <table>
-  <tr>
-  <th>예제 입력 2</th>
-  <th>예제 출력 2</th>
-  </tr>
-  <tr>
-  <td valign="top">
+    <tr>
+    <th>예제 입력 3</th>
+    <th>예제 출력 3</th>
+    </tr>
+    <tr>
+    <td valign="top">
 
   ```txt
-  8
+  10
+  5
+  1 1
+  1 2
+  1 3
+  1 4
+  7 8
   ```
 
-  </td>
-  <td valign="top">
+    </td>
+    <td valign="top">
 
   ```txt
-  22
+  4
+  5
   ```
 
-  </td>
-  </tr>
-  </table>
+    </td>
+    </tr>
+    </table>
 
 ## 힌트
 

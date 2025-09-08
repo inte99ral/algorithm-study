@@ -1,5 +1,9 @@
 # CSS Example：CSS 예시
 
+<img src="." alt="." width="896" style="width: 100%" />
+
+깃허브 md 에선 896px 기준 style 무시됨
+
 ## Outer, Inner：볼록, 오목
 
 <center>

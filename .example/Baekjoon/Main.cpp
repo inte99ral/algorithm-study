@@ -1,6 +1,6 @@
 // # 『DIRECTORY_PATH』
 
-// ## Documentation ==========================================================
+// ## Documentation ===============================================
 /**
  * @name 『PROBLEM_CODE』
  * 
@@ -27,7 +27,8 @@
  * @version xxxx-xx-xx
  */
 
-// ## Import Declaration =====================================================
+// ================================================================
+// ## Import Declaration ==========================================
 
 // ### API & Library:
 
@@ -38,54 +39,54 @@
 // #include <filesystem>
 
 #ifndef ONLINE_JUDGE
-  #define SET_IO(INPUT_DATA) \
-    std::ios::sync_with_stdio(false); \
-    std::cin.tie(nullptr); \
-    std::cout.tie(nullptr); \
-    std::istream* IO_S = (std::filesystem::exists(INPUT_DATA)) \
-      ? (std::istream*) new std::ifstream(INPUT_DATA) \
-      : (std::istream*) new std::stringstream(INPUT_DATA); \
-    std::streambuf* IO_BACKUP = std::cin.rdbuf(IO_S->rdbuf())
+    #define SET_IO(INPUT_DATA) \
+        std::ios::sync_with_stdio(false); \
+        std::cin.tie(nullptr); \
+        std::cout.tie(nullptr); \
+        std::istream* IO_S = (std::filesystem::exists(INPUT_DATA)) \
+            ? (std::istream*) new std::ifstream(INPUT_DATA) \
+            : (std::istream*) new std::stringstream(INPUT_DATA); \
+        std::streambuf* IO_BACKUP = std::cin.rdbuf(IO_S->rdbuf())
 
-  #define UNSET_IO() \
-    std::cin.rdbuf(IO_BACKUP); \
-    delete IO_S
+    #define UNSET_IO() \
+        std::cin.rdbuf(IO_BACKUP); \
+        delete IO_S
     
 #else
-  #define SET_IO(INPUT_DATA) \
-    std::ios::sync_with_stdio(false); \
-    std::cin.tie(nullptr); \
-    std::cout.tie(nullptr)
+    #define SET_IO(INPUT_DATA) \
+        std::ios::sync_with_stdio(false); \
+        std::cin.tie(nullptr); \
+        std::cout.tie(nullptr)
 
-  #define UNSET_IO() ((void) 0)
+    #define UNSET_IO() ((void) 0)
 #endif
 
 // ### Namespace:
 
 using namespace std;
 
-// ## Variable & Constant ====================================================
+// ## Variable & Constant =========================================
 
-// ## Prototype Declaration ==================================================
+// ## Prototype Declaration =======================================
 
-// ## Implements Definition ==================================================
+// ## Implements Definition =======================================
 
 // ### Main
 int main(int argc, char* argv[]) {
-  // freopen("__INPUT__.txt", "rt", stdin);
+    // freopen("__INPUT__.txt", "rt", stdin);
 
-  // SET_IO(
-  //   "INNER1 \n"
-  //   "INNER2 \n"
-  //   "INNER3 \n"
-  // );
+    // SET_IO(
+    //   "INNER1 \n"
+    //   "INNER2 \n"
+    //   "INNER3 \n"
+    // );
 
-  SET_IO("_INPUT_.txt");
+    SET_IO("_INPUT_.txt");
 
-  for (string buf; cin >> buf;) {
-    cout << buf << endl;
-  }
+    for (string buf; cin >> buf;) {
+        cout << buf << endl;
+    }
 
-  UNSET_IO();
-  return 0;
+    UNSET_IO();
+    return 0;
 }
