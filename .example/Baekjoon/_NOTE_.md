@@ -20,7 +20,7 @@
 - 반례 못찾음
 
 ```『LANGUAGE_TYPE_01』
-『CODE_LINE』
+    『CODE_LINE』
 ```
 
 ## 정답
@@ -34,5 +34,5 @@
 - 방법 찾음
 
 ```『LANGUAGE_TYPE_02』
-『CODE_LINE』
+    『CODE_LINE』
 ```

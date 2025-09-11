@@ -43,14 +43,14 @@
         std::ios::sync_with_stdio(false); \
         std::cin.tie(nullptr); \
         std::cout.tie(nullptr); \
-        std::istream* IO_S = (std::filesystem::exists(INPUT_DATA)) \
+        std::istream* IO_STREAM = (std::filesystem::exists(INPUT_DATA)) \
             ? (std::istream*) new std::ifstream(INPUT_DATA) \
             : (std::istream*) new std::stringstream(INPUT_DATA); \
-        std::streambuf* IO_BACKUP = std::cin.rdbuf(IO_S->rdbuf())
+        std::streambuf* IO_BACKUP = std::cin.rdbuf(IO_STREAM->rdbuf())
 
     #define UNSET_IO() \
         std::cin.rdbuf(IO_BACKUP); \
-        delete IO_S
+        delete IO_STREAM
     
 #else
     #define SET_IO(INPUT_DATA) \
