@@ -5,7 +5,7 @@
 - 문제 폴더 구조
 
   ```txt
-  『PROBLEM_CODE』
+  『PROBLEM_CODE_IN_MACRO_CASE』
   	├─ __『PROBLEM_NAME』__.md (문제내용)
   	├─ _NOTES_.md (오답노트)
   	├─ _INPUT_.txt (입력내용)
@@ -62,6 +62,7 @@
 | 2024-05-04 | [BJ 2999](./Problem/Solved/Baekjoon/Bronze/1/BJ_2999/__비밀_이메일__.md)             | 비밀이메일              | `#D5`      | `#구현` `#문자열`                 |
 | 2025-09-08 | [BJ 3985](./Problem/Solved/Baekjoon/Bronze/1/BJ_3985/__롤_케이크__.md)               | 롤 케이크               | `#BronzeⅠ` | `#구현` `#시뮬레이션`             |
 | 2025-09-09 | [BJ 5397](./Problem/Solved/Baekjoon/Silver/2/BJ_5397/__키로거__.md)                  | 키로거                  | `#SilverⅡ` | `#자료구조` `#스택` `#연결리스트` |
+| 2025-09-12 | [BJ 1629](./Problem/Solved/Baekjoon/Silver/1/BJ_1629/__곱셈__.md)                    | 곱셈                    | `#SilverⅠ` | `#수학` `#분할정복`               |
 
 <br />
 
@@ -71,8 +72,14 @@
 | :-------- | :-------- | :----- | :----- | :------- |
 
 - 대기
-  | 2025-03-16
-  | [BJ 1629](./Problem/Failed/Baekjoon/Silver/1/BJ_1629/__곱셈__.md)
-  | 곱셈
-  | `#SilverⅠ`
+  | 2024-06-16
+  | [BJ 11726](Problem\Solved\Baekjoon\Gold\1\BJ_17472\question\info.md)
+  | 2×n 타일링
+  | `#SilverⅢ`
   | `#?`
+
+- 대기
+  | 2024-xx-xx
+  | [SWEA 20671](./Problem/Failed/SWEA/D5/SWEA_20671/__숫자_카드__.md)
+  | 숫자 카드
+  | `#D5`
