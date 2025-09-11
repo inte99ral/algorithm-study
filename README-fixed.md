@@ -2,14 +2,28 @@
 
 ## Coding Convention
 
-```txt
-『PROBLEM_CODE』
-	├─ __『PROBLEM_NAME』__.md (문제내용)
-	├─ _NOTES_.md (오답노트)
-	├─ _INPUT_.txt (입력내용)
-	│
-	└─ Main.{cpp | java | js ...} (문제 풀이 코드)
-```
+- 문제 폴더 구조
+
+  ```txt
+  『PROBLEM_CODE』
+  	├─ __『PROBLEM_NAME』__.md (문제내용)
+  	├─ _NOTES_.md (오답노트)
+  	├─ _INPUT_.txt (입력내용)
+  	│
+  	└─ Main.{cpp | java | js ...} (문제 풀이 코드)
+  ```
+
+- 문제 브랜치명
+
+  - problem/『problem-code-in-kebab-case』
+
+- 문제 커밋명
+
+  - | 커밋 메세지                            | 사용상황                  |
+    | :------------------------------------- | :------------------------ |
+    | try: 『Problem code in normal case』   | 문제 도중에 올린 커밋     |
+    | solve: 『Problem code in normal case』 | 문제를 해결한 커밋        |
+    | rfct: 『Problem code in normal case』  | 문제 정리를 위한 리팩터링 |
 
 <br />
 
