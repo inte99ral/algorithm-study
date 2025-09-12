@@ -107,7 +107,8 @@
   "[markdown]": {
     "editor.tabSize": 4,
     "editor.insertSpaces": false, // tab to space {true | false}
-    "editor.wordWrap": "on" // 글씨 자동개행 {on | off}
+    "editor.wordWrap": "on", // 글씨 자동개행 {on | off}
+    "editor.detectIndentation": false // 들여쓰기 패턴 추측 {true | false}
   },
   "markdownlint.config": {
     "MD009": false, // Don't lint : Trailing space

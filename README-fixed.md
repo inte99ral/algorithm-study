@@ -64,6 +64,13 @@
 | 2025-09-09 | [BJ 5397](./Problem/Solved/Baekjoon/Silver/2/BJ_5397/__키로거__.md)                  | 키로거                  | `#SilverⅡ` | `#자료구조` `#스택` `#연결리스트` |
 | 2025-09-12 | [BJ 1629](./Problem/Solved/Baekjoon/Silver/1/BJ_1629/__곱셈__.md)                    | 곱셈                    | `#SilverⅠ` | `#수학` `#분할정복`               |
 
+- Try
+  | 2024-06-16
+  | [BJ 11726](./Problem/Failed/Baekjoon/Silver/3/BJ_11726/__2×n_타일링__.md)
+  | 2×n 타일링
+  | `#SilverⅢ`
+  | `#?`
+
 <br />
 
 ## FIXME:
@@ -71,14 +78,14 @@
 | 풀이 일자 | 문제 코드 | 문제명 | 난이도 | 해시태그 |
 | :-------- | :-------- | :----- | :----- | :------- |
 
-- 대기
-  | 2024-06-16
-  | [BJ 11726](Problem\Solved\Baekjoon\Gold\1\BJ_17472\question\info.md)
-  | 2×n 타일링
-  | `#SilverⅢ`
-  | `#?`
+- Ready
+  | xxxx-xx-xx
+  | x-x
+  | x
+  | `#xⅠⅡⅢⅣⅤ`
+  | `#x` `#x`
 
-- 대기
+- Ready
   | 2024-xx-xx
   | [SWEA 20671](./Problem/Failed/SWEA/D5/SWEA_20671/__숫자_카드__.md)
   | 숫자 카드
