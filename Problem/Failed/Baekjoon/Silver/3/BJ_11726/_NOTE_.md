@@ -209,3 +209,80 @@ int main(int argc, char* argv[]) {
   return 0;
 }
 ```
+
+### C++：2025-09-16：순열과 조합 그리고 페르마의 소정리
+
+- | 메모리  |  시간  | 코드 길이 |
+  | :-----: | :----: | :-------: |
+  | 2036 KB | 100 ms |   933 B   |
+
+- 점화식 풀이를 생각치못하고 그냥 순열과 조합으로 직접 풀었습니다.
+- 오답의 순열과조합에서 언급했듯 매우 느려서 타임아웃이 나오는게 맞습니다.
+- 다만, `a^(p-2) = 1/a [mod p][a와 p는 서로소]` 라는 조건과 중복되는 값은 배열로 저장하여 시간이 크게 단축되어서 아슬아슬하게 통과하였습니다.
+
+```cpp
+// # BJ 11726：2×n 타일링
+
+#include <bits/stdc++.h>
+
+#ifndef ONLINE_JUDGE
+    #define SET_IO(INPUT_DATA) \
+        std::ios::sync_with_stdio(false); \
+        std::cin.tie(nullptr); \
+        std::cout.tie(nullptr); \
+        std::istream* IO_STREAM = (std::filesystem::exists(INPUT_DATA)) \
+            ? (std::istream*) new std::ifstream(INPUT_DATA) \
+            : (std::istream*) new std::stringstream(INPUT_DATA); \
+        std::streambuf* IO_BACKUP = std::cin.rdbuf(IO_STREAM->rdbuf())
+
+    #define UNSET_IO() \
+        std::cin.rdbuf(IO_BACKUP); \
+        delete IO_STREAM
+
+#else
+    #define SET_IO(INPUT_DATA) \
+        std::ios::sync_with_stdio(false); \
+        std::cin.tie(nullptr); \
+        std::cout.tie(nullptr)
+
+    #define UNSET_IO() ((void) 0)
+#endif
+
+using namespace std;
+
+long long factorialMemory[1000] = {1, 1,};
+long long powMemory[1000] = {};
+
+long long factorial(int num) {
+    if (factorialMemory[num] != 0) return factorialMemory[num];
+    return (factorial(num - 1) * num) % 10007;
+}
+
+long long powWithModRecur(int exp, int dividend, int divisor) {
+    if (exp == 1) return dividend % divisor;
+    return (powWithModRecur(exp - 1, dividend, divisor) * dividend) % divisor;
+}
+
+long long powWithMod(int index) {
+    if (powMemory[index] == 0) powMemory[index] = powWithModRecur(10005, factorial(index), 10007);
+    return powMemory[index];
+}
+
+int main() {
+    SET_IO("_INPUT_.txt");
+    int N;
+    int answer = 0;
+
+    cin >> N;
+
+    for (int n1 = N / 2; n1 >= 0; n1--) {
+        int n2 = N - (n1 * 2);
+        answer += (((factorial(n1 + n2) * powWithMod(n1)) % 10007) * powWithMod(n2)) % 10007;
+        answer %= 10007;
+    }
+
+    cout << answer << "\n";
+    UNSET_IO();
+    return 0;
+}
+```

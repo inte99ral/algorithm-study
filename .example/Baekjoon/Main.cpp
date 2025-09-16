@@ -1,4 +1,4 @@
-// # 『DIRECTORY_PATH』
+// # 『DIRECTORY_PATH』or『PROBLEM_CODE：NAME』
 
 // ## Documentation ===============================================
 /**
