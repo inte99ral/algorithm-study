@@ -2,40 +2,40 @@
 
 ## Coding Convention
 
-- 문제 폴더 구조
+-   문제 폴더 구조
 
-  ```txt
-  『PROBLEM_CODE_IN_MACRO_CASE』
-  	├─ __『PROBLEM_NAME』__.md (문제내용)
-  	├─ _NOTES_.md (오답노트)
-  	├─ _INPUT_.txt (입력내용)
-  	│
-  	└─ Main.{cpp | java | js ...} (문제 풀이 코드)
-  ```
+    ```txt
+    	『PROBLEM_CODE_IN_MACRO_CASE』
+    	├─ __『PROBLEM_NAME』__.md (문제내용)
+    	├─ _NOTES_.md (오답노트)
+    	├─ _INPUT_.txt (입력내용)
+    	│
+    	└─ Main.{cpp | java | js ...} (문제 풀이 코드)
+    ```
 
-- 문제 브랜치명
+-   문제 브랜치명
 
-  - problem/『problem-code-in-kebab-case』
+    -   problem/『problem-code-in-kebab-case』
 
-- 문제 커밋명
+-   문제 커밋명
 
-  - | 커밋 메세지                            | 사용상황                  |
-    | :------------------------------------- | :------------------------ |
-    | try: 『Problem code in normal case』   | 문제 도중에 올린 커밋     |
-    | solve: 『Problem code in normal case』 | 문제를 해결한 커밋        |
-    | rfct: 『Problem code in normal case』  | 문제 정리를 위한 리팩터링 |
+    -   | 커밋 메세지                            | 사용상황                  |
+        | :------------------------------------- | :------------------------ |
+        | try: 『Problem code in normal case』   | 문제 도중에 올린 커밋     |
+        | solve: 『Problem code in normal case』 | 문제를 해결한 커밋        |
+        | rfct: 『Problem code in normal case』  | 문제 정리를 위한 리팩터링 |
 
 <br />
 
 ## WARN
 
-1. <b>패턴</b>：손 풀이로 수학적 처리과정을 뇌로 한번 거쳐보고 패턴 파악해보기
-2. <b>변수</b>：값이 바뀐 걸 인지하기.
-3. <b>포인터</b>：첫 입력시, 초기화를 0으로 했으면, null 값이 아니라 인덱스 0을 가르킨다.
-4. <b>큐</b>：스택이나 우선순위 큐에서 pop 이나 push 행동을 취하면 당연히 순서가 바뀐다.
-5. <b>조건</b>：if 문에서 배제한 케이스에 대하여 반례 체크를 해봐야 한다.
-6. <b>범위</b>：int 의 범위는 4byte 2^32. long long 또한 8byte 2^64 가 한계이다. 아무리 long 이여도 int의 세제곱을 커버하진 못한다.
-7. <b>컨테이너</b>：변화가 잦은 알고리즘에는 리스트를, 또는 변화가 없는 알고리즘 등에는 벡터를 적용하는 경우처럼, 상황에 적합한 컨테이너를 사용하기.
+1.  <b>패턴</b>：손 풀이로 수학적 처리과정을 뇌로 한번 거쳐보고 패턴 파악해보기. 문제가 직관적인 수식이 아니라 점화식적인 풀이인 경우도 존재함. `반드시 0~10 케이스는 손으로 해보기`
+2.  <b>변수</b>：값이 바뀐 걸 인지하기.
+3.  <b>포인터</b>：첫 입력시, 초기화를 0으로 했으면, null 값이 아니라 인덱스 0을 가르킨다.
+4.  <b>큐</b>：스택이나 우선순위 큐에서 pop 이나 push 행동을 취하면 당연히 순서가 바뀐다.
+5.  <b>조건</b>：if 문에서 배제한 케이스에 대하여 반례 체크를 해봐야 한다.
+6.  <b>범위</b>：int 의 범위는 4byte 2^32. long long 또한 8byte 2^64 가 한계이다. 아무리 long 이여도 int의 세제곱을 커버하진 못한다.
+7.  <b>컨테이너</b>：변화가 잦은 알고리즘에는 리스트를, 또는 변화가 없는 알고리즘 등에는 벡터를 적용하는 경우처럼, 상황에 적합한 컨테이너를 사용하기.
 
 <br />
 
@@ -63,13 +63,7 @@
 | 2025-09-08 | [BJ 3985](./Problem/Solved/Baekjoon/Bronze/1/BJ_3985/__롤_케이크__.md)               | 롤 케이크               | `#BronzeⅠ` | `#구현` `#시뮬레이션`             |
 | 2025-09-09 | [BJ 5397](./Problem/Solved/Baekjoon/Silver/2/BJ_5397/__키로거__.md)                  | 키로거                  | `#SilverⅡ` | `#자료구조` `#스택` `#연결리스트` |
 | 2025-09-12 | [BJ 1629](./Problem/Solved/Baekjoon/Silver/1/BJ_1629/__곱셈__.md)                    | 곱셈                    | `#SilverⅠ` | `#수학` `#분할정복`               |
-
-- Try
-  | 2024-06-16
-  | [BJ 11726](./Problem/Failed/Baekjoon/Silver/3/BJ_11726/__2×n_타일링__.md)
-  | 2×n 타일링
-  | `#SilverⅢ`
-  | `#?`
+| 2024-06-16 | [BJ 11726](./Problem/Solved/Baekjoon/Silver/3/BJ_11726/__2×n_타일링__.md)            | 2×n 타일링              | `#SilverⅢ` | `#동적계획법`                     |
 
 <br />
 
@@ -78,15 +72,8 @@
 | 풀이 일자 | 문제 코드 | 문제명 | 난이도 | 해시태그 |
 | :-------- | :-------- | :----- | :----- | :------- |
 
-- Ready
-  | xxxx-xx-xx
-  | x-x
-  | x
-  | `#xⅠⅡⅢⅣⅤ`
-  | `#x` `#x`
-
-- Ready
-  | 2024-xx-xx
-  | [SWEA 20671](./Problem/Failed/SWEA/D5/SWEA_20671/__숫자_카드__.md)
-  | 숫자 카드
-  | `#D5`
+-   대기
+    | 2024-xx-xx
+    | [SWEA 20671](./Problem/Failed/SWEA/D5/SWEA_20671/__숫자_카드__.md)
+    | 숫자 카드
+    | `#D5`
