@@ -166,7 +166,7 @@ git merge [브랜치명]
 
 ### 특정 폴더만 클론하기
 
--   1. 클론 받을 폴더를 생성 및 이동해주세요.
+-   1 클론 받을 폴더를 생성 및 이동해주세요.
 
     &nbsp; 파일탐색기로 GUI 작업으로 가능하고 다음과 같이 터미널 작업으로도 가능합니다.
 
@@ -176,7 +176,7 @@ git merge [브랜치명]
     git init
     ```
 
--   2. git remote 로 원격 저장소를 연결해주세요.
+-   2 git remote 로 원격 저장소를 연결해주세요.
 
     ```bash
     git remote add origin 『REMOTE_URL』
@@ -184,7 +184,7 @@ git merge [브랜치명]
 
 git remote add origin https://github.com/leotorrez/ZZ-Model-Importer-Assets
 
--   3. Sparse Checkout 기능을 활성화 시켜주세요.
+-   3 Sparse Checkout 기능을 활성화 시켜주세요.
 
     &nbsp; Sparse Checkout 은 대규모 저장소에서 특정 파일이나 디렉토리만을 선택적으로 체크아웃할 수 있게 해주는 기능입니다. 다음의 명령어를 통하여 기능을 활성화 시킬 수 있습니다.
 
@@ -196,7 +196,7 @@ git remote add origin https://github.com/leotorrez/ZZ-Model-Importer-Assets
     git config core.sparseCheckout true
     ```
 
--   4. checkout 폴더 경로를 잡아주세요.
+-   4 checkout 폴더 경로를 잡아주세요.
 
     ```bash
     # 현재 설정에 계속 추가하는 방식
@@ -211,7 +211,7 @@ git remote add origin https://github.com/leotorrez/ZZ-Model-Importer-Assets
 
 &nbsp; 레포지토리의 폴더 경로는 오리진 레포지토리 기준에서 폴더까지의 경로입니다. 예를들어 repo1 이라는 이름의 레포지토리의 folder1 폴더만 가져오고 싶다면 『REPOSITORY_FOLDER_PATH』는 `folder1/` 입니다. 따옴표 입력시 오류가 생길 때가 있습니다.
 
--   5. pull 명령어로 내려받습니다.
+-   5 pull 명령어로 내려받습니다.
 
     ```bash
     git pull origin main
@@ -507,38 +507,38 @@ BJ_3040 문제 풀이의 구조를 변경한 브랜치를 Main 에 올리는 요
 
 &nbsp; Git Flow 전략은 Vincent Driessen이 제안한 브랜치 관리 전략으로, 소프트웨어 개발과 배포 프로세스를 체계적으로 관리하기 위한 방법입니다. 이 전략은 협업과 릴리즈 주기를 효율적으로 관리하기 위해 설계되었으며, 총 5가지 브랜치를 사용합니다.
 
-1. <b>Master(Main)</b>
+-   <b>Master(Main)</b>
 
-    - 배포할 안정적인 상태인 브랜치입니다.
-    - Release 또는 Hotfix 브랜치의 검증된 코드 만이 병합되어 올라옵니다.
-    - 실제 릴리즈 이력을 태그로 기록하여 버전을 관리합니다.
+    -   배포할 안정적인 상태인 브랜치입니다.
+    -   Release 또는 Hotfix 브랜치의 검증된 코드 만이 병합되어 올라옵니다.
+    -   실제 릴리즈 이력을 태그로 기록하여 버전을 관리합니다.
 
-2. <b>Develop</b>
+-   <b>Develop</b>
 
-    - 릴리즈를 준비하는 개발 완료된 코드들이 대기하는 브랜치입니다.
-    - Master 브랜치에서 분기하여 만들어집니다.
-    - 기능 개발이 완료된 feature 브랜치들이 병합되어 올라오며 안정성 테스트를 거칩니다.
-    - 검증된 Develop 코드는 후에 언급될 Release 브랜치로 분기합니다.
+    -   릴리즈를 준비하는 개발 완료된 코드들이 대기하는 브랜치입니다.
+    -   Master 브랜치에서 분기하여 만들어집니다.
+    -   기능 개발이 완료된 feature 브랜치들이 병합되어 올라오며 안정성 테스트를 거칩니다.
+    -   검증된 Develop 코드는 후에 언급될 Release 브랜치로 분기합니다.
 
-3. <b>Feature</b>
+-   <b>Feature</b>
 
-    - 새로운 기능 개발을 위한 브랜치입니다.
-    - Develop 브랜치에서 분기하여 생성하고, 작업 완료 후 다시 Develop에 병합하여 올립니다.
-    - 병합 시 병합 이력을 남기지 않으면 브랜치 기록 전체가 하나의 브랜치로 통합되어 버리는 문제가 발생할 수 있습니다. --no-ff 옵션을 사용하거나 github desktop을 사용 중이라면 병합 시에 "Create a merge commit" 항목을 선택하고 병합해주세요.
+    -   새로운 기능 개발을 위한 브랜치입니다.
+    -   Develop 브랜치에서 분기하여 생성하고, 작업 완료 후 다시 Develop에 병합하여 올립니다.
+    -   병합 시 병합 이력을 남기지 않으면 브랜치 기록 전체가 하나의 브랜치로 통합되어 버리는 문제가 발생할 수 있습니다. --no-ff 옵션을 사용하거나 github desktop을 사용 중이라면 병합 시에 "Create a merge commit" 항목을 선택하고 병합해주세요.
 
-     <center>
-       <img src="./.asset/Git：깃/01.jpg" alt="01" width="400" height="260" />
-     </center>
+       <center>
+         <img src="./.asset/Git：깃/01.jpg" alt="01" width="400" height="260" />
+       </center>
 
-4. <b>Release</b>
+-   <b>Release</b>
 
-    - 최상단 브랜치인 Master(Main) 에 올리기 위한 최종 수정 및 테스트용 브랜치 입니다.
-    - 안정성이 확인된 Develop 브랜치에서 분기합니다.
-    - 준비가 완료되면 Master와 Develop 에 병합하는 것으로 전체 코드의 릴리즈 버전을 동기화 합니다.
+    -   최상단 브랜치인 Master(Main) 에 올리기 위한 최종 수정 및 테스트용 브랜치 입니다.
+    -   안정성이 확인된 Develop 브랜치에서 분기합니다.
+    -   준비가 완료되면 Master와 Develop 에 병합하는 것으로 전체 코드의 릴리즈 버전을 동기화 합니다.
 
-5. <b>Hotfix</b>
-    - 배포된 버전에서 긴급하게 발생한 문제를 수정하기 위한 브랜치입니다.
-    - Master에서 분기하며, 수정 후 Master와 Develop에 병합합니다.
+-   <b>Hotfix</b>
+    -   배포된 버전에서 긴급하게 발생한 문제를 수정하기 위한 브랜치입니다.
+    -   Master에서 분기하며, 수정 후 Master와 Develop에 병합합니다.
 
 #### GitHub Flow
 
@@ -551,16 +551,16 @@ BJ_3040 문제 풀이의 구조를 변경한 브랜치를 Main 에 올리는 요
 
 &nbsp; Git Flow 의 브랜치 중에서 main 과 feature 만 사용하며, Git Flow 에서 develop, release 단계에서 진행하는 코드 리뷰 및 안정성 테스트는 GitHub의 Pull Request 기능으로 대체합니다.
 
-1. <b>main</b>
+-   <b>main</b>
 
-    - 배포되는 최상단의 브랜치입니다.
-    - 새로운 기능이나 버그 수정을 위하여 단일 브랜치만을 허용합니다.
+    -   배포되는 최상단의 브랜치입니다.
+    -   새로운 기능이나 버그 수정을 위하여 단일 브랜치만을 허용합니다.
 
-2. <b>Feature</b>
+-   <b>Feature</b>
 
-    - 새로운 기능 개발을 위한 브랜치입니다.
-    - 작업 완료 후 Pull Request(= GitLab 의 Merge Request)를 생성하여 코드 리뷰 및 테스트를 진행합니다.
-    - Pull Request 승인 후 main 브랜치에 병합합니다. 병합 후 즉시 배포합니다(CI/CD 자동화 추천).
+    -   새로운 기능 개발을 위한 브랜치입니다.
+    -   작업 완료 후 Pull Request(= GitLab 의 Merge Request)를 생성하여 코드 리뷰 및 테스트를 진행합니다.
+    -   Pull Request 승인 후 main 브랜치에 병합합니다. 병합 후 즉시 배포합니다(CI/CD 자동화 추천).
 
 #### GitLab Flow
 
@@ -573,26 +573,26 @@ BJ_3040 문제 풀이의 구조를 변경한 브랜치를 Main 에 올리는 요
 
 &nbsp; GitLab Flow 는 main, feature 브랜치는 온전히 개발용으로만 사용하며, pre-production, production 브랜치에서 배포합니다.
 
-1. <b>main</b>
+-   <b>main</b>
 
-    - 개발의 최상단 브랜치입니다.
-    - Git Flow 의 develop 브랜치와 동일한 역할을 수행합니다.
+    -   개발의 최상단 브랜치입니다.
+    -   Git Flow 의 develop 브랜치와 동일한 역할을 수행합니다.
 
-2. <b>Feature</b>
+-   <b>Feature</b>
 
-    - 새로운 기능 개발을 위한 브랜치입니다.
-    - 작업 완료 후 Merge Request(= GitHub 의 Pull Request)를 생성하여 코드 리뷰 및 테스트를 진행합니다.
-    - Merge Request 승인 후 main 브랜치에 병합합니다.
+    -   새로운 기능 개발을 위한 브랜치입니다.
+    -   작업 완료 후 Merge Request(= GitHub 의 Pull Request)를 생성하여 코드 리뷰 및 테스트를 진행합니다.
+    -   Merge Request 승인 후 main 브랜치에 병합합니다.
 
-3. <b>pre-production</b>
+-   <b>pre-production</b>
 
-    - 개발 단계 master와 배포 단계 production 사이의 중간 단계로, 통합 테스트를 위해 사용됩니다.
-    - Git Flow 의 release 브랜치와 동일한 역할을 수행합니다.
-    - 안정성 테스트 및 QA 가 끝났다면 production 브랜치로 병합하여 배포할 준비를 합니다.
+    -   개발 단계 master와 배포 단계 production 사이의 중간 단계로, 통합 테스트를 위해 사용됩니다.
+    -   Git Flow 의 release 브랜치와 동일한 역할을 수행합니다.
+    -   안정성 테스트 및 QA 가 끝났다면 production 브랜치로 병합하여 배포할 준비를 합니다.
 
-4. <b>production</b>
+-   <b>production</b>
 
-    - 실제 배포 환경을 위한 브랜치로, Git Flow의 master 브랜치와 유사한 역할을 합니다.
+    -   실제 배포 환경을 위한 브랜치로, Git Flow의 master 브랜치와 유사한 역할을 합니다.
 
 ### 이슈
 
