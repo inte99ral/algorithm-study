@@ -1,47 +1,110 @@
 # TODO
 
-## DONE:
+## Coding Convention
 
--   [x] 2024-03-22 | [BJ 7576](Problem\Failed\Baekjoon\Gold\5\BJ_7576\question\info.md) 토마토 `#GoldⅤ` `#그래프` `#그래프 탐색` `#너비 우선 탐색`
--   [x] 2024-04-04 | [BJ 17135](Problem\Solved\Baekjoon\Gold\3\BJ_17135\question\info.md) 캐슬 디펜스 `#GoldⅢ` `#구현` `#그래프` `#브루트포스` `#너비우선탐색`
--   [x] 2024-04-23 | [BJ 2252](Problem\Solved\Baekjoon\Gold\3\BJ_2252\question\info.md) 줄 세우기 `#GoldⅢ` `#그래프` `#위상 정렬` `#방향 비순환 그래프`
--   [x] 2024-06-16 | [BJ 17472](Problem\Solved\Baekjoon\Gold\1\BJ_17472\question\info.md) 다리 만들기 2 `#GoldⅠ` `#구현` `#그래프` `#최소 스패닝 트리`
--   [x] 2024-06-16 | [PG 42576](Problem\Solved\Programmers\Level_1\PG_42576\question\info.md) 완주하지 못한 선수 `#Level 1` `#해시`
--   [x] 2024-07-04 | [PG 42579](Problem\Solved\Programmers\Level_3\PG_42579\question\info.md) 베스트앨범 `#Level 3` `#해시`
--   [x] 2024-07-14 | [PG 42578](Problem\Solved\Programmers\Level_2\PG_42578\question\info.md) 의상 `#Level 2` `#해시`
--   [x] 2024-07-22：[PG_17677](Problem\Solved\Programmers\Level_2\PG_17677\question\info.md) 뉴스 클러스터링 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
--   [x] 2024-07-31：[PG_17679](Problem\Solved\Programmers\Level_2\PG_17679\question\info.md) 프렌즈4블록 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
--   [x] 2024-07-24：[PG_17680](Problem\Solved\Programmers\Level_2\PG_17680\question\info.md) 캐시 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
--   [x] 2024-08-19：[PG_17676](Problem\Solved\Programmers\Level_3\PG_17676\question\info.md) 추석 트래픽 `#Level 3` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
--   [x] 2024-10-31：[BJ_1000](Problem\Solved\Baekjoon\Bronze\5\BJ_1000/._A+B.md) A+B `#BronzeⅤ` `#수학` `#구현`
--   [x] 2024-10-31：[BJ_1244](Problem\Solved\Baekjoon\Silver\4\BJ_1244/._스위치_켜고_끄기.md) 스위치 켜고 끄기 `#SilverⅣ` `#구현`
--   [x] 2024-10-31：[BJ_1592](Problem\Solved\Baekjoon\Bronze\2\BJ_1592/._영식이와_친구들.md) 영식이와 친구들 `#BronzeⅡ` `#구현`
--   [x] 2024-10-31：[BJ_2292](Problem\Solved\Baekjoon\Bronze\2\BJ_2292/._벌집.md) 벌집 `#BronzeⅡ` `#수학`
--   [x] 2024-10-31：[BJ_2477](Problem\Solved\Baekjoon\Silver\2\BJ_2477/._참외밭.md) 참외밭 `#SilverⅡ` `#수학` `#구현` `#기하학`
--   [x] 2024-11-07：[PG_1845](Problem\Solved\Programmers\Level_1\PG_1845/__폰켓몬.md) 폰켓몬 `#Level 1` `#해시`
--   [x] 2024-11-07：[PG_181188](Problem\Solved\Programmers\Level_2\PG_181188/__요격_시스템.md) 요격 시스템 `#Level 2`
--   [x] 2024-11-07：[BJ_2527](Problem\Solved\Baekjoon\Silver\1\BJ_2527/__직사각형.md) 직사각형 `#SilverⅠ` `#수학` `#기하학` `#많은조건분기`
--   [x] 2024-11-22：[BJ_2941](Problem\Solved\Baekjoon\Silver\5\BJ_2941/__크로아티아_알파벳__.md) 크로아티아 알파벳 `#SilverⅤ` `#구현` `#문자열`
--   [x] 2024-11-22：[BJ_2563](Problem\Solved\Baekjoon\Silver\4\BJ_2563/__색종이__.md) 색종이 `#SilverⅣ` `#구현`
--   [x] 2024-11-22：[BJ_2567](Problem\Solved\Baekjoon\Silver\4\BJ_2567/__색종이_2__.md) 색종이 2 `#SilverⅣ` `#구현`
--   [x] 2024-11-22：[BJ_2798](Problem\Solved\Baekjoon\Bronze\2\BJ_2798/__블랙잭__.md) 블랙잭 `#BronzeⅡ` `#브루트포스 알고리즘`
--   [x] 2024-12-20：[BJ 2810](Problem\Solved\Baekjoon\Bronze\1\BJ_2810/__컵홀더__.md) 컵홀더 `#BronzeⅠ` `#구현` `#문자열` `#그리디`
--   [x] 2024-12-20：[BJ 2851](Problem\Solved\Baekjoon\Bronze\1\BJ_2851/__슈퍼_마리오__.md) 슈퍼마리오 `#BronzeⅠ` `#구현` `#브루트포스` `#누적합`
--   [x] 2024-12-20：[BJ 2164](Problem\Solved\Baekjoon\Silver\4\BJ_2164/__카드2__.md) 카드2 `#SilverⅣ` `#자료구조` `#큐`
+-   문제 폴더 구조
+
+    ```txt
+    	『PROBLEM_CODE_IN_MACRO_CASE』
+    	├─ __『PROBLEM_NAME』__.md (문제내용)
+    	├─ _NOTES_.md (오답노트)
+    	├─ _INPUT_.txt (입력내용)
+    	│
+    	└─ Main.{cpp | java | js ...} (문제 풀이 코드)
+    ```
+
+-   문제 브랜치명
+
+    -   problem/『problem-code-in-kebab-case』
+
+-   문제 커밋명
+
+    -   | 커밋 메세지                            | 사용상황                  |
+        | :------------------------------------- | :------------------------ |
+        | try: 『Problem code in normal case』   | 문제 도중에 올린 커밋     |
+        | solve: 『Problem code in normal case』 | 문제를 해결한 커밋        |
+        | rfct: 『Problem code in normal case』  | 문제 정리를 위한 리팩터링 |
 
 <br />
+
+## WARN
+
+1.  <b>패턴</b>：손 풀이로 수학적 처리과정을 뇌로 한번 거쳐보고 패턴 파악해보기. 문제가 직관적인 수식이 아니라 점화식적인 풀이인 경우도 존재함. `반드시 0~10 케이스는 손으로 해보기`
+2.  <b>변수</b>：값이 바뀐 걸 인지하기.
+3.  <b>포인터</b>：첫 입력시, 초기화를 0으로 했으면, null 값이 아니라 인덱스 0을 가르킨다.
+4.  <b>큐</b>：스택이나 우선순위 큐에서 pop 이나 push 행동을 취하면 당연히 순서가 바뀐다.
+5.  <b>조건</b>：if 문에서 배제한 케이스에 대하여 반례 체크를 해봐야 한다.
+6.  <b>범위</b>：int 의 범위는 4byte 2^32. long long 또한 8byte 2^64 가 한계이다. 아무리 long 이여도 int의 세제곱을 커버하진 못한다.
+7.  <b>컨테이너</b>：변화가 잦은 알고리즘에는 리스트를, 또는 변화가 없는 알고리즘 등에는 벡터를 적용하는 경우처럼, 상황에 적합한 컨테이너를 사용하기.
+
+<br />
+
+## DONE:
+
+| 풀이 일자  | 문제 코드                                                                            | 문제명                  | 난이도     | 해시태그                          |
+| :--------- | :----------------------------------------------------------------------------------- | :---------------------- | :--------- | :-------------------------------- |
+| 2024-12-20 | [BJ 15649](<./Problem/Solved/Baekjoon/Silver/3/BJ_15649/__N과_M_(1)__.md>)           | N과 M (1)               | `#SilverⅢ` | `#백트래킹`                       |
+| 2024-12-23 | [BJ 15650](<./Problem/Solved/Baekjoon/Silver/3/BJ_15650/__N과_M_(2)__.md>)           | N과 M (2)               | `#SilverⅢ` | `#백트래킹`                       |
+| 2024-12-23 | [BJ 15651](<./Problem/Solved/Baekjoon/Silver/3/BJ_15651/__N과_M_(3)__.md>)           | N과 M (3)               | `#SilverⅢ` | `#백트래킹`                       |
+| 2024-12-23 | [BJ 15652](<./Problem/Solved/Baekjoon/Silver/3/BJ_15652/__N과_M_(4)__.md>)           | N과 M (4)               | `#SilverⅢ` | `#백트래킹`                       |
+| 2024-12-24 | [BJ 15654](<./Problem/Solved/Baekjoon/Silver/3/BJ_15654/__N과_M_(5)__.md>)           | N과 M (5)               | `#SilverⅢ` | `#백트래킹`                       |
+| 2024-12-24 | [BJ 15655](<./Problem/Solved/Baekjoon/Silver/3/BJ_15655/__N과_M_(6)__.md>)           | N과 M (6)               | `#SilverⅢ` | `#백트래킹`                       |
+| 2024-12-24 | [BJ 15656](<./Problem/Solved/Baekjoon/Silver/3/BJ_15656/__N과_M_(7)__.md>)           | N과 M (7)               | `#SilverⅢ` | `#백트래킹`                       |
+| 2024-12-25 | [BJ 15657](<./Problem/Solved/Baekjoon/Silver/3/BJ_15657/__N과_M_(8)__.md>)           | N과 M (8)               | `#SilverⅢ` | `#백트래킹`                       |
+| 2024-12-26 | [BJ 15663](<./Problem/Solved/Baekjoon/Silver/2/BJ_15663/__N과_M_(9)__.md>)           | N과 M (9)               | `#SilverⅡ` | `#백트래킹`                       |
+| 2024-12-27 | [BJ 15664](<./Problem/Solved/Baekjoon/Silver/2/BJ_15664/__N과_M_(10)__.md>)          | N과 M (10)              | `#SilverⅡ` | `#백트래킹`                       |
+| 2024-12-27 | [BJ 15665](<./Problem/Solved/Baekjoon/Silver/2/BJ_15665/__N과_M_(11)__.md>)          | N과 M (11)              | `#SilverⅡ` | `#백트래킹`                       |
+| 2024-12-29 | [BJ 15666](<./Problem/Solved/Baekjoon/Silver/2/BJ_15666/__M과_N_(12)__.md>)          | N과 M (12)              | `#SilverⅡ` | `#백트래킹`                       |
+| 2025-01-09 | [BJ 4963](./Problem/Solved/Baekjoon/Silver/2/BJ_4963/__섬의_개수__.md)               | 섬의 개수               | `#SilverⅡ` | `#그래프이론` `#그래프탐색`       |
+| 2025-01-09 | [BJ 1992](./Problem/Solved/Baekjoon/Silver/1/BJ_1992/__쿼드트리__.md)                | 쿼드트리                | `#SilverⅠ` | `#분할 정복` `#재귀`              |
+| 2025-01-13 | [BJ 15686](./Problem/Solved/Baekjoon/Gold/5/BJ_15686/__치킨_배달__.md)               | 치킨 배달               | `#GoldⅤ`   | `#그래프탐색`                     |
+| 2025-03-07 | [BJ 3040](./Problem/Solved/Baekjoon/Bronze/2/BJ_3040/__백설_공주와_일곱_난쟁이__.md) | 백설 공주와 일곱 난쟁이 | `#BronzeⅡ` | `#브루트포스`                     |
+| 2024-05-04 | [BJ 2999](./Problem/Solved/Baekjoon/Bronze/1/BJ_2999/__비밀_이메일__.md)             | 비밀이메일              | `#D5`      | `#구현` `#문자열`                 |
+| 2025-09-08 | [BJ 3985](./Problem/Solved/Baekjoon/Bronze/1/BJ_3985/__롤_케이크__.md)               | 롤 케이크               | `#BronzeⅠ` | `#구현` `#시뮬레이션`             |
+| 2025-09-09 | [BJ 5397](./Problem/Solved/Baekjoon/Silver/2/BJ_5397/__키로거__.md)                  | 키로거                  | `#SilverⅡ` | `#자료구조` `#스택` `#연결리스트` |
+| 2025-09-12 | [BJ 1629](./Problem/Solved/Baekjoon/Silver/1/BJ_1629/__곱셈__.md)                    | 곱셈                    | `#SilverⅠ` | `#수학` `#분할정복`               |
+| 2024-06-16 | [BJ 11726](./Problem/Solved/Baekjoon/Silver/3/BJ_11726/__2×n_타일링__.md)            | 2×n 타일링              | `#SilverⅢ` | `#동적계획법`                     |
+
+<br />
+
+## FIXME:
+
+| 풀이 일자 | 문제 코드 | 문제명 | 난이도 | 해시태그 |
+| :-------- | :-------- | :----- | :----- | :------- |
+
+-   예시<br />
+    | 풀이일자：xxxx-xx-xx
+    | 문제코드：[BJ xxxx](./Problem/__숫자_카드__.md)
+    | 문제이름：x
+    | 난이도：`#DⅠⅡⅢⅣⅤ`
+    | 해시태그：`#동적계획법`
+-   대기
+    | xxxx-xx-xx
+    | [SWEA 20671](./Problem/Failed/SWEA/D5/SWEA_20671/__숫자_카드__.md)
+    | 숫자 카드
+    | `#D5`
 
 ## TODO:
 
 | 풀이 일자 | 문제 코드 | 문제명 | 난이도 | 해시태그 |
 | :-------- | :-------- | :----- | :----- | :------- |
 
--   대기
-    | 2024-xx-xx
-    | BJ 3052
-    | 나머지
+-   예시<br />
+    | 풀이일자：xxxx-xx-xx
+    | 문제코드：[BJ xxxx](./.example/Baekjoon/__PROBLEM_NAME__.md)
+    | 문제이름：x
+    | 난이도：`#DⅠⅡⅢⅣⅤ`
+    | 해시태그：`#동적계획법`
 
--   [ ] BJ 8320 직사각형을만드는방법
+-   대기<br />
+    | xxxx-xx-xx
+    | [BJ 8320](./Problem/Unsolved/Baekjoon/Bronze/2/BJ_8320/__직사각형을_만드는_방법__.md)
+    | 직사각형을 만드는 방법
+    | `#BronzeⅡ`
+    | `#`
+
+<br />
+
 -   [ ] PG 181186 아방가르드 타일링 `#Level_3#연습문제`
 -   [ ] PG 42627 디스크 컨트롤러
 -   [ ] BJ 8958_OX퀴즈
@@ -75,7 +138,29 @@
 -   [ ] 7236.저수지의 물의 총 깊이 구하기
 -   [ ] 7272.안경이 없어
 
-<br />
-
-<br />
-<br />
+-   [x] 2024-03-22 | [BJ 7576](Problem\Failed\Baekjoon\Gold\5\BJ_7576\question\info.md) 토마토 `#GoldⅤ` `#그래프` `#그래프 탐색` `#너비 우선 탐색`
+-   [x] 2024-04-04 | [BJ 17135](Problem\Solved\Baekjoon\Gold\3\BJ_17135\question\info.md) 캐슬 디펜스 `#GoldⅢ` `#구현` `#그래프` `#브루트포스` `#너비우선탐색`
+-   [x] 2024-04-23 | [BJ 2252](Problem\Solved\Baekjoon\Gold\3\BJ_2252\question\info.md) 줄 세우기 `#GoldⅢ` `#그래프` `#위상 정렬` `#방향 비순환 그래프`
+-   [x] 2024-06-16 | [BJ 17472](Problem\Solved\Baekjoon\Gold\1\BJ_17472\question\info.md) 다리 만들기 2 `#GoldⅠ` `#구현` `#그래프` `#최소 스패닝 트리`
+-   [x] 2024-06-16 | [PG 42576](Problem\Solved\Programmers\Level_1\PG_42576\question\info.md) 완주하지 못한 선수 `#Level 1` `#해시`
+-   [x] 2024-07-04 | [PG 42579](Problem\Solved\Programmers\Level_3\PG_42579\question\info.md) 베스트앨범 `#Level 3` `#해시`
+-   [x] 2024-07-14 | [PG 42578](Problem\Solved\Programmers\Level_2\PG_42578\question\info.md) 의상 `#Level 2` `#해시`
+-   [x] 2024-07-22：[PG_17677](Problem\Solved\Programmers\Level_2\PG_17677\question\info.md) 뉴스 클러스터링 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
+-   [x] 2024-07-31：[PG_17679](Problem\Solved\Programmers\Level_2\PG_17679\question\info.md) 프렌즈4블록 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
+-   [x] 2024-07-24：[PG_17680](Problem\Solved\Programmers\Level_2\PG_17680\question\info.md) 캐시 `#Level 2` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
+-   [x] 2024-08-19：[PG_17676](Problem\Solved\Programmers\Level_3\PG_17676\question\info.md) 추석 트래픽 `#Level 3` `#2018_KAKAO_BLIND_RECRUITMENT 1차`
+-   [x] 2024-10-31：[BJ_1000](Problem\Solved\Baekjoon\Bronze\5\BJ_1000/._A+B.md) A+B `#BronzeⅤ` `#수학` `#구현`
+-   [x] 2024-10-31：[BJ_1244](Problem\Solved\Baekjoon\Silver\4\BJ_1244/._스위치_켜고_끄기.md) 스위치 켜고 끄기 `#SilverⅣ` `#구현`
+-   [x] 2024-10-31：[BJ_1592](Problem\Solved\Baekjoon\Bronze\2\BJ_1592/._영식이와_친구들.md) 영식이와 친구들 `#BronzeⅡ` `#구현`
+-   [x] 2024-10-31：[BJ_2292](Problem\Solved\Baekjoon\Bronze\2\BJ_2292/._벌집.md) 벌집 `#BronzeⅡ` `#수학`
+-   [x] 2024-10-31：[BJ_2477](Problem\Solved\Baekjoon\Silver\2\BJ_2477/._참외밭.md) 참외밭 `#SilverⅡ` `#수학` `#구현` `#기하학`
+-   [x] 2024-11-07：[PG_1845](Problem\Solved\Programmers\Level_1\PG_1845/__폰켓몬.md) 폰켓몬 `#Level 1` `#해시`
+-   [x] 2024-11-07：[PG_181188](Problem\Solved\Programmers\Level_2\PG_181188/__요격_시스템.md) 요격 시스템 `#Level 2`
+-   [x] 2024-11-07：[BJ_2527](Problem\Solved\Baekjoon\Silver\1\BJ_2527/__직사각형.md) 직사각형 `#SilverⅠ` `#수학` `#기하학` `#많은조건분기`
+-   [x] 2024-11-22：[BJ_2941](Problem\Solved\Baekjoon\Silver\5\BJ_2941/__크로아티아_알파벳__.md) 크로아티아 알파벳 `#SilverⅤ` `#구현` `#문자열`
+-   [x] 2024-11-22：[BJ_2563](Problem\Solved\Baekjoon\Silver\4\BJ_2563/__색종이__.md) 색종이 `#SilverⅣ` `#구현`
+-   [x] 2024-11-22：[BJ_2567](Problem\Solved\Baekjoon\Silver\4\BJ_2567/__색종이_2__.md) 색종이 2 `#SilverⅣ` `#구현`
+-   [x] 2024-11-22：[BJ_2798](Problem\Solved\Baekjoon\Bronze\2\BJ_2798/__블랙잭__.md) 블랙잭 `#BronzeⅡ` `#브루트포스 알고리즘`
+-   [x] 2024-12-20：[BJ 2810](Problem\Solved\Baekjoon\Bronze\1\BJ_2810/__컵홀더__.md) 컵홀더 `#BronzeⅠ` `#구현` `#문자열` `#그리디`
+-   [x] 2024-12-20：[BJ 2851](Problem\Solved\Baekjoon\Bronze\1\BJ_2851/__슈퍼_마리오__.md) 슈퍼마리오 `#BronzeⅠ` `#구현` `#브루트포스` `#누적합`
+-   [x] 2024-12-20：[BJ 2164](Problem\Solved\Baekjoon\Silver\4\BJ_2164/__카드2__.md) 카드2 `#SilverⅣ` `#자료구조` `#큐`
