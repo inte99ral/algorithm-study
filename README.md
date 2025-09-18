@@ -96,7 +96,7 @@
     | 난이도：`#DⅠⅡⅢⅣⅤ`
     | 해시태그：`#동적계획법`
 
--   대기<br />
+-   풀이 중<br />
     | xxxx-xx-xx
     | [BJ 8320](./Problem/Unsolved/Baekjoon/Bronze/2/BJ_8320/__직사각형을_만드는_방법__.md)
     | 직사각형을 만드는 방법
