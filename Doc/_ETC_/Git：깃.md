@@ -40,125 +40,123 @@
 
 ## Git 명령어 목록
 
-<center>
-<table class="example">
-<tr class="center">
-  <th>동작</th>
-  <th>명령어</th>
-</tr>
-<tr>
-  <td>GIT 설정</td>
-  <td>
+-   <table>
+    <tr>
+    <th>동작</th>
+    <th>명령어</th>
+    </tr>
+    <tr>
+    <td>GIT 설정</td>
+    <td>
 
-```bash
-git config --list #전체 설정 확인, :상태에서 q를 누르면 git bash에서 나가진다.
-git config user.name #사용자 이름 확인
-git config user.email #사용자 이메일 확인
+    ```bash
+    git config --list #전체 설정 확인, :상태에서 q를 누르면 git bash에서 나가진다.
+    git config user.name #사용자 이름 확인
+    git config user.email #사용자 이메일 확인
 
-git config --global user.name "사용자 이름" #사용자 이름 설정
-git config --global user.email "사용자 이메일" #사용자 이메일 설정
-```
+    git config --global user.name "사용자 이름" #사용자 이름 설정
+    git config --global user.email "사용자 이메일" #사용자 이메일 설정
+    ```
 
-</td>
-</tr>
-<tr>
-  <td>저장소<br />신규 생성</td>
-  <td>
+    </td>
+    </tr>
+    <tr>
+    <td>저장소<br />신규 생성</td>
+    <td>
 
-```bash
-git init
-```
+    ```bash
+    git init
+    ```
 
-</td>
-</tr>
-  <tr>
-  <td>저장소<br />복제 &<br />변경사항<br />수용</td>
-  <td>
+    </td>
+    </tr>
+    <tr>
+    <td>저장소<br />복제 &<br />변경사항<br />수용</td>
+    <td>
 
-```bash
-git clone "https://.. URL" #URL 주소
-git clone "/로컬/저장소/경로" #로컬 디렉토리 주소
+    ```bash
+    git clone "https://.. URL" #URL 주소
+    git clone "/로컬/저장소/경로" #로컬 디렉토리 주소
 
-git pull #저장소의 변경사항을 모두 수용합니다.
-git pull origin "대상브랜치" #저장소 해당 브랜치의 변경사항을 모두 수용합니다.
+    git pull #저장소의 변경사항을 모두 수용합니다.
+    git pull origin "대상브랜치" #저장소 해당 브랜치의 변경사항을 모두 수용합니다.
 
-git fetch #변경사항을 가져오되 병합은 하지 않습니다.
-git merge "대상 브랜치 이름" # 대상 브랜치의 변경사항을 현재 브랜치에 병합합니다.
+    git fetch #변경사항을 가져오되 병합은 하지 않습니다.
+    git merge "대상 브랜치 이름" # 대상 브랜치의 변경사항을 현재 브랜치에 병합합니다.
 
-git merge --no-ff 『대상 브랜치 이름』 # 병합 시에 반드시 병합 커밋을 형성합니다.병합할 두 브랜치가 Fast-Forward 관계에 있을 때 하나의 브랜치로 보고 병합 커밋을 생성하지 않으며 포인터만 넘기는 것을 허용하지 않습니다. 반드시 병합 커밋을 형성합니다.
-```
+    git merge --no-ff 『대상 브랜치 이름』 # 병합 시에 반드시 병합 커밋을 형성합니다.병합할 두 브랜치가 Fast-Forward 관계에 있을 때 하나의 브랜치로 보고 병합 커밋을 생성하지 않으며 포인터만 넘기는 것을 허용하지 않습니다. 반드시 병합 커밋을 형성합니다.
+    ```
 
-</td>
-</tr>
-  </tr>
-  <tr>
-  <td>변경사항 적용</td>
-  <td>
+    </td>
+    </tr>
+    </tr>
+    <tr>
+    <td>변경사항 적용</td>
+    <td>
 
-```bash
-git status #git이 관리하고있는 파일들의 상태를 보여줍니다.
+    ```bash
+    git status #git이 관리하고있는 파일들의 상태를 보여줍니다.
 
-git add "파일명" #해당 파일의 변경을 스테이지에 올립니다.
-git add * #모든 변경을 스테이지에 올립니다.
-git add . #.gitignore 제외, 모든 변경을 스테이지에 올립니다.
+    git add "파일명" #해당 파일의 변경을 스테이지에 올립니다.
+    git add * #모든 변경을 스테이지에 올립니다.
+    git add . #.gitignore 제외, 모든 변경을 스테이지에 올립니다.
 
-git commit #내장 텍스트 에디터로 커밋메시지를 작성합니다.
-# i 편집모드 진입
-# esc 현재모드 나가기
-# :wq -> enter 저장 후 종료
+    git commit #내장 텍스트 에디터로 커밋메시지를 작성합니다.
+    # i 편집모드 진입
+    # esc 현재모드 나가기
+    # :wq -> enter 저장 후 종료
 
-# * 텍스트 파일로 커밋메시지를 작성합니다.
-echo "# 커밋 메시지" > commit_message.txt
-git commit -F commit_message.txt
+    # * 텍스트 파일로 커밋메시지를 작성합니다.
+    echo "# 커밋 메시지" > commit_message.txt
+    git commit -F commit_message.txt
 
-git commit -m "(따옴표 포함)커밋 메시지" #스테이징 영역에 올라와 있던 변경사항들을 브랜치에 적용합니다.
-git commit -m "(따옴표 포함)커밋 메시지
+    git commit -m "(따옴표 포함)커밋 메시지" #스테이징 영역에 올라와 있던 변경사항들을 브랜치에 적용합니다.
+    git commit -m "(따옴표 포함)커밋 메시지
 
-git push origin "브랜치 이름" #브랜치를 원본 저장소로 전송합니다.
+    git push origin "브랜치 이름" #브랜치를 원본 저장소로 전송합니다.
 
-git reset #add 전부 취소
-git reset HEAD "파일명" #해당 파일 add 취소
-git reset HEAD^ #가장 최신 커밋 1개 삭제
-git reset HEAD~1 #윈도우버전 가장 최신 커밋 1개 삭제
-git reset HEAD^^^^^ #가장 최신 커밋 5개 삭제
-```
+    git reset #add 전부 취소
+    git reset HEAD "파일명" #해당 파일 add 취소
+    git reset HEAD^ #가장 최신 커밋 1개 삭제
+    git reset HEAD~1 #윈도우버전 가장 최신 커밋 1개 삭제
+    git reset HEAD^^^^^ #가장 최신 커밋 5개 삭제
+    ```
 
-</td>
-</tr>
-  <tr>
-  <td>브랜치 생성</td>
-  <td>
+    </td>
+    </tr>
+    <tr>
+    <td>브랜치 생성</td>
+    <td>
 
-```bash
-git branch #브랜치 목록과 현 브랜치를 보여줍니다.
-git branch -v #브랜치목록과 마지막 커밋 상세정보까지 보여줍니다.
-git branch -r #Origin 원본 저장소 브랜치목록을 보여줍니다.
-git branch -a #모든 브랜치목록을 보여줍니다.
+    ```bash
+    git branch #브랜치 목록과 현 브랜치를 보여줍니다.
+    git branch -v #브랜치목록과 마지막 커밋 상세정보까지 보여줍니다.
+    git branch -r #Origin 원본 저장소 브랜치목록을 보여줍니다.
+    git branch -a #모든 브랜치목록을 보여줍니다.
 
-git branch "브랜치 이름" #브랜치를 생성합니다.
-git branch -d "브랜치 이름" #브랜치를 삭제합니다.
-git push origin "브랜치 이름" #브랜치를 원본 저장소로 전송합니다.
+    git branch "브랜치 이름" #브랜치를 생성합니다.
+    git branch -d "브랜치 이름" #브랜치를 삭제합니다.
+    git push origin "브랜치 이름" #브랜치를 원본 저장소로 전송합니다.
 
-git checkout "브랜치 이름" #해당 브랜치로 이동
-git checkout -b "브랜치 이름" #해당 브랜치를 생성과 동시에 이동
-```
+    git checkout "브랜치 이름" #해당 브랜치로 이동
+    git checkout -b "브랜치 이름" #해당 브랜치를 생성과 동시에 이동
+    ```
 
-</td>
-</tr>
-<tr>
-  <td>갱신 및 병합</td>
-  <td>
+    </td>
+    </tr>
+    <tr>
+    <td>갱신 및 병합</td>
+    <td>
 
-```bash
-git branch #브랜치 목록
+    ```bash
+    git branch #브랜치 목록
 
-git merge [브랜치명]
-```
+    git merge [브랜치명]
+    ```
 
-</td>
-</tr>
-</table>
-</center>
+    </td>
+    </tr>
+    </table>
 
 <br />
 
@@ -309,49 +307,49 @@ git remote add origin https://github.com/leotorrez/ZZ-Model-Importer-Assets
 
     -   <table>
         <tr>
-          <th>브랜치 접두사</th>
-          <th>목적</th>
-          <th>예시</th>
+            <th>브랜치 접두사</th>
+            <th>목적</th>
+            <th>예시</th>
         </tr>
         <tr>
-          <td>feature/</td>
-          <td>새로운 기능 개발</td>
-          <td>feature/login-system</td>
+            <td>feature/</td>
+            <td>새로운 기능 개발</td>
+            <td>feature/login-system</td>
         </tr>
         <tr>
-          <td>bugfix/</td>
-          <td>버그 수정</td>
-          <td>bugfix/login-error</td>
+            <td>bugfix/</td>
+            <td>버그 수정</td>
+            <td>bugfix/login-error</td>
         </tr>
         <tr>
-          <td>hotfix/</td>
-          <td>긴급한 프로덕션 버그 수정</td>
-          <td>hotfix/security-vulnerability</td>
+            <td>hotfix/</td>
+            <td>긴급한 프로덕션 버그 수정</td>
+            <td>hotfix/security-vulnerability</td>
         </tr>
         <tr>
-          <td>release/</td>
-          <td>새로운 버전 배포 준비</td>
-          <td>release/v1.2.0</td>
+            <td>release/</td>
+            <td>새로운 버전 배포 준비</td>
+            <td>release/v1.2.0</td>
         </tr>
         <tr>
-          <td>refactor/</td>
-          <td>코드 리팩토링 (기능 변경 없음)</td>
-          <td>refactor/improve-performance</td>
+            <td>refactor/</td>
+            <td>코드 리팩토링 (기능 변경 없음)</td>
+            <td>refactor/improve-performance</td>
         </tr>
         <tr>
-          <td>docs/</td>
-          <td>문서 업데이트</td>
-          <td>docs/api-guide</td>
+            <td>docs/</td>
+            <td>문서 업데이트</td>
+            <td>docs/api-guide</td>
         </tr>
         <tr>
-          <td>test/</td>
-          <td>테스트 관련 변경</td>
-          <td>test/integration-tests</td>
+            <td>test/</td>
+            <td>테스트 관련 변경</td>
+            <td>test/integration-tests</td>
         </tr>
         <tr>
-          <td>chore/</td>
-          <td>빌드 작업, 패키지 매니저 설정 등</td>
-          <td>chore/update-dependencies</td>
+            <td>chore/</td>
+            <td>빌드 작업, 패키지 매니저 설정 등</td>
+            <td>chore/update-dependencies</td>
         </tr>
         </table>
 
@@ -398,40 +396,40 @@ git commit -m "『type』: 『subject』
 
     -   <table>
         <tr>
-          <th>타입</th>
-          <th>설명</th>
+            <th>타입</th>
+            <th>설명</th>
         </tr>
         <tr>
-          <td>feat</td>
-          <td>새로운 기능 추가</td>
+            <td>feat</td>
+            <td>새로운 기능 추가</td>
         </tr>
         <tr>
-          <td>fix</td>
-          <td>버그 수정</td>
+            <td>fix</td>
+            <td>버그 수정</td>
         </tr>
         <tr>
-          <td>docs</td>
-          <td>문서 수정</td>
+            <td>docs</td>
+            <td>문서 수정</td>
         </tr>
         <tr>
-          <td>style</td>
-          <td>코드 포맷팅 (기능 변경 없음)</td>
+            <td>style</td>
+            <td>코드 포맷팅 (기능 변경 없음)</td>
         </tr>
         <tr>
-          <td>refactor | rfct</td>
-          <td>코드 리팩토링 (기능 변경 없음)</td>
+            <td>refactor | rfct</td>
+            <td>코드 리팩토링 (기능 변경 없음)</td>
         </tr>
         <tr>
-          <td>test</td>
-          <td>테스트 코드 추가 또는 수정</td>
+            <td>test</td>
+            <td>테스트 코드 추가 또는 수정</td>
         </tr>
         <tr>
-          <td>chore</td>
-          <td>빌드 작업, 패키지 매니저 설정 등 기타 작업</td>
+            <td>chore</td>
+            <td>빌드 작업, 패키지 매니저 설정 등 기타 작업</td>
         </tr>
         <tr>
-          <td>ci</td>
-          <td>CI 설정 및 스크립트 변경</td>
+            <td>ci</td>
+            <td>CI 설정 및 스크립트 변경</td>
         </tr>
         </table>
 
@@ -526,9 +524,9 @@ BJ_3040 문제 풀이의 구조를 변경한 브랜치를 Main 에 올리는 요
     -   Develop 브랜치에서 분기하여 생성하고, 작업 완료 후 다시 Develop에 병합하여 올립니다.
     -   병합 시 병합 이력을 남기지 않으면 브랜치 기록 전체가 하나의 브랜치로 통합되어 버리는 문제가 발생할 수 있습니다. --no-ff 옵션을 사용하거나 github desktop을 사용 중이라면 병합 시에 "Create a merge commit" 항목을 선택하고 병합해주세요.
 
-       <center>
-         <img src="./.asset/Git：깃/01.jpg" alt="01" width="400" height="260" />
-       </center>
+        <center>
+            <img src="./.asset/Git：깃/01.jpg" alt="01" width="400" height="260" />
+        </center>
 
 -   <b>Release</b>
 
@@ -543,7 +541,7 @@ BJ_3040 문제 풀이의 구조를 변경한 브랜치를 Main 에 올리는 요
 #### GitHub Flow
 
 <center>
-  <img src="./.asset/Git：깃/02.png" alt="02" width="400" height="300" />
+<img src="./.asset/Git：깃/02.png" alt="02" width="400" height="300" />
 </center>
 <br />
 
@@ -565,7 +563,7 @@ BJ_3040 문제 풀이의 구조를 변경한 브랜치를 Main 에 올리는 요
 #### GitLab Flow
 
 <center>
-  <img src="./.asset/Git：깃/03.png" alt="03" width="400" height="200" />
+    <img src="./.asset/Git：깃/03.png" alt="03" width="400" height="200" />
 </center>
 <br />
 
@@ -604,24 +602,24 @@ BJ_3040 문제 풀이의 구조를 변경한 브랜치를 Main 에 올리는 요
 # (레이블): (이슈 내용)
 
 ## 상세설명 (Description)
-- 무엇이 필요한가?
-- 왜 필요한가?
+-   무엇이 필요한가?
+-   왜 필요한가?
 
 ## 작업 항목 (Milestone)
-- [ ] 작업 1
-- [ ] 작업 2
+-   [ ] 작업 1
+-   [ ] 작업 2
 
-- | 29  | 30  | 31  |
-  | :-: | :-: | :-: |
-  |  ◻  |  ◼  |  ◼  |
+-   | 29  | 30  | 31  |
+    | :-: | :-: | :-: |
+    |  ◻  |  ◼  |  ◼  |
 
 
 ## 담당자 (Assignee)
-- 담당자
+-   담당자
 
 ## 참고 (Reference)
-- 관련 문서
-- 참고 링크
+-   관련 문서
+-   참고 링크
 ```
 
 ## GitHub 플랫폼

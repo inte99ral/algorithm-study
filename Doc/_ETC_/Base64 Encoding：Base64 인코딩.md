@@ -37,9 +37,9 @@ convertToBase64(inputPath, outputPath)
 
 ```css
 @font-face {
-  font-family: 'YourFontName';
-  src: url('data:font/ttf;base64,『BASE64_CODE』') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'YourFontName';
+    src: url('data:font/ttf;base64,『BASE64_CODE』') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 ```
