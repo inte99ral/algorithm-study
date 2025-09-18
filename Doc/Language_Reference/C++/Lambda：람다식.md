@@ -2,9 +2,9 @@
 
 # 람다식：Lambda
 
-- 람다식이란?
-- 람다식의 구성
-- 람다식의 활용
+-   람다식이란?
+-   람다식의 구성
+-   람다식의 활용
 
 <br />
 
@@ -33,12 +33,15 @@ c++의 람다식은 4 개의 부분으로 구성되어 있습니다.
 
 <br/>
 
-1. 개시자 (`[x2]` // introducer capture)
-2. 인자 (`(int x1)` // parameters)
-3. 반환 타입 (`-> int` // return type)
-   - 람다함수의 반환 타입을 명시한다.
-4. 함수 동작 (`{return x1 % x2;}` // statement)
-   - 실행할 내용을 적는다.
+1.  개시자 (`[x2]` // introducer capture)
+2.  인자 (`(int x1)` // parameters)
+3.  반환 타입 (`-> int` // return type)
+
+    -   람다함수의 반환 타입을 명시한다.
+
+4.  함수 동작 (`{return x1 % x2;}` // statement)
+
+    -   실행할 내용을 적는다.
 
 <br />
 
@@ -50,42 +53,42 @@ c++의 람다식은 4 개의 부분으로 구성되어 있습니다.
 
 </center>
 
-- 외부 변수를 기입하면 람다함수가 이를 캡쳐하여 사용할 수 있게 됩니다.
-- 옵션 `&`
+-   외부 변수를 기입하면 람다함수가 이를 캡쳐하여 사용할 수 있게 됩니다.
+-   옵션 `&`
 
-  ```cpp
-  [&](int x1) -> int { return x1 * x2; }
-  ```
+    ```cpp
+    [&](int x1) -> int { return x1 * x2; }
+    ```
 
-  - 외부의 모든 변수를 참조에 의한 호출(Call by reference)로 가져옵니다.
+    -   외부의 모든 변수를 참조에 의한 호출(Call by reference)로 가져옵니다.
 
-  <br/>
+    <br/>
 
-  ```cpp
-  [&x2](int x1) -> int { return x1 * x2; }
-  ```
+    ```cpp
+    [&x2](int x1) -> int { return x1 * x2; }
+    ```
 
-  - 특정 변수 앞에 &를 붙이면 해당 변수를 참조에 의한 호출로 가져옵니다.
+    -   특정 변수 앞에 &를 붙이면 해당 변수를 참조에 의한 호출로 가져옵니다.
 
-  <br/>
+    <br/>
 
-  ```cpp
-  [&, x2, x3](int x1) -> int { return x1 * x2 * x3; }
-  ```
+    ```cpp
+    [&, x2, x3](int x1) -> int { return x1 * x2 * x3; }
+    ```
 
-  - & 뒤에 특정 변수(위 예시에서는 x2, x3)를 별도 기입하는 것으로 특정 변수 만을 값에 의한 호출로 가져올 수 있습니다.
+    -   & 뒤에 특정 변수(위 예시에서는 x2, x3)를 별도 기입하는 것으로 특정 변수 만을 값에 의한 호출로 가져올 수 있습니다.
 
 <br/>
 
-- 옵션 `=`
+-   옵션 `=`
 
-  ```cpp
-  [=](int x1) -> void { x3 = x2 * x1; }
-  [=, &x2, &x3](int x1) -> void { x3 = x2 * x1; }
-  ```
+    ```cpp
+    [=](int x1) -> void { x3 = x2 * x1; }
+    [=, &x2, &x3](int x1) -> void { x3 = x2 * x1; }
+    ```
 
-  - 외부의 모든 변수를 값에 의한 호출(Call by value)로 가져옵니다.
-  - 특정 변수(위 예시에서는 x2, x3)를 별도 기입하는 것으로 특정 변수 만을 참조에 의한 호출로 가져올 수 있습니다.
+    -   외부의 모든 변수를 값에 의한 호출(Call by value)로 가져옵니다.
+    -   특정 변수(위 예시에서는 x2, x3)를 별도 기입하는 것으로 특정 변수 만을 참조에 의한 호출로 가져올 수 있습니다.
 
 <br />
 
@@ -97,7 +100,7 @@ c++의 람다식은 4 개의 부분으로 구성되어 있습니다.
 
 </center>
 
-- 람다함수 실행 시 받을 매개변수들을 기입합니다.
+-   람다함수 실행 시 받을 매개변수들을 기입합니다.
 
 <br />
 
@@ -109,27 +112,27 @@ c++의 람다식은 4 개의 부분으로 구성되어 있습니다.
 
 </div>
 
-- 람다함수의 반환 타입을 명시해줍니다.
-- 화살표를 생략하면 반환타입을 추론합니다.
+-   람다함수의 반환 타입을 명시해줍니다.
+-   화살표를 생략하면 반환타입을 추론합니다.
 
-  ```cpp
-  // 화살표 생략, 반환 타입 추론
-  function<int()> func1 = []() { return 0; };
+    ```cpp
+    // 화살표 생략, 반환 타입 추론
+    function<int()> func1 = []() { return 0; };
 
-  // 반환 타입 명시
-  function<int()> func1 = []() -> int { return 0; };
-  ```
+    // 반환 타입 명시
+    function<int()> func1 = []() -> int { return 0; };
+    ```
 
 <br />
 
-- return type이 void 인 경우 생략하여 다음과 같이 쓸 수 있습니다.
-  <center>
+-   return type이 void 인 경우 생략하여 다음과 같이 쓸 수 있습니다.
+    <center>
 
-  ```cpp
-  []() { cout << "Hello, world!" << endl; }
-  ```
+    ```cpp
+    []() { cout << "Hello, world!" << endl; }
+    ```
 
-  </center>
+    </center>
 
 <br />
 
@@ -141,7 +144,7 @@ c++의 람다식은 4 개의 부분으로 구성되어 있습니다.
 
 </center>
 
-- 함수의 동작 방침을 서술합니다.
+-   함수의 동작 방침을 서술합니다.
 
 <br />
 
@@ -151,9 +154,26 @@ c++의 람다식은 4 개의 부분으로 구성되어 있습니다.
 function<int()> func1 = []() -> int { return 0; };
 ```
 
+```cpp
+vector<pair<int, long long>> cards(N);
+
+...
+
+sort(cards.begin(), cards.end(), [](auto &a, auto &b) -> bool{return to_string(a.second) > to_string(b.second);});
+```
+
+```cpp
+// 타입추론 decltype, auto 활용예
+auto comp = []( int a, int b ) { return a > b; };
+priority_queue<int, vector<int>, decltype(comp)> task(comp);
+
+// 람다식으로 비교함수를 넣은 예
+priority_queue<int, vector<int>, function<bool(int, int)>> task([]( int a, int b ) { return a < b; });
+```
+
 <br />
 
-- c++ 23 부터는 deducing this 를 이용하여 람다 객체에 스스로 접근할 수 있습니다.
+-   c++ 23 부터는 deducing this 를 이용하여 람다 객체에 스스로 접근할 수 있습니다.
 
 ```cpp
 auto factorial = [](this auto&& self, int n) {

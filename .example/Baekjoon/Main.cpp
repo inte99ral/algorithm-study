@@ -38,6 +38,7 @@
 // #include <sstream>
 // #include <filesystem>
 
+// * 백준 컴파일 상수로 판단 gcc Main.c -o Main -O2 -Wall -lm -static -std=gnu11 `-DONLINE_JUDGE` -DBOJ
 #ifndef ONLINE_JUDGE
     #define SET_IO(INPUT_DATA) \
         std::ios::sync_with_stdio(false); \
