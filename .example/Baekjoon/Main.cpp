@@ -20,14 +20,6 @@
  * @version 2024-11-18
  */
 
-/**
- * 예시
- * @name BJ_xxxx
- * @see "https://www.acmicpc.net/problem/xxxx"
- * @version xxxx-xx-xx
- */
-
-// ================================================================
 // ## Import Declaration ==========================================
 
 // ### API & Library:
