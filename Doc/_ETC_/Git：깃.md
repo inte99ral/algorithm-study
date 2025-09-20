@@ -470,20 +470,20 @@ Closes #45
 &nbsp; Pull Request 메세지는 제목과 내용이 간결하며 왜 병합해야 하는지, 병합하는 브랜치의 목적이 뭔지, 어떤 변화가 있는 지를 적어야합니다.
 
 ```txt
-PR: main ⤎ refactor-BJ-3040
+PR: main ⤎ problem/bj-3040
 ```
 
 ```txt
-# PR: main ⤎ refactor-BJ-3040
-BJ_3040 문제 풀이의 구조를 변경한 브랜치를 Main 에 올리는 요청입니다.
+# PR: main ⤎ problem/bj-3040
+BJ 3040 문제 풀이의 구조를 변경한 브랜치를 Main 에 올리는 요청입니다.
 
 ## Commit list
 
-### rfct: Modify BJ_5397 structure
+### rfct: Modify BJ_3040 structure
 - Create _NOTE_.md
-  - "...  \BJ_3040\_NOTE_.md" 오답노트 파일이 생성되었습니다.
-- Move BJ_3040\
-  - BJ_3040 폴더 위치가 "...  \Problem\Failed\  ..." 에서 "...  \Problem\Solved\  ..." 로 바뀌었습니다.
+    - "...  \BJ_3040\_NOTE_.md" 오답노트 파일이 생성되었습니다.
+- Refactor BJ_3040\
+    - BJ_3040 폴더 위치가 "...  \Problem\Failed\  ..." 에서 "...  \Problem\Solved\  ..." 로 바뀌었습니다.
 ```
 
 #### Gitmoji
