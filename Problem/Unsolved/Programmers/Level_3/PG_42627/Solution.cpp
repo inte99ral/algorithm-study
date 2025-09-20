@@ -43,8 +43,7 @@ int main() {
 #ifndef SOLUTION
 #define SOLUTION
 
-#include <string>
-#include <vector>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -60,7 +59,20 @@ int solution(vector<vector<int>> jobs) {
         // }
     }
 
-    
+    int time = 0;
+
+    auto comp = [](pair<int, int> a, pair<int, int> b) -> bool { return a.first < b.first; };
+    priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(comp)> pq(comp);
+
+    for (vector<int> job : jobs) {
+        pq.push({job[0], job[1]});
+    }
+
+    auto copy = pq;
+    while (!copy.empty()) {
+        cout << copy.top().first << ", " << copy.top().second << "\n";
+        copy.pop();
+    }
 
     return answer;
 }
