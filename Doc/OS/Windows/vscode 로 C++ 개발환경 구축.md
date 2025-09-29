@@ -4,18 +4,48 @@
 
 [참고링크](https://basiclike.tistory.com/360)
 
-- zip파일 바로 적용 https://sooseongcom.com/post/MinGW-w64-HowToInstall
-- mingw 종류 설명 https://blog.naver.com/webos21/196800460
-- mingw 종류 세부설명 및 추천 https://klutzy.github.io/blog/2015/03/05/mingw/
+-   zip파일 바로 적용 https://sooseongcom.com/post/MinGW-w64-HowToInstall
+-   mingw 종류 설명 https://blog.naver.com/webos21/196800460
+-   mingw 종류 세부설명 및 추천 https://klutzy.github.io/blog/2015/03/05/mingw/
 
 ## 목차
 
-```markdown
-0. 서문
-1. 서문
-2. visual studio code 설치
-3. 컴파일러 설치
-```
+-   [Windows에서 Visual Studio Code로 C++ 개발환경 구축하기](#windows에서-visual-studio-code로-c-개발환경-구축하기)
+    -   [-1. 참고자료](#-1-참고자료)
+    -   [목차](#목차)
+    -   [0. 문서의 목적](#0-문서의-목적)
+        -   [0. \> 서문](#0--서문)
+        -   [0. \> C++ 환경을 구현할 이유](#0--c-환경을-구현할-이유)
+        -   [0. \> Visual Studio Code의 설명](#0--visual-studio-code의-설명)
+    -   [1. 서문](#1-서문)
+    -   [2. visual studio code 설치](#2-visual-studio-code-설치)
+    -   [3. 컴파일러 설치](#3-컴파일러-설치)
+        -   [컴파일러 선택](#컴파일러-선택)
+        -   [컴파일 환경 선택](#컴파일-환경-선택)
+        -   [컴파일 환경(MSYS2) 설치](#컴파일-환경msys2-설치)
+        -   [컴파일러(gcc) 설치](#컴파일러gcc-설치)
+    -   [4. 컴파일러 세팅](#4-컴파일러-세팅)
+        -   [① g++ only](#-g-only)
+        -   [② tasks.json](#-tasksjson)
+            -   [tasks.json 매크로 작업 정보 파일 생성](#tasksjson-매크로-작업-정보-파일-생성)
+            -   [tasks.json 매크로 예시](#tasksjson-매크로-예시)
+                -   [tasks.json 매크로 예시 \> Hello, world 출력](#tasksjson-매크로-예시--hello-world-출력)
+                -   [tasks.json 매크로 예시 \> CMD 변수 입출력](#tasksjson-매크로-예시--cmd-변수-입출력)
+            -   [tasks.json 으로 컴파일하기](#tasksjson-으로-컴파일하기)
+                -   [기본 형태](#기본-형태)
+                -   [부가 옵션 형태](#부가-옵션-형태)
+                -   [CMD 명령프롬프트 기반 더 복잡한 명령하기](#cmd-명령프롬프트-기반-더-복잡한-명령하기)
+        -   [③ Makefile Tools](#-makefile-tools)
+            -   [Make 설치 및 확인](#make-설치-및-확인)
+            -   [Makefile Tools 설치 및 확인](#makefile-tools-설치-및-확인)
+            -   [Make 사용](#make-사용)
+            -   [Make 사용 \> Makefile 파일 생성](#make-사용--makefile-파일-생성)
+            -   [Make 사용 \> 컴파일 예시](#make-사용--컴파일-예시)
+            -   [Make 사용 \> 컴파일 표준](#make-사용--컴파일-표준)
+            -   [Make 사용 \> tasks.json 생성](#make-사용--tasksjson-생성)
+            -   [Make 사용 \> tasks.json 설정](#make-사용--tasksjson-설정)
+    -   [5. visual studio code 보조 세팅](#5-visual-studio-code-보조-세팅)
+    -   [6. 총정리](#6-총정리)
 
 ## 0. 문서의 목적
 
@@ -23,9 +53,9 @@
 
 0장에서는 입문자들에게 다음의 설명을 합니다.
 
-- C++ 환경을 구현할 이유
+-   C++ 환경을 구현할 이유
 
-- Visual Studio Code의 설명
+-   Visual Studio Code의 설명
 
 정보만 필요하시면 다른 단원으로 넘어가셔도 좋습니다.
 
@@ -45,7 +75,7 @@
 
 ## 1. 서문
 
-- vscode 를 써야하는 이유
+-   vscode 를 써야하는 이유
 
 ## 2. visual studio code 설치
 
@@ -62,47 +92,47 @@
 &nbsp; 주로 GNU 프로젝트의 GCC, LLVM 의 Clang 중 하나를 선택합니다.
 
 <table>
-  <tr>
-    <th></th>
-    <th>GCC</th>
-    <th>LLVM/Clang</th>
-  </tr>
-  <tr>
-    <td>특징</td>
-    <td>
-      <li>GNU 링커와 GNU C++ 라이브러리를 사용</li>
-      <li>GNU 프로젝트의 컴파일러 컬렉션</li>
-    </td>
-    <td><li>링커로 LLD, 표준 라이브러리로 LIBC++를 사용</li>
-    <li>LLVM 도구만 사용</li>
-    </td>
-  </tr>
-  <tr>
-    <td>장점</td>
-    <td>
-      <li>유닉스/리눅스 계열의 사실상 표준</li>
-      <li>포트란까지 폭 넓은 언어 지원</li>
-      <li>높은 호환성 및 안정성</li>
-    </td>
-    <td>
-      <li>MIT 라이센스</li>
-      <li>오류 메세지가 직관적이고 색상 강조</li>
-      <li>최신식 설계로 컴파일이 빠르고 유지보수에 강함</li>
-    </td>
-  </tr>
-  <tr>
-    <td>단점</td>
-    <td>
-      <li>GPL 라이선스</li>
-      <li>단일 모놀리식 구조로 모듈화가 제한적</li>
-      <li>오류 메시지 출력 방식이 복잡함</li>
-    </td>
-    <td>
-      <li>사용자 폭이 좁음</li>
-      <li>일부 도구는 동등한 GNU 도구와 비교하면 부족함</li>
-      <li>x86/64 환경에서 최적화 성능 부족</li>
-    </td>
-  </tr>
+    <tr>
+        <th></th>
+        <th>GCC</th>
+        <th>LLVM/Clang</th>
+    </tr>
+    <tr>
+        <td>특징</td>
+        <td>
+            <li>GNU 링커와 GNU C++ 라이브러리를 사용</li>
+            <li>GNU 프로젝트의 컴파일러 컬렉션</li>
+        </td>
+        <td><li>링커로 LLD, 표준 라이브러리로 LIBC++를 사용</li>
+        <li>LLVM 도구만 사용</li>
+        </td>
+    </tr>
+    <tr>
+        <td>장점</td>
+        <td>
+            <li>유닉스/리눅스 계열의 사실상 표준</li>
+            <li>포트란까지 폭 넓은 언어 지원</li>
+            <li>높은 호환성 및 안정성</li>
+        </td>
+        <td>
+            <li>MIT 라이센스</li>
+            <li>오류 메세지가 직관적이고 색상 강조</li>
+            <li>최신식 설계로 컴파일이 빠르고 유지보수에 강함</li>
+        </td>
+    </tr>
+    <tr>
+        <td>단점</td>
+        <td>
+            <li>GPL 라이선스</li>
+            <li>단일 모놀리식 구조로 모듈화가 제한적</li>
+            <li>오류 메시지 출력 방식이 복잡함</li>
+        </td>
+        <td>
+            <li>사용자 폭이 좁음</li>
+            <li>일부 도구는 동등한 GNU 도구와 비교하면 부족함</li>
+            <li>x86/64 환경에서 최적화 성능 부족</li>
+        </td>
+    </tr>
 </table>
 
 &nbsp; 둘 다 장단점이 존재하지만, 어차피 GNU 프로젝트의 GCC 를 윈도우즈 OS 에서 사용하기 위해서는 MinGW(Minimalist GNU for Windows) 라는 윈도우용 포크가 필요한데 이 MinGW 는 Clang 컴파일러 또한 지원합니다.
@@ -113,44 +143,44 @@
 
 &nbsp; 방금 말했듯이 C++ 언어 컴파일을 위해서는 컴파일러 뿐 아니라 MinGW 같이 그 기본 환경부터 맞춰주어야 합니다. 다음의 선택지가 있습니다.
 
-- 아예 POSIX 호환 unix 환경을 통으로 윈도우즈에 구현하는 <b>cygwin</b>
-- POSIX 호환은 못하나 unix 라이브러리를 제공하는 경량화 cygwin, <b>MSYS</b>
-- 극단적으로 경량화하여 최소한의 컴파일러와 명령어를 탑재한 <b>MinGW</b>
+-   아예 POSIX 호환 unix 환경을 통으로 윈도우즈에 구현하는 <b>cygwin</b>
+-   POSIX 호환은 못하나 unix 라이브러리를 제공하는 경량화 cygwin, <b>MSYS</b>
+-   극단적으로 경량화하여 최소한의 컴파일러와 명령어를 탑재한 <b>MinGW</b>
 
 &nbsp; POSIX 호환 unix 시스템을 윈도우에서 사용해야 하면 cygwin 이 필요합니다. 하지만 c++ 개발만 할 상황에 cygwin처럼 거대한 시스템을 설치할 이유는 없습니다.
 
 &nbsp; 보통은 다양한 패키지를 지원하는 MSYS2 와 극단적으로 경량화한 MinGW 사이에서 고민하게 됩니다.
 
 <table>
-<tr>
-  <th></th>
-  <th>MinGW만 사용하는 경우</th>
-  <th>MSYS2와 함께 사용하는 경우</th>
-</tr>
-<tr>
-  <td><b>장점</b></td>
-  <td>
-    <li>설치가 간단하고 용량이 작음</li>
-    <li>가볍고 빠른 실행 속도</li>
-    <li>윈도우 네이티브 실행 파일 생성에 최적화</li>
-  </td>
-  <td>
-    <li>GCC와 관련 도구들의 최신 버전 제공</li>
-    <li>Pacman 으로 패키지 관리가 편함</li>
-    <li>Linux와 유사해 POSIX 호환성이 뛰어남</li>
-  </td>
-</tr>
-<tr>
-  <td><b>단점</b></td>
-  <td>
-    <li>일부 POSIX 기능 지원 제한</li>
-    <li>패키지 관리와 업데이트가 불편</li>
-  </td>
-  <td>
-    <li>설치 용량이 더 큼</li>
-    <li>초기 설정이 약간 복잡할 수 있음</li>
-  </td>
-</tr>
+    <tr>
+        <th></th>
+        <th>MinGW만 사용하는 경우</th>
+        <th>MSYS2와 함께 사용하는 경우</th>
+    </tr>
+    <tr>
+        <td><b>장점</b></td>
+        <td>
+            <li>설치가 간단하고 용량이 작음</li>
+            <li>가볍고 빠른 실행 속도</li>
+            <li>윈도우 네이티브 실행 파일 생성에 최적화</li>
+        </td>
+        <td>
+            <li>GCC와 관련 도구들의 최신 버전 제공</li>
+            <li>Pacman 으로 패키지 관리가 편함</li>
+            <li>Linux와 유사해 POSIX 호환성이 뛰어남</li>
+        </td>
+    </tr>
+    <tr>
+        <td><b>단점</b></td>
+        <td>
+            <li>일부 POSIX 기능 지원 제한</li>
+            <li>패키지 관리와 업데이트가 불편</li>
+        </td>
+        <td>
+            <li>설치 용량이 더 큼</li>
+            <li>초기 설정이 약간 복잡할 수 있음</li>
+        </td>
+    </tr>
 </table>
 
 &nbsp; 알고리즘 문제 풀이 정도의 레벨에선 MinGW 만 써도 무관하나, 조금만 더 복잡한 프로그램을 개발하고 싶을 때 곧바로 발목이 잡히게 되므로 개인적으론 <u><b>MSYS 환경</u></b>을 추천합니다.
@@ -195,10 +225,10 @@
 
 &nbsp; 다음은 ucrt64 환경의 경로를 Path 환경 변수에 추가하는 방법입니다.
 
-- 작업표시줄 윈도우 로고에 우클릭을 하면 나오는 메뉴에서 시스템을 클릭해 주세요.
-- 시스템 창의 "고급 시스템 설정" 을 누르고 상단 탭 중에서 고급 항목에서 "환경 변수" 를 클릭하여 환경 변수를 수정할 수 있습니다.
-- "Path" 라는 환경 변수를 클릭 후, "편집(I)" 버튼을 눌러 환경 변수 편집 창을 띄워주세요.
-- 바이너리 경로 "『설치된 MSYS경로, 개개인마다 다르니 확인해주세요.』\ucrt64\bin" 를 추가합니다.
+-   작업표시줄 윈도우 로고에 우클릭을 하면 나오는 메뉴에서 시스템을 클릭해 주세요.
+-   시스템 창의 "고급 시스템 설정" 을 누르고 상단 탭 중에서 고급 항목에서 "환경 변수" 를 클릭하여 환경 변수를 수정할 수 있습니다.
+-   "Path" 라는 환경 변수를 클릭 후, "편집(I)" 버튼을 눌러 환경 변수 편집 창을 띄워주세요.
+-   바이너리 경로 "『설치된 MSYS경로, 개개인마다 다르니 확인해주세요.』\ucrt64\bin" 를 추가합니다.
 
 &nbsp; 각 플랫폼마다 별도의 패키지 저장소와 설치 경로를 사용하기 때문에 ucrt64 에서 설치한 패키지와 설정은 다른 플랫폼에 영향을 주지 않습니다.
 
@@ -341,9 +371,9 @@ gcc --v
 
 &nbsp; task.json 이나 Makefile 를 이용하면 자동화나 관리나 간편해집니다. 차례대로 순수하게 gcc(g++) 명령어만 사용하는 방법, task.json 을 사용하는 방법, Makefile 을 사용하는 방법을 순서대로 알려드리겠습니다.
 
-- ① g++ only
-- ② tasks.json
-- ③ Makefile Tools
+-   ① g++ only
+-   ② tasks.json
+-   ③ Makefile Tools
 
 &nbsp; <b>각각 장단점이 다를 뿐, 셋 중 하나만</b> 알고 있어도 됩니다.
 
@@ -351,16 +381,16 @@ gcc --v
 
 &nbsp; 깔끔하게 gcc 컴파일러만 사용해서 컴파일합니다. 명령어가 길어지면 관리가 힘들지만 추가적인 설치나 설정이 필요없기에 편합니다. 단일 파일 빌드라면 이 쪽을 선호합니다.
 
-- ① output.exe 실행파일로 컴파일 하려는 input.cpp 파일이 있는 곳에서 터미널을 엽니다.
-- ② 다음의 명령어를 입력하면 끝입니다.
+-   ① output.exe 실행파일로 컴파일 하려는 input.cpp 파일이 있는 곳에서 터미널을 엽니다.
+-   ② 다음의 명령어를 입력하면 끝입니다.
 
-  ```bash
-  g++ input.cpp -o output.exe
-  ```
+    ```bash
+    g++ input.cpp -o output.exe
+    ```
 
 ### ② tasks.json
 
-- [tasks.json 공식 문서](https://code.visualstudio.com/docs/editor/tasks#vscode)
+-   [tasks.json 공식 문서](https://code.visualstudio.com/docs/editor/tasks#vscode)
 
 &nbsp; vscode 는 귀찮은 반복작업들을 매크로화 시키는 것이 가능합니다. 이는 gcc 명령어에서도 동일합니다. 한번 작성해두면 기나긴 대상 파일들과 옵션 값들을 매번 컴파일 할 때 마다 입력하지 않아도 됩니다.
 
@@ -468,41 +498,41 @@ gcc --v
 
 &nbsp; vscode 프로그램 전역에 설정을 적용할 것 인지, 지금 작업중인 폴더에만 적용할 것인지에 따라서 다음의 두 가지 방법 중에서 하나를 선택해서 따라주세요.
 
-- vscode 전체에 적용하기
+-   vscode 전체에 적용하기
 
-  - ① `Ctrl+Shift+P` 또는 `F1` 을 눌러 명령 팔레트를 엽니다.
-  - ② `> Tasks: Open User Tasks` 검색을 통해 해당 목록을 선택해주세요.
-  - ③ `Others` 를 선택해주세요.
-  - 가장 기본 형태의 tasks.json 템플릿이 "C:\Users\ ... \AppData\Roaming\Code\User" 경로에 생성됩니다.
+    -   ① `Ctrl+Shift+P` 또는 `F1` 을 눌러 명령 팔레트를 엽니다.
+    -   ② `> Tasks: Open User Tasks` 검색을 통해 해당 목록을 선택해주세요.
+    -   ③ `Others` 를 선택해주세요.
+    -   가장 기본 형태의 tasks.json 템플릿이 "C:\Users\ ... \AppData\Roaming\Code\User" 경로에 생성됩니다.
 
-- 작업중인 폴더에만 한정해서 적용하기
+-   작업중인 폴더에만 한정해서 적용하기
 
-  - ① `Ctrl+Shift+P` 또는 `F1` 을 눌러 명령 팔레트를 엽니다.
-  - ② `> Tasks: Configure Task` 검색을 통해 해당 목록을 선택해주세요.
-  - ③ `템플릿에서 tasks.json 파일 만들기(Create tasks.json file from template)` 검색을 통해 목록을 선택해주세요.
-  - ④ `Others` 를 선택해주세요.
-  - 가장 기본 형태의 tasks.json 템플릿이 지금 작업 중인 최상위 폴더의 ".vscode/" 라는 vscode 설정 폴더 안에 생성됩니다.
+    -   ① `Ctrl+Shift+P` 또는 `F1` 을 눌러 명령 팔레트를 엽니다.
+    -   ② `> Tasks: Configure Task` 검색을 통해 해당 목록을 선택해주세요.
+    -   ③ `템플릿에서 tasks.json 파일 만들기(Create tasks.json file from template)` 검색을 통해 목록을 선택해주세요.
+    -   ④ `Others` 를 선택해주세요.
+    -   가장 기본 형태의 tasks.json 템플릿이 지금 작업 중인 최상위 폴더의 ".vscode/" 라는 vscode 설정 폴더 안에 생성됩니다.
 
 &nbsp; 다음과 같이 tasks.json 의 tasks 안에 [ `{ ...1번째 작업 정보... }`, `{ ...2번째 작업 정보... }`, ... `{ ...n번째 작업 정보... }` ] 같은 형태로 작업 정보를 나열할 수 있습니다.
 
 ```json
 {
-  // task.json 에 대한 공식문서 https://go.microsoft.com/fwlink/?LinkId=733558
-  "version": "2.0.0",
-  "tasks": [
-    {
-      // ...작업 1 에 대한 정보...
-    },
-    {
-      // ...작업 2 에 대한 정보...
-    },
+    // task.json 에 대한 공식문서 https://go.microsoft.com/fwlink/?LinkId=733558
+    "version": "2.0.0",
+    "tasks": [
+        {
+            // ...작업 1 에 대한 정보...
+        },
+        {
+            // ...작업 2 에 대한 정보...
+        },
 
-    // ...
+        // ...
 
-    {
-      // ...작업 n 에 대한 정보...
-    }
-  ]
+        {
+            // ...작업 n 에 대한 정보...
+        }
+    ]
 }
 ```
 
@@ -512,21 +542,21 @@ gcc --v
 
 ```json
 {
-  // task.json 에 대한 공식문서 https://go.microsoft.com/fwlink/?LinkId=733558
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "테스트 출력", // 작업 이름
-      "detail": "Hello, world 를 출력합니다.", // 작업 상세설명
-      "type": "shell", // 작업하는 동작의 성격
-      "group": {
-        "kind": "test", // 작업 분류
-        "isDefault": true // 작업 우선순위
-      },
-      "command": "echo", // 작업 명령어
-      "args": ["Hello, world!"] // 작업 명령어에 할당할 인자
-    }
-  ]
+    // task.json 에 대한 공식문서 https://go.microsoft.com/fwlink/?LinkId=733558
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "테스트 출력", // 작업 이름
+            "detail": "Hello, world 를 출력합니다.", // 작업 상세설명
+            "type": "shell", // 작업하는 동작의 성격
+            "group": {
+                "kind": "test", // 작업 분류
+                "isDefault": true // 작업 우선순위
+            },
+            "command": "echo", // 작업 명령어
+            "args": ["Hello, world!"] // 작업 명령어에 할당할 인자
+        }
+    ]
 }
 ```
 
@@ -550,23 +580,23 @@ gcc --v
 <td><b>shell</b></td>
 <td>
 
-- 복잡한 명령어 또는 스크립트 실행에 적합합니다.
-- 시스템의 셸(예: bash, cmd.exe)을 통해 명령을 실행합니다.
-- 셸의 기능(파이프, 리다이렉션 등)을 사용할 수 있습니다.
-- 가장 유연하며, 복잡한 명령어 시퀀스를 실행할 수 있습니다.
+-   복잡한 명령어 또는 스크립트 실행에 적합합니다.
+-   시스템의 셸(예: bash, cmd.exe)을 통해 명령을 실행합니다.
+-   셸의 기능(파이프, 리다이렉션 등)을 사용할 수 있습니다.
+-   가장 유연하며, 복잡한 명령어 시퀀스를 실행할 수 있습니다.
 
 </td>
 <td>
 
 ```json
 {
-  "type": "shell",
-  "label": "Run multiple commands",
-  "command": "echo 'Building...' && make && echo 'Running...' && ./myprogram",
-  "options": {
-    "cwd": "${workspaceFolder}"
-  },
-  "group": "build"
+    "type": "shell",
+    "label": "Run multiple commands",
+    "command": "echo 'Building...' && make && echo 'Running...' && ./myprogram",
+    "options": {
+        "cwd": "${workspaceFolder}"
+    },
+    "group": "build"
 }
 ```
 
@@ -576,25 +606,25 @@ gcc --v
 <td><b>process</b></td>
 <td>
 
-- 단순한 프로그램 실행에 적합합니다.
-- 운영 체제의 프로세스를 직접 실행합니다.
-- 셸을 거치지 않고 프로그램을 직접 실행하므로 더 빠르고 안전할 수 있습니다.
-- 단일 프로그램을 직접 실행하며, 셸 기능은 사용할 수 없습니다.
-- 명령어와 인수를 분리하여 지정해야 합니다.
+-   단순한 프로그램 실행에 적합합니다.
+-   운영 체제의 프로세스를 직접 실행합니다.
+-   셸을 거치지 않고 프로그램을 직접 실행하므로 더 빠르고 안전할 수 있습니다.
+-   단일 프로그램을 직접 실행하며, 셸 기능은 사용할 수 없습니다.
+-   명령어와 인수를 분리하여 지정해야 합니다.
 
 </td>
 <td>
 
 ```json
 {
-  "type": "process",
-  "label": "Run Python script",
-  "command": "python",
-  "args": ["${file}"],
-  "options": {
-    "cwd": "${workspaceFolder}"
-  },
-  "group": "test"
+    "type": "process",
+    "label": "Run Python script",
+    "command": "python",
+    "args": ["${file}"],
+    "options": {
+        "cwd": "${workspaceFolder}"
+    },
+    "group": "test"
 }
 ```
 
@@ -604,29 +634,29 @@ gcc --v
 <td><b>cppbuild</b></td>
 <td>
 
-- 쉘 작업이 아니라 컴파일러를 실행하고 args 인자값을 넘겨주기에 process 타입과 같으나 C/C++ 프로젝트를 위한 특화된 빌드 작업 유형입니다.
-- `cmd /c chcp 65001>nul && ...` 를 기반으로 명령어를 실행합니다.
-- 빌드에 최적화되어 있으며, 컴파일러 설정을 자동화합니다.
-- 컴파일러 경로와 인수를 자동으로 설정합니다.
-- 문제 매칭(problem matching)이 자동으로 구성됩니다.
+-   쉘 작업이 아니라 컴파일러를 실행하고 args 인자값을 넘겨주기에 process 타입과 같으나 C/C++ 프로젝트를 위한 특화된 빌드 작업 유형입니다.
+-   `cmd /c chcp 65001>nul && ...` 를 기반으로 명령어를 실행합니다.
+-   빌드에 최적화되어 있으며, 컴파일러 설정을 자동화합니다.
+-   컴파일러 경로와 인수를 자동으로 설정합니다.
+-   문제 매칭(problem matching)이 자동으로 구성됩니다.
 
 </td>
 <td>
 
 ```json
 {
-  "type": "cppbuild",
-  "label": "C/C++: g++ build active file",
-  "command": "/usr/bin/g++",
-  "args": ["-g", "${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}.exe"],
-  "options": {
-    "cwd": "${workspaceFolder}"
-  },
-  "problemMatcher": ["$gcc"],
-  "group": {
-    "kind": "build",
-    "isDefault": true
-  }
+    "type": "cppbuild",
+    "label": "C/C++: g++ build active file",
+    "command": "/usr/bin/g++",
+    "args": ["-g", "${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}.exe"],
+    "options": {
+        "cwd": "${workspaceFolder}"
+    },
+    "problemMatcher": ["$gcc"],
+    "group": {
+        "kind": "build",
+        "isDefault": true
+    }
 }
 ```
 
@@ -640,9 +670,9 @@ gcc --v
 
 정해진 값 외에는 허용되지 않습니다. group 으로 사용되는 값은 다음의 세 종류입니다.
 
-- build(컴파일 및 빌드)
-- test(vscode 터미널에서 테스트 구동)
-- none(작업을 그룹에 할당 안 함)
+-   build(컴파일 및 빌드)
+-   test(vscode 터미널에서 테스트 구동)
+-   none(작업을 그룹에 할당 안 함)
 
 후술하겠지만 이렇게 그룹으로 잘 정리된 작업들은 단축키로 호출이 가능합니다.
 
@@ -654,29 +684,29 @@ gcc --v
 
 ```json
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "테스트 출력", // 작업 이름
-      "detail": "Hello, world 를 출력합니다.", // 작업 상세설명
-      "type": "shell", // 작업하는 동작의 성격
-      "group": {
-        "kind": "test", // 작업 분류
-        "isDefault": true // 작업 우선순위
-      },
-      "command": "echo", // 작업 명령어
-      "args": ["Hello, world!"] // 작업 명령어에 할당할 인자
-    }
-  ]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "테스트 출력", // 작업 이름
+            "detail": "Hello, world 를 출력합니다.", // 작업 상세설명
+            "type": "shell", // 작업하는 동작의 성격
+            "group": {
+                "kind": "test", // 작업 분류
+                "isDefault": true // 작업 우선순위
+            },
+            "command": "echo", // 작업 명령어
+            "args": ["Hello, world!"] // 작업 명령어에 할당할 인자
+        }
+    ]
 }
 ```
 
 &nbsp; tasks.json 매크로는 다음의 방법으로 실행시킬 수 있습니다.
 
-- ① `Ctrl+Shift+P` 또는 `F1` 을 눌러 명령 팔레트를 엽니다.
-- ② `> Tasks: Run Task` 검색을 통해 해당 목록을 선택해주세요.
-- ③ 우리가 만든 작업의 이름 `테스트 출력` 을 목록에서 찾아 선택해주세요.
-- 쉘에 "Hello, world!" 가 출력됩니다.
+-   ① `Ctrl+Shift+P` 또는 `F1` 을 눌러 명령 팔레트를 엽니다.
+-   ② `> Tasks: Run Task` 검색을 통해 해당 목록을 선택해주세요.
+-   ③ 우리가 만든 작업의 이름 `테스트 출력` 을 목록에서 찾아 선택해주세요.
+-   쉘에 "Hello, world!" 가 출력됩니다.
 
 <br />
 
@@ -702,37 +732,37 @@ gcc --v
 
 ```json
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "cmd 테스트",
-      "detail": "cmd",
-      "type": "shell",
-      "group": {
-        "kind": "test",
-        "isDefault": true
-      },
-      // * cmd로 실행할 것을 명시합니다.
-      "options": {
-        "shell": {
-          "executable": "C:\\Windows\\System32\\cmd.exe",
-          "args": ["/d", "/c"] // cmd 옵션입니다. d옵션: autorun 무시, c옵션: 명령 실행 후 작동 종료
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "cmd 테스트",
+            "detail": "cmd",
+            "type": "shell",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            // * cmd로 실행할 것을 명시합니다.
+            "options": {
+                "shell": {
+                    "executable": "C:\\Windows\\System32\\cmd.exe",
+                    "args": ["/d", "/c"] // cmd 옵션입니다. d옵션: autorun 무시, c옵션: 명령 실행 후 작동 종료
+                }
+            },
+            // SET var= "Hello, world!" & CALL ECHO %var%
+            "command": "SET",
+            "args": ["var=", "Hello, world!", "&", "CALL", "ECHO", "%var%"]
         }
-      },
-      // SET var= "Hello, world!" & CALL ECHO %var%
-      "command": "SET",
-      "args": ["var=", "Hello, world!", "&", "CALL", "ECHO", "%var%"]
-    }
-  ]
+    ]
 }
 ```
 
 &nbsp; tasks.json 매크로는 다음의 방법으로 실행시켜주세요.
 
-- ① `Ctrl+Shift+P` 또는 `F1` 을 눌러 명령 팔레트를 엽니다.
-- ② `> Tasks: Run Task` 검색을 통해 해당 목록을 선택해주세요.
-- ③ 우리가 만든 작업의 이름 `cmd 테스트` 을 목록에서 찾아 선택해주세요.
-- 쉘에 "Hello, world!" 가 출력됩니다.
+-   ① `Ctrl+Shift+P` 또는 `F1` 을 눌러 명령 팔레트를 엽니다.
+-   ② `> Tasks: Run Task` 검색을 통해 해당 목록을 선택해주세요.
+-   ③ 우리가 만든 작업의 이름 `cmd 테스트` 을 목록에서 찾아 선택해주세요.
+-   쉘에 "Hello, world!" 가 출력됩니다.
 
 <br />
 
@@ -762,17 +792,17 @@ gcc --v
 
 ```json
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "C++: g++ 빌드",
-      "detail": "-o 옵션으로 해당 파일을 컴파일합니다.",
-      "type": "cppbuild",
-      "group": "build",
-      "command": "g++",
-      "args": ["${file}", "-o", "${fileDirname}\\${fileBasenameNoExtension}"]
-    }
-  ]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "C++: g++ 빌드",
+            "detail": "-o 옵션으로 해당 파일을 컴파일합니다.",
+            "type": "cppbuild",
+            "group": "build",
+            "command": "g++",
+            "args": ["${file}", "-o", "${fileDirname}\\${fileBasenameNoExtension}"]
+        }
+    ]
 }
 ```
 
@@ -895,10 +925,10 @@ gcc --v
 
 위를 windows OS 의 CMD 에서 구현하면 다음과 같은 명령어가 됩니다.
 
-- @( ... ) 로 echo 출력을 제어하고, 2^>nul 로 에러 출력을 제어합니다.
-- srcs 변수에 " " 값으로 초기화 합니다..
-- FOR /F 명령대체로 srcs 변수에 파일 경로를 집어 넣습니다.
-- g++ 에서 srcs 변수를 경로로써 호출합니다.
+-   @( ... ) 로 echo 출력을 제어하고, 2^>nul 로 에러 출력을 제어합니다.
+-   srcs 변수에 " " 값으로 초기화 합니다..
+-   FOR /F 명령대체로 srcs 변수에 파일 경로를 집어 넣습니다.
+-   g++ 에서 srcs 변수를 경로로써 호출합니다.
 
 <center>
 
@@ -966,45 +996,45 @@ gcc --v
 
 ```json
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "cpp 모든 경로 파악",
-      "detail": "경로 밑의 .cpp 파일을 찾은 후에 경로를 파일에 저장합니다.",
-      "type": "cppbuild",
-      "group": {
-        "isDefault": true,
-        // "isDefault": false,
-        "kind": "test"
-      },
-      "command": "(FOR",
-      "args": [
-        "/F",
-        "\"usebackq\"",
-        "%i",
-        "IN",
-        "(`dir/a-d/s/b",
-        "${fileDirname}",
-        "^|findstr/e",
-        "\".cpp\"`)",
-        "DO",
-        "@<NUL",
-        "SET/P=",
-        "%i ",
-        ">>${fileDirname}\\cpps.txt)",
-        "&",
-        "SET/P",
-        "cpps=<${fileDirname}\\cpps.txt",
-        "&",
-        "@CALL",
-        "ECHO",
-        "%cpps%",
-        "&",
-        "DEL/Q",
-        "${fileDirname}\\cpps.txt"
-      ]
-    }
-  ]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "cpp 모든 경로 파악",
+            "detail": "경로 밑의 .cpp 파일을 찾은 후에 경로를 파일에 저장합니다.",
+            "type": "cppbuild",
+            "group": {
+                "isDefault": true,
+                // "isDefault": false,
+                "kind": "test"
+            },
+            "command": "(FOR",
+            "args": [
+                "/F",
+                "\"usebackq\"",
+                "%i",
+                "IN",
+                "(`dir/a-d/s/b",
+                "${fileDirname}",
+                "^|findstr/e",
+                "\".cpp\"`)",
+                "DO",
+                "@<NUL",
+                "SET/P=",
+                "%i ",
+                ">>${fileDirname}\\cpps.txt)",
+                "&",
+                "SET/P",
+                "cpps=<${fileDirname}\\cpps.txt",
+                "&",
+                "@CALL",
+                "ECHO",
+                "%cpps%",
+                "&",
+                "DEL/Q",
+                "${fileDirname}\\cpps.txt"
+            ]
+        }
+    ]
 }
 ```
 
@@ -1054,11 +1084,11 @@ mingw32-make --version
 
 &nbsp; Makefile 관련 파일은 파일명이 아래과 같은 파일들을 말합니다.
 
-- GNUmakefile
+-   GNUmakefile
 
-- makefile
+-   makefile
 
-- Makefile
+-   Makefile
 
 &nbsp; 위의 목록은 우선도 순으로 나열한 것으로, 만약 터미널이 작업하는 위치에 "GNUmakefile" 파일과 "Makefile" 파일이 동시에 있다면 "GNUmakefile" 파일이 선택됩니다.
 
@@ -1168,8 +1198,8 @@ run1:
 
 &nbsp; 이제 vscode 의 터미널을 열어주세요. 다음의 두 가지 방법 중 하나를 선택하시면 됩니다.
 
-- 최상단 메뉴바에 `터미널(T)` 를 누르고 `새 터미널` 선택
-- 또는, `` ctrl + shift + ` `` 단축키 입력하기
+-   최상단 메뉴바에 `터미널(T)` 를 누르고 `새 터미널` 선택
+-   또는, `` ctrl + shift + ` `` 단축키 입력하기
 
 &nbsp; 터미널에서 `mingw32-make run1` 라고 입력하면 "hello, world 1" 가 출력됩니다.
 
@@ -1179,8 +1209,8 @@ run1:
 
 &nbsp; 다음 두가지 방법을 사용하면 안정적으로 동작시킬 수 있습니다.
 
-- `.PHONY` 는 다음에 오는 명령어가 파일 이름이나 타겟 이름이 겹치는 상황이어도 충돌 방지하여 이것이 실제 파일 이름이 아니라 거짓된 타겟 이름이라는 것을 확실시합니다.
-- `default` 는 별도의 타겟 호출이 없이 make, mingw32-make 명령어만 입력시에 구동하는 디폴트 타겟이 무엇인지를 확실시합니다.
+-   `.PHONY` 는 다음에 오는 명령어가 파일 이름이나 타겟 이름이 겹치는 상황이어도 충돌 방지하여 이것이 실제 파일 이름이 아니라 거짓된 타겟 이름이라는 것을 확실시합니다.
+-   `default` 는 별도의 타겟 호출이 없이 make, mingw32-make 명령어만 입력시에 구동하는 디폴트 타겟이 무엇인지를 확실시합니다.
 
 ```bash
 # Makefile
@@ -1227,8 +1257,8 @@ run:
 
 &nbsp; vscode 의 터미널을 열어주세요. 다음의 두 가지 방법 중 하나를 선택하시면 됩니다.
 
-- 최상단 메뉴바에 `터미널(T)` 를 누르고 `새 터미널` 선택
-- 또는, `` ctrl + shift + ` `` 단축키 입력하기
+-   최상단 메뉴바에 `터미널(T)` 를 누르고 `새 터미널` 선택
+-   또는, `` ctrl + shift + ` `` 단축키 입력하기
 
 &nbsp; 터미널에서 `mingw32-make` 라고 입력하면 Main.exe 가 생성됩니다.
 
@@ -1292,49 +1322,49 @@ clean:
 
 &nbsp; vscode 프로그램 전역에 설정을 적용할 것 인지, 지금 작업중인 폴더에만 적용할 것인지에 따라서 다음의 두 가지 방법 중에서 하나를 선택해서 따라주세요.
 
-- vscode 전체에 적용하기
+-   vscode 전체에 적용하기
 
-  - ① `Ctrl+Shift+P` 또는 `F1` 을 눌러 명령 팔레트를 엽니다.
-  - ② `> Tasks: Open User Tasks` 검색을 통해 해당 목록을 선택해주세요.
-  - ③ `Others` 를 선택해주세요.
-  - 가장 기본 형태의 tasks.json 템플릿이 "C:\Users\ ... \AppData\Roaming\Code\User" 경로에 생성됩니다.
+    -   ① `Ctrl+Shift+P` 또는 `F1` 을 눌러 명령 팔레트를 엽니다.
+    -   ② `> Tasks: Open User Tasks` 검색을 통해 해당 목록을 선택해주세요.
+    -   ③ `Others` 를 선택해주세요.
+    -   가장 기본 형태의 tasks.json 템플릿이 "C:\Users\ ... \AppData\Roaming\Code\User" 경로에 생성됩니다.
 
-- 작업중인 폴더에만 한정해서 적용하기
+-   작업중인 폴더에만 한정해서 적용하기
 
-  - ① `Ctrl+Shift+P` 또는 `F1` 을 눌러 명령 팔레트를 엽니다.
-  - ② `> Tasks: Configure Task` 검색을 통해 해당 목록을 선택해주세요.
-  - ③ `템플릿에서 tasks.json 파일 만들기(Create tasks.json file from template)` 검색을 통해 목록을 선택해주세요.
-  - ④ `Others` 를 선택해주세요.
-  - 가장 기본 형태의 tasks.json 템플릿이 지금 작업 중인 최상위 폴더의 ".vscode/" 라는 vscode 설정 폴더 안에 생성됩니다.
+    -   ① `Ctrl+Shift+P` 또는 `F1` 을 눌러 명령 팔레트를 엽니다.
+    -   ② `> Tasks: Configure Task` 검색을 통해 해당 목록을 선택해주세요.
+    -   ③ `템플릿에서 tasks.json 파일 만들기(Create tasks.json file from template)` 검색을 통해 목록을 선택해주세요.
+    -   ④ `Others` 를 선택해주세요.
+    -   가장 기본 형태의 tasks.json 템플릿이 지금 작업 중인 최상위 폴더의 ".vscode/" 라는 vscode 설정 폴더 안에 생성됩니다.
 
 #### Make 사용 > tasks.json 설정
 
-- [참조링크](./Doc/Language_Reference/C++/GCC：컴파일러/Makefile：컴파일 환경 관리.md)
+-   [참조링크](./Doc/Language_Reference/C++/GCC：컴파일러/Makefile：컴파일 환경 관리.md)
 
-- tasks.json 에 다음과 같이 입력합니다.
+-   tasks.json 에 다음과 같이 입력합니다.
 
-  ```json
-  {
-    "version": "2.0.0",
-    "tasks": [
-      {
-        "label": "Makefile Build",
-        "type": "shell",
-        "command": "mingw32-make",
-        "args": [],
-        "group": {
-          "isDefault": true,
-          // "isDefault": false,
-          "kind": "build"
-        },
-        "options": {
-          "cwd": "${fileDirname}"
-        },
-        "problemMatcher": []
-      }
-    ]
-  }
-  ```
+    ```json
+    {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "Makefile Build",
+                "type": "shell",
+                "command": "mingw32-make",
+                "args": [],
+                "group": {
+                    "isDefault": true,
+                    // "isDefault": false,
+                    "kind": "build"
+                },
+                "options": {
+                    "cwd": "${fileDirname}"
+                },
+                "problemMatcher": []
+            }
+        ]
+    }
+    ```
 
 ## 5. visual studio code 보조 세팅
 
@@ -1343,9 +1373,9 @@ clean:
 GCC 개발 환경 자체에 참조 경로를 추가하려면 환경 변수를 설정해야 합니다.
 다음의 환경변수들을 만들거나, 이미 있을 경우 편집하여 경로들을 추가해주세요.
 
-- C 헤더 파일의 경로를 C_INCLUDE_PATH 환경 변수에 추가합니다.
-- C++ 헤더 파일 경로를 CPLUS_INCLUDE_PATH 환경 변수에 추가합니다
-- 라이브러리 파일의 경로를 LIBRARY_PATH 환경 변수에 추가합니다.
+-   C 헤더 파일의 경로를 C_INCLUDE_PATH 환경 변수에 추가합니다.
+-   C++ 헤더 파일 경로를 CPLUS_INCLUDE_PATH 환경 변수에 추가합니다
+-   라이브러리 파일의 경로를 LIBRARY_PATH 환경 변수에 추가합니다.
 
 2. VSCode의 IntelliSense 설정
 
@@ -1353,21 +1383,21 @@ GCC 개발 환경 자체에 참조 경로를 추가하려면 환경 변수를 �
 
 &nbsp; 컴파일러의 경로나 앞으로 참고하는 헤더파일 경로들을 자동으로 인식하는 데에 실패하는 경우가 있습니다. 이 경우엔 올바른 코드를 작성해도 vscode 에서 오류라고 경고합니다. 이를 해결하기 위해서는 다음과 같이 설정을 직접 변경해주셔야 합니다.
 
-- VSCode에서 Ctrl+Shift+P를 눌러 명령 팔레트를 엽니다.
-- `C/C++: Edit Configurations (JSON)` 구성편집 항목을 검색하여 선택합니다.
-- 생성된 c_cpp_properties.json 파일에 다음과 같이 compilerPath, includePath에 올바른 컴파일러 경로『/COMPILER_PATH』 와 별도로 참조해야할 경로『/INCLUDE_PATH』를 기입해주세요.
+-   VSCode에서 Ctrl+Shift+P를 눌러 명령 팔레트를 엽니다.
+-   `C/C++: Edit Configurations (JSON)` 구성편집 항목을 검색하여 선택합니다.
+-   생성된 c_cpp_properties.json 파일에 다음과 같이 compilerPath, includePath에 올바른 컴파일러 경로『/COMPILER_PATH』 와 별도로 참조해야할 경로『/INCLUDE_PATH』를 기입해주세요.
 
 ```json
 {
-  "configurations": [
-    {
-      "name": "Win32",
-      "compilerPath": "『/COMPILER_PATH』",
-      "includePath": ["${workspaceFolder}/**", "『/INCLUDE_PATH』"]
-      // ... 기타 설정들 ...
-    }
-  ],
-  "version": 4
+    "configurations": [
+        {
+            "name": "Win32",
+            "compilerPath": "『/COMPILER_PATH』",
+            "includePath": ["${workspaceFolder}/**", "『/INCLUDE_PATH』"]
+            // ... 기타 설정들 ...
+        }
+    ],
+    "version": 4
 }
 ```
 
