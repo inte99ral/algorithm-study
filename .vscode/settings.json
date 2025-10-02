@@ -1,60 +1,59 @@
 // # settings.json
 
-// ## Documentation ===============================================
-/**
- *  ctrl + , 누르고 세팅에 적용하기
+// ## Documentation ==========================================================
+/*
+ * ctrl + , 누르고 세팅에 적용하기
  *
- *  자주 쓰는 확장들
- *  ### Default:
- *  [x] Material Icon Theme
- *  [x] TODO Highlight
- *  [x] Git Graph
- *  [x] indent-rainbow
- *  [x] IntelliCode
- *  [x] IntelliCode API Usage Examples
- *  [x] WSL
+ * 자주 쓰는 확장들
+ * ### Default:
+ * [x] Material Icon Theme
+ * [x] TODO Highlight
+ * [x] Git Graph
+ * [x] indent-rainbow
+ * [x] IntelliCode
+ * [x] IntelliCode API Usage Examples
+ * [x] WSL
  *
- *  ### MarkDown:
- *  [x] Markdown All in One
- *  [x] markdownlint
+ * ### MarkDown:
+ * [x] Markdown All in One
+ * [x] markdownlint
+ * [x] Markdown Preview Enhanced
  *
- *  ### HTML & JavaScript:
- *  [x] Live Server
- *  [x] Auto Rename Tag
- *  [x] Auto Close Tag
- *  [x] ES7+ React/Redux/React-Native snippets
- *  [x] ESLint
- *  [x] Prettier - Code formatter
- *  [x] Prettier ESLint
- *  [x] vscode-styled-components
+ * ### HTML & JavaScript:
+ * [x] Live Server
+ * [x] Auto Rename Tag
+ * [x] Auto Close Tag
+ * [x] ES7+ React/Redux/React-Native snippets
+ * [x] ESLint
+ * [x] Prettier - Code formatter
+ * [x] Prettier ESLint
+ * [x] vscode-styled-components
  *
- *  ### C++:
- *  [x] C/C++
- *  [x] C/C++ Extension Pack
- *  [x] C/C++ Themes
- *  [x] CMake
- *  [x] CMake Tools
+ * ### C++:
+ * [x] C/C++
+ * [x] C/C++ Extension Pack
+ * [x] C/C++ Themes
+ * [x] CMake
+ * [x] CMake Tools
  *
- *  ### Java:
- *  [x] Extension Pack for Java
- *  [x] Debugger for Java
- *  [x] Java prettier formatter
- *  [x] Language Support for Java(TM) by Red Hat
- *  [x] Maven for Java
- *  [x] Project Manager for Java
- *  [x] Test Runner for Java
+ * ### Java:
+ * [x] Extension Pack for Java
+ * [x] Debugger for Java
+ * [x] Java prettier formatter
+ * [x] Language Support for Java(TM) by Red Hat
+ * [x] Maven for Java
+ * [x] Project Manager for Java
+ * [x] Test Runner for Java
  */
 
-// ## Setting =====================================================
+// ## Setting ================================================================
 {
-    // ### Default ====================================================
-
+    // ### Default:
     "explorer.compactFolders": false, // 폴더 경로 압축 여부
     "workbench.colorTheme": "Visual Studio Light", // vscode theme
     "typescript.updateImportsOnFileMove.enabled": "never", // 파일 위치를 바꿀 때, 참조하는 경로들을 자동으로 수정할 지 여부
 
-    // #### material-icon-theme
-
+    // ### material-icon-theme:
     "workbench.iconTheme": "material-icon-theme",
     "material-icon-theme.folders.associations": {
         "component": "components",
@@ -67,8 +66,7 @@
         "Unsolved": "Error"
     },
 
-    // #### Todo highlight:
-
+    // ### Todo highlight:
     "todohighlight.isEnable": true,
     "todohighlight.include": [
         "**/*.js",
@@ -110,7 +108,6 @@
     "editor.wordWrap": "on", // 글씨 자동개행 {on | off}
 
     // #### .prettierrc.json
-
     "prettier.singleQuote": true,
     "prettier.semi": true,
     "prettier.useTabs": false,
@@ -121,7 +118,9 @@
     "prettier.endOfLine": "auto",
 
     // #### Markdown
-
+    "markdown-preview-enhanced.revealjsTheme": "white.css",
+    "markdown-preview-enhanced.previewTheme": "github-light.css",
+    "markdown-preview-enhanced.codeBlockTheme": "github.css",
     "[markdown]": {
         "editor.tabSize": 4,
         "editor.insertSpaces": false, // tab to space {true | false}
@@ -145,8 +144,7 @@
         "MD033": false // Don't lint : Inline HTML
     },
 
-    // ### Terminal ===================================================
-
+    // ### Terminal:
     "terminal.integrated.profiles.windows": {
         "PowerShell": {
             "source": "PowerShell",
@@ -162,6 +160,7 @@
         }
     },
     // "terminal.integrated.defaultProfile.windows": "PowerShell", // Default terminal
+    "makefile.configureOnOpen": false,
     "cmake.configureOnOpen": false,
     "cmake.showOptionsMovedNotification": false,
     "files.associations": {
@@ -259,6 +258,5 @@
         "typeinfo": "cpp",
         "valarray": "cpp",
         "variant": "cpp"
-    },
-    "makefile.configureOnOpen": false
+    }
 }
