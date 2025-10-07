@@ -1,168 +1,170 @@
 {
-  // task.json 에 대한 공식문서 https://go.microsoft.com/fwlink/?LinkId=733558
-  "version": "2.0.0",
-  "tasks": [
-    // # Build & Compile ==============================
-    // ## C++ =========================================
-    // ### C++：CMD：단일파일 빌드 (백준 채점용) =========
-    {
-      "label": "C++：백준 풀이 빌드",
-      "detail": "백준 C++17 표준옵션으로 컴파일합니다.",
-      "type": "cppbuild",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "command": "g++",
-      "args": [
-        "${file}",
-        "-o",
-        "${fileDirname}\\${fileBasenameNoExtension}.exe",
-        "-O2", // loop unrolling, function inlining, 메모리 및 속도희생을 제외한 모든 범위 최적화
-        "-Wall", // 모든 모호한 코딩에 대해서 경고를 보내는 옵션
-        "-lm", // math libarary 사용
-        "-static", // 정적 라이브러리와 공유 라이브러리 중 정적을 우선한다. 속도는 빠르지만 파일 사이즈가 커짐
-        "-std=gnu++17" // C++17 Clang GNU 확장기능 유효
-      ],
-      "options": {
-        "cwd": "${fileDirname}"
-      },
-      "problemMatcher": {
-        "owner": "cpp",
-        "fileLocation": ["relative", "${workspaceRoot}"],
-        "pattern": {
-          "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
-          "file": 1,
-          "line": 2,
-          "column": 3,
-          "severity": 4,
-          "message": 5
+    // task.json 에 대한 공식문서 https://go.microsoft.com/fwlink/?LinkId=733558
+    "version": "2.0.0",
+    "tasks": [
+        // # Build & Compile ==============================
+        // ## C++ =========================================
+        // ### C++：CMD：단일파일 빌드 (백준 채점용) =========
+        {
+            "label": "C++：백준 풀이 빌드",
+            "detail": "백준 C++17 표준옵션으로 컴파일합니다.",
+            "type": "cppbuild",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "command": "g++",
+            "args": [
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "-O2", // loop unrolling, function inlining, 메모리 및 속도희생을 제외한 모든 범위 최적화
+                "-Wall", // 모든 모호한 코딩에 대해서 경고를 보내는 옵션
+                "-lm", // math libarary 사용
+                "-static", // 정적 라이브러리와 공유 라이브러리 중 정적을 우선한다. 속도는 빠르지만 파일 사이즈가 커짐
+                "-std=gnu++17", // C++17 Clang GNU 확장기능 유효
+                "-fdiagnostics-color=always" // 진단 로그에 색지정
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            // "problemMatcher": ["$gcc"] 로그를 어떻게 파싱할지 사용자 정의
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": ["relative", "${workspaceRoot}"],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+
+        // ### C++：CMD：반복검색 빌드 ======================
+        {
+            "label": "C++：CMD：반복검색 빌드",
+            "detail": "내부의 cpp 파일들을 반복검색한 후 빌드합니다.",
+            "type": "cppbuild",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            // * (FOR /F "usebackq" %i IN (`dir/a-d/s/b <DIRECTORY_PATH> ^|findstr/e ".cpp"`) DO @(CALL SET cpps=%cpps% %i)) & CALL g++ %cpps:~7% -o ${fileDirname}\\${fileBasenameNoExtension}.exe -O2 -static -std=gnu++17
+            "command": "(FOR",
+            "args": [
+                "/F", // cpps 변수에 .cpp 확장자 파일 목록 지정
+                "\"usebackq\"",
+                "%i",
+                "IN",
+                "(`dir/a-d/s/b",
+                "${fileDirname}",
+                "^|findstr/e",
+                "\".cpp\"`)",
+                "DO",
+                "@(CALL",
+                "SET",
+                "cpps=%cpps%",
+                "%i))",
+                "&",
+                "CALL", // g++ 호출
+                "g++",
+                "%cpps:~7%",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "-O2",
+                "-static",
+                "-std=gnu++17"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": ["relative", "${workspaceRoot}"],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+
+        // # Test & Run ===================================
+        // ## C++ =========================================
+        // ### C++：빌드된 .exe 파일 실행 ===================
+        {
+            "label": "C++：빌드된 .exe 파일 실행",
+            "detail": "현재 폴더에서 cpp 파일과 같은 이름의 exe 파일을 구동합니다.",
+            "type": "process",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+                // "isDefault": false
+            },
+            "command": "${fileDirname}/${fileBasenameNoExtension}.exe",
+            "options": {
+                "cwd": "${fileDirname}"
+            }
+        },
+
+        // ## Java ========================================
+        // ### Java：.java 파일 실행 =======================
+        {
+            "label": "Java：.java 파일 실행",
+            "detail": "보고있는 .java 파일을 JVM 위에서 실행합니다.",
+            "type": "process",
+            "group": {
+                "kind": "test",
+                // "isDefault": true
+                "isDefault": false
+            },
+            "command": "java",
+            "args": ["${fileDirname}/${fileBasenameNoExtension}.java"],
+            "options": {
+                "cwd": "${fileDirname}"
+            }
+        },
+
+        // ## JavaScript ==================================
+        // ### JavaScript：.js 파일 실행 ===================
+        {
+            "label": "JavaScript：.js 파일 실행",
+            "detail": "보고있는 .js 파일을 node.js 위에서 실행합니다.",
+            "type": "process",
+            "group": {
+                "kind": "test",
+                // "isDefault": true
+                "isDefault": false
+            },
+            "command": "node",
+            "args": ["${fileDirname}/${fileBasenameNoExtension}.js"],
+            "options": {
+                "cwd": "${fileDirname}"
+            }
+        },
+
+        // ## Python ======================================
+        // ### Python：.py 파일 실행 =======================
+        {
+            "label": "Python：.py 파일 실행",
+            "detail": "py 파일을 파이썬 인터프리터로 실행합니다.",
+            "type": "process",
+            "group": {
+                "kind": "test",
+                // "isDefault": true
+                "isDefault": false
+            },
+            "command": "python",
+            "args": ["${fileDirname}/${fileBasenameNoExtension}.py"],
+            "options": {
+                "cwd": "${fileDirname}"
+            }
         }
-      }
-    },
-
-    // ### C++：CMD：반복검색 빌드 ======================
-    {
-      "label": "C++：CMD：반복검색 빌드",
-      "detail": "내부의 cpp 파일들을 반복검색한 후 빌드합니다.",
-      "type": "cppbuild",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      // * (FOR /F "usebackq" %i IN (`dir/a-d/s/b <DIRECTORY_PATH> ^|findstr/e ".cpp"`) DO @(CALL SET cpps=%cpps% %i)) & CALL g++ %cpps:~7% -o ${fileDirname}\\${fileBasenameNoExtension}.exe -O2 -static -std=gnu++17
-      "command": "(FOR",
-      "args": [
-        "/F", // cpps 변수에 .cpp 확장자 파일 목록 지정
-        "\"usebackq\"",
-        "%i",
-        "IN",
-        "(`dir/a-d/s/b",
-        "${fileDirname}",
-        "^|findstr/e",
-        "\".cpp\"`)",
-        "DO",
-        "@(CALL",
-        "SET",
-        "cpps=%cpps%",
-        "%i))",
-        "&",
-        "CALL", // g++ 호출
-        "g++",
-        "%cpps:~7%",
-        "-o",
-        "${fileDirname}\\${fileBasenameNoExtension}.exe",
-        "-O2",
-        "-static",
-        "-std=gnu++17"
-      ],
-      "options": {
-        "cwd": "${fileDirname}"
-      },
-      "problemMatcher": {
-        "owner": "cpp",
-        "fileLocation": ["relative", "${workspaceRoot}"],
-        "pattern": {
-          "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
-          "file": 1,
-          "line": 2,
-          "column": 3,
-          "severity": 4,
-          "message": 5
-        }
-      }
-    },
-
-    // # Test & Run ===================================
-    // ## C++ =========================================
-    // ### C++：빌드된 .exe 파일 실행 ===================
-    {
-      "label": "C++：빌드된 .exe 파일 실행",
-      "detail": "현재 폴더에서 cpp 파일과 같은 이름의 exe 파일을 구동합니다.",
-      "type": "process",
-      "group": {
-        "kind": "test",
-        "isDefault": true
-        // "isDefault": false
-      },
-      "command": "${fileDirname}/${fileBasenameNoExtension}.exe",
-      "options": {
-        "cwd": "${fileDirname}"
-      }
-    },
-
-    // ## Java ========================================
-    // ### Java：.java 파일 실행 =======================
-    {
-      "label": "Java：.java 파일 실행",
-      "detail": "보고있는 .java 파일을 JVM 위에서 실행합니다.",
-      "type": "process",
-      "group": {
-        "kind": "test",
-        // "isDefault": true
-        "isDefault": false
-      },
-      "command": "java",
-      "args": ["${fileDirname}/${fileBasenameNoExtension}.java"],
-      "options": {
-        "cwd": "${fileDirname}"
-      }
-    },
-
-    // ## JavaScript ==================================
-    // ### JavaScript：.js 파일 실행 ===================
-    {
-      "label": "JavaScript：.js 파일 실행",
-      "detail": "보고있는 .js 파일을 node.js 위에서 실행합니다.",
-      "type": "process",
-      "group": {
-        "kind": "test",
-        // "isDefault": true
-        "isDefault": false
-      },
-      "command": "node",
-      "args": ["${fileDirname}/${fileBasenameNoExtension}.js"],
-      "options": {
-        "cwd": "${fileDirname}"
-      }
-    },
-
-    // ## Python ======================================
-    // ### Python：.py 파일 실행 =======================
-    {
-      "label": "Python：.py 파일 실행",
-      "detail": "py 파일을 파이썬 인터프리터로 실행합니다.",
-      "type": "process",
-      "group": {
-        "kind": "test",
-        // "isDefault": true
-        "isDefault": false
-      },
-      "command": "python",
-      "args": ["${fileDirname}/${fileBasenameNoExtension}.py"],
-      "options": {
-        "cwd": "${fileDirname}"
-      }
-    }
-  ]
+    ]
 }

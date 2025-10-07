@@ -83,6 +83,8 @@
 | 예시-xx-xx | [BJ xxxx](./Problem/__X_X__.md)                                                    | X X             | `#Level_DⅠⅡⅢⅣⅤ` | `#태그`  |
 | 중단       | [PG 42627](./Problem/Unsolved/Programmers/Level_3/PG_42627/__디스크_컨트롤러__.md) | 디스크 컨트롤러 | `#Level_3`      | `#태그`  |
 
+| 중단 | [BJ 14502](https://www.acmicpc.net/problem/14502) | 연구소 | `#Level_3` | `#태그` |
+
 <br />
 
 -   [ ] BJ 8958_OX퀴즈
