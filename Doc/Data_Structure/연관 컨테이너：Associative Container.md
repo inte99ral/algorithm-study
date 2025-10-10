@@ -8,15 +8,15 @@
 
 <br />
 
-- 컨테이너란 C++에서 자주 사용되는 구조들을 미리 라이브러리화 시켜놓아 직접 구현하지 않아도 활용할 수 있도록 제공하는 표준 템플릿 라이브러리(STL, Standard Template Libaray) 중 하나 입니다.
+-   컨테이너란 C++에서 자주 사용되는 구조들을 미리 라이브러리화 시켜놓아 직접 구현하지 않아도 활용할 수 있도록 제공하는 표준 템플릿 라이브러리(STL, Standard Template Libaray) 중 하나 입니다.
 
-- 컨테이너는 객체 컬렉션(collection)을 관리하는데 사용됩니다.
+-   컨테이너는 객체 컬렉션(collection)을 관리하는데 사용됩니다.
 
 <center>
 <img src=".\asset\연관 컨테이너\0.png" alt="0" style="width:50vw; aspect-ratio: 5 / 3"/>
 </center>
 
-- 연관 컨테이너 (associative containers)
+-   연관 컨테이너 (associative containers)
 
 연관 컨테이너는 키(key)와 값(value) 쌍처럼
 
@@ -36,18 +36,18 @@
 
 ### Set
 
-- set 컨테이너는 균형 이진탐색 트리(Balanced Binary Search Tree)인 Red-Black 트리를 기반으로 합니다.
+-   set 컨테이너는 균형 이진탐색 트리(Balanced Binary Search Tree)인 Red-Black 트리를 기반으로 합니다.
 
-- set 컨테이너가 구현하는 집합의 내부는 다음의 규칙을 유지합니다.
+-   set 컨테이너가 구현하는 집합의 내부는 다음의 규칙을 유지합니다.
 
-  1. 내부 원소들은 중복되지 않는다.
-  2. 삽입하는 순서에 상관없이 정렬되서 입력이 된다.
+    1. 내부 원소들은 중복되지 않는다.
+    2. 삽입하는 순서에 상관없이 정렬되서 입력이 된다.
 
 #### 집합：Set > Create
 
-- `set<T>`
+-   `set<T>`
 
-- `set<int, compare> sets; `
+-   `set<int, compare> sets; `
 
 ```cpp
 set<int, compare> sets;
@@ -59,7 +59,7 @@ std::set<int, decltype(cmp)> s(cmp);
 
 #### 집합：Set > Read
 
-- `find`
+-   `find`
 
 ```cpp
 set <int>s;
@@ -80,9 +80,9 @@ cout << "내가 찾는 원소가 있습니다" <<endl;
 
 #### 집합：Set > Update
 
-- Update：`insert & emplace`
+-   Update：`insert & emplace`
 
-- 언급했듯 균형 이진 트리 기반이기에 insert를 한 값들이 정렬 되어서 들어갑니다.
+-   언급했듯 균형 이진 트리 기반이기에 insert를 한 값들이 정렬 되어서 들어갑니다.
 
 C++에서는 모든 컨테이너( vector , stack , queue , set , map 등)가 insert 및 emplace 작업을 모두 지원합니다.
 
@@ -144,7 +144,7 @@ int main()
 
 #### 집합：Set：Delete
 
-- Delete：`erase`
+-   Delete：`erase`
 
 ```cpp
 #include <set>
@@ -211,8 +211,8 @@ for(std::map<int,int>::iterator it = m.begin(); it != m.end(); ++it) {
   std::cout << "Value: " << it->second << std::endl;
 }
 
-for(auto itr : map) {
-  cout << p->first << " " << p->second << '\n';
+for(auto p : map) {
+  cout << p.first << " " << p.second << '\n';
 }
 
 for(pair<string, int> p : map) {
@@ -263,7 +263,7 @@ int main() {
 [참고링크](https://math-coding.tistory.com/31)
 [참고링크](https://blog.naver.com/PostView.naver?blogId=do9562&logNo=221754890348)
 
-- #include <unordered_map>
+-   #include <unordered_map>
 
 map보다 더 빠른 탐색을 하기 위한 자료구조입니다.
 
