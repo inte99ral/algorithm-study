@@ -1,19 +1,14 @@
-# <img alt="s3" src="https://d2gd6pc034wcta.cloudfront.net/tier/8.svg" width="16" /> [BJ 9996](https://www.acmicpc.net/problem/9996)：한국이 그리울 땐 서버에 접속하지：오답노트
-
-## 힌트
-
--   ~ ~볼 힌트~~
--   ~~숨길 힌트~~
+# <img alt="b1" src="https://d2gd6pc034wcta.cloudfront.net/tier/5.svg" width="16" /> [BJ 11655](https://www.acmicpc.net/problem/11655)：ROT13：오답노트
 
 ## 정답
 
-### C++：2025-10-09：prefix suffix split
+### C++：2025-10-09：아스키 코드
 
 -   | 메모리  | 시간 | 코드 길이 |
     | :-----: | :--: | :-------: |
-    | 2024 KB | 0 ms |   843 B   |
+    | 2024 KB | 0 ms |   412 B   |
 
--   방법 찾음
+-   아스키 코드 값과 해당 범위의 나머지 값으로 계산
 
 ```cpp
 #include <bits/stdc++.h>

@@ -1,4 +1,4 @@
-# <img alt="tier" src="https://d2gd6pc034wcta.cloudfront.net/tier/5.svg" width="16" /> [『문제코드』](https://www.naver.com/)：『문제제목』：오답노트
+# <img alt="b4" src="https://d2gd6pc034wcta.cloudfront.net/tier/2.svg" width="16" /> [BJ 10808](https://www.acmicpc.net/problem/10808)：알파벳 개수：오답노트
 
 ## 힌트
 

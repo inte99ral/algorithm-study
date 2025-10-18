@@ -1,4 +1,6 @@
-# Markdown enhanced settings
+# Markdown Preview Enhanced
+
+-   게시자 Yiyi Wang
 
 -   vscode 의 미리보기 기능 및 브라우저 출력/pdf 인쇄 기능을 지원합니다.
 

@@ -1,4 +1,4 @@
-# <img alt="tier" src="https://d2gd6pc034wcta.cloudfront.net/tier/5.svg" width="16" /> [『문제코드』](https://www.naver.com/)：『문제제목』：오답노트
+# <img alt="『티어』" src="https://d2gd6pc034wcta.cloudfront.net/tier/『티어』.svg" width="16" /> [BJ 『문제코드』](https://www.acmicpc.net/problem/『문제코드』)：『문제제목』：오답노트
 
 ## 힌트
 

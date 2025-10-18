@@ -1,8 +1,8 @@
-# <img alt="s3" src="https://d2gd6pc034wcta.cloudfront.net/tier/8.svg" width="16" /> [BJ 9996](https://www.acmicpc.net/problem/9996)：한국이 그리울 땐 서버에 접속하지
+# <img alt="b1" src="https://d2gd6pc034wcta.cloudfront.net/tier/5.svg" width="16" /> [BJ 11655](https://www.acmicpc.net/problem/11655)：ROT13
 
 -   | 시간 제한 | 메모리 제한 |
     | :-------: | :---------: |
-    |   - 초    |    - MB     |
+    |   1 초    |   256 MB    |
 
 ## 문제
 
@@ -76,9 +76,9 @@
 
 ## 출처
 
--   출처 예시
+-   문제를 만든 사람: baekjoon
 
 ## 알고리즘 분류
 
 -   구현
--   시뮬레이션
+-   문자열
