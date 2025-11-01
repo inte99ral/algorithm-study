@@ -2,6 +2,23 @@
 
 ## 목차
 
+-   [순차 컨테이너：Sequence Container](#순차-컨테이너sequence-container)
+    -   [목차](#목차)
+    -   [개요](#개요)
+    -   [Vector](#vector)
+    -   [List](#list)
+        -   [List : Create](#list--create)
+        -   [List : Delete](#list--delete)
+    -   [덱：Deque](#덱deque)
+        -   [덱 \> 덱：Deque (Double-Ended Queue)](#덱--덱deque-double-ended-queue)
+    -   [큐：Queue](#큐queue)
+        -   [큐 \> 큐：Queue](#큐--큐queue)
+        -   [큐 \> 우선순위 큐：Priority Queue](#큐--우선순위-큐priority-queue)
+            -   [큐 \> 우선순위 큐 \> Create](#큐--우선순위-큐--create)
+    -   [Stack：스택](#stack스택)
+        -   [Stack \> Stack：스택 기본형](#stack--stack스택-기본형)
+        -   [Stack \> Stack \> Create](#stack--stack--create)
+
 <br />
 
 ## 개요
@@ -157,3 +174,23 @@ priority_queue<int, vector<int>, function<bool(int, int)>> task([]( int a, int b
     push();
     pop();
     ```
+
+## Stack：스택
+
+-   FIFO(First In, Last Out) 선입후출 구조를 따릅니다.
+
+> [!NOTE]
+>
+> &nbsp; 주의할 점은 C++ 표준 라이브러리에서는 stack 이 실제로 구현되는 클래스가 아니라 추상적인 인터페이스로 구현되는 컨테이너 어댑터입니다.
+>
+> &nbsp; 실제로 내부적으로는 deque(기본값), vector, list 등을 기반으로 구현됩니다.
+>
+> &nbsp; C++ 에서의 stack = deque 위에 push(), pop(), top() 같은 stack 전용 연산만 가능하도록 사용 제한을 두고 단순화한 인터페이스 입니다.
+
+### Stack > Stack：스택 기본형
+
+### Stack > Stack > Create
+
+```cpp
+stack<int> st;
+```

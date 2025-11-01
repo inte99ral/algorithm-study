@@ -41,36 +41,42 @@
 
 ## DONE:
 
-| 풀이 일자  | 문제 코드                                                                                     | 문제명                           | 난이도     | 해시태그                          |
-| :--------- | :-------------------------------------------------------------------------------------------- | :------------------------------- | :--------- | :-------------------------------- |
-| 2024-12-20 | [BJ 15649](<./Problem/Solved/Baekjoon/Silver/3/BJ_15649/__N과_M_(1)__.md>)                    | N과 M (1)                        | `#SilverⅢ` | `#백트래킹`                       |
-| 2024-12-23 | [BJ 15650](<./Problem/Solved/Baekjoon/Silver/3/BJ_15650/__N과_M_(2)__.md>)                    | N과 M (2)                        | `#SilverⅢ` | `#백트래킹`                       |
-| 2024-12-23 | [BJ 15651](<./Problem/Solved/Baekjoon/Silver/3/BJ_15651/__N과_M_(3)__.md>)                    | N과 M (3)                        | `#SilverⅢ` | `#백트래킹`                       |
-| 2024-12-23 | [BJ 15652](<./Problem/Solved/Baekjoon/Silver/3/BJ_15652/__N과_M_(4)__.md>)                    | N과 M (4)                        | `#SilverⅢ` | `#백트래킹`                       |
-| 2024-12-24 | [BJ 15654](<./Problem/Solved/Baekjoon/Silver/3/BJ_15654/__N과_M_(5)__.md>)                    | N과 M (5)                        | `#SilverⅢ` | `#백트래킹`                       |
-| 2024-12-24 | [BJ 15655](<./Problem/Solved/Baekjoon/Silver/3/BJ_15655/__N과_M_(6)__.md>)                    | N과 M (6)                        | `#SilverⅢ` | `#백트래킹`                       |
-| 2024-12-24 | [BJ 15656](<./Problem/Solved/Baekjoon/Silver/3/BJ_15656/__N과_M_(7)__.md>)                    | N과 M (7)                        | `#SilverⅢ` | `#백트래킹`                       |
-| 2024-12-25 | [BJ 15657](<./Problem/Solved/Baekjoon/Silver/3/BJ_15657/__N과_M_(8)__.md>)                    | N과 M (8)                        | `#SilverⅢ` | `#백트래킹`                       |
-| 2024-12-26 | [BJ 15663](<./Problem/Solved/Baekjoon/Silver/2/BJ_15663/__N과_M_(9)__.md>)                    | N과 M (9)                        | `#SilverⅡ` | `#백트래킹`                       |
-| 2024-12-27 | [BJ 15664](<./Problem/Solved/Baekjoon/Silver/2/BJ_15664/__N과_M_(10)__.md>)                   | N과 M (10)                       | `#SilverⅡ` | `#백트래킹`                       |
-| 2024-12-27 | [BJ 15665](<./Problem/Solved/Baekjoon/Silver/2/BJ_15665/__N과_M_(11)__.md>)                   | N과 M (11)                       | `#SilverⅡ` | `#백트래킹`                       |
-| 2024-12-29 | [BJ 15666](<./Problem/Solved/Baekjoon/Silver/2/BJ_15666/__M과_N_(12)__.md>)                   | N과 M (12)                       | `#SilverⅡ` | `#백트래킹`                       |
-| 2025-01-09 | [BJ 4963](./Problem/Solved/Baekjoon/Silver/2/BJ_4963/__섬의_개수__.md)                        | 섬의 개수                        | `#SilverⅡ` | `#그래프이론` `#그래프탐색`       |
-| 2025-01-09 | [BJ 1992](./Problem/Solved/Baekjoon/Silver/1/BJ_1992/__쿼드트리__.md)                         | 쿼드트리                         | `#SilverⅠ` | `#분할 정복` `#재귀`              |
-| 2025-01-13 | [BJ 15686](./Problem/Solved/Baekjoon/Gold/5/BJ_15686/__치킨_배달__.md)                        | 치킨 배달                        | `#GoldⅤ`   | `#그래프탐색`                     |
-| 2025-03-07 | [BJ 3040](./Problem/Solved/Baekjoon/Bronze/2/BJ_3040/__백설_공주와_일곱_난쟁이__.md)          | 백설 공주와 일곱 난쟁이          | `#BronzeⅡ` | `#브루트포스`                     |
-| 2024-05-04 | [BJ 2999](./Problem/Solved/Baekjoon/Bronze/1/BJ_2999/__비밀_이메일__.md)                      | 비밀이메일                       | `#D5`      | `#구현` `#문자열`                 |
-| 2025-09-08 | [BJ 3985](./Problem/Solved/Baekjoon/Bronze/1/BJ_3985/__롤_케이크__.md)                        | 롤 케이크                        | `#BronzeⅠ` | `#구현` `#시뮬레이션`             |
-| 2025-09-09 | [BJ 5397](./Problem/Solved/Baekjoon/Silver/2/BJ_5397/__키로거__.md)                           | 키로거                           | `#SilverⅡ` | `#자료구조` `#스택` `#연결리스트` |
-| 2025-09-12 | [BJ 1629](./Problem/Solved/Baekjoon/Silver/1/BJ_1629/__곱셈__.md)                             | 곱셈                             | `#SilverⅠ` | `#수학` `#분할정복`               |
-| 2024-06-16 | [BJ 11726](./Problem/Solved/Baekjoon/Silver/3/BJ_11726/__2×n_타일링__.md)                     | 2×n 타일링                       | `#SilverⅢ` | `#동적계획법`                     |
-| 2025-09-19 | [BJ 8320](./Problem/Solved/Baekjoon/Bronze/2/BJ_8320/__직사각형을_만드는_방법__.md)           | 직사각형을 만드는 방법           | `#BronzeⅡ` | `#수학` `#구현`                   |
-| 2025-10-07 | [BJ 2309](./Problem/Solved/Baekjoon/Bronze/1/BJ_2309/__일곱_난쟁이__.md)                      | 일곱 난쟁이                      | `#BronzeⅠ` | `#브루트포스` `#정렬`             |
-| 2025-10-07 | [BJ 10808](./Problem/Solved/Baekjoon/Bronze/4/BJ_10808/__알파벳_개수__.md)                    | 알파벳 개수                      | `#BronzeⅣ` | `#구현` `#문자열`                 |
-| 2025-10-09 | [BJ 1159](./Problem/Solved/Baekjoon/Bronze/2/BJ_1159/__농구_경기__.md)                        | 농구 경기                        | `#BronzeⅡ` | `#구현` `#문자열`                 |
-| 2025-10-09 | [BJ 11655](./Problem/Solved/Baekjoon/Bronze/1/BJ_11655/__ROT13__.md)                          | ROT13                            | `#BronzeⅠ` | `#구현` `#문자열`                 |
-| 2025-10-10 | [BJ 9996](./Problem/Solved/Baekjoon/Silver/3/BJ_9996/__한국이_그리울_땐_서버에_접속하지__.md) | 한국이 그리울 땐 서버에 접속하지 | `#SilverⅢ` | `#문자열`                         |
-| 2025-10-10 | [BJ 2559](./Problem/Solved/Baekjoon/Silver/3/BJ_2559/__수열__.md)                             | 수열                             | `#SilverⅢ` | `#누적합`                         |
+| 풀이 일자  | 문제 코드                                                                                     | 문제명                           | 난이도     | 해시태그                    |
+| :--------- | :-------------------------------------------------------------------------------------------- | :------------------------------- | :--------- | :-------------------------- |
+| 2024-12-20 | [BJ 15649](<./Problem/Solved/Baekjoon/Silver/3/BJ_15649/__N과_M_(1)__.md>)                    | N과 M (1)                        | `#SilverⅢ` | `#백트래킹`                 |
+| 2024-12-23 | [BJ 15650](<./Problem/Solved/Baekjoon/Silver/3/BJ_15650/__N과_M_(2)__.md>)                    | N과 M (2)                        | `#SilverⅢ` | `#백트래킹`                 |
+| 2024-12-23 | [BJ 15651](<./Problem/Solved/Baekjoon/Silver/3/BJ_15651/__N과_M_(3)__.md>)                    | N과 M (3)                        | `#SilverⅢ` | `#백트래킹`                 |
+| 2024-12-23 | [BJ 15652](<./Problem/Solved/Baekjoon/Silver/3/BJ_15652/__N과_M_(4)__.md>)                    | N과 M (4)                        | `#SilverⅢ` | `#백트래킹`                 |
+| 2024-12-24 | [BJ 15654](<./Problem/Solved/Baekjoon/Silver/3/BJ_15654/__N과_M_(5)__.md>)                    | N과 M (5)                        | `#SilverⅢ` | `#백트래킹`                 |
+| 2024-12-24 | [BJ 15655](<./Problem/Solved/Baekjoon/Silver/3/BJ_15655/__N과_M_(6)__.md>)                    | N과 M (6)                        | `#SilverⅢ` | `#백트래킹`                 |
+| 2024-12-24 | [BJ 15656](<./Problem/Solved/Baekjoon/Silver/3/BJ_15656/__N과_M_(7)__.md>)                    | N과 M (7)                        | `#SilverⅢ` | `#백트래킹`                 |
+| 2024-12-25 | [BJ 15657](<./Problem/Solved/Baekjoon/Silver/3/BJ_15657/__N과_M_(8)__.md>)                    | N과 M (8)                        | `#SilverⅢ` | `#백트래킹`                 |
+| 2024-12-26 | [BJ 15663](<./Problem/Solved/Baekjoon/Silver/2/BJ_15663/__N과_M_(9)__.md>)                    | N과 M (9)                        | `#SilverⅡ` | `#백트래킹`                 |
+| 2024-12-27 | [BJ 15664](<./Problem/Solved/Baekjoon/Silver/2/BJ_15664/__N과_M_(10)__.md>)                   | N과 M (10)                       | `#SilverⅡ` | `#백트래킹`                 |
+| 2024-12-27 | [BJ 15665](<./Problem/Solved/Baekjoon/Silver/2/BJ_15665/__N과_M_(11)__.md>)                   | N과 M (11)                       | `#SilverⅡ` | `#백트래킹`                 |
+| 2024-12-29 | [BJ 15666](<./Problem/Solved/Baekjoon/Silver/2/BJ_15666/__M과_N_(12)__.md>)                   | N과 M (12)                       | `#SilverⅡ` | `#백트래킹`                 |
+| 2025-01-09 | [BJ 4963](./Problem/Solved/Baekjoon/Silver/2/BJ_4963/__섬의_개수__.md)                        | 섬의 개수                        | `#SilverⅡ` | `#그래프이론` `#그래프탐색` |
+| 2025-01-09 | [BJ 1992](./Problem/Solved/Baekjoon/Silver/1/BJ_1992/__쿼드트리__.md)                         | 쿼드트리                         | `#SilverⅠ` | `#분할정복` `#재귀`         |
+| 2025-01-13 | [BJ 15686](./Problem/Solved/Baekjoon/Gold/5/BJ_15686/__치킨_배달__.md)                        | 치킨 배달                        | `#GoldⅤ`   | `#그래프탐색`               |
+| 2025-03-07 | [BJ 3040](./Problem/Solved/Baekjoon/Bronze/2/BJ_3040/__백설_공주와_일곱_난쟁이__.md)          | 백설 공주와 일곱 난쟁이          | `#BronzeⅡ` | `#브루트포스`               |
+| 2024-05-04 | [BJ 2999](./Problem/Solved/Baekjoon/Bronze/1/BJ_2999/__비밀_이메일__.md)                      | 비밀이메일                       | `#D5`      | `#문자열`                   |
+| 2025-09-08 | [BJ 3985](./Problem/Solved/Baekjoon/Bronze/1/BJ_3985/__롤_케이크__.md)                        | 롤 케이크                        | `#BronzeⅠ` | `#시뮬레이션`               |
+| 2025-09-09 | [BJ 5397](./Problem/Solved/Baekjoon/Silver/2/BJ_5397/__키로거__.md)                           | 키로거                           | `#SilverⅡ` | `#자료구조` `#연결리스트`   |
+| 2025-09-12 | [BJ 1629](./Problem/Solved/Baekjoon/Silver/1/BJ_1629/__곱셈__.md)                             | 곱셈                             | `#SilverⅠ` | `#수학` `#분할정복`         |
+| 2024-06-16 | [BJ 11726](./Problem/Solved/Baekjoon/Silver/3/BJ_11726/__2×n_타일링__.md)                     | 2×n 타일링                       | `#SilverⅢ` | `#동적계획법`               |
+| 2025-09-19 | [BJ 8320](./Problem/Solved/Baekjoon/Bronze/2/BJ_8320/__직사각형을_만드는_방법__.md)           | 직사각형을 만드는 방법           | `#BronzeⅡ` | `#수학`                     |
+| 2025-10-07 | [BJ 2309](./Problem/Solved/Baekjoon/Bronze/1/BJ_2309/__일곱_난쟁이__.md)                      | 일곱 난쟁이                      | `#BronzeⅠ` | `#브루트포스` `#정렬`       |
+| 2025-10-07 | [BJ 10808](./Problem/Solved/Baekjoon/Bronze/4/BJ_10808/__알파벳_개수__.md)                    | 알파벳 개수                      | `#BronzeⅣ` | `#문자열`                   |
+| 2025-10-08 | [BJ 2979](./Problem/Solved/Baekjoon/Bronze/2/BJ_2979/__트럭_주차__.md)                        | 트럭 주차                        | `#BronzeⅡ` | `#정렬`                     |
+| 2025-10-08 | [BJ 10988](./Problem/Solved/Baekjoon/Bronze/3/BJ_10988/__팰린드롬인지_확인하기__.md)          | 팰린드롬인지 확인하기            | `#BronzeⅢ` | `#문자열`                   |
+| 2025-10-09 | [BJ 1159](./Problem/Solved/Baekjoon/Bronze/2/BJ_1159/__농구_경기__.md)                        | 농구 경기                        | `#BronzeⅡ` | `#문자열`                   |
+| 2025-10-09 | [BJ 11655](./Problem/Solved/Baekjoon/Bronze/1/BJ_11655/__ROT13__.md)                          | ROT13                            | `#BronzeⅠ` | `#문자열`                   |
+| 2025-10-10 | [BJ 9996](./Problem/Solved/Baekjoon/Silver/3/BJ_9996/__한국이_그리울_땐_서버에_접속하지__.md) | 한국이 그리울 땐 서버에 접속하지 | `#SilverⅢ` | `#문자열`                   |
+| 2025-10-10 | [BJ 2559](./Problem/Solved/Baekjoon/Silver/3/BJ_2559/__수열__.md)                             | 수열                             | `#SilverⅢ` | `#누적합`                   |
+| 2025-10-10 | [BJ 1620](./Problem/Solved/Baekjoon/Silver/4/BJ_1620/__나는야_포켓몬_마스터_이다솜__.md)      | 나는야 포켓몬 마스터 이다솜      | `#SilverⅣ` | `#집합`                     |
+| 2025-10-10 | [BJ 9375](./Problem/Solved/Baekjoon/Silver/3/BJ_9375/__패션왕_신해빈__.md)                    | 패션왕 신해빈                    | `#SilverⅢ` | `#집합`                     |
+| 2025-10-10 | [BJ 1213](./Problem/Solved/Baekjoon/Silver/3/BJ_1213/__팰린드롬_만들기__.md)                  | 팰린드롬 만들기                  | `#SilverⅢ` | `#문자열`                   |
+| 2025-10-11 | [BJ 1940](./Problem/Solved/Baekjoon/Silver/4/BJ_1940/__주몽__.md)                             | 주몽                             | `#SilverⅣ` | `#정렬`                     |
 
 -   | 예시-xx-xx | [BJ xxxx](./Problem/__X_X__.md) | X X | `#Level_DⅠⅡⅢⅣⅤ` | `#태그` |
 
@@ -90,8 +96,7 @@
 | :--------- | :--------------------------------------------------------------------------------- | :-------------- | :-------------- | :------- |
 | 예시-xx-xx | [BJ xxxx](./Problem/__X_X__.md)                                                    | X X             | `#Level_DⅠⅡⅢⅣⅤ` | `#태그`  |
 | 중단       | [PG 42627](./Problem/Unsolved/Programmers/Level_3/PG_42627/__디스크_컨트롤러__.md) | 디스크 컨트롤러 | `#Level_3`      | `#태그`  |
-
-| 중단 | [BJ 14502](https://www.acmicpc.net/problem/14502) | 연구소 | `#Level_3` | `#태그` |
+| 중단       | [BJ 14502](https://www.acmicpc.net/problem/14502)                                  | 연구소          | `#Level_3`      | `#태그`  |
 
 <br />
 

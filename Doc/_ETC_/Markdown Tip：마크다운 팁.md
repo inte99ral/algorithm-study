@@ -8,36 +8,40 @@
 
 &nbsp; settings.json 에서 설정을 조정할 수 있습니다.
 
-- 자동 갱신 해제 : `"markdown.extension.toc.updateOnSave": false`
-- 헤더 깊이 설정 : `"markdown.extension.toc.levels": "1..3"   // 1에서 3단계 헤딩까지만 포함`
-- 목차 표기 변경 `"markdown.extension.toc.orderedList": false // 숫자 아닌 불릿(•)으로 표시할지 여부`
+-   자동 갱신 해제 : `"markdown.extension.toc.updateOnSave": false`
+-   헤더 깊이 설정 : `"markdown.extension.toc.levels": "1..3"   // 1에서 3단계 헤딩까지만 포함`
+-   목차 표기 변경 `"markdown.extension.toc.orderedList": false // 숫자 아닌 불릿(•)으로 표시할지 여부`
 
 ## 스타일리쉬 블록
 
-- Tip 블록
+-   Tip 블록
 
-  > [!TIP]
-  > DON'T DELETE THE `package.json` file!
+    > [!TIP]
+    > DON'T DELETE THE `package.json` file!
 
-- Note 블록
+-   Note 블록
 
-  > [!NOTE]
-  > DON'T DELETE THE `package.json` file!
+    > [!NOTE]
+    > DON'T DELETE THE `package.json` file!
 
-- Important 블록
+::: warn
+이건 경고 블록입니다.
+:::
 
-  > [!IMPORTANT]
-  > Read the contribution guideline before adding a pull request.
+-   Important 블록
 
-- Warning 블록
+    > [!IMPORTANT]
+    > Read the contribution guideline before adding a pull request.
 
-  > [!WARNING]
-  > DON'T DELETE THE `package.json` file!
+-   Warning 블록
 
-- Caution 블록
+    > [!WARNING]
+    > DON'T DELETE THE `package.json` file!
 
-  > [!CAUTION]
-  > 조심해야 할 사항을 안내합니다.
+-   Caution 블록
+
+    > [!CAUTION]
+    > 조심해야 할 사항을 안내합니다.
 
 ## TeX and LaTeX 문법
 
@@ -862,8 +866,8 @@ int main() {
 
 ## 가로 폭이 더 큰 CSS
 
-- 코드블럭이나 table은 overflow 시에 스크롤 취급을 해줍니다.
-- css min-width 적용을 못하여 가로 폭이 축소되는 부분을 table을 사용하여 글씨나 공백을 이용하여 넓혀줍니다. 한 글씨가 14px ~ 16px 정도인게 일반적입니다.
+-   코드블럭이나 table은 overflow 시에 스크롤 취급을 해줍니다.
+-   css min-width 적용을 못하여 가로 폭이 축소되는 부분을 table을 사용하여 글씨나 공백을 이용하여 넓혀줍니다. 한 글씨가 14px ~ 16px 정도인게 일반적입니다.
 
 <details>
   <summary>테스트 00</summary>
@@ -898,8 +902,8 @@ int main() {
 
 &nbsp; 이 편법의 구현에는 두 가지 포인트가 있습니다.
 
-- 첫번째 포인트는 SVG 파일을 이미지 취급하여 `<img src="./file.svg" alt="" /> ` 처럼 마크다운 문서에서 띄울 수 있다는 점 입니다.
-- 두번째 포인트는 SVG에서 `<foreignObject>` 태그를 통하여 텍스트 문서나 HTML 오브젝트를 지원한다는 부분입니다.
+-   첫번째 포인트는 SVG 파일을 이미지 취급하여 `<img src="./file.svg" alt="" /> ` 처럼 마크다운 문서에서 띄울 수 있다는 점 입니다.
+-   두번째 포인트는 SVG에서 `<foreignObject>` 태그를 통하여 텍스트 문서나 HTML 오브젝트를 지원한다는 부분입니다.
 
 결과적으로 SVG 구현을 경유하여 HTML 오브젝트를 Markdown 문서에 간접적으로 구현이 가능합니다. 이 경우엔 결론적으론 그저 SVG 이미지를 띄운 것이기에 Github의 README.md 마크다운 문서에서도 구현이 됩니다.
 
@@ -910,67 +914,67 @@ int main() {
 ```html
 <!DOCTYPE html>
 <html>
-  <style>
-    @font-face {
-      font-family: NanumSquareNeoEb;
-      src: url(../font/NanumSquareNeo/NanumSquareNeo-dEb.ttf);
-    }
+    <style>
+        @font-face {
+            font-family: NanumSquareNeoEb;
+            src: url(../font/NanumSquareNeo/NanumSquareNeo-dEb.ttf);
+        }
 
-    :root {
-      --size-width: 852px; /* width value */
-      --size-height: 284px; /* height value */
-    }
+        :root {
+            --size-width: 852px; /* width value */
+            --size-height: 284px; /* height value */
+        }
 
-    * {
-      font-family: NanumSquareNeoEb;
-      box-sizing: border-box;
-      background-color: inherit;
-      padding: 0;
-      margin: 0;
-      border: 0;
-    }
+        * {
+            font-family: NanumSquareNeoEb;
+            box-sizing: border-box;
+            background-color: inherit;
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
 
-    body {
-      /* border: 1px solid black; <===== Test line */
-      width: var(--size-width);
-      height: var(--size-height);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+        body {
+            /* border: 1px solid black; <===== Test line */
+            width: var(--size-width);
+            height: var(--size-height);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    .header {
-      width: calc(100% - 12px);
-      height: calc(100% - 12px);
-      border-radius: 24px;
+        .header {
+            width: calc(100% - 12px);
+            height: calc(100% - 12px);
+            border-radius: 24px;
 
-      /* background: linear-gradient(150deg, #6aa5e3, #6866e9); */
+            /* background: linear-gradient(150deg, #6aa5e3, #6866e9); */
 
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
 
-      /* color: white; */
-      font-size: 24px;
-      overflow: hidden;
-    }
+            /* color: white; */
+            font-size: 24px;
+            overflow: hidden;
+        }
 
-    .outer {
-      box-shadow: 4px 4px 10px -1px rgba(0, 0, 0, 0.25), -4px -4px 10px -1px rgba(255, 255, 255, 0.25);
-    }
+        .outer {
+            box-shadow: 4px 4px 10px -1px rgba(0, 0, 0, 0.25), -4px -4px 10px -1px rgba(255, 255, 255, 0.25);
+        }
 
-    .inner {
-      box-shadow: inset 4px 4px 10px -1px rgba(0, 0, 0, 0.25), inset -4px -4px 10px -1px rgba(255, 255, 255, 0.25);
-    }
-  </style>
-  <body>
-    <div class="header outer">
-      <div>Hello, world!</div>
-      <div>안녕, 세계!</div>
-    </div>
-  </body>
+        .inner {
+            box-shadow: inset 4px 4px 10px -1px rgba(0, 0, 0, 0.25), inset -4px -4px 10px -1px rgba(255, 255, 255, 0.25);
+        }
+    </style>
+    <body>
+        <div class="header outer">
+            <div>Hello, world!</div>
+            <div>안녕, 세계!</div>
+        </div>
+    </body>
 </html>
 ```
 
@@ -978,16 +982,16 @@ int main() {
 
 ```html
 <svg fill="none" viewBox="0 0 852 284" width="852" height="284" xmlns="http://www.w3.org/2000/svg">
-  <foreignObject width="100%" height="100%">
-    <div id="html" xmlns="http://www.w3.org/1999/xhtml">
-      <style>
-        <!-- ... 생략 ... -->
-      </style>
-      <body>
-        <!-- ... 생략 ... -->
-      </body>
-    </div>
-  </foreignObject>
+    <foreignObject width="100%" height="100%">
+        <div id="html" xmlns="http://www.w3.org/1999/xhtml">
+            <style>
+                <!-- ... 생략 ... -->
+            </style>
+            <body>
+                <!-- ... 생략 ... -->
+            </body>
+        </div>
+    </foreignObject>
 </svg>
 ```
 
