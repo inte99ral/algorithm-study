@@ -1,6 +1,12 @@
-# AI Gemini CLI : 인공지능 제미니 CLI
+# AI：인공지능
 
-## 설치방법
+## 브금
+
+-   [BGM AI](https://youtu.be/JmYEVPK0Ea0)
+
+## AI Gemini CLI : 인공지능 제미니 CLI
+
+### 설치방법
 
 -   node.js 및 <b>npm</b> 설치
 
@@ -16,7 +22,7 @@ npm install -g @google/gemini-cli
 set-executionPolicy remotesigned
 ```
 
-## 사용방법
+### 사용방법
 
 터미널에 gemini 를 입력하면 기동합니다.
 

@@ -847,7 +847,7 @@ $a \perp p$
 
 ## 코드 확장/축소
 
-<details>
+<details open>
   <summary>
 
 ```cpp
