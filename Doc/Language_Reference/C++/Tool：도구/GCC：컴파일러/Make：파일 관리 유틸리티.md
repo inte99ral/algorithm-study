@@ -14,265 +14,335 @@
 
 ### 자동 변수
 
-- [참고링크](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html)
+-   [참고링크](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html)
 
-<table>
-<tr>
-  <th>자동 변수</th>
-  <th>의미</th>
-</tr>
-<tr>
-  <td align="center">
+-   <table>
+    <tr>
+    <th>자동 변수</th>
+    <th>의미</th>
+    </tr>
+    <tr>
+    <td align="center">
 
-`%`
+    `%`
 
-  </td>
-  <td align="left">
+    </td>
+    <td align="left">
 
-&nbsp; 패턴규칙을 의미하는 문법입니다. <br/>
-&nbsp; 예를 들어서 `%.o: %.cpp` 로 정의한 규칙이 있다면 example.o 로 끝나는 타겟에서는 example.cpp 를 찾아서 해당 규칙이 적용됩니다.
+    &nbsp; 패턴규칙을 의미하는 문법입니다. <br/>
+    &nbsp; 예를 들어서 `%.o: %.cpp` 로 정의한 규칙이 있다면 example.o 로 끝나는 타겟에서는 example.cpp 를 찾아서 해당 규칙이 적용됩니다.
 
-  </td>
-</tr>
-<tr>
-  <td align="center">
+    </td>
+    </tr>
+    <tr>
+    <td align="center">
 
-`$@`
+    `$@`
 
-  </td>
-  <td align="left">
+    </td>
+    <td align="left">
 
-&nbsp; 현재 규칙의 타겟(target) 파일 이름을 의미합니다.<br/>
-&nbsp; 예를 들어 `%.o: %.cpp` 규칙에서 main.o 를 만들 때, `$@` 는 main.o 가 됩니다.
+    &nbsp; 현재 규칙의 타겟(target) 파일 이름을 의미합니다.<br/>
+    &nbsp; 예를 들어 `%.o: %.cpp` 규칙에서 main.o 를 만들 때, `$@` 는 main.o 가 됩니다.
 
-  </td>
-</tr>
-<tr>
-  <td align="center">
+    </td>
+    </tr>
+    <tr>
+    <td align="center">
 
-`$*`
+    `$*`
 
-  </td>
-  <td align="left">
+    </td>
+    <td align="left">
 
-&nbsp; 현재 규칙의 타겟(target) 파일 이름에서 확장자가 없는 이름을 의미합니다.<br/>
-&nbsp; 예를 들어 `%.o: %.cpp` 규칙에서 main.o 를 만들 때, `$*` 는 main 이 됩니다.
+    &nbsp; 현재 규칙의 타겟(target) 파일 이름에서 확장자가 없는 이름을 의미합니다.<br/>
+    &nbsp; 예를 들어 `%.o: %.cpp` 규칙에서 main.o 를 만들 때, `$*` 는 main 이 됩니다.
 
-  </td>
-</tr>
-<tr>
-  <td align="center">
+    </td>
+    </tr>
+    <tr>
+    <td align="center">
 
-`$<`
+    `$<`
 
-  </td>
-  <td align="left">
+    </td>
+    <td align="left">
 
-&nbsp; 현재 타겟의 의존성 중 첫 번째 파일을 의미합니다.<br/>
-&nbsp; 예를 들어 `program: main.o hello.o` 에서 `$<` 는 main.o 가 됩니다.
+    &nbsp; 현재 타겟의 의존성 중 첫 번째 파일을 의미합니다.<br/>
+    &nbsp; 예를 들어 `program: main.o hello.o` 에서 `$<` 는 main.o 가 됩니다.
 
-  </td>
-</tr>
-<tr>
-  <td align="center">
+    </td>
+    </tr>
+    <tr>
+    <td align="center">
 
-`$+`
+    `$+`
 
-  </td>
-  <td align="left">
+    </td>
+    <td align="left">
 
-&nbsp; 현재 타겟의 모든 의존성들을 중복을 포함하여 공백으로 구분한 값입니다.<br/>
-&nbsp; 여러 개의 의존 파일이 있을 때, 공백으로 구분된 전체 목록을 나타냅니다.<br/>
-&nbsp; 예를 들어 `program: main.o hello.o` 에서 `$^`는 main.o hello.o main.o 가 됩니다.
+    &nbsp; 현재 타겟의 모든 의존성들을 중복을 포함하여 공백으로 구분한 값입니다.<br/>
+    &nbsp; 여러 개의 의존 파일이 있을 때, 공백으로 구분된 전체 목록을 나타냅니다.<br/>
+    &nbsp; 예를 들어 `program: main.o hello.o` 에서 `$^`는 main.o hello.o main.o 가 됩니다.
 
-  </td>
-</tr>
-<tr>
-  <td align="center">
+    </td>
+    </tr>
+    <tr>
+    <td align="center">
 
-`$^`
+    `$^`
 
-  </td>
-  <td align="left">
+    </td>
+    <td align="left">
 
-&nbsp; 현재 타겟의 모든 의존성들을 중복은 제외하고 공백으로 구분한 값입니다.<br/>
-&nbsp; 여러 개의 의존 파일이 있을 때, 공백으로 구분된 전체 목록을 나타냅니다.<br/>
-&nbsp; 예를 들어 `program: main.o hello.o main.o` 에서 `$^`는 main.o hello.o가 됩니다.<br/>
-&nbsp; make 의 함수를 이용하여 `$(word 2, $^)` 이런 방법으로 특정 인덱스(저 경우 2번째 의존성) 의존성 값만 얻어낼 수도 있습니다.
+    &nbsp; 현재 타겟의 모든 의존성들을 중복은 제외하고 공백으로 구분한 값입니다.<br/>
+    &nbsp; 여러 개의 의존 파일이 있을 때, 공백으로 구분된 전체 목록을 나타냅니다.<br/>
+    &nbsp; 예를 들어 `program: main.o hello.o main.o` 에서 `$^`는 main.o hello.o가 됩니다.<br/>
+    &nbsp; make 의 함수를 이용하여 `$(word 2, $^)` 이런 방법으로 특정 인덱스(저 경우 2번째 의존성) 의존성 값만 얻어낼 수도 있습니다.
 
-  </td>
-</tr>
-</table>
+    </td>
+    </tr>
+    </table>
 
 ### 특수 문법
 
-<table>
-<tr>
-  <th>특수 문법</th>
-  <th>의미</th>
-</tr>
-<tr>
-  <td>
-  
-`dir 문자열`
-  
-  </td>
-  <td>
-  
-&nbsp; 문자열에서 경로 부분만 추출합니다. <br/>
-&nbsp; 예를 들어서 `dir src/example.cpp` 는 `src/` 가 됩니다.<br/>
+-   루프
 
-  </td>
-</tr>
-<tr>
-  <td>
-  
-`$(addsuffix 접미사, 문자열)`
-  
-  </td>
-  <td>
-  
-&nbsp; 문자열의 뒤에 접미사를 붙입니다. <br/>
-&nbsp; 예를 들어서 `$(addsufix  .c, memo  main)` 는 `memo.c   main.c` 가 됩니다.
+    -   **foreach를 사용하여 명령줄 자체를 생성하는 방법 (권장)**
 
-  </td>
-</tr>
-<tr>
-  <td>
-  
-`$(addprefix 접두어, 문자열)`
-  
-  </td>
-  <td>
-  
-&nbsp; 문자열의 앞에 접두사를 붙입니다. <br/>
-&nbsp; 예를 들어서 `$(addprefix src/, memo main)` 는 `src/memo   src/main` 가 됩니다.
+        ```makefile
+        arr := A B C
 
-  </td>
-</tr>
-<tr>
-  <td>
-  
-`$(shell <shell-command>)`
-  
-  </td>
-  <td>
-  
-&nbsp; shell 명령에 대한 결과값이 명령대체 됩니다. <br/>
-&nbsp; 예를 들어서 `SH = $(shell ls *.c)` 이라고 하면 SH 변수에 .c 로 끝나는 파일들을 검색한 ls 명령 결과값이 입력됩니다.
+        # foreach 함수를 사용하여 각 요소에 대해 echo 명령을 생성하고 세미콜론으로 연결
+        # 이 결과는 'echo A; echo B; echo C;' 와 같은 하나의 긴 문자열이 됨.
+        ECHO_COMMANDS := $(foreach i, $(arr) ,echo $(i);)
+        ```
 
-  </td>
-</tr>
-<tr>
-  <td>
-  
-`$(subst 찾을 문자, 변경할 문자, 대상 문자)`
-  
-  </td>
-  <td>
-  
-&nbsp; "대상문자"에서 "찾을 문자"를 "변경할 문자"로 변경해 줍니다.<br/>
-&nbsp; `$(subst /,\,$(dir $@))` cmd 와 unix-like 환경 사이에서 경로의 역슬래시와 슬래시를 바꾸는 것 또한 다음과 같이 쉽게 가능합니다.
+    -   쉘(Shell)의 for 반복문을 사용하는 방법
 
-  </td>
-</tr>
-<tr>
-  <td>
-  
-`$(patsubst 찾을 패턴, 변경할 패턴, 대상 문자)`
-  
-  </td>
-  <td>
-  
-&nbsp; subst와 기능은 동일하나 확장자를 바꿀때 사용합니다.
+        (레시피 내에서 더 직관적, 쉘 변수는 Make 변수와 구분하기 위해 이중 달러($$)를 사용합니다.)
 
-  </td>
-</tr>
-<tr>
-  <td>
-  
-`$(strip 대상문자)`
-  
-  </td>
-  <td>
-  
-&nbsp; 대상문자에서 모든 공백을 1칸으로 줄여줍니다. 여백이 많아도 모두 1칸으로 변경됩니다.
+        ```makefile
+        alp := A B C
 
-  </td>
-</tr>
-<tr>
-  <td>
-  
-`$(filter 찾을 문자, 대상문자)`
-  
-  </td>
-  <td>
-  
-&nbsp; 대상문자에서 찾을 문자를 포함한 문자들을 찾아서 저장합니다.
+        print_shell_for:
+        	# Make 변수 $(alp)를 쉘 명령에 전달
+        	@for i in $(alp); do \
+        		echo $$i; \
+        	done
+        ```
 
-  </td>
-</tr>
-<tr>
-  <td>
-  
-`$(filter-out 찾을 문자, 대상문자)`
-  
-  </td>
-  <td>
-  
-&nbsp; filter와 반대로 찾을 문자가 있는 경우를 제외하고 저장합니다.
+-   구동
 
-  </td>
-</tr>
-<tr>
-  <td>
-  
-`$(join 원본문자, 붙일문자)`
-  
-  </td>
-  <td>
-  
-&nbsp; 원본문자와 붙일문자를 붙여서 한 문자로 만듭니다.
+    `$(call ...)`은 텍스트를 생성할 뿐이고, `$(eval ...)`은 그 텍스트를 실제 Make 구문으로 인식하고 실행하게 만드는 역할을 합니다.
 
-  </td>
-</tr>
-<tr>
-  <td>
-  
-`$(dir 대상문자)`
-  
-  </td>
-  <td>
-  
-&nbsp; 대상문자에서 파일문자를 제외한 경로명만 추출합니다.
+    ```makefile
+    .PHONY: default test
+    default: test
 
-  </td>
-</tr>
-<tr>
-  <td>
-  
-`$(notdir 대상문자)`
-  
-  </td>
-  <td>
-  
-&nbsp; 대상문자에서 파일명만 추출합니다.
+    # %.o 의존성을 정의하는 매크로
+    define BUILD_DEPS_RULE
+    build/$(1).o: $(1).cpp
+    	@ECHO "build: $(1)"
+    endef
 
-  </td>
-</tr>
-<tr>
-  <td>
-  
-`$(baseanme 대상문자)`
-  
-  </td>
-  <td>
-  
-&nbsp; 대상문자에서 확장자를 제외한 문자를 알려준다.
+    # x.o 에 대한 규칙을 생성
+    $(eval $(call BUILD_DEPS_RULE, x))
+    # y.o 에 대한 규칙을 생성
+    $(eval $(call BUILD_DEPS_RULE, y))
 
-  </td>
-</tr>
-</table>
+    test: y.o x.o
+    	@ECHO "TEST"
+    ```
+
+-   문법 테이블
+    <table>
+    <tr>
+    <th>특수 문법</th>
+    <th>의미</th>
+    </tr>
+    <tr>
+    <td>
+
+    `dir 문자열`
+
+    </td>
+    <td>
+
+    &nbsp; 문자열에서 경로 부분만 추출합니다. <br/>
+    &nbsp; 예를 들어서 `dir src/example.cpp` 는 `src/` 가 됩니다.<br/>
+
+    </td>
+    </tr>
+    <tr>
+    <td>
+
+    `$(addsuffix 접미사, 문자열)`
+
+    </td>
+    <td>
+
+    &nbsp; 문자열의 뒤에 접미사를 붙입니다. <br/>
+    &nbsp; 예를 들어서 `$(addsufix  .c, memo  main)` 는 `memo.c   main.c` 가 됩니다.
+
+    </td>
+    </tr>
+    <tr>
+    <td>
+
+    `$(addprefix 접두어, 문자열)`
+
+    </td>
+    <td>
+
+    &nbsp; 문자열의 앞에 접두사를 붙입니다. <br/>
+    &nbsp; 예를 들어서 `$(addprefix src/, memo main)` 는 `src/memo   src/main` 가 됩니다.
+
+    </td>
+    </tr>
+    <tr>
+    <td>
+
+    `$(shell <shell-command>)`
+
+    </td>
+    <td>
+
+    &nbsp; shell 명령에 대한 결과값이 명령대체 됩니다. <br/>
+    &nbsp; 예를 들어서 `SH = $(shell ls *.c)` 이라고 하면 SH 변수에 .c 로 끝나는 파일들을 검색한 ls 명령 결과값이 입력됩니다.
+
+    </td>
+    </tr>
+    <tr>
+    <td>
+
+    `$(subst 찾을 문자, 변경할 문자, 대상 문자)`
+
+    </td>
+    <td>
+
+    &nbsp; `subst`(대체, Substitution) 명령어는 대상 문자열 내에서 특정 문자열을 찾아 정확히 일치하는 모든 항목을 대체합니다. 와일드카드나 패턴 매칭 기능은 없습니다.
+
+    &nbsp; "대상문자"에서 "찾을 문자"를 "변경할 문자"로 변경해 줍니다.<br/>
+    &nbsp; `$(subst /,\,$(dir $@))` cmd 와 unix-like 환경 사이에서 경로의 역슬래시와 슬래시를 바꾸는 것 또한 다음과 같이 쉽게 가능합니다.
+
+    </td>
+    </tr>
+    <tr>
+    <td>
+
+    `$(patsubst 찾을 패턴, 변경할 패턴, 대상 문자)`
+
+    </td>
+    <td>
+
+    &nbsp; `patsubst`(패턴 대체, Pattern Substitution) 명령어는 대상 문자열을 공백으로 구분된 단어들로 간주하고, 각 단어에 대해 패턴 매칭을 수행하여 대체합니다. 이때 와일드카드 역할을 하는 %를 사용합니다.
+
+    &nbsp; subst와 기능은 동일하나 와일드 카드를 통해 `$(patsubst %.cpp, %.o, $(SRCS))` 처럼 확장자를 바꿀 때에 주로 사용됩니다.
+
+    </td>
+    </tr>
+    <tr>
+    <td>
+
+    `$(대상 문자:찾을 패턴=변경할 패턴)`
+
+    </td>
+    <td>
+
+    &nbsp; 변수 참조 수정자(Variable Reference Modifier) 문법은 내부적으로 patsubst 함수 호출과 동일하게 처리됩니다. 예를 들어, `$(SRCS:%.cpp=build/%.o)` 는 `$(patsubst %.cpp,build/%.o,$(SRCS))` 와 동일한 결과를 냅니다.
+
+    &nbsp; patsubst에 비해 코드가 훨씬 짧고 간결하고, make 초창기부터 사용되던 전통적인 방식이므로 단일 패턴 대체 시 가장 선호됩니다.
+
+    &nbsp; 다만, 하지만 복잡한 문자열 조작이나 다른 함수와의 명확한 순서가 필요하다면 patsubst 함수 형태를 사용하는 것이 좋습니다.
+
+    </td>
+    </tr>
+    <tr>
+    <td>
+
+    `$(strip 대상문자)`
+
+    </td>
+    <td>
+
+    &nbsp; 대상문자에서 모든 공백을 1칸으로 줄여줍니다. 여백이 많아도 모두 1칸으로 변경됩니다.
+
+    </td>
+    </tr>
+    <tr>
+    <td>
+
+    `$(filter 찾을 문자, 대상문자)`
+
+    </td>
+    <td>
+
+    &nbsp; 대상문자에서 찾을 문자를 포함한 문자들을 찾아서 저장합니다.
+
+    </td>
+    </tr>
+    <tr>
+    <td>
+
+    `$(filter-out 찾을 문자, 대상문자)`
+
+    </td>
+    <td>
+
+    &nbsp; filter와 반대로 찾을 문자가 있는 경우를 제외하고 저장합니다.
+
+    </td>
+    </tr>
+    <tr>
+    <td>
+
+    `$(join 원본문자, 붙일문자)`
+
+    </td>
+    <td>
+
+    &nbsp; 원본문자와 붙일문자를 붙여서 한 문자로 만듭니다.
+
+    </td>
+    </tr>
+    <tr>
+    <td>
+
+    `$(dir 대상문자)`
+
+    </td>
+    <td>
+
+    &nbsp; 대상문자에서 파일문자를 제외한 경로명만 추출합니다.
+
+    </td>
+    </tr>
+    <tr>
+    <td>
+
+    `$(notdir 대상문자)`
+
+    </td>
+    <td>
+
+    &nbsp; 대상문자에서 파일명만 추출합니다.
+
+    </td>
+    </tr>
+    <tr>
+    <td>
+
+    `$(baseanme 대상문자)`
+
+    </td>
+    <td>
+
+    &nbsp; 대상문자에서 확장자를 제외한 문자를 알려준다.
+
+    </td>
+    </tr>
+    </table>
 
 ## 설치과정
 
@@ -322,11 +392,11 @@ mingw32-make --version
 
 &nbsp; Makefile 관련 파일은 파일명이 아래과 같은 파일들을 말합니다.
 
-- GNUmakefile
+-   GNUmakefile
 
-- makefile
+-   makefile
 
-- Makefile
+-   Makefile
 
 &nbsp; 위의 목록은 우선도 순으로 나열한 것으로, 만약 터미널이 작업하는 위치에 "GNUmakefile" 파일과 "Makefile" 파일이 동시에 있다면 "GNUmakefile" 파일이 선택됩니다.
 
@@ -357,67 +427,67 @@ run1:
 
 &nbsp; 변수를 사용할 때는 $(『Variable』) 로 사용할 수 있으며 다음과 같은 자동 변수(automatic variables) 또한 사용할 수 있습니다.
 
-<table>
-<tr>
-  <th>자동 변수</th>
-  <th>의미</th>
-</tr>
-<tr>
-  <td align="center">
+-   <table>
+    <tr>
+    <th>자동 변수</th>
+    <th>의미</th>
+    </tr>
+    <tr>
+    <td align="center">
 
-`$@`
+    `$@`
 
-  </td>
-  <td align="left">
+    </td>
+    <td align="left">
 
-현재 규칙의 타겟(target) 파일 이름을 의미합니다.<br/>
-예를 들어 `%.o: %.cpp` 규칙에서 main.o 를 만들 때, `$@` 는 main.o가 됩니다.
+    현재 규칙의 타겟(target) 파일 이름을 의미합니다.<br/>
+    예를 들어 `%.o: %.cpp` 규칙에서 main.o 를 만들 때, `$@` 는 main.o가 됩니다.
 
-  </td>
-</tr>
-<tr>
-  <td align="center">
+    </td>
+    </tr>
+    <tr>
+    <td align="center">
 
-`$+`
+    `$+`
 
-  </td>
-  <td align="left">
+    </td>
+    <td align="left">
 
-현재 타겟의 모든 의존성들을 중복을 포함하여 공백으로 구분한 값입니다.<br/>
-여러 개의 의존 파일이 있을 때, 공백으로 구분된 전체 목록을 나타냅니다.<br/>
-예를 들어 `program: main.o hello.o main.o` 에서 `$^`는 main.o hello.o main.o가 됩니다.
+    현재 타겟의 모든 의존성들을 중복을 포함하여 공백으로 구분한 값입니다.<br/>
+    여러 개의 의존 파일이 있을 때, 공백으로 구분된 전체 목록을 나타냅니다.<br/>
+    예를 들어 `program: main.o hello.o main.o` 에서 `$^`는 main.o hello.o main.o가 됩니다.
 
-  </td>
-</tr>
-<tr>
-  <td align="center">
+    </td>
+    </tr>
+    <tr>
+    <td align="center">
 
-`$^`
+    `$^`
 
-  </td>
-  <td align="left">
+    </td>
+    <td align="left">
 
-현재 타겟의 모든 의존성들을 중복은 제외하고 공백으로 구분한 값입니다.<br/>
-여러 개의 의존 파일이 있을 때, 공백으로 구분된 전체 목록을 나타냅니다.<br/>
-예를 들어 `program: main.o hello.o main.o` 에서 `$^`는 main.o hello.o가 됩니다.<br/>
-make 의 함수를 이용하여 `$(word 2, $^)` 이런 방법으로 특정 인덱스(저 경우 2번째 의존성) 의존성 값만 얻어낼 수도 있습니다.
+    현재 타겟의 모든 의존성들을 중복은 제외하고 공백으로 구분한 값입니다.<br/>
+    여러 개의 의존 파일이 있을 때, 공백으로 구분된 전체 목록을 나타냅니다.<br/>
+    예를 들어 `program: main.o hello.o main.o` 에서 `$^`는 main.o hello.o가 됩니다.<br/>
+    make 의 함수를 이용하여 `$(word 2, $^)` 이런 방법으로 특정 인덱스(저 경우 2번째 의존성) 의존성 값만 얻어낼 수도 있습니다.
 
-  </td>
-</tr>
-<tr>
-  <td align="center">
+    </td>
+    </tr>
+    <tr>
+    <td align="center">
 
-`$<`
+    `$<`
 
-  </td>
-  <td align="left">
+    </td>
+    <td align="left">
 
-현재 타겟의 의존성 중 첫 번째 파일을 의미합니다.<br/>
-예를 들어 `%.o: %.cpp` 규칙에서 main.o를 만들 때, `$<` 는 main.cpp가 됩니다.
+    현재 타겟의 의존성 중 첫 번째 파일을 의미합니다.<br/>
+    예를 들어 `%.o: %.cpp` 규칙에서 main.o를 만들 때, `$<` 는 main.cpp가 됩니다.
 
-  </td>
-</tr>
-</table>
+    </td>
+    </tr>
+    </table>
 
 ```makefile
 # Makefile
@@ -436,8 +506,8 @@ run1:
 
 &nbsp; 이제 vscode 의 터미널을 열어주세요. 다음의 두 가지 방법 중 하나를 선택하시면 됩니다.
 
-- 최상단 메뉴바에 `터미널(T)` 를 누르고 `새 터미널` 선택
-- 또는, `` ctrl + shift + ` `` 단축키 입력하기
+-   최상단 메뉴바에 `터미널(T)` 를 누르고 `새 터미널` 선택
+-   또는, `` ctrl + shift + ` `` 단축키 입력하기
 
 &nbsp; 터미널에서 `mingw32-make run1` 라고 입력하면 "hello, world 1" 가 출력됩니다.
 
@@ -447,8 +517,8 @@ run1:
 
 &nbsp; 다음 두가지 방법을 사용하면 안정적으로 동작시킬 수 있습니다.
 
-- `.PHONY` 는 다음에 오는 명령어가 파일 이름이나 타겟 이름이 겹치는 상황이어도 충돌 방지하여 이것이 실제 파일 이름이 아니라 거짓된 타겟 이름이라는 것을 확실시합니다.
-- `default` 는 별도의 타겟 호출이 없이 make, mingw32-make 명령어만 입력시에 구동하는 디폴트 타겟이 무엇인지를 확실시합니다.
+-   `.PHONY` 는 다음에 오는 명령어가 파일 이름이나 타겟 이름이 겹치는 상황이어도 충돌 방지하여 이것이 실제 파일 이름이 아니라 거짓된 타겟 이름이라는 것을 확실시합니다.
+-   `default` 는 별도의 타겟 호출이 없이 make, mingw32-make 명령어만 입력시에 구동하는 디폴트 타겟이 무엇인지를 확실시합니다.
 
 ```bash
 # Makefile
@@ -495,8 +565,8 @@ run:
 
 &nbsp; vscode 의 터미널을 열어주세요. 다음의 두 가지 방법 중 하나를 선택하시면 됩니다.
 
-- 최상단 메뉴바에 `터미널(T)` 를 누르고 `새 터미널` 선택
-- 또는, `` ctrl + shift + ` `` 단축키 입력하기
+-   최상단 메뉴바에 `터미널(T)` 를 누르고 `새 터미널` 선택
+-   또는, `` ctrl + shift + ` `` 단축키 입력하기
 
 &nbsp; 터미널에서 `mingw32-make` 라고 입력하면 Main.exe 가 생성됩니다.
 
@@ -560,46 +630,46 @@ clean:
 
 &nbsp; vscode 프로그램 전역에 설정을 적용할 것 인지, 지금 작업중인 폴더에만 적용할 것인지에 따라서 다음의 두 가지 방법 중에서 하나를 선택해서 따라주세요.
 
-- vscode 전체에 적용하기
+-   vscode 전체에 적용하기
 
-  - ① `Ctrl+Shift+P` 또는 `F1` 을 눌러 명령 팔레트를 엽니다.
-  - ② `> Tasks: Open User Tasks` 검색을 통해 해당 목록을 선택해주세요.
-  - ③ `Others` 를 선택해주세요.
-  - 가장 기본 형태의 tasks.json 템플릿이 "C:\Users\ ... \AppData\Roaming\Code\User" 경로에 생성됩니다.
+    -   ① `Ctrl+Shift+P` 또는 `F1` 을 눌러 명령 팔레트를 엽니다.
+    -   ② `> Tasks: Open User Tasks` 검색을 통해 해당 목록을 선택해주세요.
+    -   ③ `Others` 를 선택해주세요.
+    -   가장 기본 형태의 tasks.json 템플릿이 "C:\Users\ ... \AppData\Roaming\Code\User" 경로에 생성됩니다.
 
-- 작업중인 폴더에만 한정해서 적용하기
+-   작업중인 폴더에만 한정해서 적용하기
 
-  - ① `Ctrl+Shift+P` 또는 `F1` 을 눌러 명령 팔레트를 엽니다.
-  - ② `> Tasks: Configure Task` 검색을 통해 해당 목록을 선택해주세요.
-  - ③ `템플릿에서 tasks.json 파일 만들기(Create tasks.json file from template)` 검색을 통해 목록을 선택해주세요.
-  - ④ `Others` 를 선택해주세요.
-  - 가장 기본 형태의 tasks.json 템플릿이 지금 작업 중인 최상위 폴더의 ".vscode/" 라는 vscode 설정 폴더 안에 생성됩니다.
+    -   ① `Ctrl+Shift+P` 또는 `F1` 을 눌러 명령 팔레트를 엽니다.
+    -   ② `> Tasks: Configure Task` 검색을 통해 해당 목록을 선택해주세요.
+    -   ③ `템플릿에서 tasks.json 파일 만들기(Create tasks.json file from template)` 검색을 통해 목록을 선택해주세요.
+    -   ④ `Others` 를 선택해주세요.
+    -   가장 기본 형태의 tasks.json 템플릿이 지금 작업 중인 최상위 폴더의 ".vscode/" 라는 vscode 설정 폴더 안에 생성됩니다.
 
 #### Make 사용 > tasks.json 설정
 
-- [참조링크](./Doc/Language_Reference/C++/GCC：컴파일러/Makefile：컴파일 환경 관리.md)
+-   [참조링크](./Doc/Language_Reference/C++/GCC：컴파일러/Makefile：컴파일 환경 관리.md)
 
-- tasks.json 에 다음과 같이 입력합니다.
+-   tasks.json 에 다음과 같이 입력합니다.
 
-  ```json
-  {
-    "version": "2.0.0",
-    "tasks": [
-      {
-        "label": "Makefile Build",
-        "type": "shell",
-        "command": "mingw32-make",
-        "args": [],
-        "group": {
-          "isDefault": true,
-          // "isDefault": false,
-          "kind": "build"
-        },
-        "options": {
-          "cwd": "${fileDirname}"
-        },
-        "problemMatcher": []
-      }
-    ]
-  }
-  ```
+    ```json
+    {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "Makefile Build",
+                "type": "shell",
+                "command": "mingw32-make",
+                "args": [],
+                "group": {
+                    "isDefault": true,
+                    // "isDefault": false,
+                    "kind": "build"
+                },
+                "options": {
+                    "cwd": "${fileDirname}"
+                },
+                "problemMatcher": []
+            }
+        ]
+    }
+    ```

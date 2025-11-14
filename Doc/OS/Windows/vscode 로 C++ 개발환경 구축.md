@@ -485,7 +485,6 @@ gcc --v
 <td>${config:Name}</td>
 <td>VSCode 설정 참조 (예: ${config:editor.fontSize})</td>
 </tr>
-
 </table>
 
 <br />
