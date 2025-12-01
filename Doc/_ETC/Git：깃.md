@@ -213,7 +213,13 @@ git remote add origin https://github.com/leotorrez/ZZ-Model-Importer-Assets
 
     ```bash
     git pull origin main
+
+    # 또는
+
+    git read-tree -m -u HEAD
     ```
+
+    &nbsp; `git read-tree -m -u HEAD` 는 이미 HEAD 가 최신 상황이라 "Already up to date." 만을 출력할 경우에 사용합니다. 이는 인덱스(staging area)와 워킹 트리를 조작하는 저수준(low-level) 명령어입니다. 현 인덱스 내용에 -u 위킹트리를 업데이트하고 HEAD 의 커밋값을 -m 병합합니다.
 
 ### Git 대상 제외：gitignore
 

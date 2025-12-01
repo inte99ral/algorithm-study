@@ -10,6 +10,8 @@
 
 <div align=center>
 <img src="./asset/00.png" alt="00" width="490" style="width: calc(980px * 50 / 100)" />
+『』
+<img src="./asset/『PIC_NUM』.png" alt="『PIC_NUM』" width="『980 * PERCENT %』" style="width: calc(980px * 『PERCENT %』 / 100)" />
 </div>
 
 &nbsp; 문제의 입력 예시 `<입력 1>`

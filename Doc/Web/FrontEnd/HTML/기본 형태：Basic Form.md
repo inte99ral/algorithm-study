@@ -1,5 +1,19 @@
 # 기본 형태：Basic Form
 
+## HTML 가장 기본 양식
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Page</title>
+    </head>
+    <body>
+        <h1>Hello, world!</h1>
+    </body>
+</html>
+```
+
 ## HTML-CSS-JS 양식
 
 ```html
@@ -9,17 +23,20 @@
     <head>
         <meta charset="utf-8" />
         <title>기본 형태 BasicForm</title>
-        <!-- (external style) -->
+        <!-- CSS (external style) -->
         <link href="./main.css" rel="stylesheet" />
+        <!-- JS (external style) -->
         <script src="./main.js" defer></script>
-        <!-- <style></style> (internal style) -->
+        <!-- CSS (internal style) -->
+        <!-- <style></style> -->
     </head>
     <body>
         <div>
-            <!-- (inline style) -->
+            <!-- CSS (inline style) -->
             <div style="color:red">테스트</div>
         </div>
-        <!-- <script></script> (internal style) -->
+        <!-- JS (external style) -->
+        <!-- <script></script> -->
     </body>
 </html>
 ```
