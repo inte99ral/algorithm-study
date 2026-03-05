@@ -2,6 +2,75 @@
 
 </br>
 
+## sync_with_stdio: C++ 스트림과 C 입출력과의 동기화
+
+nbsp; C++ 언어는 입출력 시에 C++ 표준 입출력 스트림(Standard I/O Streams)을 권장합니다.
+
+nbsp; 동시에 `printf`, `scanf` 같은 C 언어의 C 표준 입출력(stdio) 또한 지원합니다.
+
+nbsp; 이 과정에서 printf와 cout을 섞어 써도 문제가 없이 출력 순서가 보장되도록, 기본적으로 C++의 iostream은 C의 stdio와 버퍼를 공유하며 동기화되어 있습니다.
+
+nbsp; 이 동기화 과정에서 성능 저하(오버헤드)가 매우 심하게 발생합니다.
+
+nbsp; 다음의 명령어를 통하여 동기화를 해제하면 이런 성능 저하를 막을 수 있습니다.
+
+```cpp
+ios_base::sync_with_stdio(false);
+```
+
+nbsp; C++ 언어에서는 입출력 클래스의 가장 기초가 되는 부모 클래스 ios_base 에서 스트림의 상태 플래그, 서식 제어, 그리고 질문하신 sync_with_stdio와 같은 모든 스트림에 공통적인 독립적 기능들을 정의합니다.
+
+nbsp; ios_base 클래스에 정적(static) 멤버 함수로 정의되어 있는 sync_with_stdio 라는 함수가 C 입출력 버퍼와의 동기화를 {true | false} 로 변경할 수 있는 함수 입니다.
+
+nbsp; ios_base를 상속받은 클래스 ios (`basic_ios<char>의 별칭`) 에서도 `ios::sync_with_stdio(false);` 처럼 사용할 수 있으나 타입에 무관하게 일반적이며 원형이 정의되어있는 클래스 이름을 직접 사용하는 것이 더 명확하며 권장됩니다.
+
+nbsp; 대다수의 알고리즘 문제 풀이(PS)나 표준 문서에서는 가장 상위 클래스인 ios_base를 명시함으로써 "이 설정은 모든 입출력 스트림의 기초 설정을 건드리는 것이다" 라는 의미를 전달하는 것이 관습적인 표준이기도 합니다.
+
+nbsp; 참고로, sync_with_stdio(false)를 선언한 상태에서 `endl` 을 사용하는 것은 고속도로를 닦아놓고 10미터마다 브레이크를 밟는 것과 같습니다.
+
+nbsp; `cout << endl` 은 단순히 줄을 바꾸는 게 아니라, 출력 버퍼를 강제로 비우는 flush 연산을 수행합니다. 버퍼의 잉여 데이터 없는 출력과 줄바꿈을 보장하지만 매번 버퍼를 정리하는 것은 비효율적입니다. 줄바꿈 상황에선 `cout << \n` 면 충분합니다.
+
+버퍼 연동을 해제하여 매 순간 OS 가 처리하는 버퍼 작업을 막기위해 sync 를 해제한 것인데, endl 으로 OS 에게 버퍼 정리를 명령하면 의미가 없어집니다.
+
+시스템의 출력은 프로그램 내부 연산보다 훨씬 비싼 OS 작업입니다.
+
+최대한 출력할 내용들을 버퍼에 많이 모았다가 한 번에 OS 시스템 콜(System Call)을 호출하는 것이 훨씬 빠릅니다.
+
+-   \n을 쓰면 10000번의 출력을 1~2번의 시스템 콜로 끝낼 수 있습니다.
+-   endl을 쓰면 10000번의 출력을 10,000번의 시스템 콜로 처리합니다.
+
+## 입력스트림에서 한 줄 받기
+
+입력스트림으로 부터 한 줄을 받아오는 방법은 크게 두 가지가 있습니다.
+
+-   `cin.getline` istream 객체 멤버함수
+
+  다음이 `cin.getline` 함수의 기본 형태입니다.
+
+  ```cpp
+  getline(char* s, streamsize n);
+
+  getline(char* s, streamsize n, char delim);
+  ```
+
+  별도의 delim 의 parameter 값을 주지 않았다면 기본 delimiter(구분 문자) 는 `\n` 입니다.
+
+  입력의 흐름으로부터 길이 n 까지, 또는 delim 에 닿을 때 까지 <u><b>char *s</b></u> 에 저장합니다. 
+
+-   `std::getline` std 일반 함수
+
+  다음은 `getline` 함수의 기본 형태입니다.
+
+  ```cpp
+  getline(isstream& is, string& str);
+
+  getline(isstream& is, string& str, char delim);
+  ```
+
+  마찬가지로 별도의 delim 를 지정하지 않았다면 기본 delimiter(구분 문자) 는 `\n` 입니다.
+
+  입력스트림에 대한 함수로 입력스트림 is 에서 구분문자에 닿을 때 까지의 데이터를 <u><b>string</b></u> 에 저장합니다.
+
 ## 응용 예시
 
 ### 입출력 스트림 조건 바꾸기
@@ -188,4 +257,4 @@ int main() {
 
 ## 소수점 출력
 
-https://nextcoder.tistory.com/22
+<https://nextcoder.tistory.com/22>

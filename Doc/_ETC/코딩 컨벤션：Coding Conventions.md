@@ -1,6 +1,26 @@
 # 코드 작성 규칙：Coding Conventions
 
-</br>
+## 목차
+
+-   [코드 작성 규칙：Coding Conventions](#코드-작성-규칙coding-conventions)
+    -   [목차](#목차)
+    -   [개요](#개요)
+    -   [명명 규칙](#명명-규칙)
+    -   [유니코드 양식](#유니코드-양식)
+    -   [코드 문서화 정리 양식](#코드-문서화-정리-양식)
+        -   [Javascript](#javascript)
+            -   [Javascript \> React](#javascript--react)
+    -   [코드 포매터 Code Formatter \& Linter](#코드-포매터-code-formatter--linter)
+        -   [Prettier](#prettier)
+            -   [설정으로 규칙 명시：prettier](#설정으로-규칙-명시prettier)
+            -   [파일로 규칙 명시：.prettierrc.json](#파일로-규칙-명시prettierrcjson)
+        -   [ESLint](#eslint)
+            -   [설정으로 규칙 명시：.eslintrc.json](#설정으로-규칙-명시eslintrcjson)
+        -   [Markdownlint](#markdownlint)
+            -   [설정으로 규칙 명시：markdownlint.config](#설정으로-규칙-명시markdownlintconfig)
+            -   [목차 생성](#목차-생성)
+
+## 개요
 
 -   코딩 컨벤션이란?
 
@@ -217,3 +237,27 @@ const『COMPONENT』 = () => {
   // #### Return:
 }
 ```
+
+## 코드 포매터 Code Formatter & Linter
+
+### Prettier
+
+코드 스타일 포매터 (다듬어 재구성하는 교정기) 입니다.
+
+#### 설정으로 규칙 명시：prettier
+
+#### 파일로 규칙 명시：.prettierrc.json
+
+### ESLint
+
+코드 품질 린터 (분석 및 경고하는 검사기) 입니다. 정적 분석 도구(Static Analysis Tool) 로 코드를 실행시키기 전에 정적으로 파악할 수 있는 결함을 사전에 경고합니다.
+
+#### 설정으로 규칙 명시：.eslintrc.json
+
+### Markdownlint
+
+#### 설정으로 규칙 명시：markdownlint.config
+
+#### 목차 생성
+
+`ctrl + p` 로 입력창을 띄우고 `>` 입력하면 명령을 입력할 수 있는 명령 팔레트(Command Palette) 창이 됩니다. 이 명령 팔레트 창에서 `> Markdown All in One: Create Table of Contents` 를 입력하면 자동으로 목차를 생성할 뿐 아니라, 목차가 수정되어도 동기화도 자동으로 해줍니다.
