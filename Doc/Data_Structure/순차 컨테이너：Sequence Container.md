@@ -136,6 +136,8 @@ deque<string> debugDq;
 
 ### 큐 > 큐：Queue
 
+-   `#include <queue>` 라이브러리에서 지원
+
 ### 큐 > 우선순위 큐：Priority Queue
 
 -   `#include <queue>` 라이브러리에서 지원

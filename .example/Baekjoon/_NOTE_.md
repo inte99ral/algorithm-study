@@ -1,5 +1,7 @@
 # <img alt="『티어』" src="https://d2gd6pc034wcta.cloudfront.net/tier/『티어』.svg" width="16" /> [BJ 『문제코드』](https://www.acmicpc.net/problem/『문제코드』)：『문제제목』：오답노트
 
+-   파일명은 `_문제제목：오답노트_` 형식을 따를 수도 있습니다.
+
 ## 힌트
 
 -   ~ ~볼 힌트~~
