@@ -1,0 +1,64 @@
+// DFS 걍 썼는데 시간초과남
+#include <bits/stdc++.h>
+using namespace std;
+
+int ans, N, M;
+vector<vector<bool>> matrix;
+
+void recurDfs(int y, int x, int depth) {
+    if (depth > ans) {
+        return;
+    }
+
+    if ((y == N - 1) && (x == M - 1)) {
+        ans = min(ans, depth);
+        return;
+    }
+
+    if ((y > 0) && matrix[y - 1][x]) {
+        matrix[y - 1][x] = 0;
+        recurDfs(y - 1, x, depth + 1);
+        matrix[y - 1][x] = 1;
+    }
+    if ((y < N - 1) && matrix[y + 1][x]) {
+        matrix[y + 1][x] = 0;
+        recurDfs(y + 1, x, depth + 1);
+        matrix[y + 1][x] = 1;
+    }
+    if ((x > 0) && matrix[y][x - 1]) {
+        matrix[y][x - 1] = 0;
+        recurDfs(y, x - 1, depth + 1);
+        matrix[y][x - 1] = 1;
+    }
+    if ((x < M - 1) && matrix[y][x + 1]) {
+        matrix[y][x + 1] = 0;
+        recurDfs(y, x + 1, depth + 1);
+        matrix[y][x + 1] = 1;
+    }
+    return;
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    freopen("_INPUT_.txt", "rt", stdin); // LOCAL INPUT <<================
+
+    ans = INT_MAX;
+    cin >> N >> M;
+    matrix = vector<vector<bool>>(N, vector<bool>(M));
+
+    for (int n = 0; n < N; n++) {
+        string temp;
+        cin >> temp;
+        for (int m = 0; m < M; m++) {
+            matrix[n][m] = (temp.at(m) == '1');
+        }
+    }
+
+    recurDfs(0, 0, 1);
+
+    cout << ans;
+    
+    return 0;
+}
