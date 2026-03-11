@@ -279,6 +279,52 @@ int main() {
 #### 직순열 > 구현 2 > C++
 
 ```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int N;
+int R;
+vector<int> origin;
+vector<int> select;
+vector<bool> visited;
+
+void perm(int depth) {
+    if (depth == R) {
+        for (int i : select) cout << i << ' ';
+        cout << '\n';
+        return;
+    }
+
+    for (int n = 0; n < N; n++) {
+        if(visited[n]) continue;
+
+        visited[n] = 1;
+
+        select[depth] = origin[n];
+        perm(depth + 1);
+
+        visited[n] = 0;
+    }
+    return;
+}
+
+// ## main ========================================================
+int main() {
+    N = 4;
+    R = 2;
+
+    origin = vector<int>(N);
+    select = vector<int>(R);
+    visited = vector<bool>(N);
+
+    for (int n = 0; n < N; n++) origin[n] = n;
+
+    perm(0);
+    return 0;
+}
+```
+
+```cpp
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -451,7 +497,7 @@ int main() {
 }
 ```
 
-### 직순열 > 구현 4：재귀적 풀이 - DFS：Recursive Solution - DFS
+### 직순열 > 구현 4：재귀적 풀이 - 방문 체크：Recursive Solution - Backtracking
 
 &nbsp; 지역적인 풀이와 다르게 중간에 값에 접근이 불가능하고 전역적인 변수를 필요로 합니다.
 
@@ -520,6 +566,51 @@ void permRecur(int data, int size) {
     permRecur(data | (1 << i), size + 1);
   }
   return;
+}
+```
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int N;
+int R;
+vector<int> origin;
+vector<int> select;
+vector<bool> visited;
+
+void perm(int depth) {
+    if (depth == R) {
+        for (int i : select) cout << i << ' ';
+        cout << '\n';
+        return;
+    }
+
+    for (int n = 0; n < N; n++) {
+        if(visited[n]) continue;
+
+        visited[n] = 1;
+
+        select[depth] = origin[n];
+        perm(depth + 1);
+
+        visited[n] = 0;
+    }
+    return;
+}
+
+int main() {
+    N = 4;
+    R = 2;
+
+    origin = vector<int>(N);
+    select = vector<int>(R);
+    visited = vector<bool>(N);
+
+    for (int n = 0; n < N; n++) origin[n] = n;
+
+    perm(0);
+    return 0;
 }
 ```
 
@@ -645,15 +736,37 @@ class Permutation {
 }
 ```
 
-### 직순열 > 구현 5：재귀적 풀이 - Swap：Recursive Solution - Swap
+### 직순열 > 구현 5：재귀적 풀이 - 위치 교환：Recursive Solution - Swap
 
 &nbsp; 1 ~ 4 까지의 결과값을 유심히 관찰하면 다음과 같은 사실을 알 수 있습니다. 각 원소가 이전의 결과와 중복되지 않는 조건을 지키며 본래 있던 위치가 아닌 곳으로 이동시키고 출력하면 순열의 결과값과 일치합니다. 여기서 두 원소의 위치를 바꾸고 출력한 뒤에 원 위치로 돌려준다면 별도의 체크 없이도 논리상 중복이 없게 됩니다. (원본 그대로 출력되는 경우는 자기와 자기의 위치를 바꾼 상태로 출력될 것 입니다.) 이것이 Swap 알고리즘 입니다.
 
+&nbsp; 재귀를 활용한 Backtracking(방문 체크) 방식과 Swap 방식은 이론적 시간 복잡도는 동일하지만, 방문 기록을 확인하는 조건문 체크 과정이 필요없기 때문에 실제 실행 속도(상수 시간)와 메모리 활용 측면에서 차이가 발생합니다.
+
 &nbsp; 두 원소의 위치만 바꿔주는 것으로 구현이 되므로 가장 단순하고 보편적인 순열 출력 방법입니다. 다만 단점 두 가지가 있습니다.
 
-&nbsp; 첫번째 단점은 Swap 알고리즘은 오름차순 정렬을 보장하지 않습니다. 요소들을 교환하면서 순열을 만들기 때문에, <b>결과물이 무작위적인 순서</b>로 나오게 됩니다.
+&nbsp; 첫번째 단점은 Swap 알고리즘은 오름차순 정렬을 보장하지 않습니다. 요소들을 교환하면서 순열을 만들기 때문에, 사전식 순서(Lexicographical Order)를 완벽하게 보장해주지 못합니다.
 
 &nbsp; 두번째 단점은 <b>원본 배열 origin에 접근하여</b> 의 두 요소의 위치를 직접 조작하기 때문에 연산 도중에 origin 에 접근할 경우 문제가 발생할 수 있다는 점 입니다.
+
+정리하자면, 이런 차이가 있습니다.
+
+-   <table>
+    <tr>
+    <th> 구분 </th><th> Backtracking </th><th> Swap </th>
+    </tr>
+    <tr>
+    <td> 시간 복잡도 </td><td> O(nPr) </td><td> O(nPr) </td>
+    </tr>
+    <tr>
+    <td> 사전식 순서 </td><td> 순서보장됨 </td><td> 보장 안 됨 </td>
+    </tr>
+    <tr>
+    <td> 추가 메모리 </td><td> 방문기록 필요 </td><td> 불필요 </td>
+    </tr>
+    <tr>
+    <td> 실제 속도 </td><td> 대적으로 느림 (조건문 오버헤드) </td><td> 상대적으로 빠름 (배열 접근 최적화) </td>
+    </tr>
+    </table>
 
 &nbsp; 코드로는 다음과 같이 구현됩니다.
 
@@ -723,11 +836,15 @@ void permRecur(int* origin, int* countPtr, int N, int R, int size) {
 
 &nbsp; 1 ~ 4 번의 출력값들을 자세히 보면 순열 데이터의 오름차순 출력 과정은 원본 배열이 오름차순 배열에서 시작하여 내림차순으로 정렬되는 과정과 같다는 것을 눈치챌 수 있습니다. (시작은 오름차순) 1 - 2 - 3 >>> (끝은 역순으로 뒤집은 내림차순) 3 - 2 - 1
 
-&nbsp; 이를 응용하여 오름차순 정렬이 확실하다면 내림차순으로 바꾸는 알고리즘 만으로 모든 순열 경우를 얻을 수 있다.
+&nbsp; 전체를 오름차순에서 내림차순으로 바꾼다면 nPn (n개에서 n개를 뽑는 순열) 이 됩니다. nPr 를 구현할 경우, 뽑을 개수 이후의 r번 부터 n번 까지의 수들을 뒤집어 역순으로 바꿔준다면 이 부분의 수열이 섞이는 부분을 건너뛸 수 있습니다.
 
-&nbsp; 전체를 오름차순에서 내림차순으로 바꾼다면 nPn (n개에서 n개를 뽑는 순열) 이 됩니다. 뽑을 개수 이후의 r번 부터 n번 까지의 수들을 뒤집어 역순으로 바꿔준다면 이 부분의 수열이 섞이는 부분을 건너뛸 수 있습니다.
+&nbsp; Swap 알고리즘에선 각 순서 인덱스 번호를 오름차순에서 내림차순으로 바꾸는 과정이었다면 next_permutation 은 그 값을 기반으로 동작합니다.
 
-&nbsp; 이 알고리즘의 시간 복잡도는 O(nPr)입니다. 이는 가능한 모든 순열을 생성하는 데 필요한 최소 시간 복잡도입니다.
+&nbsp; 원소의 크기 기준 오름차순 정렬이 확실하다면 내림차순으로 바꾸는 알고리즘 만으로 모든 순열 경우를 얻을 수 있습니다.
+
+&nbsp; 원소간 크기 비교만 하면 다음 순열 배치가 결정되기 때문에 다음에 선택될 원소가 무엇일지 찾는 경로 탐색이 필요없으며 재귀 호출도 필요 없습니다.
+
+&nbsp; 이 알고리즘의 시간 복잡도는 가능한 모든 순열을 생성하는 데 필요한 최소 시간 복잡도 O(nPr) 로 다른 알고리즘과 동일합니다. 허나 빅오표기법에서는 무시하는 상수 시간(Constant Time)과 CPU 친화도 차이가 상당하여 격차를 만들어 냅니다.
 
 ```cpp
 #include <algorithm>
@@ -779,38 +896,38 @@ int main() {
 
 template <typename It>
 bool next_perm(It begin, It end) {
-  if (begin == end) return false;
+    if (begin == end) return false;
 
-  It i = end;
-  if (begin == --i) return false;
+    It i = end;
+    if (begin == --i) return false;
 
-  while (true) {
-    It i1, i2;
+    while (true) {
+        It i1, i2;
 
-    i1 = i;
+        i1 = i;
 
-    if (*--i < *i1) {
-      i2 = end;
-      while (!(*i < *--i2));
-      iter_swap(i, i2);
-      reverse(i1, end);
-      return true;
+        if (*--i < *i1) {
+            i2 = end;
+            while (!(*i < *--i2));
+            iter_swap(i, i2);
+            reverse(i1, end);
+            return true;
+        }
+        if (i == begin) {
+            reverse(begin, end);
+            return false;
+        }
     }
-    if (i == begin) {
-      reverse(begin, end);
-      return false;
-    }
-  }
 }
 ```
 
 &nbsp; 오름차순->내림차순으로 진행한다고 할 때, 현재 상태에 대한 다음 순서를 찾아내는 next_perm 함수는 다음과 같은 논리로 동작합니다.
 
-1. 먼저 범위가 비어있는지 확인합니다.
-2. 뒤에서부터 시작하여 첫 번째로 감소하는 요소(i)를 찾습니다.
-3. i 이후의 요소 중 i보다 큰 가장 작은 요소(i2)를 찾습니다.
-4. i와 i2를 교환합니다.
-5. i 이후의 모든 요소를 뒤집습니다.
+1.  먼저 범위가 비어있는지 확인합니다.
+2.  뒤에서부터 시작하여 첫 번째로 감소하는 요소(i)를 찾습니다.
+3.  i 이후의 요소 중 i보다 큰 가장 작은 요소(i2)를 찾습니다.
+4.  i와 i2를 교환합니다.
+5.  i 이후의 모든 요소를 뒤집습니다.
 
 이는 STL의 `algorithm` 헤더의 std::next_permutation과 동일한 동작을 수행합니다.
 
@@ -854,6 +971,38 @@ int main(int argc, char* argv[]) {
         for (int i : a) cout << i << " ";
         cout << "\n";
     } while (next_permutation(&a[0], &a[0] + 3));
+}
+```
+
+&nbsp; 다음은 6P2 를 구하는 과정입니다.
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    vector<int> iv = {1, 2, 3, 4, 5, 6};
+    int n = iv.size();
+    int r = 2; // 6P2의 r
+
+    // nPr을 구하기 위한 핵심 로직
+    do {
+        // 앞에서부터 r개만 출력
+        for (int i = 0; i < r; i++) {
+            cout << iv[i] << " ";
+        }
+        cout << "\n";
+
+        // r번째 이후의 요소들을 내림차순으로 정렬하여 
+        // next_permutation이 다음 '앞자리'를 바꾸도록 유도
+        reverse(iv.begin() + r, iv.end());
+
+    } while (next_permutation(iv.begin(), iv.end()));
+
+    return 0;
 }
 ```
 
