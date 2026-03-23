@@ -1,18 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void perm(int depth, int N, int R) {
-    if (depth == R) {
-        return;
-    }
-    return;
-}
+int N;
+int R;
+vector<int> origin;
+vector<bool> select;
 
 int main() {
-    int N = 4;
-    int R = 3;
-    vector<int> origin(N);
-    for(int n = 0; n < N; n++) origin[n] = n + 1;
+    N = 4;
+    R = 2;
+    origin = vector<int>(N);
+    select = vector<bool>(N);
+
+    for (int n = 0; n < N; n++) origin[n] = n + 10;
+    for (int r = 0; r < R; r++) select[r] = 1;
+
+    do {
+        for (int n = 0; n < N; n++) if (select[n]) cout << origin[n] << ' ';
+        cout << '\n';
+
+    } while (prev_permutation(select.begin(), select.end()));
+
     
     return 0;
 }
