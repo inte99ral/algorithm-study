@@ -1,5 +1,15 @@
 # TODO
 
+## 목차
+
+-   [TODO](#todo)
+    -   [목차](#목차)
+    -   [Coding Convention](#coding-convention)
+    -   [WARN](#warn)
+    -   [DONE:](#done)
+    -   [FIXME:](#fixme)
+    -   [TODO:](#todo-1)
+
 ## Coding Convention
 
 -   문제 폴더 구조
@@ -77,8 +87,28 @@
 | 2025-10-10 | [BJ 9375](./Problem/Solved/Baekjoon/Silver/3/BJ_9375/__패션왕_신해빈__.md)                    | 패션왕 신해빈                    | `#SilverⅢ` | `#집합`                     |
 | 2025-10-10 | [BJ 1213](./Problem/Solved/Baekjoon/Silver/3/BJ_1213/__팰린드롬_만들기__.md)                  | 팰린드롬 만들기                  | `#SilverⅢ` | `#문자열`                   |
 | 2025-10-11 | [BJ 1940](./Problem/Solved/Baekjoon/Silver/4/BJ_1940/__주몽__.md)                             | 주몽                             | `#SilverⅣ` | `#정렬`                     |
+| 2025-10-19 | [BJ 3986](./Problem/Solved/Baekjoon/Silver/4/BJ_3986/__좋은_단어__.md)                        | 좋은 단어                        | `#SilverⅣ` | `#자료구조`                 |
+| 2025-09-12 | [BJ 1629](./Problem/Solved/Baekjoon/Silver/1/BJ_1629/__곱셈__.md)                             | 곱셈                             | `#SilverⅠ` | `#수학`                     |
 
--   | 예시-xx-xx | [BJ xxxx](./Problem/__X_X__.md) | X X | `#Level_DⅠⅡⅢⅣⅤ` | `#태그` |
+<br />
+
+-   <table>
+    <tr>
+    <th> 풀이 일자 </th>
+    <th> 문제 코드 </th>
+    <th> 문제명 </th>
+    <th> 난이도 </th>
+    <th> 해시태그 </th>
+    </tr>
+    
+    <tr>
+    <td> 예시-xx-xx </td>
+    <td> <a href="./Problem/__X_X__.md">BJ xxxx</a> </td>
+    <td> X X </td>
+    <td> <kbd>#Level_DⅠⅡⅢⅣⅤ</kbd> </td>
+    <td> <kbd>#태그</kbd> </td>
+    </tr>
+    </table>
 
 <br />
 

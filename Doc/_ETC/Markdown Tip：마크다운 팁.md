@@ -12,6 +12,16 @@
 -   헤더 깊이 설정 : `"markdown.extension.toc.levels": "1..3"   // 1에서 3단계 헤딩까지만 포함`
 -   목차 표기 변경 `"markdown.extension.toc.orderedList": false // 숫자 아닌 불릿(•)으로 표시할지 여부`
 
+## 특수 문자 효과
+
+-   일반적인 코드 조각	<code>print()</code>
+
+-   키보드 입력값 (단축키 등)	<kbd>Ctrl</kbd> + <kbd>C</kbd>
+
+-   프로그램의 출력 결과물	<samp>File not found</samp>
+
+-   수학적 변수나 프로그래밍 변수	<var>x</var> = 10
+
 ## 스타일리쉬 블록
 
 -   Tip 블록
@@ -902,7 +912,7 @@ int main() {
 
 &nbsp; 이 편법의 구현에는 두 가지 포인트가 있습니다.
 
--   첫번째 포인트는 SVG 파일을 이미지 취급하여 `<img src="./file.svg" alt="" /> ` 처럼 마크다운 문서에서 띄울 수 있다는 점 입니다.
+-   첫번째 포인트는 SVG 파일을 이미지 취급하여 `<img src="./file.svg" alt="" />` 처럼 마크다운 문서에서 띄울 수 있다는 점 입니다.
 -   두번째 포인트는 SVG에서 `<foreignObject>` 태그를 통하여 텍스트 문서나 HTML 오브젝트를 지원한다는 부분입니다.
 
 결과적으로 SVG 구현을 경유하여 HTML 오브젝트를 Markdown 문서에 간접적으로 구현이 가능합니다. 이 경우엔 결론적으론 그저 SVG 이미지를 띄운 것이기에 Github의 README.md 마크다운 문서에서도 구현이 됩니다.

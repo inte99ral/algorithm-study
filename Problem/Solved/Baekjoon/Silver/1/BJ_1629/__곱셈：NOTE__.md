@@ -12,7 +12,7 @@
     | :----: | :------: | :-------: |
     |   -    | 시간초과 |     -     |
 
--   우습게 봤다가 박살났습니다.
+-   우습게 봤다가 박살ㅉ났습니다.
 -   분할정복은 캐치했으나 나머지 정리는 캐치하지 못했습니다.
 -   수학 공부가 필요한 이유...
 
@@ -22,26 +22,26 @@
 using namespace std;
 
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
-  cout.tie(nullptr);
-  freopen("Problem\\Unsolved\\Baekjoon\\Silver\\1\\BJ_1629\\question\\input.txt", "rt", stdin);
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    freopen("Problem\\Unsolved\\Baekjoon\\Silver\\1\\BJ_1629\\question\\input.txt", "rt", stdin);
 
-  int A, B, C;
-  int answer;
+    int A, B, C;
+    int answer;
 
-  answer = A % C;
+    answer = A % C;
 
-  for (int b = 0; b < B; b++) {
-    if (b * 2 < B) {
-      answer *= answer;
-      answer %= C;
+    for (int b = 0; b < B; b++) {
+        if (b * 2 < B) {
+            answer *= answer;
+            answer %= C;
+        }
     }
-  }
 
-  cout << answer;
+    cout << answer;
 
-  return 0;
+    return 0;
 }
 ```
 
@@ -61,32 +61,32 @@ int main() {
 using namespace std;
 
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(nullptr);
-  cout.tie(nullptr);
-  // freopen("Problem\\Unsolved\\Baekjoon\\Silver\\1\\BJ_1629\\question\\input.txt", "rt", stdin);
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    // freopen("Problem\\Unsolved\\Baekjoon\\Silver\\1\\BJ_1629\\question\\input.txt", "rt", stdin);
 
-  int A, B, C;
-  long long answer;
-  bool isOdd;
+    int A, B, C;
+    long long answer;
+    bool isOdd;
 
-  cin >> A >> B >> C;
-  answer = A % C;
-  isOdd = (B % 2 != 0);
+    cin >> A >> B >> C;
+    answer = A % C;
+    isOdd = (B % 2 != 0);
 
-  for (int i = B - isOdd; i > 1; i /= 2) {
-    answer *= answer;
-    answer %= C;
-  }
+    for (int i = B - isOdd; i > 1; i /= 2) {
+        answer *= answer;
+        answer %= C;
+    }
 
-  if (B != 1 && isOdd) {
-    answer *= A;
-    answer %= C;
-  }
+    if (B != 1 && isOdd) {
+        answer *= A;
+        answer %= C;
+    }
 
-  cout << answer;
+    cout << answer;
 
-  return 0;
+    return 0;
 }
 ```
 
@@ -107,54 +107,54 @@ int main() {
 #include <bits/stdc++.h>
 
 #ifndef ONLINE_JUDGE
-  #define SET_IO(INPUT_DATA) \
-    std::ios::sync_with_stdio(false); \
-    std::cin.tie(nullptr); \
-    std::cout.tie(nullptr); \
-    std::istream* IO_S = (std::filesystem::exists(INPUT_DATA)) \
-      ? (std::istream*) new std::ifstream(INPUT_DATA) \
-      : (std::istream*) new std::stringstream(INPUT_DATA); \
-    std::streambuf* IO_BACKUP = std::cin.rdbuf(IO_S->rdbuf())
+    #define SET_IO(INPUT_DATA) \
+        std::ios::sync_with_stdio(false); \
+        std::cin.tie(nullptr); \
+        std::cout.tie(nullptr); \
+        std::istream* IO_S = (std::filesystem::exists(INPUT_DATA)) \
+        ? (std::istream*) new std::ifstream(INPUT_DATA) \
+        : (std::istream*) new std::stringstream(INPUT_DATA); \
+        std::streambuf* IO_BACKUP = std::cin.rdbuf(IO_S->rdbuf())
 
-  #define UNSET_IO() \
-    std::cin.rdbuf(IO_BACKUP); \
-    delete IO_S
+    #define UNSET_IO() \
+        std::cin.rdbuf(IO_BACKUP); \
+        delete IO_S
 
 #else
-  #define SET_IO(INPUT_DATA) \
-    std::ios::sync_with_stdio(false); \
-    std::cin.tie(nullptr); \
-    std::cout.tie(nullptr)
+    #define SET_IO(INPUT_DATA) \
+        std::ios::sync_with_stdio(false); \
+        std::cin.tie(nullptr); \
+        std::cout.tie(nullptr)
 
-  #define UNSET_IO() ((void) 0)
+    #define UNSET_IO() ((void) 0)
 #endif
 
 using namespace std;
 
 long long longMod(long long A, long long B, long long C) {
-  if (B <= 1) {
-    return (B == 0) ? (1 % C) : (A % C);
-  }
+    if (B <= 1) {
+        return (B == 0) ? (1 % C) : (A % C);
+    }
 
-  if (B % 2 == 0) {
-    long long temp = longMod(A, B / 2, C) % C;
-    return (temp * temp) % C;
-  }
-  else {
-    long long temp = longMod(A, (B - 1) / 2, C) % C;
-    return (((temp * temp) % C) * (A % C)) % C;
-  }
+    if (B % 2 == 0) {
+        long long temp = longMod(A, B / 2, C) % C;
+        return (temp * temp) % C;
+    }
+    else {
+        long long temp = longMod(A, (B - 1) / 2, C) % C;
+        return (((temp * temp) % C) * (A % C)) % C;
+    }
 }
 
 int main() {
-  SET_IO("_INPUT_.txt");
+    SET_IO("_INPUT_.txt");
 
-  long long A, B, C;
-  cin >> A >> B >> C;
-  cout << longMod(A, B, C) << endl;
+    long long A, B, C;
+    cin >> A >> B >> C;
+    cout << longMod(A, B, C) << endl;
 
-  UNSET_IO();
-  return 0;
+    UNSET_IO();
+    return 0;
 }
 ```
 
