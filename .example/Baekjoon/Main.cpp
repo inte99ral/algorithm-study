@@ -2,22 +2,28 @@
 
 // ## Documentation ===============================================
 /**
- * @name 『PROBLEM_CODE』
- * 
- * @description
- * 각 함수에 대한 설명이 아니라
- *
- * 이 파일의 목적에 대한 초록 및 요약 서술을 여기에 적습니다.
- *
- * @example
- * ```
- * // * 파일의 목적과 사용 예시를 적습니다.
- * function<int()> func1 = []() -> int { return 0; };
- * ```
- *
- * @see "https://www.google.co.kr/"
- * @author inte99ral
- * @version 2024-11-18
+ *  @name 『PROBLEM_CODE』
+ *  
+ *  @description
+ *  # Markdown Convert
+ *  ## Javadoc -> Markdown
+ *  ctrl + f 로 " *  " 검색 후 alt + shift + l 로 전체 삭제
+ *  
+ *  ## Markdown -> Javadoc
+ *  alt + ctrl 누르고 문서 시작점과 끝 찍고 " *  " 입력
+ *  
+ *  각 함수에 대한 설명이 아니라
+ *  이 파일의 목적에 대한 초록 및 요약 서술을 여기에 적습니다.
+ *  
+ *  @example
+ *  ```
+ *  // * 파일의 목적과 사용 예시를 적습니다.
+ *  function<int()> func1 = []() -> int { return 0; };
+ *  ```
+ *  
+ *  @see "https://www.google.co.kr/"
+ *  @author inte99ral
+ *  @version 2024-11-18
  */
 
 // ## Import Declaration ==========================================

@@ -93,6 +93,7 @@
 <br />
 
 -   <table>
+
     <tr>
     <th> 풀이 일자 </th>
     <th> 문제 코드 </th>
@@ -108,6 +109,23 @@
     <td> <kbd>#Level_DⅠⅡⅢⅣⅤ</kbd> </td>
     <td> <kbd>#태그</kbd> </td>
     </tr>
+
+    <tr>
+    <td> 2026-03-06 </td>
+    <td> <a href="./Problem/Solved/Baekjoon/Silver/3/BJ_4375/__1__.md">BJ 4375</a> </td>
+    <td> 1 </td>
+    <td> <kbd>#SilverⅢ</kbd> </td>
+    <td> <kbd>#수학</kbd> <kbd>#브루트포스</kbd> </td>
+    </tr>
+
+    <tr>
+    <td> 2026-04-16 </td>
+    <td> <a href="./Problem/Solved/Baekjoon/Silver/1/BJ_2178/__미로_탐색__.md">BJ 4375</a> </td>
+    <td> 미로 탐색 </td>
+    <td> <kbd>#SilverⅠ</kbd> </td>
+    <td> <kbd>#그래프</kbd> <kbd>#BFS</kbd> </td>
+    </tr>
+
     </table>
 
 <br />

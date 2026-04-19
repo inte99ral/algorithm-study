@@ -1,6 +1,16 @@
-# <img alt="『티어』" src="https://d2gd6pc034wcta.cloudfront.net/tier/『티어』.svg" width="16" /> [BJ 『문제코드』](https://www.acmicpc.net/problem/『문제코드』)：『문제제목』：오답노트
+# <img alt="『티어』" src="https://d2gd6pc034wcta.cloudfront.net/tier/『티어』.svg" width="16" /> [BJ 『문제코드』](https://www.acmicpc.net/problem/『문제코드』)：『문제제목』：NOTE
 
 -   파일명은 `_문제제목：오답노트_` 형식을 따를 수도 있습니다.
+
+## 목차
+
+-   [BJ 『문제코드』：『문제제목』：NOTE](#-bj-문제코드문제제목note)
+    -   [목차](#목차)
+    -   [힌트](#힌트)
+    -   [오답](#오답)
+        -   [『LANGUAGE\_TYPE\_01』：xxxx-xx-xx：『ANNOTATION\_COMMENT』](#language_type_01xxxx-xx-xxannotation_comment)
+    -   [정답](#정답)
+        -   [『LANGUAGE\_TYPE\_02』：xxxx-xx-xx：『ANNOTATION\_COMMENT』](#language_type_02xxxx-xx-xxannotation_comment)
 
 ## 힌트
 

@@ -4,9 +4,9 @@
 
 [참고링크](https://basiclike.tistory.com/360)
 
--   zip파일 바로 적용 https://sooseongcom.com/post/MinGW-w64-HowToInstall
--   mingw 종류 설명 https://blog.naver.com/webos21/196800460
--   mingw 종류 세부설명 및 추천 https://klutzy.github.io/blog/2015/03/05/mingw/
+-   zip파일 바로 적용 <https://sooseongcom.com/post/MinGW-w64-HowToInstall>
+-   mingw 종류 설명 <https://blog.naver.com/webos21/196800460>
+-   mingw 종류 세부설명 및 추천 <https://klutzy.github.io/blog/2015/03/05/mingw/>
 
 ## 목차
 
@@ -1367,7 +1367,7 @@ clean:
 
 ## 5. visual studio code 보조 세팅
 
-1. 환경변수 추가
+1.  환경변수 추가
 
 GCC 개발 환경 자체에 참조 경로를 추가하려면 환경 변수를 설정해야 합니다.
 다음의 환경변수들을 만들거나, 이미 있을 경우 편집하여 경로들을 추가해주세요.
@@ -1376,7 +1376,7 @@ GCC 개발 환경 자체에 참조 경로를 추가하려면 환경 변수를 �
 -   C++ 헤더 파일 경로를 CPLUS_INCLUDE_PATH 환경 변수에 추가합니다
 -   라이브러리 파일의 경로를 LIBRARY_PATH 환경 변수에 추가합니다.
 
-2. VSCode의 IntelliSense 설정
+2.  VSCode의 IntelliSense 설정
 
 &nbsp; VSCode의 IntelliSense는 지능형 코드 완성 도구입니다. 반복되는 코드를 자동완성 해주며 빌드 전에 오탈자를 점검해주고 잠재적인 오류를 경고해줍니다.
 

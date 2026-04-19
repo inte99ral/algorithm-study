@@ -59,6 +59,20 @@
 
 [참고 링크](https://github.blog/news-insights/product-news/math-support-in-markdown/)
 
+&nbsp; CSS 문법 없이 Markdown 문법 자체적으로는 색이나 폰트같은 효과를 넣을 수는 없습니다. 
+
+&nbsp; Github 같이 보안이 중요한 사이트는 이용자들을 향한 악의적인 공격을 막기 위해 CSS 나 Javascript 코드가 사용자들의 브라우저에 접근이 가능한 html 파일이나 markdown 문서를 엄격하게 sanitize(소독)하여 기능을 삭제합니다. 
+
+&nbsp; 대신에 아무 기능 없이 순수하게 문자-수식 출력만을 위한 문법 LaTeX 문법을 통해 문서를 꾸미는 것은 가능합니다.
+
+&nbsp; 다음은 LaTeX 를 사용한 예시입니다.
+
+-   :no_entry_sign: $\color{#FF0000} \footnotesize \textnormal{[Don't] List 와 Vector 의 시간복잡도}$
+
+-   :rotating_light: $\color{#FF9922} \footnotesize \textnormal{[Warn] List 와 Vector 의 시간복잡도}$
+
+-   :bulb: $\color{#06C655} \footnotesize \textnormal{[Tip] List 와 Vector 의 시간복잡도}$
+
 <table>
 <tr>
   <th>대분류</th>
@@ -374,7 +388,7 @@ $
 복소수∈\mathbb{C}
 $
 
-  </td>
+</td>
 </tr>
 <!-- ## ROW-03 ============================================================ -->
 <tr>

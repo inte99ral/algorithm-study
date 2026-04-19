@@ -51,8 +51,8 @@
 {
     // ### Default:
     "explorer.compactFolders": false, // 폴더 경로 압축 여부
-    "workbench.colorTheme": "Visual Studio Light", // vscode theme
-    "typescript.updateImportsOnFileMove.enabled": "never", // 파일 위치를 바꿀 때, 참조하는 경로들을 자동으로 수정할 지 여부
+    "workbench.colorTheme": "Visual Studio 2017 Light - C++", // vscode theme
+    "js/ts.updateImportsOnFileMove.enabled": "never", // 파일 위치를 바꿀 때, 참조하는 경로들을 자동으로 수정할 지 여부
 
     // ### material-icon-theme:
     "workbench.iconTheme": "material-icon-theme",
@@ -99,6 +99,7 @@
     // ### Formatter ==================================================
 
     "html.format.extraLiners": "",
+    "editor.autoClosingBrackets": "never", // auto tag 확장들과 충돌
     "editor.renderWhitespace": "all", // show space & tab
     "editor.tabSize": 4,
     "editor.formatOnSave": true,

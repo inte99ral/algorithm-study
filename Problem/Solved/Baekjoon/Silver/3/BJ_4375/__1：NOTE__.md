@@ -1,4 +1,15 @@
-# <img alt="『티어』" src="https://d2gd6pc034wcta.cloudfront.net/tier/『티어』.svg" width="16" /> [BJ 『문제코드』](https://www.acmicpc.net/problem/『문제코드』)：『문제제목』：오답노트
+# <img alt="s3" src="https://d2gd6pc034wcta.cloudfront.net/tier/8.svg" width="16" /> [BJ 4375](https://www.acmicpc.net/problem/4375)：1：NOTE
+
+## 목차
+
+-   [BJ 4375：1：NOTE](#-bj-43751note)
+    -   [목차](#목차)
+    -   [힌트](#힌트)
+    -   [오답](#오답)
+        -   [C++：2025-10-30：힘으로 해결 시도](#c2025-10-30힘으로-해결-시도)
+    -   [정답](#정답)
+        -   [C++：2026-03-06：수학적 풀이](#c2026-03-06수학적-풀이)
+        -   [C++：2026-03-07：브루트 포스](#c2026-03-07브루트-포스)
 
 ## 힌트
 
@@ -48,7 +59,7 @@ int main() {
 
 ## 정답
 
-### 『LANGUAGE_TYPE_02』：xxxx-xx-xx：『ANNOTATION_COMMENT』
+### C++：2026-03-06：수학적 풀이
 
 -   | 메모리  | 시간 | 코드 길이 |
     | :-----: | :--: | :-------: |
@@ -82,10 +93,10 @@ int main() {
         sum = iArr[1];
 
         while (sum != 1) {
-            if(sum % 10 != 1) {
-                sum += iArr[(11 - sum % 10) % 10];
-            }
+            // * 일의 자릿수가 1이 아니면 1로 맞춘다.
+            if(sum % 10 != 1) sum += iArr[(11 - sum % 10) % 10];
 
+            // * 1로 맞춘 자릿수는 볼 필요 없으니 십의 자릿수를 일의 자릿수로 내린다.
             sum /= 10;
             cnt++;
         }
@@ -93,6 +104,43 @@ int main() {
         cout << cnt << '\n';
     }
 
+    return 0;
+}
+```
+
+### C++：2026-03-07：브루트 포스
+
+-   | 메모리  | 시간 | 코드 길이 |
+    | :-----: | :--: | :-------: |
+    | 2024 KB | 0 ms |   474 B   |
+
+-   이걸 그냥 차력쇼로 풀 수 있는 줄 몰랐음
+-   그냥 냅다 1 -> 11 -> 111 하면서 n 으로 나누어 질때까지 해도 풀리는 거 보고 놀랐음
+-   나눗셈 분배법칙을 이용하여 미리 `% n` 으로 나눠놓아 오버플로우 방지가 가능함
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+
+    freopen("_INPUT_.txt", "rt", stdin); // <================================
+
+    int n;
+
+    while(cin >> n) {
+        int ans = 1;
+        int target = 1;
+        while (target % n) {
+            target = (target * 10) + 1;
+            target %= n;
+            ans++;
+        }
+        cout << ans << '\n';
+    }
     return 0;
 }
 ```
