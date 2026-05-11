@@ -1,6 +1,7 @@
 # \_ETC\_
 
-https://codingeverybody.kr/css-text-align-%ec%86%8d%ec%84%b1/
+<https://codingeverybody.kr/css-text-align-%ec%86%8d%ec%84%b1/>
+<https://studiomeal.com/archives/197>
 
 <div style="
   display: flex;

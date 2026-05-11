@@ -2,6 +2,15 @@
 
 ## 목차
 
+-   [Cloud Server：클라우드 서버](#cloud-server클라우드-서버)
+    -   [목차](#목차)
+    -   [개요](#개요)
+    -   [OCI 시작하기](#oci-시작하기)
+        -   [계정 생성](#계정-생성)
+        -   [버킷 생성](#버킷-생성)
+    -   [OCI 응용하기](#oci-응용하기)
+        -   [주소 설정](#주소-설정)
+
 ## 개요
 
 &nbsp; 클라우드로 서버 컴퓨터 환경을 제공하는 서비스들이 존재합니다. 설명 예시로 OCI(Oracle Cloud Infrastructure) 를 사용하겠습니다.
@@ -51,10 +60,10 @@ Oracle Mobile Authenticator 앱을 설치하여 로그인 시에 보안처리를
 
     -   버킷 생성:
         -   OCI 콘솔에서 햄버거 메뉴($\equiv$) $\rightarrow$ Storage $\rightarrow$ Buckets로 이동합니다.
-        -   웹사이트를 호스팅할 **구획(Compartment)**을 선택합니다.
+        -   웹사이트를 호스팅할 `구획(Compartment)`을 선택합니다.
         -   '버킷 생성'을 클릭하고 버킷 이름을 지정합니다.
-        -   **'Storage Tier'**는 Standard로 설정합니다.
-        -   **'Visibility'**를 Public으로 설정하여 인터넷에서 파일에 접근할 수 있도록 합니다.
+        -   `Storage Tier`는 Standard로 설정합니다.
+        -   `Visibility`를 Public으로 설정하여 인터넷에서 파일에 접근할 수 있도록 합니다.
     -   index.html 파일 업로드:
         -   생성된 버킷을 클릭하고 'Upload' 버튼을 누릅니다.
         -   배포하려는 index.html 파일을 비롯한 웹사이트의 모든 정적 파일(CSS, JS, 이미지 등)을 업로드합니다.
@@ -74,4 +83,4 @@ OCI 를 이용하여 SNS 서비스 기틀을 개발할 수 있습니다.
 
 ### 주소 설정
 
-만약 웹페이지를 Object Storage 버킷으로만 운영하고 싶다면, 기본 주소는 <https://objectstorage.[리전].oraclecloud.com/>... 형태가 됩니다. 이 주소는 커스텀 도메인($web.example.com$)을 바로 붙이기가 까다롭기 때문에, 보통 앞단에 Cloudflare 같은 무료 CDN을 붙여서 주소를 깔끔하게 매핑합니다.
+만약 웹페이지를 Object Storage 버킷으로만 운영하고 싶다면, 기본 주소는 `https://objectstorage.[리전].oraclecloud.com/`... 형태가 됩니다. 이 주소는 커스텀 도메인(`web.example.com`)을 바로 붙이기가 까다롭기 때문에, 보통 앞단에 Cloudflare 같은 무료 CDN을 붙여서 주소를 깔끔하게 매핑합니다.

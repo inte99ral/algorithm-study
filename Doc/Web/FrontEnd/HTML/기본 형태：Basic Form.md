@@ -22,11 +22,12 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <!-- <meta name='viewport' content='width=device-width, initial-scale=1'> -->
         <title>기본 형태 BasicForm</title>
         <!-- CSS (external style) -->
-        <link href="./main.css" rel="stylesheet" />
+        <link href="./style.css" rel="stylesheet" />
         <!-- JS (external style) -->
-        <script src="./main.js" defer></script>
+        <script src="./script.js" defer></script>
         <!-- CSS (internal style) -->
         <!-- <style></style> -->
     </head>
