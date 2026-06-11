@@ -67,3 +67,13 @@
 ## 프린터 대기열 걸림 문제 해결
 
 -   [printspool 재구성](https://support.hp.com/kr-ko/document/c04746618)
+
+## 윈도우 듀얼쇼크4 연동
+
+-   [구 깃허브 링크(지원 중단)](https://github.com/Ryochan7/DS4Windows/releases)
+-   [현 프로젝트 링크](https://ds4-windows.com/)
+
+추가 설명
+
+-   [기본설명](https://arca.live/b/zenlesszonezero/112310267)
+-   [진동오게하는법](https://arca.live/b/zenlesszonezero/111325954)

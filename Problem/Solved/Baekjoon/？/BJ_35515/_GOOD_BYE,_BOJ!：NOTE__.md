@@ -1,4 +1,4 @@
-# <img alt="?" src="https://d2gd6pc034wcta.cloudfront.net/tier/0.svg" width="16" /> [BJ 35515](https://www.acmicpc.net/problem/35515)：Good Bye, BOJ!：NOTE
+# <img alt="https://d2gd6pc034wcta.cloudfront.net/tier/0.svg" src="/.example/Baekjoon/asset/logo/q？.svg" width="16" /> [BJ 35515](https://www.acmicpc.net/problem/35515)：Good Bye, BOJ!：NOTE
 
 ## 목차
 
@@ -6,7 +6,7 @@
     -   [목차](#목차)
     -   [힌트](#힌트)
     -   [정답](#정답)
-        -   [C++：xxxx-xx-xx：문자열 리터럴 연결](#cxxxx-xx-xx문자열-리터럴-연결)
+        -   [C++：2026-04-28：문자열 리터럴 연결](#c2026-04-28문자열-리터럴-연결)
 
 ## 힌트
 
@@ -14,11 +14,11 @@
 
 ## 정답
 
-### C++：xxxx-xx-xx：문자열 리터럴 연결
+### C++：2026-04-28：문자열 리터럴 연결
 
 -   | 메모리  | 시간 | 코드 길이 |
     | :-----: | :--: | :-------: |
-    | 2024 KB | 0 ms |   843 B   |
+    | 2028 KB | 0 ms |  10260 B   |
 
 -   방법 찾음
 
