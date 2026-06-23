@@ -5,49 +5,30 @@
 -   [Cloud Server：클라우드 서버](#cloud-server클라우드-서버)
     -   [목차](#목차)
     -   [개요](#개요)
-    -   [0. 로컬호스트 내부테스트](#0-로컬호스트-내부테스트)
-        -   [0-1. 웹 페이지 파일 생성](#0-1-웹-페이지-파일-생성)
-        -   [0-2. 브라우저에서 체크하기](#0-2-브라우저에서-체크하기)
-        -   [0-3. 로컬호스트 배포 테스트](#0-3-로컬호스트-배포-테스트)
-            -   [Vscode extension](#vscode-extension)
-            -   [Nginx](#nginx)
-    -   [1. 오라클 API 웹 배포](#1-오라클-api-웹-배포)
-        -   [1-1. OCI 계정생성](#1-1-oci-계정생성)
+    -   [OCI 시작하기](#oci-시작하기)
+        -   [계정(도메인) 생성](#계정도메인-생성)
             -   [계정 만들기](#계정-만들기)
             -   [로그인 확인](#로그인-확인)
-            -   [계정 도메인 정책 확인](#계정-도메인-정책-확인)
-        -   [1-2. 버킷 생성](#1-2-버킷-생성)
-            -   [블록 \& 버킷 개념정리](#블록--버킷-개념정리)
-            -   [버킷 생성하기](#버킷-생성하기)
-            -   [index.html 오브젝트 업로드](#indexhtml-오브젝트-업로드)
-        -   [1-3. 오브젝트 URL 확인](#1-3-오브젝트-url-확인)
-    -   [2. 최소 단위 정적 웹 배포](#2-최소-단위-정적-웹-배포)
-        -   [1-2. Compartment(컴파트먼트) 생성하기](#1-2-compartment컴파트먼트-생성하기)
+            -   [도메인 정책 확인](#도메인-정책-확인)
+        -   [컴파트먼트 생성하기](#컴파트먼트-생성하기)
             -   [컴파트먼트란?](#컴파트먼트란)
             -   [하위 컴파트먼트 생성하기](#하위-컴파트먼트-생성하기)
-        -   [1-3. VCN(가상 네트워크) 생성](#1-3-vcn가상-네트워크-생성)
-            -   [VCN 개념정리](#vcn-개념정리)
-        -   [1-2. Compute VM(인스턴스) 생성 및 공용 IP 확보](#1-2-compute-vm인스턴스-생성-및-공용-ip-확보)
-            -   [Compute VM 개념정리](#compute-vm-개념정리)
-            -   [Compute VM 생성하기](#compute-vm-생성하기)
-        -   [2단계: OCI 클라우드 방화벽(Security List) 개방](#2단계-oci-클라우드-방화벽security-list-개방)
-        -   [3단계: VM 내부 OS 방화벽 개방 및 Nginx 설치](#3단계-vm-내부-os-방화벽-개방-및-nginx-설치)
-        -   [4단계: index.html 배치 및 외부 접속 테스트](#4단계-indexhtml-배치-및-외부-접속-테스트)
-    -   [3. 웹 도메인 연결](#3-웹-도메인-연결)
-    -   [프로젝트 살 붙이기](#프로젝트-살-붙이기)
-        -   [단계 1.5 (도메인 연결): "숫자 IP는 치기 귀찮네?" ➔ DuckDNS를 가져와서 VM IP 매핑하기](#단계-15-도메인-연결-숫자-ip는-치기-귀찮네--duckdns를-가져와서-vm-ip-매핑하기)
-        -   [단계 2.0 (보안 적용): "주의 요함(HTTP) 경고창이 뜨네?" ➔ Certbot을 이용해 Nginx에 무료 SSL(HTTPS) 인증서 적용하기](#단계-20-보안-적용-주의-요함http-경고창이-뜨네--certbot을-이용해-nginx에-무료-sslhttps-인증서-적용하기)
-        -   [단계 3.0 (아키텍처 고도화): "웹사이트에 이미지랑 동영상이 많아지니 서버 용량이 부족하고 느려지네? 서버 컴퓨터를 더 가볍게 유지하고 싶다." ➔ index.html과 정적 자원들을 Object Storage로 이사 보내고, VM은 백엔드 API 서버용으로만 쓰기](#단계-30-아키텍처-고도화-웹사이트에-이미지랑-동영상이-많아지니-서버-용량이-부족하고-느려지네-서버-컴퓨터를-더-가볍게-유지하고-싶다--indexhtml과-정적-자원들을-object-storage로-이사-보내고-vm은-백엔드-api-서버용으로만-쓰기)
-    -   [OCI 시작하기](#oci-시작하기)
         -   [버킷 생성](#버킷-생성)
+            -   [블록 \& 버킷 개념정리](#블록--버킷-개념정리)
+            -   [버킷 생성하기](#버킷-생성하기)
+            -   [버킷에 넣을 파일 만들기](#버킷에-넣을-파일-만들기)
+            -   [index.html 오브젝트 업로드](#indexhtml-오브젝트-업로드)
+            -   [오브젝트 URL 확인](#오브젝트-url-확인)
         -   [웹 도메인 생성하기](#웹-도메인-생성하기)
+            -   [웹 도메인 생성 목표](#웹-도메인-생성-목표)
             -   [도메인 개념정리](#도메인-개념정리)
             -   [도메인 무료 생성](#도메인-무료-생성)
         -   [DNS 형성하기](#dns-형성하기)
+            -   [DNS 형성하기 \> 단계 목표](#dns-형성하기--단계-목표)
             -   [DNS 개념정리](#dns-개념정리)
             -   [DNS 생성](#dns-생성)
         -   [가상 네트워크(VCN) 생성](#가상-네트워크vcn-생성)
-            -   [VCN 개념정리](#vcn-개념정리-1)
+            -   [VCN 개념정리](#vcn-개념정리)
             -   [VCN 생성방법](#vcn-생성방법)
         -   [가상 서버 컴퓨터(Virtual Machine, Compute Instance) 생성](#가상-서버-컴퓨터virtual-machine-compute-instance-생성)
             -   [VM 개념정리](#vm-개념정리)
@@ -65,102 +46,15 @@
 
 &nbsp; 또한, 무료계정 정책이 사용자 친화적이므로 AWS 에선 무료 계정임에도 특정 한도를 초과하면 자동으로 유료 서비스로 전환되어 요금이 부과되는 것과는 다르게 OCI 의 Always Free 리소스는 Always Free 아웃바운드 데이터 전송량을 초과하면 해당 리소스에 대한 추가 전송이 차단됩니다.
 
-## 0. 로컬호스트 내부테스트
+----------------------------------------------------------------
 
-&nbsp; 이 단계에서 목표로 하는 아키텍처 구조는 다음과 같습니다.
+_BOOKMARK
 
-```txt
-[사용자 (웹브라우저에 파일디렉터리입력: "file:///C:/ ... /index.html")]
-```
+----------------------------------------------------------------
 
-&nbsp; 내부의 html 파일을 외부 네트워크에서 접근하게 만드려면 웹과 연결하고, 보안 규칙을 설정하고, 연결한 망 위에 파일을 올리는 등 복잡한 과정을 거칩니다. 그 전에 로컬 환경에서 파일이 배포 시에 어떻게 보여질 지 정적으로 체크하겠습니다.
+## OCI 시작하기
 
-### 0-1. 웹 페이지 파일 생성
-
-&nbsp; 대충 입력과 구동상태를 확인하기 위한 단순한 사이트 뭉치를 만들어줍니다.
-
-&nbsp; 위치가 어디든 상관은 없으나 이 예시에서는 찾기 쉽도록 C:/ 드라이브 최상단에 바로 `firstlocalweb` 이라는 이름이 폴더를 만들고 그 안에 다음의 파일 3개를 만들어주세요. IDE 개발환경이 없더라도 텍스트 파일을 만들어서 메모장에다 밑의 내용을 복사 붙여넣기한 후에 txt 확장자를 각 파일에 맞게 바꿔줘도 생성이 가능합니다. 
-
-&nbsp; 다음 파일 3개는 각각 웹페이지의 실제몸통(html), 모양새(css), 움직임(js) 을 컴퓨터 언어로 명시한 문서입니다. 기능은 그저 웹페이지 가운데에 글씨를 띄우고, 그 글씨를 클릭하고 있는 동안에, 그리고 클릭을 멈추는 순간에 페이지 색을 바꾸는 것이 전부인 단순한 기능 테스트용 페이지 입니다.
-
--   index.html
-
-    ```html
-    <!doctype html>
-    <html>
-        <head>
-            <meta charset="utf-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <title>기본 형태 BasicForm</title>
-            <link href="./style.css" rel="stylesheet" />
-            <script src="./script.js" defer></script>
-        </head>
-        <body id="body">
-            <h1 id="btn">이 글씨를 클릭하면 색상이 바뀝니다</h1>
-        </body>
-    </html>
-    ```
-
--   script.js
-
-    ```js
-    const objBtn = document.getElementById('btn');
-    const objBody = document.getElementById('body');
-
-    const eventBodyOrange = (e) => {
-        objBody.style.backgroundColor = '#FF9922';
-    };
-    const eventBodyGreen = (e) => {
-        objBody.style.backgroundColor = '#92FF29';
-    };
-
-    objBtn.addEventListener('mouseup', eventBodyOrange);
-    objBtn.addEventListener('mousedown', eventBodyGreen);
-    ```
-
--   style.css
-
-    ```css
-    body {
-        width: 100vw;
-        height: 100vh;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        color: white;
-        background-color: #2f99f2;
-    }
-    ```
-
-### 0-2. 브라우저에서 체크하기
-
-&nbsp; 웹브라우저를 키고 주소창에 파일의 디렉터리 주소를 다음과 같이 입력합니다. `file:/// ... /index.html`
-
-&nbsp; 예시와 똑같이 C드라이브 최상단의 "firstlocalweb" 폴더 안에서 만들었다면 `file:///C:/firstlocalweb/index.html` 일 것 입니다.
-
-### 0-3. 로컬호스트 배포 테스트
-
-&nbsp; 외부 망 연결없이 내부에서 자기 자신을 의미하는 주소 `127.0.0.1` 으로 소통하는 것도 가능하지만 웹 배포할 때 같은 것을 다시하므로 지금 하거나 익힐 필요가 없습니다. 방법은 서술하겠지만 다음단계로 가세요. 
-
-#### Vscode extension
-
-vscode 개발환경에선 손쉽게 테스트 해볼 수 있습니다. 
-
-#### Nginx
-
-nginx 을 설치해야합니다.
-
-## 1. 오라클 API 웹 배포
-
-&nbsp; 이 단계에서 목표로 하는 아키텍처 구조는 다음과 같습니다.
-
-```txt
-[사용자] ➔ [OCI API] ➔ [OCI Object Storage (Public Bucket)] ➔ [index.html(Object)]
-```
-
-### 1-1. OCI 계정생성
+### 계정(도메인) 생성
 
 #### 계정 만들기
 
@@ -193,7 +87,7 @@ nginx 을 설치해야합니다.
 
 &nbsp; Oracle Mobile Authenticator 앱을 설치하여 로그인 시에 보안처리를 더 철저하게 할 수 있습니다.
 
-#### 계정 도메인 정책 확인
+#### 도메인 정책 확인
 
 &nbsp; OCI 는 보안을 위하여 계정 도메인의 비밀번호에 유효기간을 두어 일정 주기로 바꾸는 것을 요구합니다. 이를 따르는 것이 좋으나 너무 귀찮다면 다음의 방법으로 계정 도메인의 보안 정책을 조정할 수 있습니다.
 
@@ -208,7 +102,36 @@ nginx 을 설치해야합니다.
 -> `Edit password rules` 
 -> `Expires after (days)` 항목의 값을 0 으로 
 
-### 1-2. 버킷 생성
+### 컴파트먼트 생성하기
+
+&nbsp; 정적 웹사이트 호스팅(Static Website Hosting)을 위해선 버킷을 만들기 전에 먼저 최상위(Root)의 하위 컴파트먼트(Compartment)를 새로 만들어야합니다. 
+
+#### 컴파트먼트란?
+
+&nbsp; 컴파트먼트는 클라우드 리소스를 논리적으로 격리하는 계층형 디렉터리(폴더) 개념입니다. 프로젝트별, 부서별, 또는 개발/스테이징/운영 환경별로 리소스(인스턴스, 네트워크, 스토리지 등)를 묶어서 관리하고 권한을 제어(IAM)하기 위해 사용합니다.
+
+&nbsp; OCI 보안정책상, 최상위(Root) 컴파트먼트에선 static 한 html 파일을 서비스하는 정적 웹 호스팅(Static Website Hosting) 기능을 활성화 할 수 없습니다. 이는 최상위 컴파트먼트가 해당 테넌시(계정)의 모든 리소스와 마스터 권한, 결제정보가 모이는 민감한 영역이므로, 이 컴파트먼트를 호스팅해버린다면 해당 컴파트먼트의 모든 자원에 전세계 사람에 접근하도록 Public 으로 접근권한을 허용하는 행위가 되기 때문입니다. 공격자의 공격으로부터 중요 데이터의 격리가 불가능한 이런 형태를 OCI 는 원천적으로 제공하지 않으려고 합니다.
+
+&nbsp; 컴퓨터에 최상위 구조가 `C:\` 이듯 OCI 서비스에서 최상위 컴파트먼트는 본인의 테넌시(계정, Tenancy) 가 됩니다. 그 밑으로 최대 6단계 깊이 까지 하위 컴파트먼트를 생성할 수 있으며, 보통 프로젝트와 부서 틀에 따라 다음과 같이 구조를 설계합니다.
+
+```txt
+Root (내 계정 - 추가 생성 불가능)
+ ├── Production (운영 환경 컴파트먼트)
+ │    ├── Web-Resources (웹 서버용 버킷 등)
+ │    └── DB-Resources
+ └── Development (개발 환경 컴파트먼트)
+      ├── Test-Servers
+      └── Test-Storage
+```
+
+#### 하위 컴파트먼트 생성하기
+
+&nbsp; OCI 메인 화면 좌측상단 <kbd>☰</kbd> 버튼을 눌러 네비게이션 메뉴를 열고
+-> `Identity & Security` 
+-> (Indentity 항목) `Compartments` 
+-> <kbd>Create compartment</kbd> 를 클릭합니다.
+
+### 버킷 생성
 
 &nbsp; 정적 웹사이트 파일을 저장할 공간을 만듭니다.
 
@@ -274,6 +197,61 @@ nginx 을 설치해야합니다.
 
 -   버킷 생성 후, 버킷을 클릭하여 `Details`->`Actions`->`Edit visibility`를 Public으로 설정하여 인터넷에서 파일에 접근할 수 있도록 합니다.
 
+#### 버킷에 넣을 파일 만들기
+
+&nbsp; 대충 입력과 구동상태를 확인하기 위한 단순한 사이트 뭉치를 만들어줍니다.
+
+-   index.html
+
+    ```html
+    <!doctype html>
+    <html>
+        <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <title>기본 형태 BasicForm</title>
+            <link href="./style.css" rel="stylesheet" />
+            <script src="./script.js" defer></script>
+        </head>
+        <body id="body">
+            <h1 id="btn">테스트</h1>
+        </body>
+    </html>
+    ```
+
+-   script.js
+
+    ```js
+    const objBtn = document.getElementById('btn');
+    const objBody = document.getElementById('body');
+
+    const eventBodyGreen = (e) => {
+        objBody.style.backgroundColor = 'green';
+    };
+    const eventBodyRed = (e) => {
+        objBody.style.backgroundColor = 'red';
+    };
+
+    objBtn.addEventListener('mousedown', eventBodyGreen);
+    objBtn.addEventListener('mouseup', eventBodyRed);
+    ```
+
+-   style.css
+
+    ```css
+    body {
+        width: 100vw;
+        height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        color: white;
+        background-color: #992244;
+    }
+    ```
+
 #### index.html 오브젝트 업로드
 
 -   생성된 버킷을 클릭하고 <kbd>Upload objects</kbd> 버튼을 누릅니다.
@@ -293,8 +271,7 @@ nginx 을 설치해야합니다.
         -   Additional Checksum(추가 체크섬)은 "올린 파일이 클라우드에 올라가는 과정에서 1비트의 변형도 없이 100% 똑같이 완벽하게 도착했나?" 를 확인하는 무결성 체크입니다. 컴퓨터에서 아주아주 용량이 큰 파일(수십 GB짜리 게임 데이터나 백업 압축 파일)을 인터넷을 통해 클라우드로 업로드하다 보면, 간혹 인터넷 연결이 순간적으로 불안정해져서 파일 데이터 중 아주 미세한 일부(1비트)가 깨지거나 누락되는 일이 발생할 수 있습니다. 추가 체크섬은 다음의 과정을 거쳐 파일의 결점 여부를 파악합니다. 우선 파일의 내용을 수학적 알고리즘(MD5, SHA-256 등)을 거쳐 지문으로 만듭니다. 파일과 함께 클라우드에 보내면 클라우드에서 다시 그 파일을 알고리즘으로 지문화한 뒤에, 파일과 함께 도착한 지문과 같은 지 비교합니다. 두 지문이 같다면 무결성이 입증된 것 입니다. 일반적인 몇 GB 조차 아닌 파일들은 불필요한 과정입니다.
 
     -   **Choose Files from your Compute**
-        -   `0-1. 웹 페이지 파일 생성` 단계에서 생성한 파일을 올립니다.
-        -   이 항목을 통하여 파일을 오브젝트로써 버킷에 추가합니다. 창을 열어서 선택하거나, 직접 드래그를 하여 복수개의 파일이나 폴더 전체를 넣을 수도 있습니다.
+        -   파일을 추가합니다. 창을 열어서 선택하거나, 직접 드래그를 하여 복수개의 파일이나 폴더 전체를 넣을 수도 있습니다.
 
     -   **Optional response headers and metadata :**
         -   특수한 목적(웹 캐싱 제어, 강제 다운로드 설정 등)이 없다면 굳이 건드릴 필요 없이 비워두셔도 됩니다.
@@ -305,125 +282,24 @@ nginx 을 설치해야합니다.
 
 -   배포하려는 index.html 파일을 비롯한 웹사이트의 모든 정적 파일(CSS, JS, 이미지 등)을 업로드합니다.
 
-### 1-3. 오브젝트 URL 확인
+#### 오브젝트 URL 확인
 
 -   index.html 을 업로드한 Bucket 의 Objects 항목으로 가면 업로드 된 파일들을 볼 수 있습니다.
 -   index.html 파일 옆의 <kbd>…</kbd> 버튼을 누르고, view object details 항목을 클릭하면 나오는 팝업에서 `URL path (URI)` 를 확인할 수 있습니다.
 
-## 2. 최소 단위 정적 웹 배포
+### 웹 도메인 생성하기
 
-&nbsp; 이전 단계에서는 오라클에서 오라클 서비스의 자원에 접근가능하도록 사용자들에게 제공한 API 를 통해서 index.html 에 접근하게 했습니다. 하지만 개인 포트폴리오나 실제 서비스용에 합당한 프로덕션 수준으로 발전시키기 위해선 오라클 API 에 의존하지 않고 <u><b>내가 통제하는 서버 위에서 해당 페이지를 배포</b></u>해야합니다. 이번엔 이것을 목표로 할 것입니다.
+#### 웹 도메인 생성 목표
 
-&nbsp; 이 단계에서 목표로 하는 아키텍처 구조는 다음과 같습니다.
-
-```txt
-[사용자 (브라우저: http://공용IP)] ➔ [OCI Compute VM (Nginx)]
-```
-
-이 구조는 우리가 만든 index.html 페이지를 외부의 웹 브라우저에서 접근할 수 있게만 하는 최소한의 구조입니다. 따라서 다음의
-
--   문자화된 도메인 주소가 없음
--   https:// SSL 보안인증 없음
--   서버와 리소스DB가 분리되지 않고 붙어있음
--   서비스 유연성 낮음
-
-같은 기능이 부족합니다. 이 부족한 부분들은 뒤에서 추가하도록 하겠습니다.
-
-### 1-2. Compartment(컴파트먼트) 생성하기
-
-&nbsp; 안정적인 서비스 구역과 연습용 테스트 구역을 구분하기 위하여 최상위(Root)의 하위 컴파트먼트(Compartment)를 만들어 분리하려고 합니다.
-
-#### 컴파트먼트란?
-
-&nbsp; 컴파트먼트는 클라우드 리소스를 논리적으로 격리하는 계층형 디렉터리(폴더) 개념입니다. 프로젝트별, 부서별, 또는 개발/스테이징/운영 환경별로 리소스(인스턴스, 네트워크, 스토리지 등)를 묶어서 관리하고 권한을 제어(IAM)하기 위해 사용합니다.
-
-&nbsp; OCI 보안정책상, 최상위(Root) 컴파트먼트에선 static 한 html 파일을 서비스하는 정적 웹 호스팅(Static Website Hosting) 기능을 활성화 할 수 없습니다. 이는 최상위 컴파트먼트가 해당 테넌시(계정)의 모든 리소스와 마스터 권한, 결제정보가 모이는 민감한 영역이므로, 이 컴파트먼트를 호스팅해버린다면 해당 컴파트먼트의 모든 자원에 전세계 사람에 접근하도록 Public 으로 접근권한을 허용하는 행위가 되기 때문입니다. 공격자의 공격으로부터 중요 데이터의 격리가 불가능한 이런 형태를 OCI 는 원천적으로 제공하지 않으려고 합니다.
-
-&nbsp; 컴퓨터에 최상위 구조가 `C:\` 이듯 OCI 서비스에서 최상위 컴파트먼트는 본인의 테넌시(계정, Tenancy) 가 됩니다. 그 밑으로 최대 6단계 깊이 까지 하위 컴파트먼트를 생성할 수 있으며, 보통 프로젝트와 부서 틀에 따라 다음과 같이 구조를 설계합니다.
+&nbsp; 위의 과정을 전부 완료했다면 index.html 웹페이지 정보가 담긴 문서를 오라클의 API URL 로 접근할 수 있습니다. 이는 다음의 구조로 정리됩니다.
 
 ```txt
-Root (내 계정 - 추가 생성 불가능)
- ├── Production (운영 환경 컴파트먼트)
- │    ├── Web-Resources (웹 서버용 버킷 등)
- │    └── DB-Resources
- └── Development (개발 환경 컴파트먼트)
-      ├── Test-Servers
-      └── Test-Storage
+[사용자] ➔ [OCI API] ➔ [OCI Object Storage (Public Bucket)] ➔ [index.html(Object)]
 ```
 
-#### 하위 컴파트먼트 생성하기
+&nbsp; 이는 오라클에서 오라클 서비스의 자원에 접근가능하도록 사용자들에게 제공한 API 를 통해서 index.html 에 접근한 것 입니다.
 
-&nbsp; OCI 메인 화면 좌측상단 <kbd>☰</kbd> 버튼을 눌러 네비게이션 메뉴를 열고
--> `Identity & Security` 
--> (Indentity 항목) `Compartments` 
--> <kbd>Create compartment</kbd> 를 클릭합니다.
-
-&nbsp; `이름`과 `설명`과 누구를 부모로 하는 `하위 컴파트먼트` 인지 설정하면 됩니다. 설명은 그리 중요하지 않으니 지금은 그냥 이름과 똑같이 적겠습니다.
-
-&nbsp; 여기선 예시로 `Root` 밑에 `Production` 를 생성하고, 그 뒤 에 `Production` 밑에 `Web-Resources` 를 생성하겠습니다.
-
-### 1-3. VCN(가상 네트워크) 생성
-
-#### VCN 개념정리
-
-DNS (Domain Name System)
-비유: '전화번호부'
-
-역할: 사람들이 기억하기 쉬운 '도메인 이름'을 컴퓨터가 이해하는 'IP 주소(예: 192.0.2.1)'로 연결(매핑)해 주는 시스템입니다.
-
-주요 업무: * "이 도메인으로 들어오는 사람을 어디(어떤 서버)로 보내야 하지?"에 대한 정보를 가지고 있습니다.
-
-웹사이트 접속, 이메일 전송 등을 위해 필수적인 네트워크 서비스입니다.
-
-보통 도메인 판매 업체에서 무료 DNS 기능을 제공하기도 하고, 클라우드플레어(Cloudflare) 같은 전문 DNS 관리 서비스를 사용하기도 합니다.
-
-### 1-2. Compute VM(인스턴스) 생성 및 공용 IP 확보
-
-#### Compute VM 개념정리
-
-오라클 클라우드 위에 24시간 돌아갈 가상화 서버컴퓨터 인스턴스 Compute VM 
-
--   공부할 개념: 클라우드 가상 서버(VM)의 개념, OS(Ubuntu 또는 Oracle Linux) 선택.
-
--   할 일: OCI에서 Always Free 사양의 컴퓨터를 한 대 개설합니다. 
-
-&nbsp; 우리가 사용할 컴퓨터(가상 서버)를 오라클 클라우드 컴퓨터에 한 대 개설하는 단계입니다. 생성이 완료되면 고정된 공용 IP(Public IP) 주소가 발급됩니다.
-
-#### Compute VM 생성하기
-
-&nbsp; OCI 메인 화면 좌측상단 <kbd>☰</kbd> 버튼을 눌러 네비게이션 메뉴를 열고
--> `Compute` 
--> (Compute 항목) `Instances`
--> <kbd>Create bucket</kbd> 버튼을 클릭하여 만들 수 있습니다.
-
-Applied filters 옆에 Compartment 가  
-
-만약 OCI 무료 티어의 자원 제한(Ampere A1 Compute 4 Core, 24GB RAM 등) 안에서 구성해야 하더라도, VM을 2개(웹용 2Core/12GB, DB용 2Core/12GB)로 쪼개어 구성하는 것이 향후 유지보수와 안정성 측면에서 훨씬 유리합니다.
-
-### 2단계: OCI 클라우드 방화벽(Security List) 개방
-
--   공부할 개념: 네트워크 보안, 포트(Port), 인바운드 규칙(Ingress Rule).
-
--   할 일: 외부 사용자가 내 VM으로 들어올 수 있도록 통로를 열어줘야 합니다. OCI 콘솔의 가상 네트워크(VCN) 설정에서 80번 포트(HTTP 기본 포트)를 전체 개방(0.0.0.0/0)해 줍니다.
-
--   💡 많은 초보자가 VM 내부에 Nginx를 잘 켜두고도 이 클라우드 방화벽을 안 열어서 접속 실패를 겪습니다. 가장 중요한 단계입니다.
-
-### 3단계: VM 내부 OS 방화벽 개방 및 Nginx 설치
-
--   공부할 개념: Linux 명령어, SSH 원격 접속, 패키지 관리자(apt 또는 dnf), Linux 자체 방화벽(iptables 또는 firewalld).
-
--   할 일: 
-    -   내 컴퓨터에서 SSH를 통해 OCI VM으로 원격 접속합니다. (VS Code의 Remote-SSH 확장 기능을 쓰시면 편리합니다.)
-    -   Linux 자체 방화벽에서도 80번 포트를 열어줍니다.
-    -   nginx를 설치하고 실행합니다.
-
-### 4단계: index.html 배치 및 외부 접속 테스트
-
--   공부할 개념: 웹 서버의 루트 디렉토리(Document Root), 웹 호스팅의 원리.
-
--   할 일: Nginx의 기본 경로(보통 /var/www/html 또는 /usr/share/nginx/html)에 질문자님의 index.html 파일을 덮어씌웁니다.
-
-## 3. 웹 도메인 연결
+&nbsp; 개인 포트폴리오나 실제 서비스용에 합당한 프로덕션 수준으로 발전시키기 위하여 오라클 API 에 의존하지 않고 <u><b>내가 통제하는 웹서버를 만들어 특정 주소로 해당 페이지를 배포</b></u>하는 것이 다음의 목표 입니다.
 
 &nbsp; 이 목표의 아키텍처 구조는 다음과 같이 변화할 예정입니다.
 
@@ -431,19 +307,13 @@ Applied filters 옆에 Compartment 가
 [사용자] ➔ [DNS (가비아, 후이즈, Cloudflare 등 도메인대행사)] ➔ [Compute VM (Nginx + SSL)] ➔ [OCI Object Storage (Public Bucket)] ➔ [index.html(Object)]
 ```
 
-## 프로젝트 살 붙이기
+&nbsp; 오라클 클라우드 위에 24시간 돌아갈 가상화 서버컴퓨터 인스턴스 Compute VM 을 올리기 전에 우선 도메인을 마련하는 것을 목표로 하겠습니다. 도메인에 관한 설명은 밑에 추가로 하겠습니다.
 
-### 단계 1.5 (도메인 연결): "숫자 IP는 치기 귀찮네?" ➔ DuckDNS를 가져와서 VM IP 매핑하기
-
-### 단계 2.0 (보안 적용): "주의 요함(HTTP) 경고창이 뜨네?" ➔ Certbot을 이용해 Nginx에 무료 SSL(HTTPS) 인증서 적용하기
-
-### 단계 3.0 (아키텍처 고도화): "웹사이트에 이미지랑 동영상이 많아지니 서버 용량이 부족하고 느려지네? 서버 컴퓨터를 더 가볍게 유지하고 싶다." ➔ index.html과 정적 자원들을 Object Storage로 이사 보내고, VM은 백엔드 API 서버용으로만 쓰기
-
-## OCI 시작하기
-
-### 버킷 생성
-
-### 웹 도메인 생성하기
+```txt
+                               현재 목표
+                                ☟☟☟
+「사용자」 ➔ 『DNS (가비아, 후이즈, Cloudflare 등 도메인대행사)』 ➔ 「Compute VM (Nginx + SSL)」 ➔ 「OCI Object Storage (Public Bucket)」 ➔ 「index.html(Object)」
+```
 
 #### 도메인 개념정리
 
@@ -467,7 +337,26 @@ Applied filters 옆에 Compartment 가
 
 ### DNS 형성하기
 
+#### DNS 형성하기 > 단계 목표
+
+DuckDNS는 도메인 이름에 숫자로 된 IP 주소(A 레코드)를 매핑하는 기능만 수행합니다.
+
+이제 우리는 
+
+웹 배포를 위해선 OCI 의 index.html 의 IP 로 CNAME 매핑 및 프록시(Proxy)
+
 #### DNS 개념정리
+
+DNS (Domain Name System)
+비유: '전화번호부'
+
+역할: 사람들이 기억하기 쉬운 '도메인 이름'을 컴퓨터가 이해하는 'IP 주소(예: 192.0.2.1)'로 연결(매핑)해 주는 시스템입니다.
+
+주요 업무: * "이 도메인으로 들어오는 사람을 어디(어떤 서버)로 보내야 하지?"에 대한 정보를 가지고 있습니다.
+
+웹사이트 접속, 이메일 전송 등을 위해 필수적인 네트워크 서비스입니다.
+
+보통 도메인 판매 업체에서 무료 DNS 기능을 제공하기도 하고, 클라우드플레어(Cloudflare) 같은 전문 DNS 관리 서비스를 사용하기도 합니다.
 
 #### DNS 생성
 
