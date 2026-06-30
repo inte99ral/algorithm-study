@@ -7,6 +7,7 @@
     -   [참고 문서](#참고-문서)
     -   [Git 명령어 목록](#git-명령어-목록)
     -   [Git 사용 팁](#git-사용-팁)
+        -   [강제 Rebase 문제](#강제-rebase-문제)
         -   [특정 폴더만 클론하기](#특정-폴더만-클론하기)
         -   [Git 대상 제외：gitignore](#git-대상-제외gitignore)
     -   [Git 도구](#git-도구)
@@ -162,6 +163,11 @@
 
 ## Git 사용 팁
 
+### 강제 Rebase 문제
+
+-   리퀘스트를 생성하기
+-   원본 브랜치에 로그 문서를 추가하여 다른 수정사항을 남겨놓아 Rebase 방지하기
+
 ### 특정 폴더만 클론하기
 
 -   1 클론 받을 폴더를 생성 및 이동해주세요.
@@ -180,7 +186,7 @@
     git remote add origin 『REMOTE_URL』
     ```
 
-git remote add origin https://github.com/leotorrez/ZZ-Model-Importer-Assets
+git remote add origin <https://github.com/leotorrez/ZZ-Model-Importer-Assets>
 
 -   3 Sparse Checkout 기능을 활성화 시켜주세요.
 

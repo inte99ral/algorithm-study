@@ -232,34 +232,28 @@ undo(실행취소) - u
 </table>
 </center>
 
-- apt : [참고 링크](https://uyt8989.tistory.com/75)
-- ls : 현재 디렉토리에 있는 파일 및 폴더를 출력
+-   apt : [참고 링크](https://uyt8989.tistory.com/75)
+-   ls : 현재 디렉토리에 있는 파일 및 폴더를 출력
 
-- cp <파일1> <파일2>: 파일1과 동일한 파일2를 만든다.
+-   cp <파일1> <파일2>: 파일1과 동일한 파일2를 만든다.
 
-- mkdir <디렉토리이름>: <디렉토리이름>의 폴더를 만든다.
+-   mkdir <디렉토리이름>: <디렉토리이름>의 폴더를 만든다.
 
-- rmdir <디렉토리이름>: <디렉토리이름>의 폴더를 삭제한다.
+-   rmdir <디렉토리이름>: <디렉토리이름>의 폴더를 삭제한다.
 
-- pwd: 현재 경로 출력
+-   pwd: 현재 경로 출력
 
-- touch <파일명>: <파일명> 파일 생성
-
-### vi
+-   touch <파일명>: <파일명> 파일 생성
 
 ## Shell Script
 
-### 목록
-
-- 출력
-
-### 출력
+### Shell Script > 출력
 
 [참고링크](https://directori.tistory.com/133)
 
-- 기본 출력
-  - echo
-  - print
+-   기본 출력
+    -   echo
+    -   print
 
 ```bash
 echo "Echo Test" # 자동 개행
@@ -269,10 +263,10 @@ printf "%s %s" print test # 뒤에 오는 문자열들이 전달되는 인자라
 
 <br/>
 
-- $ - arguments 전달인자 값으로 전환
-  - $# : 스크립트에 전달되는 인자들의 수(C언어에서 args)
-  - $0 : 실행하는 스크립트의 파일명으로 실행했을 때 경로를 포함한다면 경로를 포함해서 나옵니다.
-  - $1, $2 … : 스크립트로 전달된 인자들(C언어에서 argv[0], argv[1]…)
+-   $ - arguments 전달인자 값으로 전환
+    -   $# : 스크립트에 전달되는 인자들의 수(C언어에서 args)
+    -   $0 : 실행하는 스크립트의 파일명으로 실행했을 때 경로를 포함한다면 경로를 포함해서 나옵니다.
+    -   $1, $2 … : 스크립트로 전달된 인자들(C언어에서 argv[0], argv[1]…)
 
 ```bash
 #!/bin/bash
@@ -285,7 +279,7 @@ printf "%d arguments %s %s\n" $# $1 $2
 
 <br/>
 
-- ${parameter} - parameter substitution 매개변수 값으로 전환
+-   ${parameter} - parameter substitution 매개변수 값으로 전환
 
 ```bash
 #!/bin/bash
@@ -299,7 +293,7 @@ echo "${num}"
 
 <br/>
 
-- $(command) - command substitution 명령어 값으로 전환
+-   $(command) - command substitution 명령어 값으로 전환
 
 ```bash
 echo "Echo Test" # 자동 개행
@@ -361,7 +355,7 @@ int main(int argc, char** argv)
 
 리눅스의 확장(`Expansion, ${}, $(), $(())`) 은 left-to-right 순서로 동시처리 됩니다.
 
-- parameter expansion (파라미터 확장) : $var or ${var}
-- arithmetic expansion (산술 확장) : $((expression))
-- command substitution (명령 대체) : $(command)
-- Process substitution (작업 치환)
+-   parameter expansion (파라미터 확장) : $var or ${var}
+-   arithmetic expansion (산술 확장) : $((expression))
+-   command substitution (명령 대체) : $(command)
+-   Process substitution (작업 치환)

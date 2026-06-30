@@ -12,22 +12,26 @@
             -   [Vscode extension](#vscode-extension)
             -   [Nginx](#nginx)
     -   [1. 오라클 API 웹 배포](#1-오라클-api-웹-배포)
-        -   [1-1. OCI 계정생성](#1-1-oci-계정생성)
+        -   [1-1. 네이밍 컨벤션 정리](#1-1-네이밍-컨벤션-정리)
+        -   [1-2. OCI 계정생성](#1-2-oci-계정생성)
             -   [계정 만들기](#계정-만들기)
             -   [로그인 확인](#로그인-확인)
             -   [계정 도메인 정책 확인](#계정-도메인-정책-확인)
-        -   [1-2. 버킷 생성](#1-2-버킷-생성)
+        -   [1-3. Compartment(컴파트먼트) 생성하기](#1-3-compartment컴파트먼트-생성하기)
+            -   [컴파트먼트란?](#컴파트먼트란)
+            -   [하위 컴파트먼트 생성하기](#하위-컴파트먼트-생성하기)
+            -   [컴파트먼트 삭제하기](#컴파트먼트-삭제하기)
+        -   [1-4. 버킷 생성](#1-4-버킷-생성)
             -   [블록 \& 버킷 개념정리](#블록--버킷-개념정리)
             -   [버킷 생성하기](#버킷-생성하기)
             -   [index.html 오브젝트 업로드](#indexhtml-오브젝트-업로드)
-        -   [1-3. 오브젝트 URL 확인](#1-3-오브젝트-url-확인)
+        -   [1-5. 오브젝트 URL 확인](#1-5-오브젝트-url-확인)
     -   [2. 최소 단위 정적 웹 배포](#2-최소-단위-정적-웹-배포)
-        -   [1-2. Compartment(컴파트먼트) 생성하기](#1-2-compartment컴파트먼트-생성하기)
-            -   [컴파트먼트란?](#컴파트먼트란)
-            -   [하위 컴파트먼트 생성하기](#하위-컴파트먼트-생성하기)
-        -   [1-3. VCN(가상 네트워크) 생성](#1-3-vcn가상-네트워크-생성)
+        -   [2-1. VCN(가상 네트워크) 생성](#2-1-vcn가상-네트워크-생성)
             -   [VCN 개념정리](#vcn-개념정리)
-        -   [1-2. Compute VM(인스턴스) 생성 및 공용 IP 확보](#1-2-compute-vm인스턴스-생성-및-공용-ip-확보)
+            -   [VCN 생성방법](#vcn-생성방법)
+            -   [VCN 이름을 바꾸고 싶다면?](#vcn-이름을-바꾸고-싶다면)
+        -   [2-2. Compute VM(인스턴스) 생성 및 공용 IP 확보](#2-2-compute-vm인스턴스-생성-및-공용-ip-확보)
             -   [Compute VM 개념정리](#compute-vm-개념정리)
             -   [Compute VM 생성하기](#compute-vm-생성하기)
         -   [2단계: OCI 클라우드 방화벽(Security List) 개방](#2단계-oci-클라우드-방화벽security-list-개방)
@@ -47,8 +51,6 @@
             -   [DNS 개념정리](#dns-개념정리)
             -   [DNS 생성](#dns-생성)
         -   [가상 네트워크(VCN) 생성](#가상-네트워크vcn-생성)
-            -   [VCN 개념정리](#vcn-개념정리-1)
-            -   [VCN 생성방법](#vcn-생성방법)
         -   [가상 서버 컴퓨터(Virtual Machine, Compute Instance) 생성](#가상-서버-컴퓨터virtual-machine-compute-instance-생성)
             -   [VM 개념정리](#vm-개념정리)
             -   [① VM 생성하기](#-vm-생성하기)
@@ -79,7 +81,7 @@
 
 &nbsp; 대충 입력과 구동상태를 확인하기 위한 단순한 사이트 뭉치를 만들어줍니다.
 
-&nbsp; 위치가 어디든 상관은 없으나 이 예시에서는 찾기 쉽도록 C:/ 드라이브 최상단에 바로 `firstlocalweb` 이라는 이름이 폴더를 만들고 그 안에 다음의 파일 3개를 만들어주세요. IDE 개발환경이 없더라도 텍스트 파일을 만들어서 메모장에다 밑의 내용을 복사 붙여넣기한 후에 txt 확장자를 각 파일에 맞게 바꿔줘도 생성이 가능합니다. 
+&nbsp; 위치가 어디든 상관은 없으나 이 예시에서는 찾기 쉽도록 C:/ 드라이브 최상단에 바로 `firstLocalWeb` 이라는 이름이 폴더를 만들고 그 안에 다음의 파일 3개를 만들어주세요. IDE 개발환경이 없더라도 텍스트 파일을 만들어서 메모장에다 밑의 내용을 복사 붙여넣기한 후에 txt 확장자를 각 파일에 맞게 바꿔줘도 생성이 가능합니다. 
 
 &nbsp; 다음 파일 3개는 각각 웹페이지의 실제몸통(html), 모양새(css), 움직임(js) 을 컴퓨터 언어로 명시한 문서입니다. 기능은 그저 웹페이지 가운데에 글씨를 띄우고, 그 글씨를 클릭하고 있는 동안에, 그리고 클릭을 멈추는 순간에 페이지 색을 바꾸는 것이 전부인 단순한 기능 테스트용 페이지 입니다.
 
@@ -94,6 +96,22 @@
             <title>기본 형태 BasicForm</title>
             <link href="./style.css" rel="stylesheet" />
             <script src="./script.js" defer></script>
+            
+            <!-- SNS 공유카드용 -->
+            <meta property="og:type" content="website" />
+            <!--     ● SNS 캐시용 깔끔한 대표 홈페이지 주소-->
+            <meta
+                property="og:url"
+                content="『대충 대표페이지』예시: https://objectstorage.../index.html"
+            />
+            <meta property="og:title" content="『대충 공유 카드 제목』" />
+            <meta property="og:description" content="『대충 공유카드 상세 설명』" />
+            <!--     ● SNS 공유카드 썸네일 이미지 -->
+            <meta
+                property="og:image"
+                content="『대충 썸네일 URL』예시: https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80"
+            />
+            <meta name="twitter:card" content="summary_large_image" />
         </head>
         <body id="body">
             <h1 id="btn">이 글씨를 클릭하면 색상이 바뀝니다</h1>
@@ -106,14 +124,14 @@
     ```js
     const objBtn = document.getElementById('btn');
     const objBody = document.getElementById('body');
-
+    
     const eventBodyOrange = (e) => {
         objBody.style.backgroundColor = '#FF9922';
     };
     const eventBodyGreen = (e) => {
         objBody.style.backgroundColor = '#92FF29';
     };
-
+    
     objBtn.addEventListener('mouseup', eventBodyOrange);
     objBtn.addEventListener('mousedown', eventBodyGreen);
     ```
@@ -121,10 +139,17 @@
 -   style.css
 
     ```css
+    * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        border: 0;
+    }
+
     body {
         width: 100vw;
         height: 100vh;
-
+        
         display: flex;
         justify-content: center;
         align-items: center;
@@ -154,13 +179,130 @@ nginx 을 설치해야합니다.
 
 ## 1. 오라클 API 웹 배포
 
+&nbsp; 이전 단계에서는 외부 네트워크에는 연결되지 못하고 내선 localhost 안에서만 웹페이지가 존재하였습니다. 이번 단계에서는 <u><b>OCI(오라클 클라우드) 서비스의 무료 자원과 API를 이용</b></u>하여 외부망에 웹사이트를 노출시켜 보겠습니다.
+
 &nbsp; 이 단계에서 목표로 하는 아키텍처 구조는 다음과 같습니다.
 
 ```txt
 [사용자] ➔ [OCI API] ➔ [OCI Object Storage (Public Bucket)] ➔ [index.html(Object)]
 ```
 
-### 1-1. OCI 계정생성
+### 1-1. 네이밍 컨벤션 정리
+
+&nbsp; 앞으로 이름을 만들 일이 많기 때문에 어느 정도의 원칙을 정해두는 것이 좋습니다.
+
+&nbsp; 특정 값들은 전세계 기준으로 유일해야하는 경우도 있기 때문에 이름짓기를 잘해야합니다.
+
+&nbsp; 지금부터 이 예시의 프로젝트 명칭은 로컬에서 외부 망에 서비스하는 것으로 목표가 변했으므로 "fristLocalWeb" 에서 "`firstStaticWeb`" 으로 변경하겠습니다. 이 예시는 이름 짓는 규칙이 어떤 식으로 생성되는 지 그 예시로만 이해하시고 다른 이름을 사용하셔야합니다. 프로젝트명 시점에서 중복이 없을만한 것이 좋습니다.
+
+&nbsp; 인터넷 표준 규격이 알파벳 대소문자, 숫자, 하이픈만 지원하기 때문에 모든 이름은 어지간해선 마찬가지로 알파벳 대소문자, 숫자, 하이픈만 사용하는 것이 좋습니다.
+
+&nbsp; 분리되는 데이터는 하이픈(케밥케이스)으로 구분하며 분리되지 않은 데이터의 띄어쓰기는 대소문자(카멜케이스)로 구분합니다. 이는 인터넷 표준 규격이 알파벳, 숫자, 하이픈만 지원하기 때문입니다. 예시로 프로젝트명 "first static web" 과 개발단계 "dev(develop)" 를 붙여서 이름을 짓는다면 `firstStaticWeb-dev` 로 이름이 만들어질 것 입니다.
+
+&nbsp; 순번 번호를 붙일 경우에는 01 부터 세는 것으로 정렬순서 문제를 조정하며 00 을 배제하여 가독성 문제를 해결합니다.
+
+&nbsp; 앞으로도 계속해서 새로운 요소들이 추가되고 그 요소들의 이름을 작성하는 법이 나올 예정이므로 미리 이 곳에 정리해두겠습니다. 『...』는 필수적으로 적는 것이며 「...」 는 필요시에 추가합니다. 다음은 만약 프로젝트의 이름이 `first static web` 이며 development 단계일 경우의 네이밍 예시입니다.
+
+-   <table>
+    <tr class="1 ==============================================================">
+    <th>요소 종류</th>
+    <th>작명예시</th>
+    <th>작명법</th>
+    </tr>
+    
+    <tr>
+    <td>Compartment<br />(컴파트먼트)</td>
+    <td>
+    
+    ```txt
+    root (내 계정 - 추가 생성 불가능)
+    ├── production (운영 환경 권한격리 구역)
+    │    ├── firstStaticWeb-prod (프로젝트 단위)
+    │    ├── webResources
+    │    └── dbResources
+    └── development (개발 환경 접근허가 구역)
+        ├── firstStaticWeb-dev (프로젝트 단위)
+        ├── testServers
+        └── testStorage
+    ```
+    
+    </td>
+    <td><b>『논리적 그룹에 따른 분리』-「환경(dev|stg|prod)」</b></td>
+    </tr>
+
+    <tr class="2 ==============================================================">
+    <td>VCN<br />(가상네트워크)</td>
+    <td>
+    
+    `vcn-firstStaticWeb-dev`
+    
+    </td>
+    <td><b>vcn-『그룹』-「환경(dev|stg|prod)」「번호」</b></td>
+    </tr>
+
+    <tr class="3 ==============================================================">
+    <td>Subnet<br />(VCN 서브넷)</td>
+    <td>
+    <ul>
+    <li>
+    
+    `Public Subnet-vcn-firstStaticWeb-dev`
+    
+    </li>
+    <li>
+    
+    `sub-firstStaticWeb-dev-pubi01`
+    
+    </li>
+    </ul>
+    
+    </td>
+    <td>
+    <ul>
+    <li>OCI 생성마법사에서 "Public Subnet-[VCN이름]" 으로 자동생성</li>
+    <li>또는, <b>sub-『프로젝트』-『환경』-「보안형태(pubi|priv)」「번호」</b></li>
+    </ul>
+    </td>
+    </tr>
+
+    <tr class="4 ==============================================================">
+    <td>VM<br />(가상 머신)</td>
+    <td>
+    
+    `vm-firstStaticWeb-dev-web`
+    
+    </td>
+    <td><b>vm-『프로젝트』-『환경』-「역할」「번호」</b></td>
+    </tr>
+
+    <tr class="5 ==============================================================">
+    <td>Block Volume<br />(블록)</td>
+    <td>
+    
+    `bv-firstStaticWeb-dev-web-db`
+    
+    </td>
+    <td><b>vcn-『연결된VM이름』-「OS|사용목적」「번호」</b></td>
+    </tr>
+
+    <tr class="6 ==============================================================">
+    <td>Storage Bucket<br />(버킷)</td>
+    <td>
+    
+    `bkt-firstStaticWeb-dev-web-assetsUNIQUE01`
+    
+    </td>
+    <td>
+    <ul>
+    <li><b>bkt-『연결된VM이름』-「용도(asset, media, backup 등...)」「고유번호」</b></li>
+    <li>이미 고유하다면 고유번호는 필요 없습니다.</li>
+    <li>버킷 이름은 전체에서 대소문자를 무시하고 중복없이 고유해야하므로 이를 주의합시다.</li>
+    </ul>
+    </td>
+    </tr>
+    </table>
+
+### 1-2. OCI 계정생성
 
 #### 계정 만들기
 
@@ -195,7 +337,18 @@ nginx 을 설치해야합니다.
 
 #### 계정 도메인 정책 확인
 
-&nbsp; OCI 는 보안을 위하여 계정 도메인의 비밀번호에 유효기간을 두어 일정 주기로 바꾸는 것을 요구합니다. 이를 따르는 것이 좋으나 너무 귀찮다면 다음의 방법으로 계정 도메인의 보안 정책을 조정할 수 있습니다.
+&nbsp; OCI 는 보안을 위하여 로그인을 한 이후에 <u><b>일정 시간이 지나면 로그아웃</b></u> 시키고 세션을 만료합니다. OCI 테넌시를 처음 생성했다면 세션 만료 시간이 기본값인 1시간(60분)으로 고정되어 있습니다. 매 순간 이런 재로그인 시도가 불편하다면 다음과 같이 설정을 수정할 수 있습니다.
+
+&nbsp; OCI 메인 화면 좌측상단 <kbd>☰</kbd> 버튼을 눌러 네비게이션 메뉴를 열고
+-> `Identity & Security` 
+-> (Indentity 항목) `Domains` 
+-> (별도 수정이 없었다면 Default 라는 이름인 도메인) `Current domain 표시인 도메인` 
+-> `Settings` 
+-> `Session settings` 항목에서 `Session duration` 값 변경 (최대 32767분 = 22.7일)
+
+그 밑의 `My Apps idle timeout` 은 외부 앱에서 API 로 오라클에 접근과 연동을 한 경우의 세션 만료 시간입니다. 지금은 필요없지만 알아만 두세요.
+
+&nbsp; 또한, OCI 는 보안을 위하여 계정 도메인의 <u><b>비밀번호에 유효기간</b></u>을 두어 일정 주기로 바꾸는 것을 요구합니다. 이를 따르는 것이 좋으나 너무 귀찮다면 다음의 방법으로 계정 도메인의 보안 정책을 조정할 수 있습니다.
 
 &nbsp; OCI 메인 화면 좌측상단 <kbd>☰</kbd> 버튼을 눌러 네비게이션 메뉴를 열고
 -> `Identity & Security` 
@@ -208,7 +361,71 @@ nginx 을 설치해야합니다.
 -> `Edit password rules` 
 -> `Expires after (days)` 항목의 값을 0 으로 
 
-### 1-2. 버킷 생성
+### 1-3. Compartment(컴파트먼트) 생성하기
+
+&nbsp; 안정적인 서비스 구역과 연습용 테스트 구역을 구분하기 위하여 최상위(Root)의 하위 컴파트먼트(Compartment)를 만들어 분리하려고 합니다.
+
+#### 컴파트먼트란?
+
+&nbsp; 컴파트먼트는 클라우드 리소스를 논리적으로 격리하는 계층형 디렉터리(폴더) 개념입니다. 프로젝트별, 부서별, 또는 개발/스테이징/운영 환경별로 리소스(인스턴스, 네트워크, 스토리지 등)를 묶어서 관리하고 권한을 제어(IAM)하기 위해 사용합니다.
+
+&nbsp; OCI 보안정책상, 최상위(Root) 컴파트먼트에선 static 한 html 파일을 서비스하는 정적 웹 호스팅(Static Website Hosting) 기능을 활성화 할 수 없습니다. 이는 최상위 컴파트먼트가 해당 테넌시(계정)의 모든 리소스와 마스터 권한, 결제정보가 모이는 민감한 영역이므로, 이 컴파트먼트를 호스팅해버린다면 해당 컴파트먼트의 모든 자원에 전세계 사람에 접근하도록 Public 으로 접근권한을 허용하는 행위가 되기 때문입니다. 공격자의 공격으로부터 중요 데이터의 격리가 불가능한 이런 형태를 OCI 는 원천적으로 제공하지 않으려고 합니다.
+
+&nbsp; 컴퓨터에 최상위 구조가 `C:\` 이듯 OCI 서비스에서 최상위 컴파트먼트는 본인의 테넌시(계정, Tenancy) 가 됩니다. 그 밑으로 최대 6단계 깊이 까지 하위 컴파트먼트를 생성할 수 있으며, 보통 프로젝트와 부서 틀에 따라 다음과 같이 구조를 설계합니다.
+
+```txt
+root (내 계정 - 추가 생성 불가능)
+├── production (운영 환경 권한격리 구역)
+│    ├── firstStaticWeb-prod (프로젝트 단위)
+│    ├── webResources
+│    └── dbResources
+└── development (개발 환경 접근허가 구역)
+    ├── firstStaticWeb-dev (프로젝트 단위)
+    ├── testServers
+    └── testStorage
+```
+
+#### 하위 컴파트먼트 생성하기
+
+&nbsp; OCI 메인 화면 좌측상단 <kbd>☰</kbd> 버튼을 눌러 네비게이션 메뉴를 열고
+-> `Identity & Security` 
+-> (Indentity 항목) `Compartments` 
+-> <kbd>Create compartment</kbd> 를 클릭합니다.
+
+&nbsp; 생성할 때 `이름`과 `설명`과 누구를 부모로 하는 `하위 컴파트먼트` 인지 설정하면 됩니다. 설명(Description)은 그리 중요하지 않으니 지금은 그냥 `for 『컴파트먼트_이름』` 으로 적겠습니다.
+
+&nbsp; 컴파트먼트의 이름을 작명할 때는 [1-1. 네이밍 컨벤션 정리](#1-1-네이밍-컨벤션-정리) 항목을 참고해주세요. 예시로 이 프로젝트 이름은 "first static web" 이고 "개발"중인 사항이므로, root 밑에 `development` 컴파트먼트를 생성하고, 그 밑에 하위로 `firstStaticWeb-dev` 라는 이름으로 컴파트먼트를 생성하겠습니다.
+
+#### 컴파트먼트 삭제하기
+
+&nbsp; 컴파트먼트는 가장 거대한 논리적 자원 구분이기 때문에 삭제할 때 상당히 귀찮습니다. 서버 담당 신입이 서버 모든 데이터를 증발시키는 대참사를 막기 위하여 컴파트먼트 삭제 시도시에 컴파트먼트 위에 데이터가 하나라도 있다면 삭제가 실패하며 취소됩니다.
+
+&nbsp; 하지만 잘못만들었거나 정리해야하는 상황에 거대한 컴파트먼트를 일일히 삭제하는 것 또한 고통입니다. OCI 는 일일히 확인 삭제하는 것을 정책상 추천하나 OCI 공식 자원 삭제 도구인 ociextirpater를 쓰면 삭제 자동화가 가능합니다.
+
+&nbsp; OCI 는 OCI 서비스를 제어가능한 터미널 Cloud Shell 과 사용자당 터미널용 5GB의 암호화된 영구 스토리지(Persistent Storage)를 제공합니다. 다음의 방법을 따라 Cloud Shell 쉘을 키고 ociextirpater 사용해주세요.
+
+&nbsp; OCI 메인 화면 우측상단 컴퓨터모양 <kbd>🖳</kbd> 버튼을 눌러 네비게이션 메뉴를 열고
+-> `Cloud Shell` 를 클릭하여 터미널을 엽니다.
+
+```bash
+# 1. 오라클 공식 OCI Extirpater 도구 다운로드
+git clone https://github.com/therealcmj/ociextirpater.git
+
+# 2. 다운로드된 폴더로 이동
+cd ociextirpater
+
+# 3-1. 혹시모르니 내부에 얽힌 자원들만 먼저 싹 강제 삭제 (-dt 옵션) 후 별도로 컴파트먼트 제거
+python3 ociextirpate.py -c "본인의_컴파트먼트_OCID" -dt
+oci iam compartment delete --compartment-id "본인의_컴파트먼트_OCID" --force
+
+# 3-2. 내부 자원을 싹 지운 후, 컴파트먼트 자체까지 최종 삭제하는 명령어
+python3 ociextirpate.py -c "본인의_컴파트먼트_OCID" -F
+
+# 4. ociextirpater 도 제거하기
+rm -rf ~/ociextirpater
+```
+
+### 1-4. 버킷 생성
 
 &nbsp; 정적 웹사이트 파일을 저장할 공간을 만듭니다.
 
@@ -240,11 +457,13 @@ nginx 을 설치해야합니다.
 -> (Object Storage & Archive Storage 항목) `Buckets`
 -> <kbd>Create bucket</kbd> 버튼을 클릭하여 만들 수 있습니다.
 
--   우선 버튼 클릭 전에, Compartment 가 Root 가 아니라 하위에 만들어뒀던 Web-Resources 컴파트먼트인지 확인해주세요.
+-   우선 버튼 클릭 전에, Compartment 가 Root 가 아니라 하위에 만들어뒀던 컴파트먼트인지 확인해주세요. 예시에서는 root 밑의 development 밑의 `firstStaticWeb-dev` 였습니다. 
 
 -   다음 값만 주의하고 나머진 기본설정을 따라 버킷 생성을 완료합니다.
     -   <u><b>Bucket name :</b></u>
-        &nbsp; 일반적으로 버킷명은 <b>"프로젝트명-환경-용도-리전(선택)"</b> (예시: `firststaticweb-dev-web-singapore`)처럼 케밥케이스(kebab-case)로 작성합니다. 주소(URL)창이나 CLI에서 타이핑하기 가장 편한 것이 소문자와 하이픈(-) 조합이기 때문입니다.
+        &nbsp; 이름을 지을 땐 [1-1. 네이밍 컨벤션 정리](#1-1-네이밍-컨벤션-정리) 항목을 참고해주세요. (예시: `bkt-firstStaticWeb-dev-web-assets`)
+        
+        &nbsp; 일반적으로 버킷명은 <b>bkt-『프로젝트』-『환경』-「역할」「번호」-「용도(asset, media, backup 등...)」「고유번호」</b> 또는 VM 이 있었다면 <b>bkt-『연결된VM이름』-「용도(asset, media, backup 등...)」「고유번호」</b> 규칙을 따릅니다. 복잡해지는 이유는 버킷명은 전체에서 고유해야만 하기 때문입니다. 이미 고유하다면 고유번호를 붙일 이유는 없습니다.
     
     -   <u><b>Bucket scope :</b></u>
         &nbsp; 기본 값은 (글로벌 범위) `Namespace` 입니다. 바꿀 필요 없습니다.
@@ -293,7 +512,7 @@ nginx 을 설치해야합니다.
         -   Additional Checksum(추가 체크섬)은 "올린 파일이 클라우드에 올라가는 과정에서 1비트의 변형도 없이 100% 똑같이 완벽하게 도착했나?" 를 확인하는 무결성 체크입니다. 컴퓨터에서 아주아주 용량이 큰 파일(수십 GB짜리 게임 데이터나 백업 압축 파일)을 인터넷을 통해 클라우드로 업로드하다 보면, 간혹 인터넷 연결이 순간적으로 불안정해져서 파일 데이터 중 아주 미세한 일부(1비트)가 깨지거나 누락되는 일이 발생할 수 있습니다. 추가 체크섬은 다음의 과정을 거쳐 파일의 결점 여부를 파악합니다. 우선 파일의 내용을 수학적 알고리즘(MD5, SHA-256 등)을 거쳐 지문으로 만듭니다. 파일과 함께 클라우드에 보내면 클라우드에서 다시 그 파일을 알고리즘으로 지문화한 뒤에, 파일과 함께 도착한 지문과 같은 지 비교합니다. 두 지문이 같다면 무결성이 입증된 것 입니다. 일반적인 몇 GB 조차 아닌 파일들은 불필요한 과정입니다.
 
     -   **Choose Files from your Compute**
-        -   `0-1. 웹 페이지 파일 생성` 단계에서 생성한 파일을 올립니다.
+        -   [0-1. 웹 페이지 파일 생성](#0-1-웹-페이지-파일-생성) 단계에서 생성한 파일을 올립니다.
         -   이 항목을 통하여 파일을 오브젝트로써 버킷에 추가합니다. 창을 열어서 선택하거나, 직접 드래그를 하여 복수개의 파일이나 폴더 전체를 넣을 수도 있습니다.
 
     -   **Optional response headers and metadata :**
@@ -305,7 +524,7 @@ nginx 을 설치해야합니다.
 
 -   배포하려는 index.html 파일을 비롯한 웹사이트의 모든 정적 파일(CSS, JS, 이미지 등)을 업로드합니다.
 
-### 1-3. 오브젝트 URL 확인
+### 1-5. 오브젝트 URL 확인
 
 -   index.html 을 업로드한 Bucket 의 Objects 항목으로 가면 업로드 된 파일들을 볼 수 있습니다.
 -   index.html 파일 옆의 <kbd>…</kbd> 버튼을 누르고, view object details 항목을 클릭하면 나오는 팝업에서 `URL path (URI)` 를 확인할 수 있습니다.
@@ -329,40 +548,7 @@ nginx 을 설치해야합니다.
 
 같은 기능이 부족합니다. 이 부족한 부분들은 뒤에서 추가하도록 하겠습니다.
 
-### 1-2. Compartment(컴파트먼트) 생성하기
-
-&nbsp; 안정적인 서비스 구역과 연습용 테스트 구역을 구분하기 위하여 최상위(Root)의 하위 컴파트먼트(Compartment)를 만들어 분리하려고 합니다.
-
-#### 컴파트먼트란?
-
-&nbsp; 컴파트먼트는 클라우드 리소스를 논리적으로 격리하는 계층형 디렉터리(폴더) 개념입니다. 프로젝트별, 부서별, 또는 개발/스테이징/운영 환경별로 리소스(인스턴스, 네트워크, 스토리지 등)를 묶어서 관리하고 권한을 제어(IAM)하기 위해 사용합니다.
-
-&nbsp; OCI 보안정책상, 최상위(Root) 컴파트먼트에선 static 한 html 파일을 서비스하는 정적 웹 호스팅(Static Website Hosting) 기능을 활성화 할 수 없습니다. 이는 최상위 컴파트먼트가 해당 테넌시(계정)의 모든 리소스와 마스터 권한, 결제정보가 모이는 민감한 영역이므로, 이 컴파트먼트를 호스팅해버린다면 해당 컴파트먼트의 모든 자원에 전세계 사람에 접근하도록 Public 으로 접근권한을 허용하는 행위가 되기 때문입니다. 공격자의 공격으로부터 중요 데이터의 격리가 불가능한 이런 형태를 OCI 는 원천적으로 제공하지 않으려고 합니다.
-
-&nbsp; 컴퓨터에 최상위 구조가 `C:\` 이듯 OCI 서비스에서 최상위 컴파트먼트는 본인의 테넌시(계정, Tenancy) 가 됩니다. 그 밑으로 최대 6단계 깊이 까지 하위 컴파트먼트를 생성할 수 있으며, 보통 프로젝트와 부서 틀에 따라 다음과 같이 구조를 설계합니다.
-
-```txt
-Root (내 계정 - 추가 생성 불가능)
- ├── Production (운영 환경 컴파트먼트)
- │    ├── Web-Resources (웹 서버용 버킷 등)
- │    └── DB-Resources
- └── Development (개발 환경 컴파트먼트)
-      ├── Test-Servers
-      └── Test-Storage
-```
-
-#### 하위 컴파트먼트 생성하기
-
-&nbsp; OCI 메인 화면 좌측상단 <kbd>☰</kbd> 버튼을 눌러 네비게이션 메뉴를 열고
--> `Identity & Security` 
--> (Indentity 항목) `Compartments` 
--> <kbd>Create compartment</kbd> 를 클릭합니다.
-
-&nbsp; `이름`과 `설명`과 누구를 부모로 하는 `하위 컴파트먼트` 인지 설정하면 됩니다. 설명은 그리 중요하지 않으니 지금은 그냥 이름과 똑같이 적겠습니다.
-
-&nbsp; 여기선 예시로 `Root` 밑에 `Production` 를 생성하고, 그 뒤 에 `Production` 밑에 `Web-Resources` 를 생성하겠습니다.
-
-### 1-3. VCN(가상 네트워크) 생성
+### 2-1. VCN(가상 네트워크) 생성
 
 #### VCN 개념정리
 
@@ -377,7 +563,100 @@ DNS (Domain Name System)
 
 보통 도메인 판매 업체에서 무료 DNS 기능을 제공하기도 하고, 클라우드플레어(Cloudflare) 같은 전문 DNS 관리 서비스를 사용하기도 합니다.
 
-### 1-2. Compute VM(인스턴스) 생성 및 공용 IP 확보
+Compute VM (Nginx + SSL) 부분을 만드는 것이 지금 단계의 목표입니다. 우리는 VM 가상컴퓨터가 외부 인터넷망와 우리의 index.html 과 이어주는 서버 컴퓨터 역할을 수행하게 만들어야 합니다.
+
+그걸 위해선 다음의 과정을 거처야합니다.
+
+-   1 가상 네트워크(VCN, Virtual Cloud Network) 생성: OCI 서비스의 오라클 데이터 센서의 수만대의 거대한 물리적 서버에서 어느 정도의 구역을 나의 것으로 선언하여 소프트웨어 적으로 선을 긋고 분리하여 개념상 나만의 독립적인 가상의 네트워크망을 생성해야합니다. 본인이 통제권을 가진 네크워크가 있어야 그 위에 서버를 올릴 수 있습니다.
+
+-   2 서브넷(Subnet) 쪼개기: VCN이라는 거대한 땅을 공개 공간(Public)과 비공개 공간(Private)으로 구역을 나눕니다.
+
+-   3 인터넷 게이트웨이(IGW): 외부에 웹 서비스를 공개하기 위해 외부 인터넷과 연결되는 정문을 달아줍니다.
+
+-   4 보안 목록(Security List) / 보안 그룹(NSG)지정: "80번 포트(HTTP)와 443번 포트(HTTPS)를 통해서 들어오는 사람만 허용하겠다"처럼 방화벽 규칙을 세웁니다.
+
+-   5 그 후에 내가 통제하는 VCN 안에서 가상 웹서버 컴퓨터(VM, Virtual Machine) 인스턴스를 올립니다. 
+
+#### VCN 생성방법
+
+&nbsp; OCI 메인 화면 좌측상단 <kbd>☰</kbd> 버튼을 눌러 네비게이션 메뉴를 열고
+-> `Networking` 
+-> `Virtual Cloud Networks` 화면으로 이동합니다.
+
+&nbsp; 직접 만들 수도 있지만 Start VCN Wizard 를 통해 VCN 생성에 도움을 받을 수 있습니다.
+
+&nbsp; <kbd>Actions</kbd> 버튼을 클릭하여 나오는 드롭다운 메뉴에서 <kbd>Start VCN Wizard</kbd> -> <kbd>VCN with Internet Connectivity</kbd> 를 선택하면 외부 통신이 가능한 Public Subnet이 자동으로 만들어집니다. 기본값들을 그대로 대입하면 됩니다. 각 값의 의미는 다음과 같습니다.
+
+-   Basic information
+
+    -   <u><b>VCN name :</b></u> 
+        
+        &nbsp; 예시로는 `vcn-firstStaticWeb-dev` 입니다. [1-1. 네이밍 컨벤션 정리](#1-1-네이밍-컨벤션-정리) 항목의 VCN 부분을 참고해주세요. 
+        &nbsp; VCN의 이름입니다. 
+
+    -   <u><b>Compartment :</b></u> VCN을 위치시킬 컴파트먼트를 지정합니다. 버킷과 같은 위치의 컴파트먼트를 지정해주세요.
+
+-   Configure VCN
+    -   <u><b>VCN IPv4 CIDR block :</b></u>
+        
+        &nbsp; 기본값은 `10.0.0.0/16` 입니다.
+        
+        &nbsp; CIDR(Classless Inter-Domain Routing) 블록은 이 VCN 가상 데이터 센터 안에서 사용할 사설 IP 주소의 범위를 지정합니다.
+
+        &nbsp; `10.0.0.0/16` 이라고 적힌 값은 `10.0. ...` 으로 시작하는 사설 IP 대역을 사용하겠으며, `/16` 은 서브넷 마스크를 의미하여 앞의 16비트(`10.0`)를 고정하고 나머지 공간을 IP로 쓰겠다는 계약입니다. 따라서 그 의미는 `10.0.0.0` 부터 `10.0.255.255` 까지 총 65,536개의 내부 IP 주소를 확보하겠다는 의미입니다. 이것이 사설 네트워크를 구축할 때 가장 흔하게 쓰이는 표준 크기 입니다. `10.0.x.x` 의 값은 네트워크 표준 규약(RFC 1918)에 의해 `127.0.0.1` 루프백 IP 와 비슷하게 사설 네트워크 내부 통신 IP 주소를 의미합니다.
+
+-   <u><b>Configure public subnet :</b></u>
+    
+    &nbsp; 기본값은 `10.0.0.0/24` 입니다.
+    
+    &nbsp; 이는 거대한 방(10.0.0.0/16)의 맨 앞부분을 떼어내어 `10.0.0.0` 부터 `10.0.0.255`까지 256개의 IP를 이 구역에 할당하겠다는 소리입니다.
+
+    &nbsp; 거대한 데이터 센터(VCN)를 통째로 쓰면 보안상 위험하므로 이렇게 외부 통신용 방과 내부 격리용 방을 격리합니다. 이 방들을 서브넷(Subnet)이라고 합니다.
+
+    &nbsp; public subnet은 인터넷망과 직접 통신이 가능한 공공 구역입니다. 이 서브넷에 배치되는 리소스는 공인 IP(Public IP)를 할당받아 외부와 데이터를 주고받을 수 있습니다. 외부에 서비스를 노출해야 하는 API Gateway, 로드 밸런서(LB), 혹은 배포용 웹 서버가 주로 여기에 위치합니다.
+
+-   <u><b>Configure private subnet :</b></u>
+    
+    &nbsp; 기본값은 `10.0.1.0/24` 입니다.
+    
+    &nbsp; 이는 거대한 방(10.0.1.0/16)의 맨 앞부분을 떼어내어 `10.0.1.0` 부터 `10.0.1.255`까지 256개의 IP를 이 구역에 할당하겠다는 소리입니다.
+
+    &nbsp; private subnet은 인터넷에서 직접 접근할 수 없는 비밀 구역입니다. 철저히 격리되어 있어 내부 네트워크를 통해서만 접근이 가능하므로 보안이 강력합니다. 외부 유출이 안 되거나 백엔드 로직을 처리하는 실제 WAS 서버, 데이터베이스(DB) 등이 여기에 위치합니다.
+
+-   <u><b>Tag :</b></u>
+
+    &nbsp; 큰 의미는 없고 분류 및 검색용입니다.
+
+#### VCN 이름을 바꾸고 싶다면?
+
+&nbsp; OCI 웹 콘솔(브라우저 화면)에서는 VCN의 이름을 수정하는 버튼을 마땅히 제공하지 않습니다. 하지만 OCI CLI(명령줄 인터페이스)나 클라우드 셸(Cloud Shell)을 이용하면 명령어 한 줄로 아주 쉽게 이름을 바꿀 수 있습니다. 
+
+&nbsp; 우선 VCN 의 고유 ID 를 확인하셔야 합니다.
+
+&nbsp; OCI 메인 화면 좌측상단 <kbd>☰</kbd> 버튼을 눌러 네비게이션 메뉴를 열고
+-> `Networking` 
+-> `Virtual Cloud Networks` 화면으로 이동합니다.
+
+&nbsp; 이름을 변경하려는 VCN 을 선택하여 들어가면 해당 VCN의 Details 탭 항목으로 넘어가게 됩니다. 거기서 OCID 항목의 값을 확인해주세요.
+
+&nbsp; OCI 메인 화면 우측상단 컴퓨터모양 <kbd>🖳</kbd> 버튼을 눌러 네비게이션 메뉴를 열고
+-> `Cloud Shell` 를 클릭하여 터미널을 엽니다.
+
+&nbsp; 터미널에 다음의 명령어를 입력하면 VCN 의 이름을 바꿀 수 있습니다.
+
+```bash
+oci network vcn update --vcn-id "『내_VCN의_OCID』" --display-name "『새로운_VCN_이름』"
+```
+
+&nbsp; 마찬가지로 서브넷의 이름을 바꾸고 싶다면 다음과 같은 명령어로 바꿀 수 있습니다.
+
+```bash
+oci network subnet update \
+    --subnet-id "『서브넷의_OCID』" \
+    --display-name "『새로운_서브넷_이름』"
+```
+
+### 2-2. Compute VM(인스턴스) 생성 및 공용 IP 확보
 
 #### Compute VM 개념정리
 
@@ -476,75 +755,6 @@ OCI는 'OCI DNS Management'라는 강력한 서비스를 제공하며, 무료 �
 여기서는 Cloudflare 서비스의 무료 서비스를 이용하겠습니다.
 
 ### 가상 네트워크(VCN) 생성
-
-#### VCN 개념정리
-
-```txt
-                                                                    현재 목표
-                                                                        ☟
-[사용자] ➔ [DNS (가비아, 후이즈, Cloudflare 등 도메인대행사)] ➔ [Compute VM (Nginx + SSL)] ➔ [OCI Object Storage (Public Bucket)] ➔ [index.html(Object)]
-```
-
-Compute VM (Nginx + SSL) 부분을 만드는 것이 지금 단계의 목표입니다. 우리는 VM 가상컴퓨터가 외부 인터넷망와 우리의 index.html 과 이어주는 서버 컴퓨터 역할을 수행하게 만들어야 합니다.
-
-그걸 위해선 다음의 과정을 거처야합니다.
-
--   1 가상 네트워크(VCN, Virtual Cloud Network) 생성: OCI 서비스의 오라클 데이터 센서의 수만대의 거대한 물리적 서버에서 어느 정도의 구역을 나의 것으로 선언하여 소프트웨어 적으로 선을 긋고 분리하여 개념상 나만의 독립적인 가상의 네트워크망을 생성해야합니다. 본인이 통제권을 가진 네크워크가 있어야 그 위에 서버를 올릴 수 있습니다.
-
--   2 서브넷(Subnet) 쪼개기: VCN이라는 거대한 땅을 공개 공간(Public)과 비공개 공간(Private)으로 구역을 나눕니다.
-
--   3 인터넷 게이트웨이(IGW): 외부에 웹 서비스를 공개하기 위해 외부 인터넷과 연결되는 정문을 달아줍니다.
-
--   4 보안 목록(Security List) / 보안 그룹(NSG)지정: "80번 포트(HTTP)와 443번 포트(HTTPS)를 통해서 들어오는 사람만 허용하겠다"처럼 방화벽 규칙을 세웁니다.
-
--   5 그 후에 내가 통제하는 VCN 안에서 가상 웹서버 컴퓨터(VM, Virtual Machine) 인스턴스를 올립니다. 
-
-#### VCN 생성방법
-
-&nbsp; OCI 메인 화면 좌측상단 <kbd>☰</kbd> 버튼을 눌러 네비게이션 메뉴를 열고
--> `Networking` 
--> `Virtual Cloud Networks` 화면으로 이동합니다.
-
-&nbsp; 직접 만들 수도 있지만 Start VCN Wizard 를 통해 VCN 생성에 도움을 받을 수 있습니다.
-
-&nbsp; <kbd>Actions</kbd> 버튼을 클릭하여 나오는 드롭다운 메뉴에서 <kbd>Start VCN Wizard</kbd> -> <kbd>VCN with Internet Connectivity</kbd> 를 선택하면 외부 통신이 가능한 Public Subnet이 자동으로 만들어집니다. 기본값들을 그대로 대입하면 됩니다. 각 값의 의미는 다음과 같습니다.
-
--   Basic information
-
-    -   <u><b>VCN name :</b></u> VCN의 이름입니다.
-
-    -   <u><b>Compartment :</b></u> VCN을 위치시킬 컴파트먼트를 지정합니다.
-
--   Configure VCN
-    -   <u><b>VCN IPv4 CIDR block :</b></u>
-        
-        &nbsp; 기본값은 `10.0.0.0/16` 입니다.
-        
-        &nbsp; CIDR(Classless Inter-Domain Routing) 블록은 이 VCN 가상 데이터 센터 안에서 사용할 사설 IP 주소의 범위를 지정합니다.
-
-        &nbsp; `10.0.0.0/16` 이라고 적힌 값은 `10.0. ...` 으로 시작하는 사설 IP 대역을 사용하겠으며, `/16` 은 서브넷 마스크를 의미하여 앞의 16비트(`10.0`)를 고정하고 나머지 공간을 IP로 쓰겠다는 계약입니다. 따라서 그 의미는 `10.0.0.0` 부터 `10.0.255.255` 까지 총 65,536개의 내부 IP 주소를 확보하겠다는 의미입니다. 이것이 사설 네트워크를 구축할 때 가장 흔하게 쓰이는 표준 크기 입니다. `10.0.x.x` 의 값은 네트워크 표준 규약(RFC 1918)에 의해 `127.0.0.1` 루프백 IP 와 비슷하게 사설 네트워크 내부 통신 IP 주소를 의미합니다.
-
--   <u><b>Configure public subnet :</b></u>
-    
-    &nbsp; 기본값은 `10.0.0.0/24` 입니다.
-    
-    &nbsp; 이는 거대한 방(10.0.0.0/16)의 맨 앞부분을 떼어내어 `10.0.0.0` 부터 `10.0.0.255`까지 256개의 IP를 이 구역에 할당하겠다는 소리입니다.
-
-    &nbsp; 거대한 데이터 센터(VCN)를 통째로 쓰면 보안상 위험하므로 이렇게 외부 통신용 방과 내부 격리용 방을 격리합니다. 이 방들을 서브넷(Subnet)이라고 합니다.
-
-    &nbsp; public subnet은 인터넷망과 직접 통신이 가능한 공공 구역입니다. 이 서브넷에 배치되는 리소스는 공인 IP(Public IP)를 할당받아 외부와 데이터를 주고받을 수 있습니다. 외부에 서비스를 노출해야 하는 API Gateway, 로드 밸런서(LB), 혹은 배포용 웹 서버가 주로 여기에 위치합니다.
-
--   <u><b>Configure private subnet :</b></u>
-    
-    &nbsp; 기본값은 `10.0.1.0/24` 입니다.
-    
-    &nbsp; 이는 거대한 방(10.0.1.0/16)의 맨 앞부분을 떼어내어 `10.0.1.0` 부터 `10.0.1.255`까지 256개의 IP를 이 구역에 할당하겠다는 소리입니다.
-
-    &nbsp; private subnet은 인터넷에서 직접 접근할 수 없는 비밀 구역입니다. 철저히 격리되어 있어 내부 네트워크를 통해서만 접근이 가능하므로 보안이 강력합니다. 외부 유출이 안 되거나 백엔드 로직을 처리하는 실제 WAS 서버, 데이터베이스(DB) 등이 여기에 위치합니다.
-
--   <u><b>Tag :</b></u>
-
-    &nbsp; 큰 의미는 없고 분류 및 검색용입니다.
 
 ### 가상 서버 컴퓨터(Virtual Machine, Compute Instance) 생성
 
@@ -672,4 +882,4 @@ OCI 를 이용하여 SNS 서비스 기틀을 개발할 수 있습니다.
 
 ### 주소 설정
 
-만약 웹페이지를 Object Storage 버킷으로만 운영하고 싶다면, 기본 주소는 `https://objectstorage.[리전].oraclecloud.com/`... 형태가 됩니다. 이 주소는 커스텀 도메인(`web.example.com`)을 바로 붙이기가 까다롭기 때문에, 보통 앞단에 Cloudflare 같은 무료 CDN을 붙여서 주소를 깔끔하게 매핑합니다.
+만약 웹페이지를 Object Storage 버킷으로만 운영하고 싶다면, 기본 주소는 `https://objectstorage.[리전].oraclecloud.com/...` 형태가 됩니다. 이 주소는 커스텀 도메인(`web.example.com`)을 바로 붙이기가 까다롭기 때문에, 보통 앞단에 Cloudflare 같은 무료 CDN을 붙여서 주소를 깔끔하게 매핑합니다.

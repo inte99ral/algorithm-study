@@ -2,6 +2,17 @@
 
 ## 목차
 
+## 기본형
+
+```css
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+```
+
 ## ...로 글자 줄이기
 
 ```css
@@ -14,7 +25,7 @@ div {
 
 ## ??
 
-https://codingeverybody.kr/css-text-align-%ec%86%8d%ec%84%b1/
+<https://codingeverybody.kr/css-text-align-%ec%86%8d%ec%84%b1/>
 
 <div style="display: flex;">
   <div class="lbox" style="
