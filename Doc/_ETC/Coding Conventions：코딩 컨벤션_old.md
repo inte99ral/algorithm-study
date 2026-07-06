@@ -2,23 +2,29 @@
 
 ## 목차
 
--   [코드 작성 규칙：Coding Conventions](#코드-작성-규칙coding-conventions)
-    -   [목차](#목차)
-    -   [개요](#개요)
-    -   [명명 규칙](#명명-규칙)
-    -   [유니코드 양식](#유니코드-양식)
-    -   [코드 문서화 정리 양식](#코드-문서화-정리-양식)
-        -   [Javascript](#javascript)
-            -   [Javascript \> React](#javascript--react)
-    -   [코드 포매터 Code Formatter \& Linter](#코드-포매터-code-formatter--linter)
-        -   [Prettier](#prettier)
-            -   [설정으로 규칙 명시：prettier](#설정으로-규칙-명시prettier)
-            -   [파일로 규칙 명시：.prettierrc.json](#파일로-규칙-명시prettierrcjson)
-        -   [ESLint](#eslint)
-            -   [설정으로 규칙 명시：.eslintrc.json](#설정으로-규칙-명시eslintrcjson)
-        -   [Markdownlint](#markdownlint)
-            -   [설정으로 규칙 명시：markdownlint.config](#설정으로-규칙-명시markdownlintconfig)
-            -   [목차 생성](#목차-생성)
+- [코드 작성 규칙：Coding Conventions](#코드-작성-규칙coding-conventions)
+	- [목차](#목차)
+	- [개요](#개요)
+	- [명명 규칙](#명명-규칙)
+		- [보편적 이름](#보편적-이름)
+		- [OCI](#oci)
+		- [C++ \& C#](#c--c)
+			- [에픽게임즈 C# 개발호환성 스타일](#에픽게임즈-c-개발호환성-스타일)
+			- [구글 가이드라인 스타일](#구글-가이드라인-스타일)
+		- [Java](#java)
+	- [유니코드 양식](#유니코드-양식)
+	- [코드 문서화 정리 양식](#코드-문서화-정리-양식)
+		- [Javascript](#javascript)
+			- [Javascript \> React](#javascript--react)
+	- [코드 포매터 Code Formatter \& Linter](#코드-포매터-code-formatter--linter)
+		- [Prettier](#prettier)
+			- [설정으로 규칙 명시：prettier](#설정으로-규칙-명시prettier)
+			- [파일로 규칙 명시：.prettierrc.json](#파일로-규칙-명시prettierrcjson)
+		- [ESLint](#eslint)
+			- [설정으로 규칙 명시：.eslintrc.json](#설정으로-규칙-명시eslintrcjson)
+		- [Markdownlint](#markdownlint)
+			- [설정으로 규칙 명시：markdownlint.config](#설정으로-규칙-명시markdownlintconfig)
+			- [목차 생성](#목차-생성)
 
 ## 개요
 
@@ -32,6 +38,55 @@
 -   [참고링크](https://velog.io/@rex/%EC%BD%94%EB%93%9C-%EC%9E%91%EC%84%B1-%EA%B7%9C%EC%B9%99%EB%93%A4-Coding-Conventions)
 
 ## 명명 규칙
+
+### 보편적 이름
+
+-   <u><b>프로젝트 최상단 루트 폴더명</b></u>은 소문자와 하이픈만 사용한 `케밥 케이스` 를 따릅니다.
+
+    &nbsp; 프로젝트의 최상단 루트 폴더명은 내 컴퓨터의 운영체제, Git, 클라우드 서버(Linux), 그리고 빌드 도구가 직접 마주하는 이름입니다. 모든 경우에서 충돌을 피해야하기 위하여 띄어쓰기를 포함한 모든 특수문자 체크 상황과 대소문자 비교상황을 배제해야 합니다.
+
+-   <u><b>소스 코드 내부 파일</b></u>은 대소문자를 사용하는 `파스칼 케이스` 를 따릅니다.
+
+    &nbsp; 개발 프로젝트 폴더 안에서는 컴파일러/인터프리터'의 영역입니다. 특수문자와 띄어쓰기를 사용하지 않았다면 충돌 이슈는 없으며 프로그래밍 언어의 문법과 개발자의 생산성이 중요합니다. 코드 구조 직관성을 위하여 React, Vue, 혹은 Unity(C#) 같은 현대적인 개발 환경에서는 "컴포넌트나 클래스의 이름은 무조건 대문자로 시작해야 한다(PascalCase)"는 문법적 규칙이나 강력한 관례가 있습니다.
+
+### OCI
+
+-   대부분의 이름은 url 에 사용시 문제가 없도록 소문자와 하이픈만 사용하는 케밥케이스를 따릅니다. 추천되진 않으나 필요에 따라선 대소문자도 사용합니다.
+
+### C++ & C\#
+
+C 레거시 프로젝트 컨벤션과 C++ STL 라이브러리 컨벤션과 구글 가이드라인 컨벤션과 C# 호환성 컨벤션이 충돌합니다. 적절히 판단해야합니다.
+
+#### 에픽게임즈 C# 개발호환성 스타일
+
+-   <u><b>파일명</b></u>: `FileName.cpp`, 파스칼 케이스
+-   
+
+    C# 을 따라갈지라도 파일이름만큼은 소문자 케밥케이스를 따르는 것이 좋습니다.
+    C#은 NoteManager.cs 처럼 파일 이름도 파스칼 케이스를 쓰는 것이 표준입니다. 하지만 C++ 프로젝트에서는 note_manager.cpp 또는 note-manager.cpp 처럼 소문자 기반(스네이크/케밥)을 유지하는 것이 안전합니다.
+    C++은 빌드 파이프라인(CMake, Make, GCC/Clang)이 OS의 파일 시스템과 매우 밀접하게 맞물려 돌아갑니다. 파일명에 대문자를 썼다가 리눅스 서버나 타 플랫폼에서 빌드가 터지기 때문에 어쩔 수 없습니다.
+
+-   클래스 이름: 파스칼 케이스 (MyClass)
+
+-   함수 및 메서드: 파스칼 케이스 (DoSomething) 또는 카멜 케이스
+
+-   참고: 구글은 일반 함수/메서드에 파스칼 케이스를 쓰지만, 많은 C++ 진영에서 메서드에 camelCase를 혼용합니다.
+
+-   프로퍼티와 변수 이름: 소문자 스네이크 케이스 (user_name)
+
+#### 구글 가이드라인 스타일
+
+-   <u><b>파일명</b></u>: 소문자 스네이크 케이스 (my_class.h, my_class.cpp) 또는 케밥 케이스
+
+-   클래스 이름: 파스칼 케이스 (MyClass)
+
+-   함수 및 메서드: 파스칼 케이스 (DoSomething) 또는 카멜 케이스
+
+-   참고: 구글은 일반 함수/메서드에 파스칼 케이스를 쓰지만, 많은 C++ 진영에서 메서드에 camelCase를 혼용합니다.
+
+-   프로퍼티와 변수 이름: 소문자 스네이크 케이스 (user_name)
+
+### Java
 
 1.  java 의 경우 패키지명은 모두 소문자로 쓴다.
 

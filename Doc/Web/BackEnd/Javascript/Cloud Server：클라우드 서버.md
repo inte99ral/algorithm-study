@@ -2,62 +2,62 @@
 
 ## 목차
 
--   [Cloud Server：클라우드 서버](#cloud-server클라우드-서버)
-    -   [목차](#목차)
-    -   [개요](#개요)
-    -   [0. 로컬호스트 내부테스트](#0-로컬호스트-내부테스트)
-        -   [0-1. 웹 페이지 파일 생성](#0-1-웹-페이지-파일-생성)
-        -   [0-2. 브라우저에서 체크하기](#0-2-브라우저에서-체크하기)
-        -   [0-3. 로컬호스트 배포 테스트](#0-3-로컬호스트-배포-테스트)
-            -   [Vscode extension](#vscode-extension)
-            -   [Nginx](#nginx)
-    -   [1. 오라클 API 웹 배포](#1-오라클-api-웹-배포)
-        -   [1-1. 네이밍 컨벤션 정리](#1-1-네이밍-컨벤션-정리)
-        -   [1-2. OCI 계정생성](#1-2-oci-계정생성)
-            -   [계정 만들기](#계정-만들기)
-            -   [로그인 확인](#로그인-확인)
-            -   [계정 도메인 정책 확인](#계정-도메인-정책-확인)
-        -   [1-3. Compartment(컴파트먼트) 생성하기](#1-3-compartment컴파트먼트-생성하기)
-            -   [컴파트먼트란?](#컴파트먼트란)
-            -   [하위 컴파트먼트 생성하기](#하위-컴파트먼트-생성하기)
-            -   [컴파트먼트 삭제하기](#컴파트먼트-삭제하기)
-        -   [1-4. 버킷 생성](#1-4-버킷-생성)
-            -   [블록 \& 버킷 개념정리](#블록--버킷-개념정리)
-            -   [버킷 생성하기](#버킷-생성하기)
-            -   [index.html 오브젝트 업로드](#indexhtml-오브젝트-업로드)
-        -   [1-5. 오브젝트 URL 확인](#1-5-오브젝트-url-확인)
-    -   [2. 최소 단위 정적 웹 배포](#2-최소-단위-정적-웹-배포)
-        -   [2-1. VCN(가상 네트워크) 생성](#2-1-vcn가상-네트워크-생성)
-            -   [VCN 개념정리](#vcn-개념정리)
-            -   [VCN 생성방법](#vcn-생성방법)
-            -   [VCN 이름을 바꾸고 싶다면?](#vcn-이름을-바꾸고-싶다면)
-        -   [2-2. Compute VM(인스턴스) 생성 및 공용 IP 확보](#2-2-compute-vm인스턴스-생성-및-공용-ip-확보)
-            -   [Compute VM 개념정리](#compute-vm-개념정리)
-            -   [Compute VM 생성하기](#compute-vm-생성하기)
-        -   [2단계: OCI 클라우드 방화벽(Security List) 개방](#2단계-oci-클라우드-방화벽security-list-개방)
-        -   [3단계: VM 내부 OS 방화벽 개방 및 Nginx 설치](#3단계-vm-내부-os-방화벽-개방-및-nginx-설치)
-        -   [4단계: index.html 배치 및 외부 접속 테스트](#4단계-indexhtml-배치-및-외부-접속-테스트)
-    -   [3. 웹 도메인 연결](#3-웹-도메인-연결)
-    -   [프로젝트 살 붙이기](#프로젝트-살-붙이기)
-        -   [단계 1.5 (도메인 연결): "숫자 IP는 치기 귀찮네?" ➔ DuckDNS를 가져와서 VM IP 매핑하기](#단계-15-도메인-연결-숫자-ip는-치기-귀찮네--duckdns를-가져와서-vm-ip-매핑하기)
-        -   [단계 2.0 (보안 적용): "주의 요함(HTTP) 경고창이 뜨네?" ➔ Certbot을 이용해 Nginx에 무료 SSL(HTTPS) 인증서 적용하기](#단계-20-보안-적용-주의-요함http-경고창이-뜨네--certbot을-이용해-nginx에-무료-sslhttps-인증서-적용하기)
-        -   [단계 3.0 (아키텍처 고도화): "웹사이트에 이미지랑 동영상이 많아지니 서버 용량이 부족하고 느려지네? 서버 컴퓨터를 더 가볍게 유지하고 싶다." ➔ index.html과 정적 자원들을 Object Storage로 이사 보내고, VM은 백엔드 API 서버용으로만 쓰기](#단계-30-아키텍처-고도화-웹사이트에-이미지랑-동영상이-많아지니-서버-용량이-부족하고-느려지네-서버-컴퓨터를-더-가볍게-유지하고-싶다--indexhtml과-정적-자원들을-object-storage로-이사-보내고-vm은-백엔드-api-서버용으로만-쓰기)
-    -   [OCI 시작하기](#oci-시작하기)
-        -   [버킷 생성](#버킷-생성)
-        -   [웹 도메인 생성하기](#웹-도메인-생성하기)
-            -   [도메인 개념정리](#도메인-개념정리)
-            -   [도메인 무료 생성](#도메인-무료-생성)
-        -   [DNS 형성하기](#dns-형성하기)
-            -   [DNS 개념정리](#dns-개념정리)
-            -   [DNS 생성](#dns-생성)
-        -   [가상 네트워크(VCN) 생성](#가상-네트워크vcn-생성)
-        -   [가상 서버 컴퓨터(Virtual Machine, Compute Instance) 생성](#가상-서버-컴퓨터virtual-machine-compute-instance-생성)
-            -   [VM 개념정리](#vm-개념정리)
-            -   [① VM 생성하기](#-vm-생성하기)
-            -   [② API Gateway 연동(유료)](#-api-gateway-연동유료)
-        -   [커스텀 도메인(SSL 인증서 포함)을 연결하는 작업이 필요합니다.](#커스텀-도메인ssl-인증서-포함을-연결하는-작업이-필요합니다)
-    -   [OCI 응용하기](#oci-응용하기)
-        -   [주소 설정](#주소-설정)
+- [Cloud Server：클라우드 서버](#cloud-server클라우드-서버)
+  - [목차](#목차)
+  - [개요](#개요)
+  - [0. 로컬호스트 내부테스트](#0-로컬호스트-내부테스트)
+    - [0-1. 웹 페이지 파일 생성](#0-1-웹-페이지-파일-생성)
+    - [0-2. 브라우저에서 체크하기](#0-2-브라우저에서-체크하기)
+    - [0-3. 로컬호스트 배포 테스트](#0-3-로컬호스트-배포-테스트)
+      - [Vscode extension](#vscode-extension)
+      - [Nginx](#nginx)
+  - [1. 오라클 API 웹 배포](#1-오라클-api-웹-배포)
+    - [1-1. 네이밍 컨벤션 정리](#1-1-네이밍-컨벤션-정리)
+    - [1-2. OCI 계정생성](#1-2-oci-계정생성)
+      - [계정 만들기](#계정-만들기)
+      - [로그인 확인](#로그인-확인)
+      - [계정 도메인 정책 확인](#계정-도메인-정책-확인)
+    - [1-3. Compartment(컴파트먼트) 생성하기](#1-3-compartment컴파트먼트-생성하기)
+      - [컴파트먼트란?](#컴파트먼트란)
+      - [하위 컴파트먼트 생성하기](#하위-컴파트먼트-생성하기)
+      - [컴파트먼트 삭제하기](#컴파트먼트-삭제하기)
+    - [1-4. 버킷 생성](#1-4-버킷-생성)
+      - [블록 \& 버킷 개념정리](#블록--버킷-개념정리)
+      - [버킷 생성하기](#버킷-생성하기)
+      - [index.html 오브젝트 업로드](#indexhtml-오브젝트-업로드)
+    - [1-5. 오브젝트 URL 확인](#1-5-오브젝트-url-확인)
+  - [2. 최소 단위 정적 웹 배포](#2-최소-단위-정적-웹-배포)
+    - [2-1. VCN(가상 네트워크) 생성](#2-1-vcn가상-네트워크-생성)
+      - [VCN 개념정리](#vcn-개념정리)
+      - [VCN 생성방법](#vcn-생성방법)
+      - [VCN 과 서브넷의 이름을 바꾸고 싶다면?](#vcn-과-서브넷의-이름을-바꾸고-싶다면)
+    - [2-2. Compute VM(인스턴스) 생성 및 공용 IP 확보](#2-2-compute-vm인스턴스-생성-및-공용-ip-확보)
+      - [Compute VM 개념정리](#compute-vm-개념정리)
+      - [Compute VM 생성하기](#compute-vm-생성하기)
+    - [2단계: OCI 클라우드 방화벽(Security List) 개방](#2단계-oci-클라우드-방화벽security-list-개방)
+    - [3단계: VM 내부 OS 방화벽 개방 및 Nginx 설치](#3단계-vm-내부-os-방화벽-개방-및-nginx-설치)
+    - [4단계: index.html 배치 및 외부 접속 테스트](#4단계-indexhtml-배치-및-외부-접속-테스트)
+  - [3. 웹 도메인 연결](#3-웹-도메인-연결)
+  - [프로젝트 살 붙이기](#프로젝트-살-붙이기)
+    - [단계 1.5 (도메인 연결): "숫자 IP는 치기 귀찮네?" ➔ DuckDNS를 가져와서 VM IP 매핑하기](#단계-15-도메인-연결-숫자-ip는-치기-귀찮네--duckdns를-가져와서-vm-ip-매핑하기)
+    - [단계 2.0 (보안 적용): "주의 요함(HTTP) 경고창이 뜨네?" ➔ Certbot을 이용해 Nginx에 무료 SSL(HTTPS) 인증서 적용하기](#단계-20-보안-적용-주의-요함http-경고창이-뜨네--certbot을-이용해-nginx에-무료-sslhttps-인증서-적용하기)
+    - [단계 3.0 (아키텍처 고도화): "웹사이트에 이미지랑 동영상이 많아지니 서버 용량이 부족하고 느려지네? 서버 컴퓨터를 더 가볍게 유지하고 싶다." ➔ index.html과 정적 자원들을 Object Storage로 이사 보내고, VM은 백엔드 API 서버용으로만 쓰기](#단계-30-아키텍처-고도화-웹사이트에-이미지랑-동영상이-많아지니-서버-용량이-부족하고-느려지네-서버-컴퓨터를-더-가볍게-유지하고-싶다--indexhtml과-정적-자원들을-object-storage로-이사-보내고-vm은-백엔드-api-서버용으로만-쓰기)
+  - [OCI 시작하기](#oci-시작하기)
+    - [버킷 생성](#버킷-생성)
+    - [웹 도메인 생성하기](#웹-도메인-생성하기)
+      - [도메인 개념정리](#도메인-개념정리)
+      - [도메인 무료 생성](#도메인-무료-생성)
+    - [DNS 형성하기](#dns-형성하기)
+      - [DNS 개념정리](#dns-개념정리)
+      - [DNS 생성](#dns-생성)
+    - [가상 네트워크(VCN) 생성](#가상-네트워크vcn-생성)
+    - [가상 서버 컴퓨터(Virtual Machine, Compute Instance) 생성](#가상-서버-컴퓨터virtual-machine-compute-instance-생성)
+      - [VM 개념정리](#vm-개념정리)
+      - [① VM 생성하기](#-vm-생성하기)
+      - [② API Gateway 연동(유료)](#-api-gateway-연동유료)
+    - [커스텀 도메인(SSL 인증서 포함)을 연결하는 작업이 필요합니다.](#커스텀-도메인ssl-인증서-포함을-연결하는-작업이-필요합니다)
+  - [OCI 응용하기](#oci-응용하기)
+    - [주소 설정](#주소-설정)
 
 ## 개요
 
@@ -132,13 +132,17 @@
         objBody.style.backgroundColor = '#92FF29';
     };
     
-    objBtn.addEventListener('mouseup', eventBodyOrange);
-    objBtn.addEventListener('mousedown', eventBodyGreen);
+    // pointer event = mouse event + touch event 
+    objBtn.addEventListener('pointerdown', eventBodyGreen);
+    objBtn.addEventListener('pointerup', eventBodyOrange);
+    objBtn.addEventListener('pointercancel', eventBodyOrange);
+    objBtn.addEventListener('pointerleave', eventBodyOrange);
     ```
 
 -   style.css
 
     ```css
+    /* Default setting */
     * {
         box-sizing: border-box;
         padding: 0;
@@ -552,18 +556,7 @@ rm -rf ~/ociextirpater
 
 #### VCN 개념정리
 
-DNS (Domain Name System)
-비유: '전화번호부'
-
-역할: 사람들이 기억하기 쉬운 '도메인 이름'을 컴퓨터가 이해하는 'IP 주소(예: 192.0.2.1)'로 연결(매핑)해 주는 시스템입니다.
-
-주요 업무: * "이 도메인으로 들어오는 사람을 어디(어떤 서버)로 보내야 하지?"에 대한 정보를 가지고 있습니다.
-
-웹사이트 접속, 이메일 전송 등을 위해 필수적인 네트워크 서비스입니다.
-
-보통 도메인 판매 업체에서 무료 DNS 기능을 제공하기도 하고, 클라우드플레어(Cloudflare) 같은 전문 DNS 관리 서비스를 사용하기도 합니다.
-
-Compute VM (Nginx + SSL) 부분을 만드는 것이 지금 단계의 목표입니다. 우리는 VM 가상컴퓨터가 외부 인터넷망와 우리의 index.html 과 이어주는 서버 컴퓨터 역할을 수행하게 만들어야 합니다.
+OCI Compute VM (Nginx + SSL) 부분을 만드는 것이 지금 단계의 목표입니다. 우리는 VM 가상컴퓨터가 외부 인터넷망와 우리의 index.html 과 이어주는 서버 컴퓨터 역할을 수행하게 만들어야 합니다.
 
 그걸 위해선 다음의 과정을 거처야합니다.
 
@@ -605,6 +598,10 @@ Compute VM (Nginx + SSL) 부분을 만드는 것이 지금 단계의 목표입�
 
         &nbsp; `10.0.0.0/16` 이라고 적힌 값은 `10.0. ...` 으로 시작하는 사설 IP 대역을 사용하겠으며, `/16` 은 서브넷 마스크를 의미하여 앞의 16비트(`10.0`)를 고정하고 나머지 공간을 IP로 쓰겠다는 계약입니다. 따라서 그 의미는 `10.0.0.0` 부터 `10.0.255.255` 까지 총 65,536개의 내부 IP 주소를 확보하겠다는 의미입니다. 이것이 사설 네트워크를 구축할 때 가장 흔하게 쓰이는 표준 크기 입니다. `10.0.x.x` 의 값은 네트워크 표준 규약(RFC 1918)에 의해 `127.0.0.1` 루프백 IP 와 비슷하게 사설 네트워크 내부 통신 IP 주소를 의미합니다.
 
+-   <u><b>Use DNS hostnames in this VCN :</b></u>
+    &nbsp; 토글 스위치의 값은 `ON` 입니다.
+    &nbsp; 이 옵션을 켜면 OCI가 VCN 내부용 사설 DNS 서버를 자동으로 활성화합니다. 이에 따라 VCN 안에 생성되는 모든 인스턴스(VM)는 `[인스턴스_호스트이름].[서브넷_DNS_레이블].oraclevcn.com` 규칙을 따라 고유한 내부 DNS 도메인 이름(hostname)을 가지게 됩니다. ON 일 경우 복잡하게 10.0.1.4 같은 복잡한 IP 주소 대신, web-server.sub01.myvcn.oraclevcn.com 같은 이름으로 통신할 수 있습니다. 또한 IP 가 변하는 상황에도 이 hostname 은 유지되므로 코드 수정없이 계속 사용가능합니다. 
+
 -   <u><b>Configure public subnet :</b></u>
     
     &nbsp; 기본값은 `10.0.0.0/24` 입니다.
@@ -627,7 +624,7 @@ Compute VM (Nginx + SSL) 부분을 만드는 것이 지금 단계의 목표입�
 
     &nbsp; 큰 의미는 없고 분류 및 검색용입니다.
 
-#### VCN 이름을 바꾸고 싶다면?
+#### VCN 과 서브넷의 이름을 바꾸고 싶다면?
 
 &nbsp; OCI 웹 콘솔(브라우저 화면)에서는 VCN의 이름을 수정하는 버튼을 마땅히 제공하지 않습니다. 하지만 OCI CLI(명령줄 인터페이스)나 클라우드 셸(Cloud Shell)을 이용하면 명령어 한 줄로 아주 쉽게 이름을 바꿀 수 있습니다. 
 
@@ -648,7 +645,7 @@ Compute VM (Nginx + SSL) 부분을 만드는 것이 지금 단계의 목표입�
 oci network vcn update --vcn-id "『내_VCN의_OCID』" --display-name "『새로운_VCN_이름』"
 ```
 
-&nbsp; 마찬가지로 서브넷의 이름을 바꾸고 싶다면 다음과 같은 명령어로 바꿀 수 있습니다.
+&nbsp; 마찬가지로 서브넷의 이름을 `sub-firstStaticWeb-dev-pubi` 같이 바꾸고 싶다면 다음과 같은 명령어로 바꿀 수 있습니다.
 
 ```bash
 oci network subnet update \
@@ -673,11 +670,50 @@ oci network subnet update \
 &nbsp; OCI 메인 화면 좌측상단 <kbd>☰</kbd> 버튼을 눌러 네비게이션 메뉴를 열고
 -> `Compute` 
 -> (Compute 항목) `Instances`
--> <kbd>Create bucket</kbd> 버튼을 클릭하여 만들 수 있습니다.
+-> <kbd>Create instance</kbd> 버튼을 클릭하여 만들 수 있습니다.
 
-Applied filters 옆에 Compartment 가  
+Applied filters 옆에 Compartment 가 대상인 컴파트먼트인지 확인해주세요 
 
-만약 OCI 무료 티어의 자원 제한(Ampere A1 Compute 4 Core, 24GB RAM 등) 안에서 구성해야 하더라도, VM을 2개(웹용 2Core/12GB, DB용 2Core/12GB)로 쪼개어 구성하는 것이 향후 유지보수와 안정성 측면에서 훨씬 유리합니다.
+-   Image and shape: Always Free 대상인 VM.Standard.E2.1.Micro(AMD) 또는 VM.Standard.A1.Flex(ARM, 추천) 중 하나를 선택합니다.
+
+-   Networking: 방금 생성한 VCN의 Public Subnet을 선택하고, Assign a public IPv4 address를 체크합니다.
+
+-   SSH Keys: SSH 접속을 위한 키 쌍을 다운로드(Save private key)합니다.
+
+-   인스턴스 생성 완료 후 할당된 [공용 IP 주소(Public IP)]를 메모합니다.
+
+만약 OCI 무료 티어의 자원 제한(Ampere A1 Compute 2 Core, 12GB RAM 등) 안에서 구성해야 하더라도, VM을 2개(웹용 2Core/12GB, DB용 2Core/12GB)로 쪼개어 구성하는 것이 향후 유지보수와 안정성 측면에서 훨씬 유리합니다.
+
+--------
+
+_BOOKMARK
+
+--------
+
+Create instance 창에 적절한 값들을 넣어주세요. 각 값의 의미는 다음과 같습니다.
+
+-   <u><b>name :</b></u> 
+    
+    &nbsp; 예시로는 `vm-firstStaticWeb-dev-web` 입니다. [1-1. 네이밍 컨벤션 정리](#1-1-네이밍-컨벤션-정리) 항목의 VM 부분을 참고해주세요. 
+    &nbsp; VM instance 의 이름입니다. 
+
+-   <u><b>Compartment :</b></u> VCN을 위치시킬 컴파트먼트를 지정합니다. 별다른 이유가 없다면 VCN과 같은 위치의 컴파트먼트를 지정해주세요.
+
+-   Placement
+    -   <u><b>VCN IPv4 CIDR block :</b></u>
+
+-   Configure VCN
+    -   <u><b>VCN IPv4 CIDR block :</b></u>
+        
+        &nbsp; 기본값은 `10.0.0.0/16` 입니다.
+        
+        &nbsp; CIDR(Classless Inter-Domain Routing) 블록은 이 VCN 가상 데이터 센터 안에서 사용할 사설 IP 주소의 범위를 지정합니다.
+
+        &nbsp; `10.0.0.0/16` 이라고 적힌 값은 `10.0. ...` 으로 시작하는 사설 IP 대역을 사용하겠으며, `/16` 은 서브넷 마스크를 의미하여 앞의 16비트(`10.0`)를 고정하고 나머지 공간을 IP로 쓰겠다는 계약입니다. 따라서 그 의미는 `10.0.0.0` 부터 `10.0.255.255` 까지 총 65,536개의 내부 IP 주소를 확보하겠다는 의미입니다. 이것이 사설 네트워크를 구축할 때 가장 흔하게 쓰이는 표준 크기 입니다. `10.0.x.x` 의 값은 네트워크 표준 규약(RFC 1918)에 의해 `127.0.0.1` 루프백 IP 와 비슷하게 사설 네트워크 내부 통신 IP 주소를 의미합니다.
+
+-   <u><b>Use DNS hostnames in this VCN :</b></u>
+    &nbsp; 토글 스위치의 값은 `ON` 입니다.
+    &nbsp; 이 옵션을 켜면 OCI가 VCN 내부용 사설 DNS 서버를 자동으로 활성화합니다. 이에 따라 VCN 안에 생성되는 모든 인스턴스(VM)는 `[인스턴스_호스트이름].[서브넷_DNS_레이블].oraclevcn.com` 규칙을 따라 고유한 내부 DNS 도메인 이름(hostname)을 가지게 됩니다. ON 일 경우 복잡하게 10.0.1.4 같은 복잡한 IP 주소 대신, web-server.sub01.myvcn.oraclevcn.com 같은 이름으로 통신할 수 있습니다. 또한 IP 가 변하는 상황에도 이 hostname 은 유지되므로 코드 수정없이 계속 사용가능합니다. 
 
 ### 2단계: OCI 클라우드 방화벽(Security List) 개방
 
@@ -709,6 +745,17 @@ Applied filters 옆에 Compartment 가
 ```txt
 [사용자] ➔ [DNS (가비아, 후이즈, Cloudflare 등 도메인대행사)] ➔ [Compute VM (Nginx + SSL)] ➔ [OCI Object Storage (Public Bucket)] ➔ [index.html(Object)]
 ```
+
+DNS (Domain Name System) 은 
+비유: '전화번호부'
+
+역할: 사람들이 기억하기 쉬운 '도메인 이름'을 컴퓨터가 이해하는 'IP 주소(예: 192.0.2.1)'로 연결(매핑)해 주는 시스템입니다.
+
+주요 업무: * "이 도메인으로 들어오는 사람을 어디(어떤 서버)로 보내야 하지?"에 대한 정보를 가지고 있습니다.
+
+웹사이트 접속, 이메일 전송 등을 위해 필수적인 네트워크 서비스입니다.
+
+보통 도메인 판매 업체에서 무료 DNS 기능을 제공하기도 하고, 클라우드플레어(Cloudflare) 같은 전문 DNS 관리 서비스를 사용하기도 합니다.
 
 ## 프로젝트 살 붙이기
 
@@ -772,29 +819,6 @@ OCI는 'OCI DNS Management'라는 강력한 서비스를 제공하며, 무료 �
 -   ② API Gateway 연동 (유료 계정만 가능)
 
 #### ① VM 생성하기
-
-&nbsp; OCI 메인 화면 좌측상단 <kbd>☰</kbd> 버튼을 눌러 네비게이션 메뉴를 열고
--> `Storage` 
--> (Object Storage & Archive Storage 항목) `Buckets`
--> <kbd>Create bucket</kbd> 버튼을 클릭하여 만들 수 있습니다.
-
-----------------------------------------------------------------
-
-_BOOKMARK
-
-----------------------------------------------------------------
-
--   Compute ➔ Instances ➔ Create Instance를 선택합니다.
-
--   Compartment: Web-Resources 지정
-
--   Image and shape: Always Free 대상인 VM.Standard.E2.1.Micro(AMD) 또는 VM.Standard.A1.Flex(ARM, 추천) 중 하나를 선택합니다.
-
--   Networking: 방금 생성한 VCN의 Public Subnet을 선택하고, Assign a public IPv4 address를 체크합니다.
-
--   SSH Keys: SSH 접속을 위한 키 쌍을 다운로드(Save private key)합니다.
-
--   인스턴스 생성 완료 후 할당된 [공용 IP 주소(Public IP)]를 메모합니다.
 
 #### ② API Gateway 연동(유료)
 
