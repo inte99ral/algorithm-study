@@ -1,12 +1,51 @@
 # 파워쉘：PowerShell
 
+## 목차
+
+-   [파워쉘：PowerShell](#파워쉘powershell)
+    -   [목차](#목차)
+    -   [개요](#개요)
+    -   [주석](#주석)
+    -   [버전 체크：Version](#버전-체크version)
+    -   [기본 형식](#기본-형식)
+    -   [파워쉘 보안 실행정책](#파워쉘-보안-실행정책)
+    -   [패키지 매니저](#패키지-매니저)
+    -   [스크립트 예시](#스크립트-예시)
+        -   [키보드 입력 받기](#키보드-입력-받기)
+    -   [명령 대체：Command Substitution](#명령-대체command-substitution)
+    -   [배열：Array](#배열array)
+        -   [배열 생성](#배열-생성)
+        -   [배열 읽기](#배열-읽기)
+        -   [배열 수정](#배열-수정)
+        -   [배열 삭제](#배열-삭제)
+    -   [별칭：Alias](#별칭alias)
+    -   [함수：Function](#함수function)
+    -   [확장과 치환：Expansions and Substitutions](#확장과-치환expansions-and-substitutions)
+    -   [파워쉘 스크립트 파일 .ps1](#파워쉘-스크립트-파일-ps1)
+    -   [.exe 패키징](#exe-패키징)
+    -   [.exe 컴파일](#exe-컴파일)
+        -   [파일 생성하기](#파일-생성하기)
+        -   [아이콘 만들기](#아이콘-만들기)
+        -   [디지털 서명 받기](#디지털-서명-받기)
+    -   [템플릿](#템플릿)
+        -   [타임 스탬프 프로필에 찍기](#타임-스탬프-프로필에-찍기)
+        -   [txt 확장자 파일 검색](#txt-확장자-파일-검색)
+        -   [관리자 계정인지 확인](#관리자-계정인지-확인)
+        -   [환경변수 특정 값 유무 확인](#환경변수-특정-값-유무-확인)
+        -   [파워쉘 창 새로고침](#파워쉘-창-새로고침)
+        -   [프로필을 수정](#프로필을-수정)
+        -   [파일에서 특정 키워드 줄 확인](#파일에서-특정-키워드-줄-확인)
+        -   [상위 폴더 없을 시 생성](#상위-폴더-없을-시-생성)
+        -   [MSYS2 쉘 호출](#msys2-쉘-호출)
+        -   [MSYS2 쉘 호출 함수 설치](#msys2-쉘-호출-함수-설치)
+
 ## 개요
 
 ```ps
 Write-Host 'Hello, world!'
 ```
 
-- Windows PowerShell은 마이크로소프트가 개발한 CLI 셸 및 스크립트 언어를 특징으로 하는 명령어 인터프리터이다. 윈도우 XP 이상에서 사용할 수 있으며 Windows 7부터 기본적으로 설치되어 있다.
+-   Windows PowerShell은 마이크로소프트가 개발한 CLI 셸 및 스크립트 언어를 특징으로 하는 명령어 인터프리터이다. 윈도우 XP 이상에서 사용할 수 있으며 Windows 7부터 기본적으로 설치되어 있다.
 
 ## 주석
 
@@ -85,7 +124,7 @@ while ($true) {
 
 Restricted 실행정책은 모든 스크립트 실행이 차단합니다. 이 모드에서는 PowerShell 콘솔에서 직접 명령을 입력하는 것만 가능합니다.
 
-```powershell
+```ps1
 # 현재 세션에만 적용 (임시적인 해결)
 Set-ExecutionPolicy RemoteSigned -Scope Process -Force
 
@@ -93,7 +132,22 @@ Set-ExecutionPolicy RemoteSigned -Scope Process -Force
 Set-ExecutionPolicy RemoteSigned -Scope LocalMachine -Force
 ```
 
-## 키보드 입력
+다음의 명령어로 현재의 실행정책을 확인할 수 있습니다.
+
+```ps1
+Get-ExecutionPolicy
+```
+
+## 패키지 매니저
+
+-   winget(Windows 프로그램)
+-   PSResourceGet(Powershell 모듈)
+-   NuGet(.NET 라이브러리 관리 시스템)
+-   iex + DownloadString 명령어 (Invoke-Expression 명령어 Alias 로 그냥 url 파일을 직접 설치하는 것과 같은 역할)
+
+## 스크립트 예시
+
+### 키보드 입력 받기
 
 ```powershell
 $answer = Read-Host "계속하시겠습니까? (Y/N)"
@@ -260,19 +314,19 @@ function AddTest {
 
 "$PROFILE" 은 PowerShell이 시작될 때마다 자동으로 실행되는 사용자 설정 파일이기 때문에 지정해둔 설정이 시작할 때 마다 적용됩니다.
 
-- "$PROFILE" 사용자 설정 파일이 존재하는 지 확인
+-   "$PROFILE" 사용자 설정 파일이 존재하는 지 확인
 
 ```powershell
 Test-Path $PROFILE
 ```
 
-- "False" 즉, 없을 경우엔 다음의 명령어로 사용자 설정 파일 생성
+-   "False" 즉, 없을 경우엔 다음의 명령어로 사용자 설정 파일 생성
 
 ```powershell
 New-Item -Path $PROFILE -ItemType File -Force
 ```
 
-- "$PROFILE" 사용자 설정 파일 수정
+-   "$PROFILE" 사용자 설정 파일 수정
 
 ```powershell
 notepad $PROFILE
@@ -286,10 +340,10 @@ notepad $PROFILE
 
 리눅스의 확장(`Expansion, ${}, $(), $(())`) 은 left-to-right 순서로 동시처리 됩니다.
 
-- parameter expansion (파라미터 확장) : $var or ${var}
-- arithmetic expansion (산술 확장) : $((expression))
-- command substitution (명령 대체) : $(command)
-- Process substitution (작업 치환)
+-   parameter expansion (파라미터 확장) : $var or ${var}
+-   arithmetic expansion (산술 확장) : $((expression))
+-   command substitution (명령 대체) : $(command)
+-   Process substitution (작업 치환)
 
 파워쉘도 동일하게 이것이 가능합니다.
 
@@ -321,10 +375,10 @@ cmd 보다 파워쉘이 가진 기능이 많은 만큼 이쪽으로 g++ 명령�
 }
 ```
 
-https://cloudsns.wordpress.com/2012/10/09/get-childitem%EC%9D%98-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EC%9D%B8-filter%EC%99%80-include%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/
+<https://cloudsns.wordpress.com/2012/10/09/get-childitem%EC%9D%98-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EC%9D%B8-filter%EC%99%80-include%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/>
 Get-Childitem -Path $home -Recurse -Force -Filter \*.txt 가장 빠른 방법
 
-- 파워쉘로 경로 출력
+-   파워쉘로 경로 출력
 
 ```json
 {
@@ -356,7 +410,7 @@ Get-Childitem -Path $home -Recurse -Force -Filter \*.txt 가장 빠른 방법
 }
 ```
 
-- 파워쉘로 컴파일
+-   파워쉘로 컴파일
 
 ```json
 {
@@ -390,7 +444,7 @@ Get-Childitem -Path $home -Recurse -Force -Filter \*.txt 가장 빠른 방법
 }
 ```
 
-- 마찬가지로 실행시키는 작업을 만드시면 됩니다.
+-   마찬가지로 실행시키는 작업을 만드시면 됩니다.
 
   ```json
   // tasks.json 앞 부분...
@@ -412,7 +466,7 @@ Get-Childitem -Path $home -Recurse -Force -Filter \*.txt 가장 빠른 방법
 파워쉘 스크립트 파일의 확장자는 .ps1 입니다.
 끝의 1은 버전명 같지만 powershell 2.0 에서도 확장자는 같습니다.
 
-- 실행되지 않을 시 [참고문헌](<https://learn.microsoft.com/ko-kr/previous-versions/dd347628(v=technet.10)?redirectedfrom=MSDN>)
+-   실행되지 않을 시 [참고문헌](<https://learn.microsoft.com/ko-kr/previous-versions/dd347628(v=technet.10)?redirectedfrom=MSDN>)
 
 ## .exe 패키징
 
@@ -420,30 +474,30 @@ Get-Childitem -Path $home -Recurse -Force -Filter \*.txt 가장 빠른 방법
 
 &nbsp; 이를 이용하여 ps1 파워쉘 구동 파일을 .exe 속에 포장할 수 있습니다.
 
-- 파워쉘에서 IExpress 툴을 호출합니다.
+-   파워쉘에서 IExpress 툴을 호출합니다.
 
   ```powershell
   iexpress.exe
   ```
 
-- "Create new Self Extraction Directive file" 항목을 선택하고 다음으로 넘어갑니다.
-- "Extract files and run an installation command" 항목을 선택하고 다음으로 넘어갑니다.
-- 패키지 제목을 입력 후 다음으로 넘어갑니다.
-  - 설치창이나 오류 시에 창의 제목으로 뜨는 이름입니다.
-- 프롬프트 설정에서 "No prompt" 선택 후 다음으로 넘어갑니다.
-- 굳이 표기할 라이센스가 없다면 "Do not display a license" 선택 후 다음으로 넘어갑니다.
-- `Add` 버튼을 눌러 test.ps1 파일을 추가합니다. 다음으로 넘어갑니다.
-- 설치 후 작업에 대한 창이 뜹니다. 여기서 Install Program 입력 상자에 설치가 끝나면 파워쉘을 키고 test.ps1 을 구동시키는 명령어를 직접 작성합니다.
+-   "Create new Self Extraction Directive file" 항목을 선택하고 다음으로 넘어갑니다.
+-   "Extract files and run an installation command" 항목을 선택하고 다음으로 넘어갑니다.
+-   패키지 제목을 입력 후 다음으로 넘어갑니다.
+    -   설치창이나 오류 시에 창의 제목으로 뜨는 이름입니다.
+-   프롬프트 설정에서 "No prompt" 선택 후 다음으로 넘어갑니다.
+-   굳이 표기할 라이센스가 없다면 "Do not display a license" 선택 후 다음으로 넘어갑니다.
+-   `Add` 버튼을 눌러 test.ps1 파일을 추가합니다. 다음으로 넘어갑니다.
+-   설치 후 작업에 대한 창이 뜹니다. 여기서 Install Program 입력 상자에 설치가 끝나면 파워쉘을 키고 test.ps1 을 구동시키는 명령어를 직접 작성합니다.
 
-  - &nbsp;
+    -   &nbsp;
 
     ```powershell
     powershell.exe -ExecutionPolicy Bypass -File run.ps1
     ```
 
-  - 또는 위의 구동 명령어를 작성한 run.bat 파일을 만들고 전단계에서 `Add` 해준 뒤에 `cmd /c run.bat` 명령어를 install program 에 입력합니다.
+    -   또는 위의 구동 명령어를 작성한 run.bat 파일을 만들고 전단계에서 `Add` 해준 뒤에 `cmd /c run.bat` 명령어를 install program 에 입력합니다.
     전체 경로(폴더 + 파일명)가 260자(MAX_PATH) 를 넘으면 파일을 제대로 인식하지 못하는 문제가 생길 수 있어 이 쪽이 더 안정적인 방법입니다.
-  - iexpress 가 정상인 구동을 하지 못할 때, 다음의 코드로 디버깅을 해볼 수 있습니다.
+    -   iexpress 가 정상인 구동을 하지 못할 때, 다음의 코드로 디버깅을 해볼 수 있습니다.
 
     ```bat
     @ECHO OFF
@@ -469,15 +523,15 @@ Get-Childitem -Path $home -Recurse -Force -Filter \*.txt 가장 빠른 방법
     EXIT
     ```
 
-- Post Install Command 항목은 설치 직후 커맨드나 프로그램 구동 이후에 추가로 실행할 작업입니다. 보통 쓸 일이 없습니다.
+-   Post Install Command 항목은 설치 직후 커맨드나 프로그램 구동 이후에 추가로 실행할 작업입니다. 보통 쓸 일이 없습니다.
 
-- 창표시 옵션은 Default 로 고르고 다음으로 넘어갑니다.
-- 완료 메시지는 No message 로 고르고 다음으로 넘어갑니다.
-- `C:/test.exe` 같은 느낌으로 패키지 저장 위치와 파일명을 지정합니다.
-  - "Store files using Long File Name inside Package" 옵션을 선택하지 않을 경우에 iexpress는 영문+숫자+언더스코어 이외의 공백 같은 특수문자가 포함되었거나, 8글자 이상의 파일은 DOS 시절의 영향으로 Short File Name 으로 이름을 왜곡시켜서 넣습니다. 예를들어 code.ps1 은 CODE~1.ps1 같은 이름으로 왜곡됩니다.
-- 재부팅이 필요없을때는 No restart 를 선택합니다. 다음으로 넘어갑니다.
-- SED 파일을 남겨놓아 재수정할 필요성이 없다면 남기지 않는 쪽을 선택해주세요. 다음으로 넘어갑니다.
-- 패키지가 생성됩니다.
+-   창표시 옵션은 Default 로 고르고 다음으로 넘어갑니다.
+-   완료 메시지는 No message 로 고르고 다음으로 넘어갑니다.
+-   `C:/test.exe` 같은 느낌으로 패키지 저장 위치와 파일명을 지정합니다.
+    -   "Store files using Long File Name inside Package" 옵션을 선택하지 않을 경우에 iexpress는 영문+숫자+언더스코어 이외의 공백 같은 특수문자가 포함되었거나, 8글자 이상의 파일은 DOS 시절의 영향으로 Short File Name 으로 이름을 왜곡시켜서 넣습니다. 예를들어 code.ps1 은 CODE~1.ps1 같은 이름으로 왜곡됩니다.
+-   재부팅이 필요없을때는 No restart 를 선택합니다. 다음으로 넘어갑니다.
+-   SED 파일을 남겨놓아 재수정할 필요성이 없다면 남기지 않는 쪽을 선택해주세요. 다음으로 넘어갑니다.
+-   패키지가 생성됩니다.
 
 ## .exe 컴파일
 
@@ -558,14 +612,14 @@ Read-Host
 
 ### txt 확장자 파일 검색
 
-- 리눅스 예시
+-   리눅스 예시
 
 ```bash
 # vscode 쉘에선 ${fileBasenameNoExtension} 이 주소로 바뀜
 "g++ -g $(find . -type f -iregex \".*.cpp\") -o ${fileDirname}\\${fileBasenameNoExtension}.exe",
 ```
 
-- 파워쉘에선
+-   파워쉘에선
 
 ```ps
 # 사용자의 홈 디렉터리 = $home
@@ -628,13 +682,13 @@ function test02 {
 
 ### 파일에서 특정 키워드 줄 확인
 
-- 키워드가 나오는 모든 줄을 배열로 저장
+-   키워드가 나오는 모든 줄을 배열로 저장
 
 ```powershell
 $lines = Select-String -Path "a.ps1" -Pattern "\$data=0" | ForEach-Object { $_.LineNumber }
 ```
 
-- 키워드가 나오는 첫번째 줄만 저장
+-   키워드가 나오는 첫번째 줄만 저장
 
 ```powershell
 $firstLine = (Select-String -Path "a.ps1" -Pattern "\$data=0" | Select-Object -First 1).LineNumber

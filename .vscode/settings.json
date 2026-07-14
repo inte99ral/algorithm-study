@@ -1,4 +1,8 @@
 // # settings.json
+/*
+ * @author inte99ral
+ * @version 2026-07-12
+ */
 
 // ## Documentation ==========================================================
 /*
@@ -120,6 +124,7 @@
     "prettier.endOfLine": "auto",
 
     // #### Markdown
+    "markdown.extension.list.indentationSize": "inherit", // 개행시 외부 lint prettier 규칙 계승, 잘안될경우 vscode 들여쓰기 공백4 재설정 및 작업종료 후 재시작
     "markdown-preview-enhanced.previewMode": "Multiple Previews",
     "markdown-preview-enhanced.previewTheme": "none.css",
     "markdown-preview-enhanced.codeBlockTheme": "auto.css",
@@ -127,7 +132,7 @@
     "[markdown]": {
         "editor.defaultFormatter": "DavidAnson.vscode-markdownlint", // markdown 에서는 prettier 봉인
         "editor.tabSize": 4,
-        "editor.insertSpaces": false, // tab to space {true | false}
+        "editor.insertSpaces": true, // tab to space {true | false}
         "editor.wordWrap": "on" // 글씨 자동개행 {on | off}
     },
     "markdownlint.config": {

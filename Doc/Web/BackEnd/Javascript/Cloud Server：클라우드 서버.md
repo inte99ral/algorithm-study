@@ -2,62 +2,63 @@
 
 ## 목차
 
-- [Cloud Server：클라우드 서버](#cloud-server클라우드-서버)
-  - [목차](#목차)
-  - [개요](#개요)
-  - [0. 로컬호스트 내부테스트](#0-로컬호스트-내부테스트)
-    - [0-1. 웹 페이지 파일 생성](#0-1-웹-페이지-파일-생성)
-    - [0-2. 브라우저에서 체크하기](#0-2-브라우저에서-체크하기)
-    - [0-3. 로컬호스트 배포 테스트](#0-3-로컬호스트-배포-테스트)
-      - [Vscode extension](#vscode-extension)
-      - [Nginx](#nginx)
-  - [1. 오라클 API 웹 배포](#1-오라클-api-웹-배포)
-    - [1-1. 네이밍 컨벤션 정리](#1-1-네이밍-컨벤션-정리)
-    - [1-2. OCI 계정생성](#1-2-oci-계정생성)
-      - [계정 만들기](#계정-만들기)
-      - [로그인 확인](#로그인-확인)
-      - [계정 도메인 정책 확인](#계정-도메인-정책-확인)
-    - [1-3. Compartment(컴파트먼트) 생성하기](#1-3-compartment컴파트먼트-생성하기)
-      - [컴파트먼트란?](#컴파트먼트란)
-      - [하위 컴파트먼트 생성하기](#하위-컴파트먼트-생성하기)
-      - [컴파트먼트 삭제하기](#컴파트먼트-삭제하기)
-    - [1-4. 버킷 생성](#1-4-버킷-생성)
-      - [블록 \& 버킷 개념정리](#블록--버킷-개념정리)
-      - [버킷 생성하기](#버킷-생성하기)
-      - [index.html 오브젝트 업로드](#indexhtml-오브젝트-업로드)
-    - [1-5. 오브젝트 URL 확인](#1-5-오브젝트-url-확인)
-  - [2. 최소 단위 정적 웹 배포](#2-최소-단위-정적-웹-배포)
-    - [2-1. VCN(가상 네트워크) 생성](#2-1-vcn가상-네트워크-생성)
-      - [VCN 개념정리](#vcn-개념정리)
-      - [VCN 생성방법](#vcn-생성방법)
-      - [VCN 과 서브넷의 이름을 바꾸고 싶다면?](#vcn-과-서브넷의-이름을-바꾸고-싶다면)
-    - [2-2. Compute VM(인스턴스) 생성 및 공용 IP 확보](#2-2-compute-vm인스턴스-생성-및-공용-ip-확보)
-      - [Compute VM 개념정리](#compute-vm-개념정리)
-      - [Compute VM 생성하기](#compute-vm-생성하기)
-    - [2단계: OCI 클라우드 방화벽(Security List) 개방](#2단계-oci-클라우드-방화벽security-list-개방)
-    - [3단계: VM 내부 OS 방화벽 개방 및 Nginx 설치](#3단계-vm-내부-os-방화벽-개방-및-nginx-설치)
-    - [4단계: index.html 배치 및 외부 접속 테스트](#4단계-indexhtml-배치-및-외부-접속-테스트)
-  - [3. 웹 도메인 연결](#3-웹-도메인-연결)
-  - [프로젝트 살 붙이기](#프로젝트-살-붙이기)
-    - [단계 1.5 (도메인 연결): "숫자 IP는 치기 귀찮네?" ➔ DuckDNS를 가져와서 VM IP 매핑하기](#단계-15-도메인-연결-숫자-ip는-치기-귀찮네--duckdns를-가져와서-vm-ip-매핑하기)
-    - [단계 2.0 (보안 적용): "주의 요함(HTTP) 경고창이 뜨네?" ➔ Certbot을 이용해 Nginx에 무료 SSL(HTTPS) 인증서 적용하기](#단계-20-보안-적용-주의-요함http-경고창이-뜨네--certbot을-이용해-nginx에-무료-sslhttps-인증서-적용하기)
-    - [단계 3.0 (아키텍처 고도화): "웹사이트에 이미지랑 동영상이 많아지니 서버 용량이 부족하고 느려지네? 서버 컴퓨터를 더 가볍게 유지하고 싶다." ➔ index.html과 정적 자원들을 Object Storage로 이사 보내고, VM은 백엔드 API 서버용으로만 쓰기](#단계-30-아키텍처-고도화-웹사이트에-이미지랑-동영상이-많아지니-서버-용량이-부족하고-느려지네-서버-컴퓨터를-더-가볍게-유지하고-싶다--indexhtml과-정적-자원들을-object-storage로-이사-보내고-vm은-백엔드-api-서버용으로만-쓰기)
-  - [OCI 시작하기](#oci-시작하기)
-    - [버킷 생성](#버킷-생성)
-    - [웹 도메인 생성하기](#웹-도메인-생성하기)
-      - [도메인 개념정리](#도메인-개념정리)
-      - [도메인 무료 생성](#도메인-무료-생성)
-    - [DNS 형성하기](#dns-형성하기)
-      - [DNS 개념정리](#dns-개념정리)
-      - [DNS 생성](#dns-생성)
-    - [가상 네트워크(VCN) 생성](#가상-네트워크vcn-생성)
-    - [가상 서버 컴퓨터(Virtual Machine, Compute Instance) 생성](#가상-서버-컴퓨터virtual-machine-compute-instance-생성)
-      - [VM 개념정리](#vm-개념정리)
-      - [① VM 생성하기](#-vm-생성하기)
-      - [② API Gateway 연동(유료)](#-api-gateway-연동유료)
-    - [커스텀 도메인(SSL 인증서 포함)을 연결하는 작업이 필요합니다.](#커스텀-도메인ssl-인증서-포함을-연결하는-작업이-필요합니다)
-  - [OCI 응용하기](#oci-응용하기)
-    - [주소 설정](#주소-설정)
+-   [Cloud Server：클라우드 서버](#cloud-server클라우드-서버)
+    -   [목차](#목차)
+    -   [개요](#개요)
+    -   [0. 로컬호스트 내부테스트](#0-로컬호스트-내부테스트)
+        -   [0-1. 웹 페이지 파일 생성](#0-1-웹-페이지-파일-생성)
+        -   [0-2. 브라우저에서 체크하기](#0-2-브라우저에서-체크하기)
+        -   [0-3. 로컬호스트 배포 테스트](#0-3-로컬호스트-배포-테스트)
+            -   [Vscode extension](#vscode-extension)
+            -   [Nginx](#nginx)
+    -   [1. 오라클 API 웹 배포](#1-오라클-api-웹-배포)
+        -   [1-1. 네이밍 컨벤션 정리](#1-1-네이밍-컨벤션-정리)
+        -   [1-2. OCI 계정생성](#1-2-oci-계정생성)
+            -   [계정 만들기](#계정-만들기)
+            -   [로그인 확인](#로그인-확인)
+            -   [계정 도메인 정책 확인](#계정-도메인-정책-확인)
+        -   [1-3. Compartment(컴파트먼트) 생성하기](#1-3-compartment컴파트먼트-생성하기)
+            -   [컴파트먼트란?](#컴파트먼트란)
+            -   [하위 컴파트먼트 생성하기](#하위-컴파트먼트-생성하기)
+            -   [컴파트먼트 삭제하기](#컴파트먼트-삭제하기)
+        -   [1-4. 버킷 생성](#1-4-버킷-생성)
+            -   [블록 \& 버킷 개념정리](#블록--버킷-개념정리)
+            -   [버킷 생성하기](#버킷-생성하기)
+            -   [index.html 오브젝트 업로드](#indexhtml-오브젝트-업로드)
+        -   [1-5. 오브젝트 URL 확인](#1-5-오브젝트-url-확인)
+    -   [2. 최소 단위 정적 웹 배포](#2-최소-단위-정적-웹-배포)
+        -   [2-1. VCN(가상 네트워크) 생성](#2-1-vcn가상-네트워크-생성)
+            -   [VCN 개념정리](#vcn-개념정리)
+            -   [VCN 생성방법](#vcn-생성방법)
+            -   [VCN 과 서브넷의 이름을 바꾸고 싶다면?](#vcn-과-서브넷의-이름을-바꾸고-싶다면)
+        -   [2-2. Compute VM(인스턴스) 생성 및 공용 IP 확보](#2-2-compute-vm인스턴스-생성-및-공용-ip-확보)
+            -   [Compute VM 개념정리](#compute-vm-개념정리)
+            -   [Compute VM 생성하기](#compute-vm-생성하기)
+                -   [API Error](#api-error)
+        -   [2단계: OCI 클라우드 방화벽(Security List) 개방](#2단계-oci-클라우드-방화벽security-list-개방)
+        -   [3단계: VM 내부 OS 방화벽 개방 및 Nginx 설치](#3단계-vm-내부-os-방화벽-개방-및-nginx-설치)
+        -   [4단계: index.html 배치 및 외부 접속 테스트](#4단계-indexhtml-배치-및-외부-접속-테스트)
+    -   [3. 웹 도메인 연결](#3-웹-도메인-연결)
+    -   [프로젝트 살 붙이기](#프로젝트-살-붙이기)
+        -   [단계 1.5 (도메인 연결): "숫자 IP는 치기 귀찮네?" ➔ DuckDNS를 가져와서 VM IP 매핑하기](#단계-15-도메인-연결-숫자-ip는-치기-귀찮네--duckdns를-가져와서-vm-ip-매핑하기)
+        -   [단계 2.0 (보안 적용): "주의 요함(HTTP) 경고창이 뜨네?" ➔ Certbot을 이용해 Nginx에 무료 SSL(HTTPS) 인증서 적용하기](#단계-20-보안-적용-주의-요함http-경고창이-뜨네--certbot을-이용해-nginx에-무료-sslhttps-인증서-적용하기)
+        -   [단계 3.0 (아키텍처 고도화): "웹사이트에 이미지랑 동영상이 많아지니 서버 용량이 부족하고 느려지네? 서버 컴퓨터를 더 가볍게 유지하고 싶다." ➔ index.html과 정적 자원들을 Object Storage로 이사 보내고, VM은 백엔드 API 서버용으로만 쓰기](#단계-30-아키텍처-고도화-웹사이트에-이미지랑-동영상이-많아지니-서버-용량이-부족하고-느려지네-서버-컴퓨터를-더-가볍게-유지하고-싶다--indexhtml과-정적-자원들을-object-storage로-이사-보내고-vm은-백엔드-api-서버용으로만-쓰기)
+    -   [OCI 시작하기](#oci-시작하기)
+        -   [버킷 생성](#버킷-생성)
+        -   [웹 도메인 생성하기](#웹-도메인-생성하기)
+            -   [도메인 개념정리](#도메인-개념정리)
+            -   [도메인 무료 생성](#도메인-무료-생성)
+        -   [DNS 형성하기](#dns-형성하기)
+            -   [DNS 개념정리](#dns-개념정리)
+            -   [DNS 생성](#dns-생성)
+        -   [가상 네트워크(VCN) 생성](#가상-네트워크vcn-생성)
+        -   [가상 서버 컴퓨터(Virtual Machine, Compute Instance) 생성](#가상-서버-컴퓨터virtual-machine-compute-instance-생성)
+            -   [VM 개념정리](#vm-개념정리)
+            -   [① VM 생성하기](#-vm-생성하기)
+            -   [② API Gateway 연동(유료)](#-api-gateway-연동유료)
+        -   [커스텀 도메인(SSL 인증서 포함)을 연결하는 작업이 필요합니다.](#커스텀-도메인ssl-인증서-포함을-연결하는-작업이-필요합니다)
+    -   [OCI 응용하기](#oci-응용하기)
+        -   [주소 설정](#주소-설정)
 
 ## 개요
 
@@ -350,7 +351,7 @@ nginx 을 설치해야합니다.
 -> `Settings` 
 -> `Session settings` 항목에서 `Session duration` 값 변경 (최대 32767분 = 22.7일)
 
-그 밑의 `My Apps idle timeout` 은 외부 앱에서 API 로 오라클에 접근과 연동을 한 경우의 세션 만료 시간입니다. 지금은 필요없지만 알아만 두세요.
+&nbsp; 이 작업은 작업 중 주기적인 로그아웃을 막는 것이며, 이렇게 늘려놔도 세션에 작업없이 1~2시간 정도 놔둘 경우 보안을 위해 자동 로그아웃되는 것은 막을 수 없습니다. 그 밑의 `My Apps idle timeout` 은 외부 앱에서 API 로 오라클에 접근과 연동을 한 경우의 세션 만료 시간입니다. 지금은 필요없지만 알아만 두세요.
 
 &nbsp; 또한, OCI 는 보안을 위하여 계정 도메인의 <u><b>비밀번호에 유효기간</b></u>을 두어 일정 주기로 바꾸는 것을 요구합니다. 이를 따르는 것이 좋으나 너무 귀찮다면 다음의 방법으로 계정 도메인의 보안 정책을 조정할 수 있습니다.
 
@@ -535,12 +536,12 @@ rm -rf ~/ociextirpater
 
 ## 2. 최소 단위 정적 웹 배포
 
-&nbsp; 이전 단계에서는 오라클에서 오라클 서비스의 자원에 접근가능하도록 사용자들에게 제공한 API 를 통해서 index.html 에 접근하게 했습니다. 하지만 개인 포트폴리오나 실제 서비스용에 합당한 프로덕션 수준으로 발전시키기 위해선 오라클 API 에 의존하지 않고 <u><b>내가 통제하는 서버 위에서 해당 페이지를 배포</b></u>해야합니다. 이번엔 이것을 목표로 할 것입니다.
+&nbsp; 이전 단계에서는 오라클에서 오라클 서비스의 자원에 접근가능하도록 사용자들에게 제공한 API 를 통해서 index.html 에 접근하게 했습니다. 하지만 개인 포트폴리오나 실제 서비스용에 합당한 프로덕션 수준으로 발전시키기 위해선 오라클 API 에 의존하지 않고 <u><b>내가 통제하는 서버 위에서 해당 페이지를 배포</b></u>해야합니다. 이번엔 이것을 Minimum Viable Product(최소 기능 제품, MVP)으로 구현하는 것을 목표로 할 것입니다.
 
 &nbsp; 이 단계에서 목표로 하는 아키텍처 구조는 다음과 같습니다.
 
 ```txt
-[사용자 (브라우저: http://공용IP)] ➔ [OCI Compute VM (Nginx)]
+[사용자 (브라우저: http://공용IP)] ➔ [OCI Compute VM (Nginx)] ➔ [OCI Object Storage (Public Bucket)] ➔ [index.html(Object)]
 ```
 
 이 구조는 우리가 만든 index.html 페이지를 외부의 웹 브라우저에서 접근할 수 있게만 하는 최소한의 구조입니다. 따라서 다음의
@@ -665,6 +666,8 @@ oci network subnet update \
 
 &nbsp; 우리가 사용할 컴퓨터(가상 서버)를 오라클 클라우드 컴퓨터에 한 대 개설하는 단계입니다. 생성이 완료되면 고정된 공용 IP(Public IP) 주소가 발급됩니다.
 
+&nbsp; 가상의 공간에서 서버 컴퓨터를 하나 발급받는 과정이기 때문에 설정해야 하는 것이 많습니다. 집중해주세요.
+
 #### Compute VM 생성하기
 
 &nbsp; OCI 메인 화면 좌측상단 <kbd>☰</kbd> 버튼을 눌러 네비게이션 메뉴를 열고
@@ -682,38 +685,245 @@ Applied filters 옆에 Compartment 가 대상인 컴파트먼트인지 확인해
 
 -   인스턴스 생성 완료 후 할당된 [공용 IP 주소(Public IP)]를 메모합니다.
 
-만약 OCI 무료 티어의 자원 제한(Ampere A1 Compute 2 Core, 12GB RAM 등) 안에서 구성해야 하더라도, VM을 2개(웹용 2Core/12GB, DB용 2Core/12GB)로 쪼개어 구성하는 것이 향후 유지보수와 안정성 측면에서 훨씬 유리합니다.
-
---------
-
-_BOOKMARK
-
---------
+만약 OCI 무료 티어의 자원 제한(Ampere A1 Compute 2 Core, 12GB RAM 등) 안에서 구성해야 하더라도, VM을 2개(웹용 1Core/6GB, DB용 1Core/6GB)로 쪼개어 구성하는 것이 향후 유지보수와 안정성 측면에서 훨씬 유리합니다.
 
 Create instance 창에 적절한 값들을 넣어주세요. 각 값의 의미는 다음과 같습니다.
 
--   <u><b>name :</b></u> 
+-   ① 단계: Basic information
+
+    -   <u><b>name :</b></u> 
+        
+        &nbsp; 예시로는 `vm-firstStaticWeb-dev-web` 입니다. [1-1. 네이밍 컨벤션 정리](#1-1-네이밍-컨벤션-정리) 항목의 VM 부분을 참고해주세요. 
+        &nbsp; VM instance 의 이름입니다. 
     
-    &nbsp; 예시로는 `vm-firstStaticWeb-dev-web` 입니다. [1-1. 네이밍 컨벤션 정리](#1-1-네이밍-컨벤션-정리) 항목의 VM 부분을 참고해주세요. 
-    &nbsp; VM instance 의 이름입니다. 
+    -   <u><b>Compartment :</b></u> VCN을 위치시킬 컴파트먼트를 지정합니다. 별다른 이유가 없다면 VCN과 같은 위치의 컴파트먼트를 지정해주세요.
 
--   <u><b>Compartment :</b></u> VCN을 위치시킬 컴파트먼트를 지정합니다. 별다른 이유가 없다면 VCN과 같은 위치의 컴파트먼트를 지정해주세요.
+    -   Placement
+        -   <u><b>Availability domain :</b></u>
+            &nbsp; 기본값은 `기본으로 주는 도메인 AD1` 입니다.
+            &nbsp; Availability Domain(가용성 도메인, AD)은 지금 생성하는 인스턴스(VM)가 물리적으로 어느 데이터 센터의 어느 구역에 위치할지를 말합니다. 무료계정용 도메인은 한 곳만 주어지는 경우가 대다수 입니다. 네트워크 지연(Latency) 를 최소화 하려면 같은 프로젝트의 VM 들은 같은 곳에 있는 게 좋습니다. 고가용성(HA) 나 재해복구 상황등을 고려해서 리스크 대비 차원 분리하는 경우도 있지만 이 단계 수준에서 고려하는 문제가 아닙니다.
+    
+    -   Image and shape
+        -   <u><b>Image :</b></u>
+            &nbsp; 추천값은 `Canonical Ubuntu 22.04` 입니다.
+            
+            &nbsp; 기본값은 최신 기준 Oracle Linux 이지만 <kbd>Change image</kbd> 를 누르고 OS 종류 Ubuntu 와 하단 밑의 버전 22.04 를 선택하여 추천값으로 수정할 수 있습니다. 오라클 리눅스는 Red Hat Enterprise Linux(RHEL) 기반이라 안정적이지만, 국내 개발 생태계나 오픈소스 레퍼런스는 Ubuntu LTS 환경이 더 풍부한 편입니다. 개발 환경의 편의성이나 사용하려는 백엔드 스택(Node.js, Docker 등)과의 호환성을 고려하여 바꾸는 것이 더 좋습니다.
 
--   Placement
-    -   <u><b>VCN IPv4 CIDR block :</b></u>
+            &nbsp; Ubuntu 22 LTS 버전이 웰메이드 OS로 오랜 시간 사용되면서 패키지 생태계가 최신 24 버전보다 성숙되었기 때문에 입문자들에게 선호됩니다. 에러 해결 레퍼런스도 구글링하기 쉽고 패키지 호환성도 높으며 Ampere 아키텍처와 호환성이 검증되었기 때문에 오류로 인한 스트레스를 덜 받습니다. 
 
--   Configure VCN
-    -   <u><b>VCN IPv4 CIDR block :</b></u>
+            &nbsp; Canonical Ubuntu 22.04 의 "Minimal" 버전을 선택할 수도 있습니다. 이는 apt(패키지 매니저)가 작동하기 위한 최소한의 패키지만을 포함합니다. 기본 OS 보다 3GB 정도 더 가벼워 OS 용량이 수백MB 밖에 하지 않으며 RAM 사용량도 적고 패키지 보안 취약점(CVE)이 더 적습니다. 다만 curl, wget 이나 vim 같은 편의성 패키지마저 없기 때문에 따로 별도로 설치해주셔야 합니다. ARM 기반의 Ampere 칩셋을 사용할 예정이기 때문에 aarch64, 즉 x86_64이 아니라 ARM 기반에 적합한 버전을 선택해야 합니다.
+            
+            &nbsp; Image는 스마트폰의 공장초기화 상태나 PC의 OS 설치 파일처럼, VM이 생성될 때 기반이 되는 운영체제(OS)와 소프트웨어 환경을 선택하는 항목입니다.
         
-        &nbsp; 기본값은 `10.0.0.0/16` 입니다.
+        -   <u><b>Shape :</b></u>
+            &nbsp; 추천값은 Ampere 칩셋 `VM.Standard.A1.Flex`(1core 6GB) 입니다.
+            
+            &nbsp; 기본값은 AMD Micro(1GB RAM) 칩셋의 VM.Standard.E2.1.Micro 이지만 <kbd>Change shape</kbd> 를 누르고 칩셋 브랜드 Ampere 와 칩셋 종류 A1 를 선택하여 추천값으로 수정할 수 있습니다. AMD Micro 사양(1GB RAM)은 메모리가 너무 적어 웹 서버나 DB를 원활하게 구동하기 어렵습니다. OCI 무료계정에서 최대 합계 2core/12GB 이므로 1core/6GB 로 분할하여 2개의 VM 을 운용하는 것이 최대한으로 무료 자원을 사용하는 전략입니다.
+            
+            &nbsp; Shape는 생성할 VM 인스턴스의 물리적인 하드웨어 스펙(CPU 종류, 코어 수, 메모리 크기, 네트워크 대역폭)을 결정하는 템플릿입니다. 이 가상 컴퓨터의 ROM 스토리지 메모리 용량은 후에 결정하므로 Next 를 누르고 넘어가주세요. (다만 남은 칩셋이 없다면 기본값 VM.Standard.E2.1.Micro 를 선택해주세요)
+
+-   ② 단계: Security
+    -   <u><b>Security :</b></u>
+        &nbsp; 추천값은 `ON` 입니다.
+        &nbsp; 무료 기능이라 쓰는 것이 좋습니다.
+        &nbsp; Shielded Instances(보호된 인스턴스)는 가상 머신(VM)이 부팅될 때부터 실행되는 동안까지 펌웨어 및 OS 커널 레벨에서 악성코드나 위변조 공격이 일어나지 않도록 하드웨어 기반으로 방어해 주는 강력한 보안 기능입니다.
         
-        &nbsp; CIDR(Classless Inter-Domain Routing) 블록은 이 VCN 가상 데이터 센터 안에서 사용할 사설 IP 주소의 범위를 지정합니다.
+        오라클과 정식 OS 제조사(Ubuntu 등)가 디지털 서명(Signature)을 한 신뢰할 수 있는 순정 커널 코드만 부팅되도록 강제하여 가짜 운영체제나 악성 부트킷(Bootkit)를 막는 <b>Secure Boot (안전 부팅)</b>, 부팅 과정의 모든 단계(펌웨어, 부트로더, OS 커널 등)를 측정하는 <b>Measured Boot (측정된 부팅)</b>, 이런 데이터를 암호화 칩셋인 가상 <b>TPM(Trusted Platform Module)</b>에 안전하게 기록합니다.
+        
+        Shielded Instances와 Confidential Computing(기밀 컴퓨팅) 기능은 동시에 둘 다 켤 수 없으며, 둘 중 하나만 선택해야 합니다. 하지만 Confidential Computing 은 데이터가 메모리(RAM)에 올라가 연산되는 순간까지 전부 암호화하는 초고도의 기업용 보안 기능으로 무료계정은 지원하지 않는 기능이므로 신경쓰지 않아도 됩니다.
 
-        &nbsp; `10.0.0.0/16` 이라고 적힌 값은 `10.0. ...` 으로 시작하는 사설 IP 대역을 사용하겠으며, `/16` 은 서브넷 마스크를 의미하여 앞의 16비트(`10.0`)를 고정하고 나머지 공간을 IP로 쓰겠다는 계약입니다. 따라서 그 의미는 `10.0.0.0` 부터 `10.0.255.255` 까지 총 65,536개의 내부 IP 주소를 확보하겠다는 의미입니다. 이것이 사설 네트워크를 구축할 때 가장 흔하게 쓰이는 표준 크기 입니다. `10.0.x.x` 의 값은 네트워크 표준 규약(RFC 1918)에 의해 `127.0.0.1` 루프백 IP 와 비슷하게 사설 네트워크 내부 통신 IP 주소를 의미합니다.
+-   ③ 단계: Networking
+    -   Primary VNIC
+        -   <u><b>VNIC name :</b></u>
+            &nbsp; 추천값은 vm 이름을 따라 `vnic-firstStaticWeb-dev-web` 입니다. (다음 숫자부턴 01 ... 99 넘버링을 뒤에 붙입니다.)
+            &nbsp; VNIC(가상 랜카드, Virtual Network Interface Card) 는 가상 컴퓨터 본체인 VM 안의 랜카드 장치의 이름입니다. 클라우드 환경에서는 VM 본체 하나에 랜카드를 여러개 꽂아 고도화된 아키텍처를 구현하기 때문에 이 가상 랜카드들을 다루기 위해 이름으로 구분이 필요합니다.
+        
+        -   <u><b>Primary network :</b></u>
+            &nbsp; 기본값은 `● Select existing virtual cloud network` 옵션입니다.
+            &nbsp; 랜카드를 어떤 가상 네트워크망에 연결할지 결정하는 것으로, Select existing virtual cloud network은 이미 만들어 둔 가상 네트워크망(VCN)을 쓰겠다는 뜻입니다.
+            
+            -   <u><b>Virtual cloud network compartment :</b></u>
+                &nbsp; 기본값은 `VCN이 있는 컴파트먼트`(이 예시에선 firstStaticWeb-dev) 입니다.
+                &nbsp; VCN 를 어느 컴파트먼트에서 연결하는지 결정합니다.
+            
+            -   <u><b>Virtual cloud network :</b></u>
+                &nbsp; 기본값은 `위에서 만든 VCN` 입니다(이 예시에선 vcn-firstStaticWeb-dev) 입니다.
+                &nbsp; 연결할 VCN 이 뭔지를 결정합니다.
+        
+        -   <u><b>Subnet :</b></u>
+            &nbsp; 기본값은 `● Select existing subnet` 옵션입니다.
+            &nbsp; 가상 랜카드에 어떤 서브 네트워크의 랜선을 꼽을지 결정하는 것으로, Select existing subnet은 이미 만들어 둔 서브넷을 쓰겠다는 뜻입니다.
+            
+            -   <u><b>Subnet compartment :</b></u>
+                &nbsp; 기본값은 `VCN이 있는 컴파트먼트`(이 예시에선 firstStaticWeb-dev) 입니다.
+                &nbsp; Subnet 를 어느 컴파트먼트에서 연결하는지 결정합니다.
+            
+            -   <u><b>Virtual cloud network :</b></u>
+                &nbsp; 기본값은 `위에서 만든 VCN의 Subnet(public)` 입니다(이 예시에선 sub-firstStaticWeb-dev-pubi) 입니다.
+                &nbsp; 이름을 굳이 수정하지 않았다면, 디폴트 이름인 Public subnet-... 같은 이름일 것 입니다. 연결할 Subnet 이 뭔지를 결정합니다. 공개된 퍼블릭 서브넷을 골라야 외부로 서비스를 제공할 수 있습니다.
+        
+        -   Private IPv4 address assignment
+            -   <u><b>Subnet IPv4 prefixes :</b></u>
+                &nbsp; 기본값은 `10.0.0.0/24`, VCN 만든 당시에 지정한 내부 서브넷 IP 주소 입니다.
+                &nbsp; 이름을 굳이 수정하지 않았다면, 디폴트 이름인 Public subnet-... 같은 이름일 것 입니다. 연결할 Subnet 이 뭔지를 결정합니다. 공개된 퍼블릭 서브넷을 골라야 외부로 서비스를 제공할 수 있습니다.
 
--   <u><b>Use DNS hostnames in this VCN :</b></u>
-    &nbsp; 토글 스위치의 값은 `ON` 입니다.
-    &nbsp; 이 옵션을 켜면 OCI가 VCN 내부용 사설 DNS 서버를 자동으로 활성화합니다. 이에 따라 VCN 안에 생성되는 모든 인스턴스(VM)는 `[인스턴스_호스트이름].[서브넷_DNS_레이블].oraclevcn.com` 규칙을 따라 고유한 내부 DNS 도메인 이름(hostname)을 가지게 됩니다. ON 일 경우 복잡하게 10.0.1.4 같은 복잡한 IP 주소 대신, web-server.sub01.myvcn.oraclevcn.com 같은 이름으로 통신할 수 있습니다. 또한 IP 가 변하는 상황에도 이 hostname 은 유지되므로 코드 수정없이 계속 사용가능합니다. 
+            -   <u><b>Private IPv4 address :</b></u>
+                &nbsp; 기본값은 `Automatically assign private IPv4 address` 입니다.
+                &nbsp; 10.0.0.0/24 대역폭에서 사용하고 있지 않은 가장 빠른 유효 IP 주소를 OCI 측에서 자동으로 찾아 할당하는 옵션입니다. 클라우드 인프라의 DHCP(Dynamic Host Configuration Protocol) 서비스와 유사하게 작동하며, 개발자가 주소를 직접 고민할 필요가 없습니다. 웹 서버는 사설 IP 자체가 고정될 필요가 없거나, 도메인 연결 및 외부 통신 시 '공용 IP(Public IP)' 또는 로드 밸런서 인터페이스를 주로 바라보기 때문에 자동 할당으로 비워두는 것이 표준 관행입니다.
+
+                &nbsp; Manually assign private IPv4 address 옵션은 개발자가 직접 10.0.0.50 같이 직접 IP 주소를 지정합니다. 해당 주소가 비어있지 않다면 오류가 발생합니다. 이 경우는 웹서버처럼 어떤 IP 이던 DNS 로 제공만되면 상관없는 경우와 다르게 DB 서버용 VM 처럼 서버 교체시에도 IP 주소가 변하면 안될 때 고려해볼 옵션입니다.
+                
+                &nbsp; Provide existing private IPv4 OCID 옵션은 OCI 가 전체 서비스 시스템적으로 관리하는 고유식별자 OCID 로 맵핑하는 옵션입니다. OCI 가 관리하는 이 ID 는 VM 오류이나 서브넷 충돌과 무관하므로 마이그레이션/재해복구 상황에서 사용됩니다.
+        
+        -   Public IPv4 address assignment
+            -   <u><b>Automatically assign public IPv4 address :</b></u>
+                &nbsp; 기본값은 `ON` 입니다.
+
+                &nbsp; 외부 VCN 을 거쳐 VM 서버에 접속할 수 있도록 VM 에 대한 공인 IP를 발급할지 말지를 결정합니다.
+
+                &nbsp; ON 인 상태가 웹 서버에선 필수입니다. 외부 인터넷 망에서 VM 에서 호스트하는 웹서버로 접근할 수단(IP)이 없기 때문입니다.
+                
+                &nbsp; OFF 인 상태가 DB 서버에선 필수입니다. DB 는 외부에 직접 노출되선 안되며 내부에서만 관리되어야 합니다.
+            
+            -   <u><b>IPv6 address assignment :</b></u>
+                &nbsp; 비활성화 옵션입니다. 지금 연결된 VCN 을 만들 때 굳이 IPv6 를 지원하게 만드는 귀찮은 작업을 하지 않았기 때문에 IPv6 주소는 지원하지 않습니다.
+        
+        -   <u><b>Add SSH keys :</b></u>
+            &nbsp; 추천값은 `● Upload public key file (.pub)` 옵션을 선택하고 <kbd>Download Private Key</kbd>버튼을 눌러 보안키를 설치합니다.
+
+            &nbsp; 이는 원격접속 보안키 설정입니다. 보안키 자물쇠-열쇠 쌍을 직접 컴퓨터에서 생성하는 옵션과 OCI 에게 부탁하는 방법이 있습니다. 직접 만드는 쪽을 추천합니다.
+
+            -   ● Upload public key file (.pub)(직접 생성)
+                
+                &nbsp; windows OS 에서 파워쉘을 열고 다음의 명령어를 입력하여 RSA 알고리즘으로 보안키 자물쇠-열쇠 쌍을 직접 컴퓨터에서 생성합니다.
+                
+                ```bash
+                # ssh-keygen : SSH 쌍 생성 명령어입니다.
+                # -t rsa : 암호화 알고리즘 type 을 RSA 로 합니다.
+                # -b 4096 : 암호화 비트 용량(보안수준)을 기본 2048의 두배 4096으로 합니다.
+                # -f 『파일위치』 : 만들 파일이름입니다.
+                ssh-keygen -t rsa -b 4096 -f oci_vm.key
+
+                # 입력 이후, passphrase(추가보안비밀번호) 여부를 묻습니다. 공백으로 엔터를 입력하면 사용하지 않는 것 입니다.
+                # 생성 이후, fingerprint 파일 지문이 출력됩니다. 이는 전문적인 개발 시에 해당 키에 왜곡이 없는지 교차 대조용으로만 사용됩니다. 기억해두실 필요 없습니다.
+                ```
+
+                &nbsp; 생성이 완료되었다면 다음의 방법으로 정상적인 자물쇠-열쇠 쌍인지 체크할 수 있습니다.
+
+                ```bash
+                # 키 파일의 지문을 체크합니다
+                # private와 public 의 지문이 똑같아야 정상입니다.
+                ssh-keygen -l -f 『파일이름』
+
+                # priavte key 에서 public 텍스트를 추출해냅니다.
+                # 비밀번호 passphrase 가 있다면 입력해야합니다.
+                # 이 텍스트와 기존 public key 의 텍스트 내용이 똑같아야합니다.
+                ssh-keygen -y -f 『Private 파일이름』
+                ```
+
+            -   ● Generate a key pair for me(OCI 위탁 생성)
+                &nbsp; 기본값은 ● Generate a key pair for me 옵션 입니다. 이 옵션을 선택한다면 <kbd>Download Private Key</kbd>버튼을 눌러 보안키를 설치합니다.
+                &nbsp; 이 다운로드 받은 보안키는 절대로 분실해선 안됩니다.
+            
+            -   사용예시
+
+                &nbsp; 리눅스 서버의 보안키 인증서를 생성하는 방법에 대한 옵션입니다. 리눅스 서버는 보안상 일반적인 ID/비밀번호 로그인을 허용하지 않으며 암호화 키 파일쌍(비공개열쇠 .key 와 공개자물쇠 .key.pub)을 통해서만 원격접속(SSH) 를 허용합니다. 따라서 Private key 인증용 파일을 분실할 경우 이 VM 은 OCI 관리자도 접근 못합니다. VM 을 포기하고 통으로 삭제하거나 블록 볼륨만이라도 어떻게든 분리하여 데이터만이라도 살리는 것 말고는 할 수 있는 것이 없으므로 주의하세요.
+                
+                &nbsp; 지금은 못하지만 후에 다음과 같은 명령어로 VM에 원격접속이 가능합니다.
+                ```bash
+                ssh -i "D:/.../ssh-key.key ubuntu@서버_공용_IP"
+                ```
+                &nbsp; Unix 기반 OS 에선 가끔 권한이 가볍다고 판단 되면 "Permissions are too open" 에러를 유발할 때가 있습니다. 이땐 다음의 명령어로 소유자만 읽을 수 있도록 보한 권한을 잠궈주시면 됩니다.
+                
+                ```bash
+                # 4: 파일 소유자(IUser)는 읽기(Read=4) 권한을 가진다.
+                # 0: 나와 같은 그룹에 속한 다른 사용자들에겐 아무 권한도 주지 않는다(0).
+                # 0: 이 컴퓨터에 로그인할 수 있는 제3의 외부인에겐 아무 권한도 주지 않는다(0).
+                chmod 400 vm-key.key
+                ```
+
+-   ④ 단계: Storage
+    -   Boot volume
+        -   <u><b>Specify a custom boot volume size and performance setting :</b></u>
+            &nbsp; 추천값은 `Off` 입니다.
+            
+            &nbsp; Specify a custom boot volume size and performance setting (사용자 정의 부트 볼륨 크기 및 성능 설정) 옵션은 기본 제공되는 OS의 최소 부팅용 볼륨 50GB 과 부팅 성능을 수동으로 지정하는 옵션입니다.
+            
+            &nbsp; Nginx 서버 구성엔 50GB 로 충분합니다. OCI 무료계정은 총합 200GB 까지만 무료로 제공받기 때문에 최소한만 사용하는 것이 좋습니다.
+        
+        -   <u><b>Use in-transit encryption :</b></u>
+            &nbsp; 추천값은 `On` 입니다.
+            
+            &nbsp; Use in-transit encryption (전송 중 암호화) 옵션은 인스턴스(Compute)와 호스트 하드웨어에 연결된 부트 볼륨/블록 볼륨 간에 이동하는 모든 데이터를 암호화할지를 묻습니다.
+            
+            &nbsp; OCI 보안 모범 사례(Security Best Practices)에 따라 전송 중 암호화는 기본적으로 활성화하는 것이 권장되며, 인스턴스 성능에 미치는 영향이 미미하면서도 데이터 보안성을 높여줍니다.
+        
+        -   <u><b>Encrypt this volume with a key that you manage :</b></u>
+            &nbsp; 추천값은 `Off` 입니다.
+            
+            &nbsp; Encrypt this volume with a key that you manage (사용자 관리 키로 이 볼륨 암호화) 옵션은 오라클이 기본적으로 관리하는 암호화 키 대신, 사용자가 OCI Vault(볼트) 서비스에서 직접 생성한 마스터 암호화 키(CMK)를 사용하여 디스크를 암호화하는 옵션입니다. OCI에서 기본적으로 제공하는 Oracle-managed key로도 데이터는 완벽히 암호화되어 보호됩니다. 컴플라이언스나 기업 보안 정책상 키의 라이프사이클을 직접 제어해야 하는 상황이 아니라면, Nginx 프록시 서버 목적상 별도의 Vault 구성 없이 기본값으로 두는 것이 단순하고 효율적입니다.
+    
+    -   Block volumes
+        &nbsp; `그대로 놔두면 됩니다.`
+        
+        &nbsp; 추가적으로 블록 볼륨(가상 하드디스크)을 생성한 것이 있다면 이를 더 연결할 것인지를 묻는 옵션입니다. 우리가 설계 중인 아키텍처 구조에서 핵심 웹 리소스인 index.html과 정적 자원들은 서버 내부 디스크가 아닌 OCI Object Storage(오브젝트 스토리지)에 저장됩니다. VM의 Nginx는 오직 들어오는 HTTP 요청을 받아 Object Storage의 Public URL로 토스(Reverse Proxy)해주는 역할만 수행하므로, VM 내부에 대용량 정적 파일을 저장할 필요가 전혀 없습니다. 따라서 추가적인 비용 발생이나 스토리지 낭비를 막기 위해 블록 볼륨은 추가하지 않고 그대로 인스턴스 생성을 완료하시면 됩니다.
+
+-   Review
+    &nbsp; 전체 옵션 선택지 사항들을 다시 한번 검토합니다.
+
+##### API Error
+
+-   :rotating_light: $\color{#FF9922} \footnotesize \textnormal{API Error}$ 란?
+    
+    &nbsp; 생성을 시도할 때, `API Error` 라며 "Out of capacity for shape VM.Standard.A1.Flex in availability domain AD-1. Create the instance in a different availability domain or try again later.If you specified a fault domain, try creating the instance without specifying a fault domain. If that doesn’t work, please try again later.Learn more about host capacity." 라는 내용으로 에러가 발생할 수 있습니다. 이는 OCI 에서 여러분들에게 가상 컴퓨터로 제공할 자원 재고가 떨어졌기 때문에 발생합니다. 누군가 본인 자원을 OCI 로 환원하던지, OCI 가 자원을 더 확충하기 전까진 이를 원천적으로는 해결할 방법이 없습니다. 이런 상황에서 차선책으로 밑의 방법을 취할 수 있습니다.
+
+1)  자원 수준 다운그레이드
+    &nbsp; Ampere 칩셋 `VM.Standard.A1.Flex`(1core 6GB)이 워낙 인기가 좋다보니 재고가 금방 동날 수 밖에 없습니다. 열화된 칩셋 AMD Micro(1GB RAM) 칩셋의 VM.Standard.E2.1.Micro 로 낮춰서 다시 시도해봅시다.
+
+2)  될 때까지, OCI CLI 스크립트 매크로 돌리기
+    &nbsp; 자리를 줄 때까지 무한히 요청하는 방법도 있습니다. 이를 위해선 CLI 터미널에서 요청해야 하므로 다음의 명령어로 OCI CLI 를 파워쉘에 설치하겠습니다.
+    문제가 발생했다면 [공식 문서](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm)를 참고해주세요.
+
+    ```ps1
+    Set-ExecutionPolicy RemoteSigned -Scope Process; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.ps1'))
+    ```
+
+    &nbsp; 명령어를 해석하면 `Set-ExecutionPolicy...;` 로 엄격한 실행정책을 일시적으로 RemoteSigned 단계로 완화하여 뒤의 줄의 스크립트를 보안상 차단하지 않도록 합니다.
+    &nbsp; 이어서 `iex ...` Invoke-Expression 축약 별명 alias 인 iex 명령을 통해 OCI 가 공식적으로 제공하는 메뉴얼 가이드라인을 URL 에서 받아와 이를 구동합니다. 패키지 관리자를 통하지 않고 굳이 이런 방법을 OCI 에서 공식적으로 선호하는 이유는 OCI CLI가 파이썬(Python) 기반으로 작동하기 때문입니다. 사용자의 PC에 파이썬이 없는 경우, 저 URL 의 스크립트는 내부에 가상 파이썬 환경(Virtual Environment)을 스스로 구축하고 그 안에 CLI를 격리하여 설치해 줍니다. 윈도우 환경마다 다른 설정을 스크립트 하나로 유연하게 제어하기 위해 이 방식을 선호합니다. 최신화 업데이트 같은 패키지 제어는 `oci cli update` 같이 oci cli 패키지 내부에서 전부 제공합니다.
+
+    &nbsp; 유닉스 스타일의 도구(OCI CLI)가 윈도우용 파이썬 환경 위에서 돌아가므로 윈도우 패키징 관례를 따릅니다. 루트폴더명은 케밥케이스, 내부파일명은 파스칼케이스를 원칙으로 하겠습니다.
+    
+    해당 명령 이후에 나오는 선택지는 다음과 같이 선택하는 것을 추천합니다.
+    
+    -   <u><b>실행 규칙 변경</b></u>
+        &nbsp; `Y` 입력 후 엔터
+    
+    -   <u><b>In what directory would you like to place the install?</b></u>
+        &nbsp; `『설치할 경로』\oracle-cli` (예시: D:\Program Files\oracle-cli)입력 후 엔터
+        
+        &nbsp; lib 를 설치할 경로를 묻는 질문입니다. 그냥 기본 위치에 설치하겠다면 바로 엔터만 입력해도 됩니다.
+    
+    -   <u><b>In what directory would you like to place the 'oci.exe' executable?</b></u>
+        &nbsp; `『설치할 경로』\oracle-cli\Bin` (예시: D:\Program Files\oracle-cli\Bin)입력 후 엔터
+        
+        &nbsp; bin 을 설치할 경로를 묻는 질문입니다. 그냥 기본 위치에 설치하겠다면 바로 엔터만 입력해도 됩니다. 취향에 따라 다르지만 windows 는 패키지 관리가 어려운 편이라 패키지명 폴더에 /lib 과 /bin 이 같이 있는 것이 좋긴합니다.
+    
+    -   <u><b>In what directory would you like to place the 'oci.exe' executable?</b></u>
+        &nbsp; `『설치할 경로』\oracle-cli\Libexec` (예시: D:\Program Files\oracle-cli\Libexec)입력 후 엔터
+        
+        &nbsp; /libexec 또는 /share 같이 실행 보조 스크립트들을 설치할 경로를 묻는 질문입니다. 그냥 기본 위치에 설치하겠다면 바로 엔터만 입력해도 됩니다. 리눅스/유닉스 스타일 개발자들이 /lib, /bin, /libexec 등을 다른 경로에 흩어놓고 관리하는 경우가 있어서 설치 시에 이렇게 물어보는 것 입니다. 다만 이번 설치파일은 /share(설명서나 아이콘같이 아키텍처에 독립적인 정적 데이터) 도 아니고 /libexec (시스템 내부적으로만 호출하는 바이너리) 도 아니지만 그나마 /libexec 에 가깝습니다.
+    
+    -   <u><b>What optional CLI packages would you like to be installed (comma separated names; press enter if you don't need any optional packages)?</b></u>
+        &nbsp; 바로 `엔터` 치고 넘어가시면 됩니다.
+        
+        &nbsp; 별도의 패키지를 추가 설치하고 싶은 지 확인합니다. 별도로 필요한 것이 없으며 후에 필요하면 pip 명령으로 설치할 수 있습니다. 이후에 설치가 시작됩니다.
+
+    -   <u><b>Modify PATH to include the CLI and enable tab completion in PowerShell now?</b></u>
+        설치가 끝나고 나오는 질문입니다. 윈도우즈 환경변수 PATH 에 경로 값을 자동으로 등록해주고, PowerShell에서 탭(Tab) 자동 완성을 사용할지 묻습니다. 안할 이유 전혀없는 편리한 기능이므로 Y를 입력하는 것을 추천합니다.
+
+    &nbsp; 위 과정을 거쳤다면 이제 windows 터미널에서 oci cli 를 사용할 수 있습니다.
+
+    "무한 생성 매크로/스크립트(OCI CLI) 활용 사례" 이건 어떻게 하는건데? 지금까진 OCI 웹페이지에서 생성시도를 했는데 VM 을 CLI 명령어로 반복해서 도전할 수도 있어?
 
 ### 2단계: OCI 클라우드 방화벽(Security List) 개방
 
