@@ -7,6 +7,7 @@
     -   [개요](#개요)
     -   [네이밍](#네이밍)
         -   [일반적 원칙](#일반적-원칙)
+            -   [Semantic Versioning：유의적 버전 명세](#semantic-versioning유의적-버전-명세)
         -   [C++](#c)
             -   [MS C# 호환성 스타일](#ms-c-호환성-스타일)
             -   [에픽게임즈 모던 스타일](#에픽게임즈-모던-스타일)
@@ -31,6 +32,49 @@
 -   <u><b>소스 코드 내부 파일</b></u>은 대소문자를 사용하는 `파스칼 케이스` 를 사용해도 됩니다.
     
     &nbsp; 개발 프로젝트 폴더 안에서는 컴파일러/인터프리터'의 영역입니다. 특수문자와 띄어쓰기를 사용하지 않았다면 충돌 이슈는 없으며 프로그래밍 언어의 문법과 개발자의 생산성이 중요합니다. 코드 구조 직관성을 위하여 React, Vue, 혹은 Unity(C#) 같은 현대적인 개발 환경에서는 "컴포넌트나 클래스의 이름은 무조건 대문자로 시작해야 한다(PascalCase)"는 문법적 규칙이나 강력한 관례가 있습니다.
+
+#### Semantic Versioning：유의적 버전 명세
+
+```txt
+program_v3.3.3_windows_x64.zip
+```
+
+-   [참고 링크](https://velog.io/@i33w/semver)
+
+Semantic Versioning 은 소프트웨어 서비스 간에 의존성 문제를 조정하기 위하여 GitHub의 공동 설립자인 Tom Preston-Werner가 제안한 방식입니다.
+
+Semantic Versioning은 버전 번호를 어떻게 정하고 올려야 하는지를 명시하는 규칙입니다.
+
+-   3 번호 표기
+
+    한 개발 패키지의 버전을 `.` 으로 구분하여 세 부분으로 나눠 표기합니다.
+
+    <div align="center">
+    `『MAJOR_NUMBER』.『MINOR_NUMBER』.『PATCH_NUMBER』`
+    </div>
+
+    -   전 버전과 호환되지 않게 API가 바뀌면 주(主) major 버전을 한 단계 올립니다.
+    -   전 버전과 호환되면서 새로운 기능이 추가되었다면 부(部) minor 버전을 한 단계 올립니다.
+    -   전 버전과 호환되면서 문제점만 개선한 것이라면 수(修) patch 버전을 한 단계 올립니다.
+
+-   4 번호 표기
+
+    네 부분으로 구분했을 경우에는 맨 끝에 빌드번호를 붙인 경우 입니다.
+
+    <div align="center">
+    `『MAJOR_NUMBER』.『MINOR_NUMBER』.『PATCH_NUMBER』.『BUILD_NUMBER』`
+    </div>
+
+    -   빌드 번호는 배포나 수정사항의 순번 등 추가 정보를 제공합니다.
+    -   패치라고 불릴 만한 사항은 없으나 라이브러리의 변화나 API 관련으로 재빌드 사항이 있었을 경우, 또는 테스트 빌드 버전이 분리되어 있을 경우에 명시합니다.
+
+-   추가 표기
+
+    빌드 타겟인 OS 와 CPU 아키텍쳐 종류를 기입할 땐 그 뒤에 작성합니다.
+
+    <div align="center">
+    `『MAJOR_NUMBER』.『MINOR_NUMBER』.『PATCH_NUMBER』_『OS_TYPE』_『CPU_ARCHITECTURE_TYPE』`
+    </div>
 
 ### C++
 

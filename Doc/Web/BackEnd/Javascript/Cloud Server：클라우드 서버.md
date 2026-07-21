@@ -34,7 +34,9 @@
         -   [2-2. Compute VM(인스턴스) 생성 및 공용 IP 확보](#2-2-compute-vm인스턴스-생성-및-공용-ip-확보)
             -   [Compute VM 개념정리](#compute-vm-개념정리)
             -   [Compute VM 생성하기](#compute-vm-생성하기)
-                -   [API Error](#api-error)
+            -   [500 Error: Out of capacity](#500-error-out-of-capacity)
+            -   [400 Error: Parameter 'applyJobPlanResolution' is not valid.](#400-error-parameter-applyjobplanresolution-is-not-valid)
+            -   [429 Error: Too many requests](#429-error-too-many-requests)
         -   [2단계: OCI 클라우드 방화벽(Security List) 개방](#2단계-oci-클라우드-방화벽security-list-개방)
         -   [3단계: VM 내부 OS 방화벽 개방 및 Nginx 설치](#3단계-vm-내부-os-방화벽-개방-및-nginx-설치)
         -   [4단계: index.html 배치 및 외부 접속 테스트](#4단계-indexhtml-배치-및-외부-접속-테스트)
@@ -871,18 +873,30 @@ Create instance 창에 적절한 값들을 넣어주세요. 각 값의 의미는
 -   Review
     &nbsp; 전체 옵션 선택지 사항들을 다시 한번 검토합니다.
 
-##### API Error
+#### 500 Error: Out of capacity
 
--   :rotating_light: $\color{#FF9922} \footnotesize \textnormal{API Error}$ 란?
+-   :rotating_light: $\color{#FF9922} \footnotesize \textnormal{500 Error}$ 란?
     
     &nbsp; 생성을 시도할 때, `API Error` 라며 "Out of capacity for shape VM.Standard.A1.Flex in availability domain AD-1. Create the instance in a different availability domain or try again later.If you specified a fault domain, try creating the instance without specifying a fault domain. If that doesn’t work, please try again later.Learn more about host capacity." 라는 내용으로 에러가 발생할 수 있습니다. 이는 OCI 에서 여러분들에게 가상 컴퓨터로 제공할 자원 재고가 떨어졌기 때문에 발생합니다. 누군가 본인 자원을 OCI 로 환원하던지, OCI 가 자원을 더 확충하기 전까진 이를 원천적으로는 해결할 방법이 없습니다. 이런 상황에서 차선책으로 밑의 방법을 취할 수 있습니다.
 
 1)  자원 수준 다운그레이드
     &nbsp; Ampere 칩셋 `VM.Standard.A1.Flex`(1core 6GB)이 워낙 인기가 좋다보니 재고가 금방 동날 수 밖에 없습니다. 열화된 칩셋 AMD Micro(1GB RAM) 칩셋의 VM.Standard.E2.1.Micro 로 낮춰서 다시 시도해봅시다.
 
-2)  될 때까지, OCI CLI 스크립트 매크로 돌리기
-    &nbsp; 자리를 줄 때까지 무한히 요청하는 방법도 있습니다. 이를 위해선 CLI 터미널에서 요청해야 하므로 다음의 명령어로 OCI CLI 를 파워쉘에 설치하겠습니다.
-    문제가 발생했다면 [공식 문서](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm)를 참고해주세요.
+2)  될 때까지, OCI 명령을 Stack화하여 재적용하기
+    
+    &nbsp; 될때까지 반복실행을 하고자 한다면 이제까지의 생성 단계를 매번 다시 지정하는 것은 효율이 너무 떨어집니다.
+
+    &nbsp; 위의 VM 생성 단계에서 Review 단계까지 갔을 경우에 <kbd>Save as stack</kbd> 을 누르면 현 요청이 테라폼(Terraform) 코드로 OCI 내부에 저장하는 창으로 넘어갑니다. Custom provider(외부 도구나 커스텀 플러그인이 사용되는지 체크) 같이 신경 쓸 필요없는 값들 입니다. <kbd>Next</kbd>와 <kbd>Create</kbd> 눌러 다음으로 넘어가면 됩니다. 이렇게 생성한 Stack 들은 밑의 경로를 따라 접근할 수 있습니다.
+
+    &nbsp; OCI 메인 화면 좌측상단 <kbd>☰</kbd> 버튼을 눌러 네비게이션 메뉴를 열고
+    -> `Developer Services` 
+    -> (Resource Manager 항목) `Stacks`
+    -> List scope 에서 compartment 를 선택할 수 있습니다.
+    -> Stack을 클릭하면 나오는 Stacks details 에서 <kbd>Apply</kbd> 를 누르면 작업이 실행됩니다. 
+
+3)  될 때까지, OCI CLI 스크립트 반복 매크로 돌리기
+
+    &nbsp; 계속 Apply 를 누르는 동작도 상당히 피곤합니다. 자리를 줄 때까지 while 루프를 돌도록 하여 무한히 요청하는 방법도 있습니다. 이를 위해서 반복작업할 Stack 의 OCID 값과 터미널에서 OCI 작업을 통제가능하도록 OCI CLI 를 설치하여야 합니다. Stack 의 OCID 값은 Stack 의 Stack details 항목에서 `ocid1.ormstack.oc1...` 값을 확인할 수 있습니다. OCI CLI 는 다음의 명령어로 파워쉘에 설치할 수 있습니다. 문제가 발생했다면 [공식 문서](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm)를 참고해주세요.
 
     ```ps1
     Set-ExecutionPolicy RemoteSigned -Scope Process; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.ps1'))
@@ -921,9 +935,150 @@ Create instance 창에 적절한 값들을 넣어주세요. 각 값의 의미는
     -   <u><b>Modify PATH to include the CLI and enable tab completion in PowerShell now?</b></u>
         설치가 끝나고 나오는 질문입니다. 윈도우즈 환경변수 PATH 에 경로 값을 자동으로 등록해주고, PowerShell에서 탭(Tab) 자동 완성을 사용할지 묻습니다. 안할 이유 전혀없는 편리한 기능이므로 Y를 입력하는 것을 추천합니다.
 
-    &nbsp; 위 과정을 거쳤다면 이제 windows 터미널에서 oci cli 를 사용할 수 있습니다.
+    &nbsp; 위 과정을 거쳤다면 이제 windows 터미널에서 oci cli 를 사용할 수 있습니다. 파워쉘에서 `oci -h` 명령어로 도움말 목록이 뜨는 지 확인해볼 수 있습니다. 
+    
+    &nbsp; 이제 로그인 정보를 oci cli 에게 입력해야 합니다. 다음의 명령어를 입력해주세요.
 
-    "무한 생성 매크로/스크립트(OCI CLI) 활용 사례" 이건 어떻게 하는건데? 지금까진 OCI 웹페이지에서 생성시도를 했는데 VM 을 CLI 명령어로 반복해서 도전할 수도 있어?
+    ```ps1
+    oci setup config
+    ```
+
+    해당 명령 이후에 나오는 질문들에 다음과 같이 답해주세요.
+    
+    -   <u><b>Enter a location for your config:</b></u>
+        &nbsp; 추천값은 `『oci cli 경로』\oracle-cli\.oci\config` 입니다. 기본값대로 입력없이 바로 엔터해도 됩니다.
+        &nbsp; 유저 설정값 파일 "\config" 을 어느 경로에 저장해둘지 묻는 질문입니다. 
+    
+    -   <u><b>Enter a user OCID:</b></u>
+        &nbsp; User OCID 입력 후 엔터. 해당 값은 OCI 접속 후 우측상단에 사람 그림을 클릭 -> 이메일 주소를 클릭하면 OCID 가 나옵니다.
+
+    -   <u><b>Enter a tenancy OCID:</b></u>
+        &nbsp; Tenancy OCID 입력 후 엔터. 해당 값은 OCI 접속 후 우측상단에 사람 그림을 클릭 -> Tenancy... 를 클릭하면 OCID 가 나옵니다.
+
+    -   <u><b>Enter a region by index or name:</b></u>
+        &nbsp; 지역코드를 적어주어야 합니다. 우측 상단~중단 쯤에 지역명이 적힌 탭이 있습니다. 클릭하여 나오는 드롭다운 창에서 <kbd>Manage regions</kbd> 을 클릭하면 현 지역코드가 "Region identifier" 에 적혀있습니다.
+
+    -   <u><b>Do you want to generate a new API Signing RSA key pair:</b></u>
+        &nbsp; `Y` 또는 바로 엔터하여, OCI용 PEM 규격 (PKCS#8 기본 권장) 키 쌍을 생성합니다.
+
+    -   <u><b>Enter a directory for your keys to be created:</b></u>
+        &nbsp; 추천값은 `『oci cli 경로』\oracle-cli\.oci` 입니다. 기본값대로 입력없이 바로 엔터해도 됩니다.
+
+    -   <u><b>Enter a name for your key:</b></u>
+        &nbsp; 기본값 `oci_api_key` 그대로 따라도 됩니다.
+
+    -   <u><b>Enter a passphrase for your private key :</b></u>
+        &nbsp; `N/A` 라고 입력 엔터 후에 재확인 체크까지 하고나면 비밀번호를 생성하지 않습니다. 추가 비밀번호 여부를 묻습니다. 개인기호입니다. 안하면 보안이 약하고 비밀번호를 추가하면 환경 시스템변수에 "OCI_CLI_PASSPHRASE" 값으로 비밀번호를 넣어줘야 하는 등 많이 귀찮습니다.
+
+    -   <u><b>Do you want to write your passphrase to the config file? </b></u>
+        &nbsp; 비밀번호를 config 파일에 저장할 지 묻습니다. `N`, 저장 안하는게 맞습니다.
+    
+    -   If you haven't already uploaded your API Signing public key through the
+    console, follow the instructions on the page linked below in the section
+    'How to upload the public key':
+        &nbsp; 이 창에서 할 일은 끝났고, OCI 웹사이트에 `oci_api_key_public.pem` 을 올리러가면됩니다. 웹사이트의 우측 상단의 사람 그림을 클릭하고 User setting 을 클릭합니다. 그렇게 나온 창에서 가로 탭 중에서 <kbd>Tokens and keys</kbd> 를 클릭하면 API keys 항목이 보일 것 입니다. <kbd>Add API key</kbd> 를 눌러 public key file 을 올려주세요.
+    
+    -   시스템 변수 정리
+        &nbsp; 마지막 작업입니다. 이 변수값 정리는 아까 config 파일을 디폴트 위치로 나뒀다면 하지 않아도 됩니다. 
+
+        &nbsp; 작업표시줄 윈도우로고 우클릭 -> 시스템 -> 고급 시스템 설정 -> 환경 변수 로 가서 `OCI_CLI_CONFIG_FILE` 값을 `『oci cli 경로』\oracle-cli\.oci\config` 로 저장하면 끝입니다. 
+
+    성공적으로 연결이 되었다면 다음의 명령어로 OCI 에게 통신 데이터를 받아올 수 있습니다.
+
+    ```ps1
+    # oci: 오라클 클라우드 CLI 프로그램을 실행해라.
+    # os: Object Storage 서비스에 접근해라.
+    # ns: Namespace 정보를
+    # get: 조회해라
+    oci os ns get
+    ```
+
+    성공시엔 `{ "data": "...", }` 라는 정보를 담은 json 배열이 오며, 실패시엔 `ServiceError { ... }` 에러데이터 json 배열이 반환됩니다.
+
+    성공적이라면 이제 다음의 명령어로 무한루프를 돌 수 있습니다.
+
+    ```ps1
+    # 본인의 Stack OCID를 입력하세요
+    $StackId = "ocid1.ormstack.oc1.ap-singapore-1.xxxxxxxxxxxxxx"
+
+    while ($true) {
+        Write-Host "--- [$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] VM 생성 시도 시작 ---" -ForegroundColor Cyan
+        
+        # OCI CLI 실행 후 결과 상태 변수에 저장
+        $JobStatus = oci resource-manager job create --stack-id $StackId --operation APPLY --wait-for-state SUCCEEDED --wait-for-state FAILED --query "data.`"lifecycle-state`"" --raw-output 2>$null
+        
+        if ($JobStatus -eq "SUCCEEDED") {
+            [System.Media.SystemSounds]::Beep.Play() # 윈도우 알림음 재생
+            Write-Host "=========================================" -ForegroundColor Green
+            Write-Host "🎉 축하합니다! VM 인스턴스 생성에 성공했습니다!" -ForegroundColor Green
+            Write-Host "=========================================" -ForegroundColor Green
+            break # 루프 종료
+        } else {
+            Write-Host "--- 재고 부족으로 실패. 60초 후 재시도합니다... ---" -ForegroundColor Yellow
+            Start-Sleep -Seconds 60
+        }
+    }
+    ```
+
+    직접 OCID 를 적어넣은 뒤에 전체 줄을 복사/붙여넣기하던지 또는 텍스트 파일로 적고나서 .ps1 파일로 확장자를 바꾸고 파워쉘 구동시키는 방법도 있습니다.
+
+    혹시 windows 파워쉘이 아니라 리눅스 bash 쉘이라면 명령어는 다음과 같습니다.
+
+    ```bash
+    # 본인의 Stack OCID를 아래 따옴표 안에 입력하세요
+    STACK_ID="ocid1.ormstack.oc1.ap-singapore-1.xxxxxxxxxxxxxx"
+
+    while true; do
+    echo "--- [$(date)] VM 생성 시도 시작 ---"
+    
+    # Apply 실행 후 상태가 완료될 때까지 대기
+    JOB_STATUS=$(oci resource-manager job create --stack-id "$STACK_ID" --operation APPLY --wait-for-state SUCCEEDED --wait-for-state FAILED --query "data.\"lifecycle-state\"" --raw-output 2>/dev/null)
+    
+    if [ "$JOB_STATUS" = "SUCCEEDED" ]; then
+        echo -e "\a" # 컴퓨터에서 '삑' 소리 알림 (지원하는 환경인 경우)
+        echo "========================================="
+        echo "🎉 축하합니다! VM 인스턴스 생성에 성공했습니다!"
+        echo "========================================="
+        break # 루프 종료
+    else
+        echo "--- 재고 부족(또는 에러)으로 실패했습니다. ---"
+        echo "60초 후 다시 시도합니다..."
+        sleep 60
+    fi
+    done
+    ```
+
+#### 400 Error: Parameter 'applyJobPlanResolution' is not valid.
+
+400 에러는 스택에 정의된 인프라 계획을 적용할 때 안전장치(Resolution) 옵션이 빠져서 HTTP 400 (잘못된 요청) 에러를 뱉은 것입니다.
+
+예전에는 스택(Stack)을 실행할 때 그냥 --operation APPLY (stack 실행옵션) 를 적용하면 됬지만 OCI 정책이 강화되었습니다. 이젠 APPLY 작업을 하려면, 사전에 짜놓은 실행 계획(Plan)을 어떻게 반영할 것인지(Resolution)에 대한 옵션을 무조건 명시해라"라며 필수 매개변수를 요구하고 있습니다.
+
+&nbsp; OCI 메인 화면 좌측상단 <kbd>☰</kbd> 버튼을 눌러 네비게이션 메뉴를 열고
+-> `Developer Services` 
+-> (Resource Manager 항목) `Stacks`
+-> List scope 에서 compartment 를 선택할 수 있습니다.
+-> 만든 Stack을 선택하면 나오는 Stacks details 에서 <kbd>Plan</kbd> 를 누르면 Plan 이 실행됩니다. 
+
+```ps1
+# 400 Error Code
+$RawResult = oci resource-manager job create --stack-id $StackId --operation APPLY 2>$null
+
+# Correct Code
+$RawResult = oci resource-manager job create --stack-id $StackId --operation APPLY --apply-job-plan-resolution EXECUTE_PLAN 2>$null
+```
+
+이 에러를 해결하려면 oci resource-manager job create 명령을 내릴 때 --apply-job-plan-resolution 이라는 옵션을 뒤에 하나 덧붙여 주어야 합니다.
+
+보통 자동 매크로에서는 이전에 빌드해 둔 가장 최근의 성공적인 계획을 기반으로 인스턴스를 올리도록 지정하는 EXECUTE_PLAN 값을 부여합니다.
+
+#### 429 Error: Too many requests
+
+```ps1
+Stop-Process -Name "oci" -Force -ErrorAction SilentlyContinue
+```
+
+명령어로 터미널 종료 후에도 혹시모를 백그라운드 oci cli 작업을 강제종료시켜주시고 5분 뒤에 다시 실행해주세요.
 
 ### 2단계: OCI 클라우드 방화벽(Security List) 개방
 
