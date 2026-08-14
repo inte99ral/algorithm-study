@@ -31,13 +31,16 @@
         -   [타임 스탬프 프로필에 찍기](#타임-스탬프-프로필에-찍기)
         -   [txt 확장자 파일 검색](#txt-확장자-파일-검색)
         -   [관리자 계정인지 확인](#관리자-계정인지-확인)
-        -   [환경변수 특정 값 유무 확인](#환경변수-특정-값-유무-확인)
         -   [파워쉘 창 새로고침](#파워쉘-창-새로고침)
-        -   [프로필을 수정](#프로필을-수정)
+        -   [환경변수 특정 값 유무 확인](#환경변수-특정-값-유무-확인)
+        -   [프로필(시작 기본 코드)을 수정](#프로필시작-기본-코드을-수정)
         -   [파일에서 특정 키워드 줄 확인](#파일에서-특정-키워드-줄-확인)
         -   [상위 폴더 없을 시 생성](#상위-폴더-없을-시-생성)
+        -   [리터럴라이즈 Literalize](#리터럴라이즈-literalize)
         -   [MSYS2 쉘 호출](#msys2-쉘-호출)
         -   [MSYS2 쉘 호출 함수 설치](#msys2-쉘-호출-함수-설치)
+        -   [문자열에서 JSON 검출](#문자열에서-json-검출)
+        -   [OCI CLI STACK 무한 요청](#oci-cli-stack-무한-요청)
 
 ## 개요
 
@@ -53,7 +56,7 @@ Write-Host 'Hello, world!'
 # 한줄 주석 처리
 
 <#
-  블록 주석 처리
+    블록 주석 처리
 #>
 ```
 
@@ -202,7 +205,7 @@ $data[1]
 
 # 루프
 foreach ($line in $lines) {
-  Echo $line
+    Echo $line
 }
 
 # 배열의 길이
@@ -229,40 +232,40 @@ $data = $data | Where-Object { $_ -ne 'Two' }
 
 &nbsp; 파워쉘에서는 사용자가 직접 명령어의 별칭을 정하여 숏컷으로 활용할 수 있습니다.
 
-<table>
-<tr>
-  <th>기능</th>
-  <th>명령어</th>
-</tr>
-<tr>
-  <td>별칭 설정</td>
-  <td>Set-Alias 『별칭 이름』 『별칭 정의』</td>
-</tr>
-<tr>
-  <td>별칭 전체 리스트</td>
-  <td>Get-Alias</td>
-</tr>
-<tr>
-  <td>별칭 이름으로 검색</td>
-  <td>Get-Alias -Name 『검색어』</td>
-</tr>
-<tr>
-  <td>별칭 정의으로 검색</td>
-  <td>Get-Alias -Definition 『검색어』</td>
-</tr>
-<tr>
-  <td>별칭 삭제</td>
-  <td>Remove-Item Alias:『별칭 이름』</td>
-</tr>
-<tr>
-  <td>별칭 리스트 출력</td>
-  <td>Export-Alias -Path "『파일 이름』.txt"</td>
-</tr>
-<tr>
-  <td>별칭 리스트 입력</td>
-  <td>Import-Alias -Path "『파일 이름』.txt"</td>
-</tr>
-</table>
+-   <table>
+    <tr>
+        <th>기능</th>
+        <th>명령어</th>
+    </tr>
+    <tr>
+        <td>별칭 설정</td>
+        <td>Set-Alias 『별칭 이름』 『별칭 정의』</td>
+    </tr>
+    <tr>
+        <td>별칭 전체 리스트</td>
+        <td>Get-Alias</td>
+    </tr>
+    <tr>
+        <td>별칭 이름으로 검색</td>
+        <td>Get-Alias -Name 『검색어』</td>
+    </tr>
+    <tr>
+        <td>별칭 정의으로 검색</td>
+        <td>Get-Alias -Definition 『검색어』</td>
+    </tr>
+    <tr>
+        <td>별칭 삭제</td>
+        <td>Remove-Item Alias:『별칭 이름』</td>
+    </tr>
+    <tr>
+        <td>별칭 리스트 출력</td>
+        <td>Export-Alias -Path "『파일 이름』.txt"</td>
+    </tr>
+    <tr>
+        <td>별칭 리스트 입력</td>
+        <td>Import-Alias -Path "『파일 이름』.txt"</td>
+    </tr>
+    </table>
 
 ## 함수：Function
 
@@ -298,7 +301,7 @@ Add-Numbers 3 4
 
 위치 기반으로 값을 넣는 것을 원치 않을 경우 `[CmdletBinding(PositionalBinding=$false)]` 함수 정의에 해당 특성을 넣어주면 됩니다.
 
-```
+```ps1
 function AddTest {
     [CmdletBinding(PositionalBinding=$false)]
     param (
@@ -353,60 +356,61 @@ cmd 보다 파워쉘이 가진 기능이 많은 만큼 이쪽으로 g++ 명령�
 
 ```json
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "파워쉘1",
-      "detail": "파워파워쉘",
-      "type": "shell",
-      "group": {
-        "kind": "test",
-        "isDefault": true
-      },
-      // * 파워쉘로 실행하는 옵션입니다
-      "options": {
-        "shell": {
-          "executable": "powershell.exe"
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "파워쉘1",
+            "detail": "파워파워쉘",
+            "type": "shell",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            // * 파워쉘로 실행하는 옵션입니다
+            "options": {
+                "shell": {
+                    "executable": "powershell.exe"
+                }
+            },
+            "command": "dir"
         }
-      },
-      "command": "dir"
-    }
-  ]
+    ]
 }
 ```
 
-<https://cloudsns.wordpress.com/2012/10/09/get-childitem%EC%9D%98-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EC%9D%B8-filter%EC%99%80-include%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/>
-Get-Childitem -Path $home -Recurse -Force -Filter \*.txt 가장 빠른 방법
+[Get-Childitem의 매개변수인 Filter와 Include의 차이점](https://cloudsns.wordpress.com/2012/10/09/get-childitem%EC%9D%98-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%EC%9D%B8-filter%EC%99%80-include%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/)
+
+Get-Childitem -Path $home -Recurse -Force -Filter \*.txt 가 더 빠른 방법
 
 -   파워쉘로 경로 출력
 
 ```json
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "[PS] 파워쉘 컴파일 범위 테스트 코드",
-      "type": "shell",
-      "group": {
-        "kind": "test",
-        "isDefault": true
-      },
-      "options": {
-        "shell": {
-          "executable": "powershell.exe"
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "[PS] 파워쉘 컴파일 범위 테스트 코드",
+            "type": "shell",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "options": {
+                "shell": {
+                    "executable": "powershell.exe"
+                }
+            },
+            "command": "echo",
+            "args": [
+                "\"$((Get-ChildItem",
+                "-Path",
+                "${fileDirname}",
+                "-Recurse",
+                "-Include",
+                "*.?pp).FullName)\""
+            ]
         }
-      },
-      "command": "echo",
-      "args": [
-        "\"$((Get-ChildItem",
-        "-Path",
-        "${fileDirname}",
-        "-Recurse",
-        "-Include",
-        "*.?pp).FullName)\""
-      ]
-    }
-  ]
+    ]
 }
 ```
 
@@ -414,52 +418,52 @@ Get-Childitem -Path $home -Recurse -Force -Filter \*.txt 가장 빠른 방법
 
 ```json
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "[PS] 파워쉘 컴파일 코드",
-      "type": "shell",
-      "group": {
-        "kind": "test",
-        "isDefault": true
-      },
-      "command": "g++",
-      "args": [
-        "$((Get-ChildItem",
-        "-Path",
-        "${fileDirname}",
-        "-Recurse",
-        "-Force",
-        "-Filter",
-        "*.?pp).FullName)",
-        "-o",
-        "${fileDirname}\\${fileBasenameNoExtension}.exe",
-        "-O2",
-        "-Wall",
-        "-static",
-        "-std=gnu++17"
-      ]
-    }
-  ]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "[PS] 파워쉘 컴파일 코드",
+            "type": "shell",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "command": "g++",
+            "args": [
+                "$((Get-ChildItem",
+                "-Path",
+                "${fileDirname}",
+                "-Recurse",
+                "-Force",
+                "-Filter",
+                "*.?pp).FullName)",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "-O2",
+                "-Wall",
+                "-static",
+                "-std=gnu++17"
+            ]
+        }
+    ]
 }
 ```
 
 -   마찬가지로 실행시키는 작업을 만드시면 됩니다.
 
-  ```json
-  // tasks.json 앞 부분...
-  { // * Execute 바이너리 실행(Windows)
-    "label": "exe 파일 실행",
-    "detail": "현재 폴더에서 cpp 파일과 같은 이름의 exe 파일을 구동합니다.",
-    "type": "process",
-    "group": {
-      "kind": "test",
-      "isDefault": true
+    ```json
+    // tasks.json 앞 부분...
+    { // * Execute 바이너리 실행(Windows)
+        "label": "exe 파일 실행",
+        "detail": "현재 폴더에서 cpp 파일과 같은 이름의 exe 파일을 구동합니다.",
+        "type": "process",
+        "group": {
+            "kind": "test",
+            "isDefault": true
+        },
+        "command": "${fileDirname}/${fileBasenameNoExtension}.exe"
     },
-    "command": "${fileDirname}/${fileBasenameNoExtension}.exe"
-  },
-  // ...tasks.json 뒷 부분
-  ```
+    // ...tasks.json 뒷 부분
+    ```
 
 ## 파워쉘 스크립트 파일 .ps1
 
@@ -476,9 +480,9 @@ Get-Childitem -Path $home -Recurse -Force -Filter \*.txt 가장 빠른 방법
 
 -   파워쉘에서 IExpress 툴을 호출합니다.
 
-  ```powershell
-  iexpress.exe
-  ```
+    ```powershell
+    iexpress.exe
+    ```
 
 -   "Create new Self Extraction Directive file" 항목을 선택하고 다음으로 넘어갑니다.
 -   "Extract files and run an installation command" 항목을 선택하고 다음으로 넘어갑니다.
@@ -511,9 +515,9 @@ Get-Childitem -Path $home -Recurse -Force -Filter \*.txt 가장 빠른 방법
     :: 파일생성 대기 루프
     :wait
     if not exist "%CD%\code.ps1" (
-      ECHO "NOW LOADING..."
-      timeout /t 1 >nul
-      goto wait
+        ECHO "NOW LOADING..."
+        timeout /t 1 >nul
+        goto wait
     )
 
     :: -NoExit
@@ -599,11 +603,11 @@ sigstore의 핵심 구성요소로는 서명 클라이언트, 투명성 로그(R
 
 ```powershell
 Set-Content -Path $PROFILE -Value ((Get-Content $PROFILE), @(
-  'Echo "Current Time"'
-  'Echo " * $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")"'
-  'Echo "Activation Time"'
-  ('Echo " * ' + (Get-Date -Format "yyyy-MM-dd HH:mm:ss") + '"')
-  'Echo ""'
+    'Echo "Current Time"'
+    'Echo " * $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")"'
+    'Echo "Activation Time"'
+    ('Echo " * ' + (Get-Date -Format "yyyy-MM-dd HH:mm:ss") + '"')
+    'Echo ""'
 ))
 
 Write-Host "Press Enter to continue..."
@@ -646,6 +650,14 @@ if ($isAdmin) {
 }
 ```
 
+### 파워쉘 창 새로고침
+
+```powershell
+Start-Process powershell #일반 실행
+#Start-Process powershell -Verb RunAs #관리자 권한 실행
+Exit #닫기
+```
+
 ### 환경변수 특정 값 유무 확인
 
 ```powershell
@@ -661,22 +673,14 @@ function Test-DotNetPath {
 }
 ```
 
-### 파워쉘 창 새로고침
+### 프로필(시작 기본 코드)을 수정
 
 ```powershell
-Start-Process powershell #일반 실행
-#Start-Process powershell -Verb RunAs #관리자 권한 실행
-Exit #닫기
-```
-
-### 프로필을 수정
-
-```powershell
-function test02 {
-  $content = Get-Content $PROFILE
-  $content = @('Echo "Hi"') + $content[1..($content.Count - 1)]
-  Set-Content -Path $PROFILE -Value $content
-  # 파워창 새로고침 필요
+function Default-Setting {
+    $content = Get-Content $PROFILE
+    $content = @('Echo "Hi"') + $content[1..($content.Count - 1)]
+    Set-Content -Path $PROFILE -Value $content
+    # 파워창 새로고침 필요
 }
 ```
 
@@ -705,247 +709,304 @@ $dir = Split-Path "c:/test00/test01/test02.exe"
 
 # 없을시 생성, -Force 옵션으로 상위폴더까지 한번에 다 만들기
 if (-not (Test-Path $dir)) {
-  # Out-Null 출력 없애기
-  New-Item -Path $dir -ItemType Directory -Force | Out-Null
+    # Out-Null 출력 없애기
+    New-Item -Path $dir -ItemType Directory -Force | Out-Null
 }
 
 # 파일 생성 또는 내용 비우기
 Set-Content "c:/test00/test01/test02.exe" ""
 ```
 
+### 리터럴라이즈 Literalize
+
+```ps1
+# Literalize
+<#
+    @version v1.0.0
+    @example 파워쉘에서 다음과 같이 입력 .\literalize.ps1 "C:\Users\tester\Desktop\example.txt"
+#>
+
+param (
+    [string]$filePath
+)
+
+# 인자로 전달된 파일 경로가 없으면 직접 입력받기
+if ([string]::IsNullOrWhiteSpace($filePath)) {
+    $filePath = Read-Host -Prompt "Please enter the file path to convert:"
+}
+
+# 따옴표로 감싸서 입력했을 경우를 대비해 큰따옴표 제거
+$filePath = $filePath.Trim('"')
+
+# 파일 존재 여부 확인
+if (-not (Test-Path -Path $filePath -PathType Leaf)) {
+    Write-Error "[ERROR] File not found: $filePath"
+    exit
+}
+
+# 파일 정보 객체 생성
+$fileInfo = Get-Item -Path $filePath
+
+# 동적으로 출력 파일명 생성 (예: example.txt -> example-literal.txt)
+$outputFile = Join-Path -Path $fileInfo.DirectoryName -ChildPath "$($fileInfo.BaseName)-literal.txt"
+
+# 파일 내용 읽기
+$lines = Get-Content -Path $filePath
+
+# 변환 처리
+$outputLines = [System.Collections.Generic.List[string]]::new()
+$outputLines.Add("@(")
+
+foreach ($line in $lines) {
+    $outputLines.Add("    ``$line``")
+}
+
+$outputLines.Add(")")
+
+# UTF-8 인코딩으로 저장
+$outputLines | Set-Content -Path $outputFile -Encoding UTF8
+
+Write-Host "[INFO] Conversion completed: $outputFile" -ForegroundColor Green
+```
+
 ### MSYS2 쉘 호출
 
 ```powershell
 $msysPath = "D:\Program Files\MSYS2\msys64\"
+
+# msys
+
 function msys {
-  [CmdletBinding(PositionalBinding=$false)]
-  param (
-    [switch]$unset,
-    [string]$set,
-    [switch]$get,
-    [switch]$path,
-    [switch]$admin,
-    [switch]$h,
-    [switch]$restart
-  )
-
-  # msys -h ====================================================================
-
-  if ($h) {
-    Echo "msys - MSYS Environment Setting Tool"
-    Echo ""
-    Echo "Usage: msys [no-option-mode] | (-get | -set <value> | -unset) [-path] [-admin] | -h | -restart"
-    Echo ""
-    Echo "Options:"
-    Echo "  msys                    : Open MSYS shell."
-    Echo "  msys -get -path         : Show MSYS path data."
-    Echo "  msys -set <value> -path : Modify MSYS path data."
-    Echo "  msys -unset -path       : Clear MSYS path data."
-    Echo "  msys -get               : Show MSYS env variable."
-    Echo "  msys -set <value>       : Modify MSYS env variable."
-    Echo "  msys -unset             : Clear MSYS env variable."
-    Echo "  msys -h                 : Show help information."
-    Echo "  msys -restart           : Restart Powershell."
-    Echo "       -admin             : as admin."
-    Echo ""
-    Echo "Caution:"
-    Echo "  * This tool requires MSYS2. please install MSYS2 first"
-    Echo "  * This tool requires msysPath(like C:\...\msys64\). please use -get -path, -set -path option first"
-    Echo "  * The file `"msys2_shell.cmd`" must exist in the msysPath."
-    Echo "  * Please set no more than one env variable."
-    return
-  }
-
-  # msys -restart ==============================================================
-
-  if ($restart) {
-    if ($admin) { Start-Process powershell -Verb RunAs }
-    else { Start-Process powershell }
-    Exit
-  }
-
-  if ($path) {
-
-    # msys -unset -path ==========================================================
-
-    if ($unset) {
-      $pathlines = Select-String -Path $PROFILE -Pattern "msysPath = `"" | ForEach-Object { $_.LineNumber }
-      $lines = Get-Content $PROFILE
-      $newLines = $lines | Where-Object { ($lines.IndexOf($_) + 1) -notin $pathlines }
-      Set-Content $PROFILE $newLines
-
-      msys -restart
-    }
-
-    # msys -set -path ============================================================
-
-    if ($set) {
-      if (Test-Path -Path ($set + "\msys2_shell.cmd")) {
-        $set += "\";
-        Echo $set
-      }
-      elseif (!(Test-Path -Path ($set + "msys2_shell.cmd"))) {
-        Echo "ERROR: `"$set`" Invalid path."
+    [CmdletBinding(PositionalBinding=$false)]
+    param (
+        [switch]$unset,
+        [string]$set,
+        [switch]$get,
+        [switch]$path,
+        [switch]$admin,
+        [switch]$h,
+        [switch]$restart
+    )
+    
+    ## msys -h ====================================================================
+    
+    if ($h) {
+        Echo "msys - MSYS Environment Setting Tool"
+        Echo ""
+        Echo "Usage: msys [no-option-mode] | (-get | -set <value> | -unset) [-path] [-admin] | -h | -restart"
+        Echo ""
+        Echo "Options:"
+        Echo "  msys                    : Open MSYS shell."
+        Echo "  msys -get -path         : Show MSYS path data."
+        Echo "  msys -set <value> -path : Modify MSYS path data."
+        Echo "  msys -unset -path       : Clear MSYS path data."
+        Echo "  msys -get               : Show MSYS env variable."
+        Echo "  msys -set <value>       : Modify MSYS env variable."
+        Echo "  msys -unset             : Clear MSYS env variable."
+        Echo "  msys -h                 : Show help information."
+        Echo "  msys -restart           : Restart Powershell."
+        Echo "       -admin             : as admin."
+        Echo ""
+        Echo "Caution:"
+        Echo "  * This tool requires MSYS2. please install MSYS2 first"
+        Echo "  * This tool requires msysPath(like C:\...\msys64\). please use -get -path, -set -path option first"
+        Echo "  * The file `"msys2_shell.cmd`" must exist in the msysPath."
+        Echo "  * Please set no more than one env variable."
         return
-      }
-
-      $pathlines = Select-String -Path $PROFILE -Pattern "msysPath = `"" | ForEach-Object { $_.LineNumber }
-      $lines = Get-Content $PROFILE
-      $newLines = $lines | Where-Object { ($lines.IndexOf($_) + 1) -notin $pathlines }
-      Set-Content $PROFILE ("`$msysPath = `"$set`"", $newLines)
-
-      msys -restart
     }
-
-    # msys -get -path ============================================================
-
+    
+    ## msys -restart ==============================================================
+    
+    if ($restart) {
+        if ($admin) { Start-Process powershell -Verb RunAs }
+        else { Start-Process powershell }
+        Exit
+    }
+    
+    ## msys -path =================================================================
+    
+    if ($path) {
+        
+        ### msys -unset -path ==========================================================
+        
+        if ($unset) {
+            $pathlines = Select-String -Path $PROFILE -Pattern "msysPath = `"" | ForEach-Object { $_.LineNumber }
+            $lines = Get-Content $PROFILE
+            $newLines = $lines | Where-Object { ($lines.IndexOf($_) + 1) -notin $pathlines }
+            Set-Content $PROFILE $newLines
+            
+            msys -restart
+        }
+        
+        ### msys -set -path ============================================================
+        
+        if ($set) {
+            if (Test-Path -Path ($set + "\msys2_shell.cmd")) {
+                $set += "\";
+                Echo $set
+            }
+            elseif (!(Test-Path -Path ($set + "msys2_shell.cmd"))) {
+                Echo "ERROR: `"$set`" Invalid path."
+                return
+            }
+            
+            $pathlines = Select-String -Path $PROFILE -Pattern "msysPath = `"" | ForEach-Object { $_.LineNumber }
+            $lines = Get-Content $PROFILE
+            $newLines = $lines | Where-Object { ($lines.IndexOf($_) + 1) -notin $pathlines }
+            Set-Content $PROFILE ("`$msysPath = `"$set`"", $newLines)
+            
+            msys -restart
+        }
+        
+        ### msys -get -path ============================================================
+        
+        if ($get) {
+            if ($msysPath) { Write-Host "- : `$msysPath = `"$msysPath`"" -ForegroundColor Green }
+            else { Write-Host "- : `$msysPath => UNSET" -ForegroundColor Red }
+            
+            $pathlines = Select-String -Path $PROFILE -Pattern "msysPath = `"" | ForEach-Object { $_.LineNumber }
+            $lines = Get-Content $PROFILE
+            foreach ($pathline in $pathlines) { Echo ("" + $pathline + " : " + $lines[$pathline - 1]) }
+            return
+        }
+    }
+    
+    ## [ERROR] msys msysPath existence check ======================================
+    
+    if (!$msysPath) {
+        Echo "ERROR: msys requires msysPath(like C:\...\msys64\). please use -get -path, -set -path option first"
+        return
+    }
+    
+    ## [ERROR] msys msysPath integrity check ======================================
+    
+    if (!(Test-Path -Path ($msysPath + "msys2_shell.cmd"))) {
+        Echo "ERROR: `"$msysPath`" Invalid path."
+        return
+    }
+    
+    ## [ERROR] msys admin check ===================================================
+    
+    if ($admin -and (!([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))) {
+        Echo "ERROR: -admin option requires that you run as an administrator."
+        return
+    }
+    
+    ## msys -unset ================================================================
+    
+    if ($unset) {
+        if ($admin) { [System.Environment]::SetEnvironmentVariable("Path", ([System.Environment]::GetEnvironmentVariable("Path", "Machine") -replace ($msysPath.Replace("\","\\") + "[^;]*;"), ""), "Machine") }
+        else { [System.Environment]::SetEnvironmentVariable("Path", ([System.Environment]::GetEnvironmentVariable("Path", "User") -replace ($msysPath.Replace("\","\\") + "[^;]*;"), ""), "User") }
+        return
+    }
+    
+    ## msys -set ==================================================================
+    
+    if ($set) {
+        if ($admin) {
+            $machPath = [System.Environment]::GetEnvironmentVariable("Path", "Machine")
+            switch ($set) {
+                UCRT64 { [System.Environment]::SetEnvironmentVariable("Path", ($machPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "ucrt64\bin;", "Machine") }
+                MINGW64 { [System.Environment]::SetEnvironmentVariable("Path", ($machPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "mingw64\bin;", "Machine") }
+                CLANG64 { [System.Environment]::SetEnvironmentVariable("Path", ($machPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "clang64\bin;", "Machine") }
+                MSYS2 { [System.Environment]::SetEnvironmentVariable("Path", ($machPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "usr\bin;", "Machine") }
+                default { Echo "ERROR: `"$set`" Invalid argument." }
+            }
+        }
+        else {
+            $userPath = [System.Environment]::GetEnvironmentVariable("Path", "User")
+            switch ($set) {
+                UCRT64 { [System.Environment]::SetEnvironmentVariable("Path", ($userPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "ucrt64\bin;", "User") }
+                MINGW64 { [System.Environment]::SetEnvironmentVariable("Path", ($userPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "mingw64\bin;", "User") }
+                CLANG64 { [System.Environment]::SetEnvironmentVariable("Path", ($userPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "clang64\bin;", "User") }
+                MSYS2 { [System.Environment]::SetEnvironmentVariable("Path", ($userPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "usr\bin;", "User") }
+                default { Echo "ERROR: `"$set`" Invalid argument." }
+            }
+        }
+        return;
+    }
+    
+    ## msys -get ==================================================================
+    
     if ($get) {
-      if ($msysPath) { Write-Host "- : `$msysPath = `"$msysPath`"" -ForegroundColor Green }
-      else { Write-Host "- : `$msysPath => UNSET" -ForegroundColor Red }
-
-      $pathlines = Select-String -Path $PROFILE -Pattern "msysPath = `"" | ForEach-Object { $_.LineNumber }
-      $lines = Get-Content $PROFILE
-      foreach ($pathline in $pathlines) { Echo ("" + $pathline + " : " + $lines[$pathline - 1]) }
-      return
+        $userNum = -1
+        $machNum = -1
+        $userPath = [System.Environment]::GetEnvironmentVariable("Path", "User")
+        $machPath = [System.Environment]::GetEnvironmentVariable("Path", "Machine")
+        
+        if ($userPath -like ("*" + $msysPath + "ucrt64\bin*")) { $userNum *= -1; }
+        if ($userPath -like ("*" + $msysPath + "mingw64\bin*")) { $userNum *= -2; }
+        if ($userPath -like ("*" + $msysPath + "clang64\bin*")) { $userNum *= -3; }
+        if ($userPath -like ("*" + $msysPath + "usr\bin*")) { $userNum *= -4; }
+        
+        if ($machPath -like ("*" + $msysPath + "ucrt64\bin*")) { $machNum *= -1; }
+        if ($machPath -like ("*" + $msysPath + "mingw64\bin*")) { $machNum *= -2; }
+        if ($machPath -like ("*" + $msysPath + "clang64\bin*")) { $machNum *= -3; }
+        if ($machPath -like ("*" + $msysPath + "usr\bin*")) { $machNum *= -4; }
+        
+        Write-Host " * UCRT64  " -ForegroundColor Green -NoNewline
+        if ($userNum -eq 1) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }
+        if ($machNum -eq 1) { Write-Host " <== MACHINE" } else { Write-Host "            " }
+        
+        Write-Host " * MINGW64 " -ForegroundColor Green -NoNewline
+        if ($userNum -eq 2) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }
+        if ($machNum -eq 2) { Write-Host " <== MACHINE" } else { Write-Host "            " }
+        
+        Write-Host " * CLANG64 " -ForegroundColor Green -NoNewline
+        if ($userNum -eq 3) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }
+        if ($machNum -eq 3) { Write-Host " <== MACHINE" } else { Write-Host "            " }
+        
+        Write-Host " * MSYS2   " -ForegroundColor Green -NoNewline
+        if ($userNum -eq 4) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }
+        if ($machNum -eq 4) { Write-Host " <== MACHINE" } else { Write-Host "            " }
+        
+        Write-Host " * UNSET   " -ForegroundColor Red -NoNewline
+        if ($userNum -eq -1) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }
+        if ($machNum -eq -1) { Write-Host " <== MACHINE" } else { Write-Host "            " }
+        
+        Write-Host " * CONFLICT" -ForegroundColor Red -NoNewline
+        if (($userNum -le -2) -or ($userNum -ge 5)) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }
+        if (($machNum -le -2) -or ($machNum -ge 5)) { Write-Host " <== MACHINE" } else { Write-Host "            " }
+        
+        return;
     }
-  }
-
-  # msys msysPath existence check ==============================================
-
-  if (!$msysPath) {
-    Echo "ERROR: msys requires msysPath(like C:\...\msys64\). please use -get -path, -set -path option first"
-    return
-  }
-
-  # msys msysPath integrity check ==============================================
-
-  if (!(Test-Path -Path ($msysPath + "msys2_shell.cmd"))) {
-    Echo "ERROR: `"$msysPath`" Invalid path."
-    return
-  }
-
-  # msys admin check ===========================================================
-
-  if ($admin -and (!([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))) {
-    Echo "ERROR: -admin option requires that you run as an administrator."
-    return
-  }
-
-  # msys -unset ================================================================
-
-  if ($unset) {
-    if ($admin) { [System.Environment]::SetEnvironmentVariable("Path", ([System.Environment]::GetEnvironmentVariable("Path", "Machine") -replace ($msysPath.Replace("\","\\") + "[^;]*;"), ""), "Machine") }
-    else { [System.Environment]::SetEnvironmentVariable("Path", ([System.Environment]::GetEnvironmentVariable("Path", "User") -replace ($msysPath.Replace("\","\\") + "[^;]*;"), ""), "User") }
-    return
-  }
-
-  # msys -set ==================================================================
-
-  if ($set) {
+    
+    ## msys =======================================================================
+    
     if ($admin) {
-      $machPath = [System.Environment]::GetEnvironmentVariable("Path", "Machine")
-      switch ($set) {
-        UCRT64 { [System.Environment]::SetEnvironmentVariable("Path", ($machPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "ucrt64\bin;", "Machine") }
-        MINGW64 { [System.Environment]::SetEnvironmentVariable("Path", ($machPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "mingw64\bin;", "Machine") }
-        CLANG64 { [System.Environment]::SetEnvironmentVariable("Path", ($machPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "clang64\bin;", "Machine") }
-        MSYS2 { [System.Environment]::SetEnvironmentVariable("Path", ($machPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "usr\bin;", "Machine") }
-        default { Echo "ERROR: `"$set`" Invalid argument." }
-      }
+        $machNum = -1
+        $machPath = [System.Environment]::GetEnvironmentVariable("Path", "Machine")
+        if ($machPath -like ("*" + $msysPath + "ucrt64\bin*")) { $machNum *= -1; }
+        if ($machPath -like ("*" + $msysPath + "mingw64\bin*")) { $machNum *= -2; }
+        if ($machPath -like ("*" + $msysPath + "clang64\bin*")) { $machNum *= -3; }
+        if ($machPath -like ("*" + $msysPath + "usr\bin*")) { $machNum *= -4; }
+        
+        switch ($machNum) {
+            -1 { Echo "ERROR: Path missing" }
+            1 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -ucrt64 }
+            2 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -mingw64 }
+            3 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -clang64 }
+            4 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -msys }
+            default { Echo "ERROR: Path conflict" }
+        }
     }
     else {
-      $userPath = [System.Environment]::GetEnvironmentVariable("Path", "User")
-      switch ($set) {
-        UCRT64 { [System.Environment]::SetEnvironmentVariable("Path", ($userPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "ucrt64\bin;", "User") }
-        MINGW64 { [System.Environment]::SetEnvironmentVariable("Path", ($userPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "mingw64\bin;", "User") }
-        CLANG64 { [System.Environment]::SetEnvironmentVariable("Path", ($userPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "clang64\bin;", "User") }
-        MSYS2 { [System.Environment]::SetEnvironmentVariable("Path", ($userPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "usr\bin;", "User") }
-        default { Echo "ERROR: `"$set`" Invalid argument." }
-      }
+        $userNum = -1
+        $userPath = [System.Environment]::GetEnvironmentVariable("Path", "User")
+        if ($userPath -like ("*" + $msysPath + "ucrt64\bin*")) { $userNum *= -1; }
+        if ($userPath -like ("*" + $msysPath + "mingw64\bin*")) { $userNum *= -2; }
+        if ($userPath -like ("*" + $msysPath + "clang64\bin*")) { $userNum *= -3; }
+        if ($userPath -like ("*" + $msysPath + "usr\bin*")) { $userNum *= -4; }
+        
+        switch ($userNum) {
+            -1 { Echo "ERROR: Path missing" }
+            1 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -ucrt64 }
+            2 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -mingw64 }
+            3 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -clang64 }
+            4 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -msys }
+            default { Echo "ERROR: Path conflict" }
+        }
     }
-    return;
-  }
-
-  # msys -get ==================================================================
-
-  if ($get) {
-    $userNum = -1
-    $machNum = -1
-    $userPath = [System.Environment]::GetEnvironmentVariable("Path", "User")
-    $machPath = [System.Environment]::GetEnvironmentVariable("Path", "Machine")
-
-    if ($userPath -like ("*" + $msysPath + "ucrt64\bin*")) { $userNum *= -1; }
-    if ($userPath -like ("*" + $msysPath + "mingw64\bin*")) { $userNum *= -2; }
-    if ($userPath -like ("*" + $msysPath + "clang64\bin*")) { $userNum *= -3; }
-    if ($userPath -like ("*" + $msysPath + "usr\bin*")) { $userNum *= -4; }
-
-    if ($machPath -like ("*" + $msysPath + "ucrt64\bin*")) { $machNum *= -1; }
-    if ($machPath -like ("*" + $msysPath + "mingw64\bin*")) { $machNum *= -2; }
-    if ($machPath -like ("*" + $msysPath + "clang64\bin*")) { $machNum *= -3; }
-    if ($machPath -like ("*" + $msysPath + "usr\bin*")) { $machNum *= -4; }
-
-    Write-Host " * UCRT64  " -ForegroundColor Green -NoNewline
-    if ($userNum -eq 1) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }
-    if ($machNum -eq 1) { Write-Host " <== MACHINE" } else { Write-Host "            " }
-
-    Write-Host " * MINGW64 " -ForegroundColor Green -NoNewline
-    if ($userNum -eq 2) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }
-    if ($machNum -eq 2) { Write-Host " <== MACHINE" } else { Write-Host "            " }
-
-    Write-Host " * CLANG64 " -ForegroundColor Green -NoNewline
-    if ($userNum -eq 3) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }
-    if ($machNum -eq 3) { Write-Host " <== MACHINE" } else { Write-Host "            " }
-
-    Write-Host " * MSYS2   " -ForegroundColor Green -NoNewline
-    if ($userNum -eq 4) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }
-    if ($machNum -eq 4) { Write-Host " <== MACHINE" } else { Write-Host "            " }
-
-    Write-Host " * UNSET   " -ForegroundColor Red -NoNewline
-    if ($userNum -eq -1) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }
-    if ($machNum -eq -1) { Write-Host " <== MACHINE" } else { Write-Host "            " }
-
-    Write-Host " * CONFLICT" -ForegroundColor Red -NoNewline
-    if (($userNum -le -2) -or ($userNum -ge 5)) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }
-    if (($machNum -le -2) -or ($machNum -ge 5)) { Write-Host " <== MACHINE" } else { Write-Host "            " }
-
-    return;
-  }
-
-  # msys =======================================================================
-
-  if ($admin) {
-    $machNum = -1
-    $machPath = [System.Environment]::GetEnvironmentVariable("Path", "Machine")
-    if ($machPath -like ("*" + $msysPath + "ucrt64\bin*")) { $machNum *= -1; }
-    if ($machPath -like ("*" + $msysPath + "mingw64\bin*")) { $machNum *= -2; }
-    if ($machPath -like ("*" + $msysPath + "clang64\bin*")) { $machNum *= -3; }
-    if ($machPath -like ("*" + $msysPath + "usr\bin*")) { $machNum *= -4; }
-
-    switch ($machNum) {
-      -1 { Echo "ERROR: Path missing" }
-      1 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -ucrt64 }
-      2 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -mingw64 }
-      3 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -clang64 }
-      4 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -msys }
-      default { Echo "ERROR: Path conflict" }
-    }
-  }
-  else {
-    $userNum = -1
-    $userPath = [System.Environment]::GetEnvironmentVariable("Path", "User")
-    if ($userPath -like ("*" + $msysPath + "ucrt64\bin*")) { $userNum *= -1; }
-    if ($userPath -like ("*" + $msysPath + "mingw64\bin*")) { $userNum *= -2; }
-    if ($userPath -like ("*" + $msysPath + "clang64\bin*")) { $userNum *= -3; }
-    if ($userPath -like ("*" + $msysPath + "usr\bin*")) { $userNum *= -4; }
-
-    switch ($userNum) {
-      -1 { Echo "ERROR: Path missing" }
-      1 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -ucrt64 }
-      2 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -mingw64 }
-      3 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -clang64 }
-      4 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -msys }
-      default { Echo "ERROR: Path conflict" }
-    }
-  }
 }
 ```
 
@@ -953,274 +1014,664 @@ function msys {
 
 ```powershell
 function InstallMsysTool {
-  $answer = Read-Host "This will modify the `$PROFILE file. Continue? (Y/N)"
-  if ($answer -eq "Y" -or $answer -eq "y") {
-    Write-Host "Proceeding..."
-  }
-  elseif ($answer -eq "N" -or $answer -eq "n") {
-    Write-Host "Exiting."
-    return
-  }
-  else {
-    Write-Host "ERROR: Invalid input."
-    return
-  }
-
-  $answer = Read-Host "Do you want to completely overwrite the `$PROFILE file, or select 'N' to prepend the content to it? (Y/N)"
-  if ($answer -eq "Y" -or $answer -eq "y" -or $answer -eq "N" -or $answer -eq "n") {
-    if (-not (Test-Path (Split-Path $PROFILE))) {
-      New-Item -Path (Split-Path $PROFILE) -ItemType Directory -Force | Out-Null
-    }
-
+    $answer = Read-Host "This will modify the `$PROFILE file. Continue? (Y/N)"
     if ($answer -eq "Y" -or $answer -eq "y") {
-      Write-Host "Proceeding overwrite..."
-      Set-Content -Path $PROFILE -Value "" -NoNewline
+        Write-Host "Proceeding..."
+    }
+    elseif ($answer -eq "N" -or $answer -eq "n") {
+        Write-Host "Exiting."
+        return
     }
     else {
-      Write-Host "Proceeding prepend..."
+        Write-Host "ERROR: Invalid input."
+        return
     }
 
-    Set-Content -Path $PROFILE -Value ((Get-Content $PROFILE), @(
-      'function msys {'
-      '  [CmdletBinding(PositionalBinding=$false)]'
-      '  param ('
-      '    [switch]$unset,'
-      '    [string]$set,'
-      '    [switch]$get,'
-      '    [switch]$path,'
-      '    [switch]$admin,'
-      '    [switch]$h,'
-      '    [switch]$restart'
-      '  )'
-      ''
-      '  # msys -h ===================================================================='
-      ''
-      '  if ($h) {'
-      '    Echo "msys - MSYS Environment Setting Tool"'
-      '    Echo ""'
-      '    Echo "Usage: msys [no-option-mode] | (-get | -set <value> | -unset) [-path] [-admin] | -h | -restart"'
-      '    Echo ""'
-      '    Echo "Options:"'
-      '    Echo "  msys                    : Open MSYS shell."'
-      '    Echo "  msys -get -path         : Show MSYS path data."'
-      '    Echo "  msys -set <value> -path : Modify MSYS path data."'
-      '    Echo "  msys -unset -path       : Clear MSYS path data."'
-      '    Echo "  msys -get               : Show MSYS env variable."'
-      '    Echo "  msys -set <value>       : Modify MSYS env variable."'
-      '    Echo "  msys -unset             : Clear MSYS env variable."'
-      '    Echo "  msys -h                 : Show help information."'
-      '    Echo "  msys -restart           : Restart Powershell."'
-      '    Echo "       -admin             : as admin."'
-      '    Echo ""'
-      '    Echo "Caution:"'
-      '    Echo "  * This tool requires MSYS2. please install MSYS2 first"'
-      '    Echo "  * This tool requires msysPath(like C:\...\msys64\). please use -get -path, -set -path option first"'
-      '    Echo "  * The file `"msys2_shell.cmd`" must exist in the msysPath."'
-      '    Echo "  * Please set no more than one env variable."'
-      '    return'
-      '  }'
-      ''
-      '  # msys -restart =============================================================='
-      ''
-      '  if ($restart) {'
-      '    if ($admin) { Start-Process powershell -Verb RunAs }'
-      '    else { Start-Process powershell }'
-      '    Exit'
-      '  }'
-      ''
-      '  if ($path) {'
-      ''
-      '    # msys -unset -path =========================================================='
-      ''
-      '    if ($unset) {'
-      '      $pathlines = Select-String -Path $PROFILE -Pattern "msysPath = `"" | ForEach-Object { $_.LineNumber }'
-      '      $lines = Get-Content $PROFILE'
-      '      $newLines = $lines | Where-Object { ($lines.IndexOf($_) + 1) -notin $pathlines }'
-      '      Set-Content $PROFILE $newLines'
-      ''
-      '      msys -restart'
-      '    }'
-      ''
-      '    # msys -set -path ============================================================'
-      ''
-      '    if ($set) {'
-      '      if (Test-Path -Path ($set + "\msys2_shell.cmd")) {'
-      '        $set += "\";'
-      '        Echo $set'
-      '      }'
-      '      elseif (!(Test-Path -Path ($set + "msys2_shell.cmd"))) {'
-      '        Echo "ERROR: `"$set`" Invalid path."'
-      '        return'
-      '      }'
-      ''
-      '      $pathlines = Select-String -Path $PROFILE -Pattern "msysPath = `"" | ForEach-Object { $_.LineNumber }'
-      '      $lines = Get-Content $PROFILE'
-      '      $newLines = $lines | Where-Object { ($lines.IndexOf($_) + 1) -notin $pathlines }'
-      '      Set-Content $PROFILE ("`$msysPath = `"$set`"", $newLines)'
-      ''
-      '      msys -restart'
-      '    }'
-      ''
-      '    # msys -get -path ============================================================'
-      ''
-      '    if ($get) {'
-      '      if ($msysPath) { Write-Host "- : `$msysPath = `"$msysPath`"" -ForegroundColor Green }'
-      '      else { Write-Host "- : `$msysPath => UNSET" -ForegroundColor Red }'
-      ''
-      '      $pathlines = Select-String -Path $PROFILE -Pattern "msysPath = `"" | ForEach-Object { $_.LineNumber }'
-      '      $lines = Get-Content $PROFILE'
-      '      foreach ($pathline in $pathlines) { Echo ("" + $pathline + " : " + $lines[$pathline - 1]) }'
-      '      return'
-      '    }'
-      '  }'
-      ''
-      '  # msys msysPath existence check =============================================='
-      ''
-      '  if (!$msysPath) {'
-      '    Echo "ERROR: msys requires msysPath(like C:\...\msys64\). please use -get -path, -set -path option first"'
-      '    return'
-      '  }'
-      ''
-      '  # msys msysPath integrity check =============================================='
-      ''
-      '  if (!(Test-Path -Path ($msysPath + "msys2_shell.cmd"))) {'
-      '    Echo "ERROR: `"$msysPath`" Invalid path."'
-      '    return'
-      '  }'
-      ''
-      '  # msys admin check ==========================================================='
-      ''
-      '  if ($admin -and (!([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))) {'
-      '    Echo "ERROR: -admin option requires that you run as an administrator."'
-      '    return'
-      '  }'
-      ''
-      '  # msys -unset ================================================================'
-      ''
-      '  if ($unset) {'
-      '    if ($admin) { [System.Environment]::SetEnvironmentVariable("Path", ([System.Environment]::GetEnvironmentVariable("Path", "Machine") -replace ($msysPath.Replace("\","\\") + "[^;]*;"), ""), "Machine") }'
-      '    else { [System.Environment]::SetEnvironmentVariable("Path", ([System.Environment]::GetEnvironmentVariable("Path", "User") -replace ($msysPath.Replace("\","\\") + "[^;]*;"), ""), "User") }'
-      '    return'
-      '  }'
-      ''
-      '  # msys -set =================================================================='
-      ''
-      '  if ($set) {'
-      '    if ($admin) {'
-      '      $machPath = [System.Environment]::GetEnvironmentVariable("Path", "Machine")'
-      '      switch ($set) {'
-      '        UCRT64 { [System.Environment]::SetEnvironmentVariable("Path", ($machPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "ucrt64\bin;", "Machine") }'
-      '        MINGW64 { [System.Environment]::SetEnvironmentVariable("Path", ($machPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "mingw64\bin;", "Machine") }'
-      '        CLANG64 { [System.Environment]::SetEnvironmentVariable("Path", ($machPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "clang64\bin;", "Machine") }'
-      '        MSYS2 { [System.Environment]::SetEnvironmentVariable("Path", ($machPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "usr\bin;", "Machine") }'
-      '        default { Echo "ERROR: `"$set`" Invalid argument." }'
-      '      }'
-      '    }'
-      '    else {'
-      '      $userPath = [System.Environment]::GetEnvironmentVariable("Path", "User")'
-      '      switch ($set) {'
-      '        UCRT64 { [System.Environment]::SetEnvironmentVariable("Path", ($userPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "ucrt64\bin;", "User") }'
-      '        MINGW64 { [System.Environment]::SetEnvironmentVariable("Path", ($userPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "mingw64\bin;", "User") }'
-      '        CLANG64 { [System.Environment]::SetEnvironmentVariable("Path", ($userPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "clang64\bin;", "User") }'
-      '        MSYS2 { [System.Environment]::SetEnvironmentVariable("Path", ($userPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "usr\bin;", "User") }'
-      '        default { Echo "ERROR: `"$set`" Invalid argument." }'
-      '      }'
-      '    }'
-      '    return;'
-      '  }'
-      ''
-      '  # msys -get =================================================================='
-      ''
-      '  if ($get) {'
-      '    $userNum = -1'
-      '    $machNum = -1'
-      '    $userPath = [System.Environment]::GetEnvironmentVariable("Path", "User")'
-      '    $machPath = [System.Environment]::GetEnvironmentVariable("Path", "Machine")'
-      ''
-      '    if ($userPath -like ("*" + $msysPath + "ucrt64\bin*")) { $userNum *= -1; }'
-      '    if ($userPath -like ("*" + $msysPath + "mingw64\bin*")) { $userNum *= -2; }'
-      '    if ($userPath -like ("*" + $msysPath + "clang64\bin*")) { $userNum *= -3; }'
-      '    if ($userPath -like ("*" + $msysPath + "usr\bin*")) { $userNum *= -4; }'
-      ''
-      '    if ($machPath -like ("*" + $msysPath + "ucrt64\bin*")) { $machNum *= -1; }'
-      '    if ($machPath -like ("*" + $msysPath + "mingw64\bin*")) { $machNum *= -2; }'
-      '    if ($machPath -like ("*" + $msysPath + "clang64\bin*")) { $machNum *= -3; }'
-      '    if ($machPath -like ("*" + $msysPath + "usr\bin*")) { $machNum *= -4; }'
-      ''
-      '    Write-Host " * UCRT64  " -ForegroundColor Green -NoNewline'
-      '    if ($userNum -eq 1) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }'
-      '    if ($machNum -eq 1) { Write-Host " <== MACHINE" } else { Write-Host "            " }'
-      ''
-      '    Write-Host " * MINGW64 " -ForegroundColor Green -NoNewline'
-      '    if ($userNum -eq 2) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }'
-      '    if ($machNum -eq 2) { Write-Host " <== MACHINE" } else { Write-Host "            " }'
-      ''
-      '    Write-Host " * CLANG64 " -ForegroundColor Green -NoNewline'
-      '    if ($userNum -eq 3) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }'
-      '    if ($machNum -eq 3) { Write-Host " <== MACHINE" } else { Write-Host "            " }'
-      ''
-      '    Write-Host " * MSYS2   " -ForegroundColor Green -NoNewline'
-      '    if ($userNum -eq 4) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }'
-      '    if ($machNum -eq 4) { Write-Host " <== MACHINE" } else { Write-Host "            " }'
-      ''
-      '    Write-Host " * UNSET   " -ForegroundColor Red -NoNewline'
-      '    if ($userNum -eq -1) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }'
-      '    if ($machNum -eq -1) { Write-Host " <== MACHINE" } else { Write-Host "            " }'
-      ''
-      '    Write-Host " * CONFLICT" -ForegroundColor Red -NoNewline'
-      '    if (($userNum -le -2) -or ($userNum -ge 5)) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }'
-      '    if (($machNum -le -2) -or ($machNum -ge 5)) { Write-Host " <== MACHINE" } else { Write-Host "            " }'
-      ''
-      '    return;'
-      '  }'
-      ''
-      '  # msys ======================================================================='
-      ''
-      '  if ($admin) {'
-      '    $machNum = -1'
-      '    $machPath = [System.Environment]::GetEnvironmentVariable("Path", "Machine")'
-      '    if ($machPath -like ("*" + $msysPath + "ucrt64\bin*")) { $machNum *= -1; }'
-      '    if ($machPath -like ("*" + $msysPath + "mingw64\bin*")) { $machNum *= -2; }'
-      '    if ($machPath -like ("*" + $msysPath + "clang64\bin*")) { $machNum *= -3; }'
-      '    if ($machPath -like ("*" + $msysPath + "usr\bin*")) { $machNum *= -4; }'
-      ''
-      '    switch ($machNum) {'
-      '      -1 { Echo "ERROR: Path missing" }'
-      '      1 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -ucrt64 }'
-      '      2 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -mingw64 }'
-      '      3 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -clang64 }'
-      '      4 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -msys }'
-      '      default { Echo "ERROR: Path conflict" }'
-      '    }'
-      '  }'
-      '  else {'
-      '    $userNum = -1'
-      '    $userPath = [System.Environment]::GetEnvironmentVariable("Path", "User")'
-      '    if ($userPath -like ("*" + $msysPath + "ucrt64\bin*")) { $userNum *= -1; }'
-      '    if ($userPath -like ("*" + $msysPath + "mingw64\bin*")) { $userNum *= -2; }'
-      '    if ($userPath -like ("*" + $msysPath + "clang64\bin*")) { $userNum *= -3; }'
-      '    if ($userPath -like ("*" + $msysPath + "usr\bin*")) { $userNum *= -4; }'
-      ''
-      '    switch ($userNum) {'
-      '      -1 { Echo "ERROR: Path missing" }'
-      '      1 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -ucrt64 }'
-      '      2 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -mingw64 }'
-      '      3 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -clang64 }'
-      '      4 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -msys }'
-      '      default { Echo "ERROR: Path conflict" }'
-      '    }'
-      '  }'
-      '}'
-    ))
-  }
-  else {
-    Write-Host "ERROR: Invalid input."
-    return
-  }
+    $answer = Read-Host "Do you want to completely overwrite the `$PROFILE file, or select 'N' to prepend the content to it? (Y/N)"
+    if ($answer -eq "Y" -or $answer -eq "y" -or $answer -eq "N" -or $answer -eq "n") {
+        if (-not (Test-Path (Split-Path $PROFILE))) {
+            New-Item -Path (Split-Path $PROFILE) -ItemType Directory -Force | Out-Null
+        }
+        
+        if ($answer -eq "Y" -or $answer -eq "y") {
+            Write-Host "Proceeding overwrite..."
+            Set-Content -Path $PROFILE -Value "" -NoNewline
+        }
+        
+        else {
+            Write-Host "Proceeding prepend..."
+        }
+
+        Set-Content -Path $PROFILE -Value ((Get-Content $PROFILE), @(
+            'function msys {'
+            '  [CmdletBinding(PositionalBinding=$false)]'
+            '  param ('
+            '    [switch]$unset,'
+            '    [string]$set,'
+            '    [switch]$get,'
+            '    [switch]$path,'
+            '    [switch]$admin,'
+            '    [switch]$h,'
+            '    [switch]$restart'
+            '  )'
+            ''
+            '  # msys -h ===================================================================='
+            ''
+            '  if ($h) {'
+            '    Echo "msys - MSYS Environment Setting Tool"'
+            '    Echo ""'
+            '    Echo "Usage: msys [no-option-mode] | (-get | -set <value> | -unset) [-path] [-admin] | -h | -restart"'
+            '    Echo ""'
+            '    Echo "Options:"'
+            '    Echo "  msys                    : Open MSYS shell."'
+            '    Echo "  msys -get -path         : Show MSYS path data."'
+            '    Echo "  msys -set <value> -path : Modify MSYS path data."'
+            '    Echo "  msys -unset -path       : Clear MSYS path data."'
+            '    Echo "  msys -get               : Show MSYS env variable."'
+            '    Echo "  msys -set <value>       : Modify MSYS env variable."'
+            '    Echo "  msys -unset             : Clear MSYS env variable."'
+            '    Echo "  msys -h                 : Show help information."'
+            '    Echo "  msys -restart           : Restart Powershell."'
+            '    Echo "       -admin             : as admin."'
+            '    Echo ""'
+            '    Echo "Caution:"'
+            '    Echo "  * This tool requires MSYS2. please install MSYS2 first"'
+            '    Echo "  * This tool requires msysPath(like C:\...\msys64\). please use -get -path, -set -path option first"'
+            '    Echo "  * The file `"msys2_shell.cmd`" must exist in the msysPath."'
+            '    Echo "  * Please set no more than one env variable."'
+            '    return'
+            '  }'
+            ''
+            '  # msys -restart =============================================================='
+            ''
+            '  if ($restart) {'
+            '    if ($admin) { Start-Process powershell -Verb RunAs }'
+            '    else { Start-Process powershell }'
+            '    Exit'
+            '  }'
+            ''
+            '  if ($path) {'
+            ''
+            '    # msys -unset -path =========================================================='
+            ''
+            '    if ($unset) {'
+            '      $pathlines = Select-String -Path $PROFILE -Pattern "msysPath = `"" | ForEach-Object { $_.LineNumber }'
+            '      $lines = Get-Content $PROFILE'
+            '      $newLines = $lines | Where-Object { ($lines.IndexOf($_) + 1) -notin $pathlines }'
+            '      Set-Content $PROFILE $newLines'
+            ''
+            '      msys -restart'
+            '    }'
+            ''
+            '    # msys -set -path ============================================================'
+            ''
+            '    if ($set) {'
+            '      if (Test-Path -Path ($set + "\msys2_shell.cmd")) {'
+            '        $set += "\";'
+            '        Echo $set'
+            '      }'
+            '      elseif (!(Test-Path -Path ($set + "msys2_shell.cmd"))) {'
+            '        Echo "ERROR: `"$set`" Invalid path."'
+            '        return'
+            '      }'
+            ''
+            '      $pathlines = Select-String -Path $PROFILE -Pattern "msysPath = `"" | ForEach-Object { $_.LineNumber }'
+            '      $lines = Get-Content $PROFILE'
+            '      $newLines = $lines | Where-Object { ($lines.IndexOf($_) + 1) -notin $pathlines }'
+            '      Set-Content $PROFILE ("`$msysPath = `"$set`"", $newLines)'
+            ''
+            '      msys -restart'
+            '    }'
+            ''
+            '    # msys -get -path ============================================================'
+            ''
+            '    if ($get) {'
+            '      if ($msysPath) { Write-Host "- : `$msysPath = `"$msysPath`"" -ForegroundColor Green }'
+            '      else { Write-Host "- : `$msysPath => UNSET" -ForegroundColor Red }'
+            ''
+            '      $pathlines = Select-String -Path $PROFILE -Pattern "msysPath = `"" | ForEach-Object { $_.LineNumber }'
+            '      $lines = Get-Content $PROFILE'
+            '      foreach ($pathline in $pathlines) { Echo ("" + $pathline + " : " + $lines[$pathline - 1]) }'
+            '      return'
+            '    }'
+            '  }'
+            ''
+            '  # msys msysPath existence check =============================================='
+            ''
+            '  if (!$msysPath) {'
+            '    Echo "ERROR: msys requires msysPath(like C:\...\msys64\). please use -get -path, -set -path option first"'
+            '    return'
+            '  }'
+            ''
+            '  # msys msysPath integrity check =============================================='
+            ''
+            '  if (!(Test-Path -Path ($msysPath + "msys2_shell.cmd"))) {'
+            '    Echo "ERROR: `"$msysPath`" Invalid path."'
+            '    return'
+            '  }'
+            ''
+            '  # msys admin check ==========================================================='
+            ''
+            '  if ($admin -and (!([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))) {'
+            '    Echo "ERROR: -admin option requires that you run as an administrator."'
+            '    return'
+            '  }'
+            ''
+            '  # msys -unset ================================================================'
+            ''
+            '  if ($unset) {'
+            '    if ($admin) { [System.Environment]::SetEnvironmentVariable("Path", ([System.Environment]::GetEnvironmentVariable("Path", "Machine") -replace ($msysPath.Replace("\","\\") + "[^;]*;"), ""), "Machine") }'
+            '    else { [System.Environment]::SetEnvironmentVariable("Path", ([System.Environment]::GetEnvironmentVariable("Path", "User") -replace ($msysPath.Replace("\","\\") + "[^;]*;"), ""), "User") }'
+            '    return'
+            '  }'
+            ''
+            '  # msys -set =================================================================='
+            ''
+            '  if ($set) {'
+            '    if ($admin) {'
+            '      $machPath = [System.Environment]::GetEnvironmentVariable("Path", "Machine")'
+            '      switch ($set) {'
+            '        UCRT64 { [System.Environment]::SetEnvironmentVariable("Path", ($machPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "ucrt64\bin;", "Machine") }'
+            '        MINGW64 { [System.Environment]::SetEnvironmentVariable("Path", ($machPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "mingw64\bin;", "Machine") }'
+            '        CLANG64 { [System.Environment]::SetEnvironmentVariable("Path", ($machPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "clang64\bin;", "Machine") }'
+            '        MSYS2 { [System.Environment]::SetEnvironmentVariable("Path", ($machPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "usr\bin;", "Machine") }'
+            '        default { Echo "ERROR: `"$set`" Invalid argument." }'
+            '      }'
+            '    }'
+            '    else {'
+            '      $userPath = [System.Environment]::GetEnvironmentVariable("Path", "User")'
+            '      switch ($set) {'
+            '        UCRT64 { [System.Environment]::SetEnvironmentVariable("Path", ($userPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "ucrt64\bin;", "User") }'
+            '        MINGW64 { [System.Environment]::SetEnvironmentVariable("Path", ($userPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "mingw64\bin;", "User") }'
+            '        CLANG64 { [System.Environment]::SetEnvironmentVariable("Path", ($userPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "clang64\bin;", "User") }'
+            '        MSYS2 { [System.Environment]::SetEnvironmentVariable("Path", ($userPath -replace ($msysPath.Replace("\","\\") + "[^;]*;"), "") + $msysPath + "usr\bin;", "User") }'
+            '        default { Echo "ERROR: `"$set`" Invalid argument." }'
+            '      }'
+            '    }'
+            '    return;'
+            '  }'
+            ''
+            '  # msys -get =================================================================='
+            ''
+            '  if ($get) {'
+            '    $userNum = -1'
+            '    $machNum = -1'
+            '    $userPath = [System.Environment]::GetEnvironmentVariable("Path", "User")'
+            '    $machPath = [System.Environment]::GetEnvironmentVariable("Path", "Machine")'
+            ''
+            '    if ($userPath -like ("*" + $msysPath + "ucrt64\bin*")) { $userNum *= -1; }'
+            '    if ($userPath -like ("*" + $msysPath + "mingw64\bin*")) { $userNum *= -2; }'
+            '    if ($userPath -like ("*" + $msysPath + "clang64\bin*")) { $userNum *= -3; }'
+            '    if ($userPath -like ("*" + $msysPath + "usr\bin*")) { $userNum *= -4; }'
+            ''
+            '    if ($machPath -like ("*" + $msysPath + "ucrt64\bin*")) { $machNum *= -1; }'
+            '    if ($machPath -like ("*" + $msysPath + "mingw64\bin*")) { $machNum *= -2; }'
+            '    if ($machPath -like ("*" + $msysPath + "clang64\bin*")) { $machNum *= -3; }'
+            '    if ($machPath -like ("*" + $msysPath + "usr\bin*")) { $machNum *= -4; }'
+            ''
+            '    Write-Host " * UCRT64  " -ForegroundColor Green -NoNewline'
+            '    if ($userNum -eq 1) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }'
+            '    if ($machNum -eq 1) { Write-Host " <== MACHINE" } else { Write-Host "            " }'
+            ''
+            '    Write-Host " * MINGW64 " -ForegroundColor Green -NoNewline'
+            '    if ($userNum -eq 2) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }'
+            '    if ($machNum -eq 2) { Write-Host " <== MACHINE" } else { Write-Host "            " }'
+            ''
+            '    Write-Host " * CLANG64 " -ForegroundColor Green -NoNewline'
+            '    if ($userNum -eq 3) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }'
+            '    if ($machNum -eq 3) { Write-Host " <== MACHINE" } else { Write-Host "            " }'
+            ''
+            '    Write-Host " * MSYS2   " -ForegroundColor Green -NoNewline'
+            '    if ($userNum -eq 4) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }'
+            '    if ($machNum -eq 4) { Write-Host " <== MACHINE" } else { Write-Host "            " }'
+            ''
+            '    Write-Host " * UNSET   " -ForegroundColor Red -NoNewline'
+            '    if ($userNum -eq -1) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }'
+            '    if ($machNum -eq -1) { Write-Host " <== MACHINE" } else { Write-Host "            " }'
+            ''
+            '    Write-Host " * CONFLICT" -ForegroundColor Red -NoNewline'
+            '    if (($userNum -le -2) -or ($userNum -ge 5)) { Write-Host " <== USER" -NoNewline } else { Write-Host "         " -NoNewline }'
+            '    if (($machNum -le -2) -or ($machNum -ge 5)) { Write-Host " <== MACHINE" } else { Write-Host "            " }'
+            ''
+            '    return;'
+            '  }'
+            ''
+            '  # msys ======================================================================='
+            ''
+            '    if ($admin) {'
+            '        $machNum = -1'
+            '        $machPath = [System.Environment]::GetEnvironmentVariable("Path", "Machine")'
+            '        if ($machPath -like ("*" + $msysPath + "ucrt64\bin*")) { $machNum *= -1; }'
+            '        if ($machPath -like ("*" + $msysPath + "mingw64\bin*")) { $machNum *= -2; }'
+            '        if ($machPath -like ("*" + $msysPath + "clang64\bin*")) { $machNum *= -3; }'
+            '        if ($machPath -like ("*" + $msysPath + "usr\bin*")) { $machNum *= -4; }'
+            '        '
+            '        switch ($machNum) {'
+            '            -1 { Echo "ERROR: Path missing" }'
+            '            1 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -ucrt64 }'
+            '            2 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -mingw64 }'
+            '            3 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -clang64 }'
+            '            4 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -msys }'
+            '            default { Echo "ERROR: Path conflict" }'
+            '        }'
+            '    }'
+            '    else {'
+            '        $userNum = -1'
+            '        $userPath = [System.Environment]::GetEnvironmentVariable("Path", "User")'
+            '        if ($userPath -like ("*" + $msysPath + "ucrt64\bin*")) { $userNum *= -1; }'
+            '        if ($userPath -like ("*" + $msysPath + "mingw64\bin*")) { $userNum *= -2; }'
+            '        if ($userPath -like ("*" + $msysPath + "clang64\bin*")) { $userNum *= -3; }'
+            '        if ($userPath -like ("*" + $msysPath + "usr\bin*")) { $userNum *= -4; }'
+            '        '
+            '        switch ($userNum) {'
+            '            -1 { Echo "ERROR: Path missing" }'
+            '            1 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -ucrt64 }'
+            '            2 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -mingw64 }'
+            '            3 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -clang64 }'
+            '            4 { &($msysPath + "msys2_shell.cmd") -defterm -here -no-start -msys }'
+            '            default { Echo "ERROR: Path conflict" }'
+            '        }'
+            '    }'
+            '}'
+        ))
+    }
+    else {
+        Write-Host "ERROR: Invalid input."
+        return
+    }
 }
 
 InstallMsysTool
 
 Write-Host "The task is finished. Press Enter to close the window..."
 Read-Host
+```
+
+### 문자열에서 JSON 검출
+
+```ps1
+<#
+    @description
+        # Extract-Json
+
+        ## Abstract
+            Extracts the first valid JSON object from a string.
+    
+    @example
+        $strJson = Extract-Json $str
+        Write-Host "[Extracted JSON] : `n$($strJson.'key' | ConvertTo-Json -Depth 100)`n`n"
+
+    @author
+        inte99ral@gmail.com
+    
+    @version v1.0.1
+#>
+function Extract-Json
+{
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$Text
+    )
+
+    $chars = $Text.ToCharArray()
+    $length = $chars.Length
+
+    # * find the first occurrence of '{' or '['
+    $OpenChars = [char[]]@('{', '[')
+    $start = $Text.IndexOfAny($OpenChars)
+
+    # * "other solution" to find the first occurrence of '{' or '['
+    # $idxObj = $Text.IndexOf('{')
+    # $idxArr = $Text.IndexOf('[')
+    # if ($idxObj -ge 0 -and $idxArr -ge 0) {
+    #     $start = [Math]::Min($idxObj, $idxArr)
+    # } elseif ($idxObj -ge 0) {
+    #     $start = $idxObj
+    # } else {
+    #     $start = $idxArr
+    # }
+
+    while ($start -ge 0 -and $start -lt $length)
+    {
+        $openChar = $chars[$start]
+
+        # * set the corresponding closing character
+        $closeChar = if ($openChar -eq '{') { '}' } else { ']' }
+
+        $depth = 0
+        $inString = $false
+        $escaped = $false
+
+        for ($i = $start; $i -lt $length; $i++)
+        {
+            $char = $chars[$i]
+
+            # * check in-string case
+            if ($inString)
+            {
+                if ($escaped)
+                {
+                    $escaped = $false
+                    continue
+                }
+
+                if ($char -eq '\')
+                {
+                    $escaped = $true
+                    continue
+                }
+
+                if ($char -eq '"')
+                {
+                    $inString = $false
+                }
+
+                continue
+            }
+
+            # * find '"' to enter in-string mode
+            if ($char -eq '"')
+            {
+                $inString = $true
+                continue
+            }
+
+            # * find opening character
+            if ($char -eq $openChar)
+            {
+                $depth++
+                continue
+            }
+
+            # * find closing character
+            if ($char -eq $closeChar)
+            {
+                $depth--
+
+                if ($depth -eq 0)
+                {
+                    $candidate = $Text.Substring($start, $i - $start + 1)
+
+                    try
+                    {
+                        return ($candidate | ConvertFrom-Json)
+                    }
+                    catch
+                    {
+                        # * candidate was not valid JSON
+                        break
+                    }
+                }
+            }
+        }
+
+        # * find the next occurrence of '{' or '['
+        $start = $Text.IndexOfAny($OpenChars, $start + 1)
+
+        # * "other solution" to find the next occurrence of '{' or '['
+        # $nextObj = $Text.IndexOf('{', $start + 1)
+        # $nextArr = $Text.IndexOf('[', $start + 1)
+
+        # if ($nextObj -ge 0 -and $nextArr -ge 0) {
+        #     $start = [Math]::Min($nextObj, $nextArr)
+        # } elseif ($nextObj -ge 0) {
+        #     $start = $nextObj
+        # } else {
+        #     $start = $nextArr
+        # }
+    }
+
+    throw "Can't find valid JSON object or array"
+}
+
+# * how to use Extract-Json
+
+$str1 = @'
+    header: Content-Type: application/json
+    header: X-Content-Type-Options: nosniff
+    {
+        "data-json": 
+        {
+            "foo": 
+            {
+                "bar": 123
+            }
+        }
+    }
+    reply: 'HTTP/1.1 200 OK\r\n'
+    header: Cache-Control: no-cache, no-store, must-revalidate
+    header: Content-Security-Policy: default-src 'self'; object-src 'none';
+    header: Content-Encoding: gzip
+    header: Vary: Origin, Accept-Encoding
+    header: Pragma: no-cache
+'@
+
+$str2 = @'
+    header: Content-Type: application/json
+    Response Array:
+    [
+        {
+            "id": 1,
+            "name": "Alice"
+        },
+        {
+            "id": 2,
+            "name": "Bob"
+        }
+    ]
+'@
+
+$strJson1 = Extract-Json $str1
+Write-Host "[Extracted JSON 1] : `n$($strJson1.'data-json' | ConvertTo-Json -Depth 100)`n`n"
+
+$strJson2 = Extract-Json $str2
+Write-Host "[Extracted JSON 2] : `n$($strJson2 | ConvertTo-Json -Depth 100)`n`n"
+```
+
+### OCI CLI STACK 무한 요청
+
+```ps1
+# ===========================================================
+# OCI Resource Manager Auto Apply
+# Version 2.0.4
+# ===========================================================
+
+Write-Host "# OCI Resource Manager Auto Apply"
+
+# Loop counter
+$LoopCount = 0
+
+# Stack OCID
+$StackId = "『YOUR_STACK_OCID』"
+
+# Retry interval
+$RetrySeconds = 120
+
+# OCI wait option
+$WaitInterval = 60
+$MaxWait = 86400
+
+
+function Invoke-Oci
+{
+    param(
+        [string[]]$Command
+    )
+
+    # $err = Join-Path $env:TEMP "oci_err.txt"
+    $err = Join-Path $PSScriptRoot "oci_err.txt"
+
+    if(Test-Path $err)
+    {
+        Remove-Item $err -Force
+    }
+
+    Write-Host "[COMMAND]:"
+    $Command | ForEach-Object { Write-Host "  $_" }
+
+    $out = & oci @Command 2>$err
+
+    $stderr = ""
+
+    if(Test-Path $err)
+    {
+        $stderr = Get-Content $err -Raw
+        Remove-Item $err -Force
+    }
+
+    $stdout = ($out | Out-String).Trim()
+
+    return @{
+        ExitCode = $LASTEXITCODE
+        StdOut   = $stdout
+        StdErr   = $stderr
+    }
+}
+
+while($true)
+{
+    $LoopCount++
+    Write-Host ""
+    Write-Host "================================================================"
+    Write-Host "## LOOP START"
+    Write-Host ""
+    Write-Host "[COUNT]: $LoopCount"
+    Write-Host "[DATE] : $(Get-Date)"
+
+    Write-Host ""
+    Write-Host "### CREATE PLAN"
+    Write-Host ""
+
+    $plan = Invoke-Oci -Command @(
+        "resource-manager"
+        "job"
+        "create-plan-job"
+        "--stack-id"
+        $StackId
+        "--wait-for-state"
+        "SUCCEEDED"
+        "--wait-for-state"
+        "FAILED"
+        "--wait-for-state"
+        "CANCELED"
+        "--wait-interval-seconds"
+        $WaitInterval
+        "--max-wait-seconds"
+        $MaxWait
+    )
+
+    if($plan.ExitCode -ne 0)
+    {
+        Write-Host ""
+        Write-Host "#### PLAN CREATE ERROR"
+        Write-Host $plan.StdErr
+
+        Start-Sleep $RetrySeconds
+        continue
+    }
+
+    try
+    {
+        $planJson = $plan.StdOut | ConvertFrom-Json
+    }
+    catch
+    {
+        Write-Host "#### Invalid PLAN JSON"
+        Write-Host $plan.StdOut
+
+        Start-Sleep $RetrySeconds
+        continue
+    }
+
+    $PlanJobId = $planJson.data.id
+    $PlanState = $planJson.data."lifecycle-state"
+
+    Write-Host ""
+    Write-Host "[PLAN JOB]: $PlanJobId"
+    Write-Host "[STATE]   : $PlanState"
+
+    if($PlanState -ne "SUCCEEDED")
+    {
+        Write-Host ""
+        Write-Host "#### PLAN FAILED"
+
+        Start-Sleep $RetrySeconds
+        continue
+    }
+
+    Write-Host ""
+    Write-Host "### CREATE APPLY"
+    Write-Host ""
+
+    $apply = Invoke-Oci -Command @(
+        "resource-manager"
+        "job"
+        "create-apply-job"
+        "--stack-id"
+        $StackId
+        "--execution-plan-strategy"
+        "FROM_PLAN_JOB_ID"
+        "--execution-plan-job-id"
+        $PlanJobId
+        "--wait-for-state"
+        "SUCCEEDED"
+        "--wait-for-state"
+        "FAILED"
+        "--wait-for-state"
+        "CANCELED"
+        "--wait-interval-seconds"
+        $WaitInterval
+        "--max-wait-seconds"
+        $MaxWait
+    )
+
+    if($apply.ExitCode -ne 0)
+    {
+        Write-Host ""
+        Write-Host "#### APPLY CREATE ERROR"
+        Write-Host $apply.StdErr
+
+        Start-Sleep $RetrySeconds
+        continue
+    }
+
+    try
+    {
+        $applyJson = $apply.StdOut | ConvertFrom-Json
+    }
+    catch
+    {
+        Write-Host "#### Invalid APPLY JSON"
+        Write-Host $apply.StdOut
+
+        Start-Sleep $RetrySeconds
+        continue
+    }
+
+    # Write-Host ($applyJson.data | ConvertTo-Json -Depth 100)
+    # exit 0
+
+    $ApplyState = $applyJson.data."lifecycle-state"
+
+    Write-Host ""
+    Write-Host "[APPLY STATE]: $ApplyState"
+
+    if($ApplyState -eq "SUCCEEDED")
+    {
+        Write-Host ""
+        Write-Host "#### STACK APPLY SUCCEEDED"
+        exit 0
+    }
+
+    $FailureCode = $applyJson.data."failure-details".code
+    $FailureMsg  = $applyJson.data."failure-details".message
+
+    Write-Host ""
+    Write-Host "#### APPLY FAILED"
+    Write-Host "[CODE]   : $FailureCode"
+    Write-Host "[MESSAGE]: $FailureMsg"
+    Write-Host "Retry from PLAN..."
+
+    Start-Sleep $RetrySeconds
+}
 ```

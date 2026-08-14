@@ -2,65 +2,65 @@
 
 ## 목차
 
--   [Cloud Server：클라우드 서버](#cloud-server클라우드-서버)
-    -   [목차](#목차)
-    -   [개요](#개요)
-    -   [0. 로컬호스트 내부테스트](#0-로컬호스트-내부테스트)
-        -   [0-1. 웹 페이지 파일 생성](#0-1-웹-페이지-파일-생성)
-        -   [0-2. 브라우저에서 체크하기](#0-2-브라우저에서-체크하기)
-        -   [0-3. 로컬호스트 배포 테스트](#0-3-로컬호스트-배포-테스트)
-            -   [Vscode extension](#vscode-extension)
-            -   [Nginx](#nginx)
-    -   [1. 오라클 API 웹 배포](#1-오라클-api-웹-배포)
-        -   [1-1. 네이밍 컨벤션 정리](#1-1-네이밍-컨벤션-정리)
-        -   [1-2. OCI 계정생성](#1-2-oci-계정생성)
-            -   [계정 만들기](#계정-만들기)
-            -   [로그인 확인](#로그인-확인)
-            -   [계정 도메인 정책 확인](#계정-도메인-정책-확인)
-        -   [1-3. Compartment(컴파트먼트) 생성하기](#1-3-compartment컴파트먼트-생성하기)
-            -   [컴파트먼트란?](#컴파트먼트란)
-            -   [하위 컴파트먼트 생성하기](#하위-컴파트먼트-생성하기)
-            -   [컴파트먼트 삭제하기](#컴파트먼트-삭제하기)
-        -   [1-4. 버킷 생성](#1-4-버킷-생성)
-            -   [블록 \& 버킷 개념정리](#블록--버킷-개념정리)
-            -   [버킷 생성하기](#버킷-생성하기)
-            -   [index.html 오브젝트 업로드](#indexhtml-오브젝트-업로드)
-        -   [1-5. 오브젝트 URL 확인](#1-5-오브젝트-url-확인)
-    -   [2. 최소 단위 정적 웹 배포](#2-최소-단위-정적-웹-배포)
-        -   [2-1. VCN(가상 네트워크) 생성](#2-1-vcn가상-네트워크-생성)
-            -   [VCN 개념정리](#vcn-개념정리)
-            -   [VCN 생성방법](#vcn-생성방법)
-            -   [VCN 과 서브넷의 이름을 바꾸고 싶다면?](#vcn-과-서브넷의-이름을-바꾸고-싶다면)
-        -   [2-2. Compute VM(인스턴스) 생성 및 공용 IP 확보](#2-2-compute-vm인스턴스-생성-및-공용-ip-확보)
-            -   [Compute VM 개념정리](#compute-vm-개념정리)
-            -   [Compute VM 생성하기](#compute-vm-생성하기)
-            -   [500 Error: Out of capacity](#500-error-out-of-capacity)
-            -   [400 Error: Parameter 'applyJobPlanResolution' is not valid.](#400-error-parameter-applyjobplanresolution-is-not-valid)
-            -   [429 Error: Too many requests](#429-error-too-many-requests)
-        -   [2단계: OCI 클라우드 방화벽(Security List) 개방](#2단계-oci-클라우드-방화벽security-list-개방)
-        -   [3단계: VM 내부 OS 방화벽 개방 및 Nginx 설치](#3단계-vm-내부-os-방화벽-개방-및-nginx-설치)
-        -   [4단계: index.html 배치 및 외부 접속 테스트](#4단계-indexhtml-배치-및-외부-접속-테스트)
-    -   [3. 웹 도메인 연결](#3-웹-도메인-연결)
-    -   [프로젝트 살 붙이기](#프로젝트-살-붙이기)
-        -   [단계 1.5 (도메인 연결): "숫자 IP는 치기 귀찮네?" ➔ DuckDNS를 가져와서 VM IP 매핑하기](#단계-15-도메인-연결-숫자-ip는-치기-귀찮네--duckdns를-가져와서-vm-ip-매핑하기)
-        -   [단계 2.0 (보안 적용): "주의 요함(HTTP) 경고창이 뜨네?" ➔ Certbot을 이용해 Nginx에 무료 SSL(HTTPS) 인증서 적용하기](#단계-20-보안-적용-주의-요함http-경고창이-뜨네--certbot을-이용해-nginx에-무료-sslhttps-인증서-적용하기)
-        -   [단계 3.0 (아키텍처 고도화): "웹사이트에 이미지랑 동영상이 많아지니 서버 용량이 부족하고 느려지네? 서버 컴퓨터를 더 가볍게 유지하고 싶다." ➔ index.html과 정적 자원들을 Object Storage로 이사 보내고, VM은 백엔드 API 서버용으로만 쓰기](#단계-30-아키텍처-고도화-웹사이트에-이미지랑-동영상이-많아지니-서버-용량이-부족하고-느려지네-서버-컴퓨터를-더-가볍게-유지하고-싶다--indexhtml과-정적-자원들을-object-storage로-이사-보내고-vm은-백엔드-api-서버용으로만-쓰기)
-    -   [OCI 시작하기](#oci-시작하기)
-        -   [버킷 생성](#버킷-생성)
-        -   [웹 도메인 생성하기](#웹-도메인-생성하기)
-            -   [도메인 개념정리](#도메인-개념정리)
-            -   [도메인 무료 생성](#도메인-무료-생성)
-        -   [DNS 형성하기](#dns-형성하기)
-            -   [DNS 개념정리](#dns-개념정리)
-            -   [DNS 생성](#dns-생성)
-        -   [가상 네트워크(VCN) 생성](#가상-네트워크vcn-생성)
-        -   [가상 서버 컴퓨터(Virtual Machine, Compute Instance) 생성](#가상-서버-컴퓨터virtual-machine-compute-instance-생성)
-            -   [VM 개념정리](#vm-개념정리)
-            -   [① VM 생성하기](#-vm-생성하기)
-            -   [② API Gateway 연동(유료)](#-api-gateway-연동유료)
-        -   [커스텀 도메인(SSL 인증서 포함)을 연결하는 작업이 필요합니다.](#커스텀-도메인ssl-인증서-포함을-연결하는-작업이-필요합니다)
-    -   [OCI 응용하기](#oci-응용하기)
-        -   [주소 설정](#주소-설정)
+- [Cloud Server：클라우드 서버](#cloud-server클라우드-서버)
+    - [목차](#목차)
+    - [개요](#개요)
+    - [0. 로컬호스트 내부테스트](#0-로컬호스트-내부테스트)
+        - [0-1. 웹 페이지 파일 생성](#0-1-웹-페이지-파일-생성)
+        - [0-2. 브라우저에서 체크하기](#0-2-브라우저에서-체크하기)
+        - [0-3. 로컬호스트 배포 테스트](#0-3-로컬호스트-배포-테스트)
+            - [Vscode extension](#vscode-extension)
+            - [Nginx](#nginx)
+    - [1. 오라클 API 웹 배포](#1-오라클-api-웹-배포)
+        - [1-1. 네이밍 컨벤션 정리](#1-1-네이밍-컨벤션-정리)
+        - [1-2. OCI 계정생성](#1-2-oci-계정생성)
+            - [계정 만들기](#계정-만들기)
+            - [로그인 확인](#로그인-확인)
+            - [계정 도메인 정책 확인](#계정-도메인-정책-확인)
+        - [1-3. Compartment(컴파트먼트) 생성하기](#1-3-compartment컴파트먼트-생성하기)
+            - [컴파트먼트란?](#컴파트먼트란)
+            - [하위 컴파트먼트 생성하기](#하위-컴파트먼트-생성하기)
+            - [컴파트먼트 삭제하기](#컴파트먼트-삭제하기)
+        - [1-4. 버킷 생성](#1-4-버킷-생성)
+            - [블록 \& 버킷 개념정리](#블록--버킷-개념정리)
+            - [버킷 생성하기](#버킷-생성하기)
+            - [index.html 오브젝트 업로드](#indexhtml-오브젝트-업로드)
+        - [1-5. 오브젝트 URL 확인](#1-5-오브젝트-url-확인)
+    - [2. 최소 단위 정적 웹 배포](#2-최소-단위-정적-웹-배포)
+        - [2-1. VCN(가상 네트워크) 생성](#2-1-vcn가상-네트워크-생성)
+            - [VCN 개념정리](#vcn-개념정리)
+            - [VCN 생성방법](#vcn-생성방법)
+            - [VCN 과 서브넷의 이름을 바꾸고 싶다면?](#vcn-과-서브넷의-이름을-바꾸고-싶다면)
+        - [2-2. Compute VM(인스턴스) 생성 및 공용 IP 확보](#2-2-compute-vm인스턴스-생성-및-공용-ip-확보)
+            - [Compute VM 개념정리](#compute-vm-개념정리)
+            - [Compute VM 생성하기](#compute-vm-생성하기)
+            - [Error: 500 Out of capacity](#error-500-out-of-capacity)
+            - [Error: 400 Parameter 'applyJobPlanResolution' is not valid.](#error-400-parameter-applyjobplanresolution-is-not-valid)
+            - [Error: 429 Too many requests](#error-429-too-many-requests)
+        - [2단계: OCI 클라우드 방화벽(Security List) 개방](#2단계-oci-클라우드-방화벽security-list-개방)
+        - [3단계: VM 내부 OS 방화벽 개방 및 Nginx 설치](#3단계-vm-내부-os-방화벽-개방-및-nginx-설치)
+        - [4단계: index.html 배치 및 외부 접속 테스트](#4단계-indexhtml-배치-및-외부-접속-테스트)
+    - [3. 웹 도메인 연결](#3-웹-도메인-연결)
+    - [프로젝트 살 붙이기](#프로젝트-살-붙이기)
+        - [단계 1.5 (도메인 연결): "숫자 IP는 치기 귀찮네?" ➔ DuckDNS를 가져와서 VM IP 매핑하기](#단계-15-도메인-연결-숫자-ip는-치기-귀찮네--duckdns를-가져와서-vm-ip-매핑하기)
+        - [단계 2.0 (보안 적용): "주의 요함(HTTP) 경고창이 뜨네?" ➔ Certbot을 이용해 Nginx에 무료 SSL(HTTPS) 인증서 적용하기](#단계-20-보안-적용-주의-요함http-경고창이-뜨네--certbot을-이용해-nginx에-무료-sslhttps-인증서-적용하기)
+        - [단계 3.0 (아키텍처 고도화): "웹사이트에 이미지랑 동영상이 많아지니 서버 용량이 부족하고 느려지네? 서버 컴퓨터를 더 가볍게 유지하고 싶다." ➔ index.html과 정적 자원들을 Object Storage로 이사 보내고, VM은 백엔드 API 서버용으로만 쓰기](#단계-30-아키텍처-고도화-웹사이트에-이미지랑-동영상이-많아지니-서버-용량이-부족하고-느려지네-서버-컴퓨터를-더-가볍게-유지하고-싶다--indexhtml과-정적-자원들을-object-storage로-이사-보내고-vm은-백엔드-api-서버용으로만-쓰기)
+    - [OCI 시작하기](#oci-시작하기)
+        - [버킷 생성](#버킷-생성)
+        - [웹 도메인 생성하기](#웹-도메인-생성하기)
+            - [도메인 개념정리](#도메인-개념정리)
+            - [도메인 무료 생성](#도메인-무료-생성)
+        - [DNS 형성하기](#dns-형성하기)
+            - [DNS 개념정리](#dns-개념정리)
+            - [DNS 생성](#dns-생성)
+        - [가상 네트워크(VCN) 생성](#가상-네트워크vcn-생성)
+        - [가상 서버 컴퓨터(Virtual Machine, Compute Instance) 생성](#가상-서버-컴퓨터virtual-machine-compute-instance-생성)
+            - [VM 개념정리](#vm-개념정리)
+            - [① VM 생성하기](#-vm-생성하기)
+            - [② API Gateway 연동(유료)](#-api-gateway-연동유료)
+        - [커스텀 도메인(SSL 인증서 포함)을 연결하는 작업이 필요합니다.](#커스텀-도메인ssl-인증서-포함을-연결하는-작업이-필요합니다)
+    - [OCI 응용하기](#oci-응용하기)
+        - [주소 설정](#주소-설정)
 
 ## 개요
 
@@ -319,7 +319,16 @@ nginx 을 설치해야합니다.
 
 &nbsp; 로그인 시 `클라우드 계정 이름`, `사용자 이름 또는 전자메일`, `비밀번호`를 요구하므로 잊으시면 안됩니다.
 
-&nbsp; 계정 생성시에, 홈지역은 본인 국가나 그 주변 국가를 선택해야 최저 지연 시간을 보장하므로 유리하며, 아시아권에선 항상 무난한 곳이 싱가포르입니다.
+&nbsp; 계정 생성시에, 홈지역은 본인 국가나 그 주변 국가를 선택해야 최저 지연 시간을 보장하므로 유리하지만, 사용자들의 수와 해당 국가 서비스의 자원 보유량에 따라서 무료계정으로 자원을 확보하는 난이도가 달라지기 때문에 이 부분도 고려해야합니다. 대한민국 기준에선 다음과 같습니다.
+
+-   <table>
+    <tr><th>리전명</th><th>한국 기준 평균 지연시간</th><th>Free Tier VM 확보 난이도</th><th>추천도</th></tr>
+    <tr><td>Japan East (Tokyo, ap-tokyo-1)</td><td>약 30~50ms</td><td>중간</td><th>★★★★★</th></tr>
+    <tr><td>Japan Central (Osaka, ap-osaka-1)</td><td>약 35~60ms</td><td>중간~높음</td><th>★★★★☆</th></tr>
+    <tr><td>South Korea Central (Seoul, ap-seoul-1)</td><td>약 5~15ms</td><td>매우 높음(경쟁 심함)</td><th>★★★☆☆</th></tr>
+    <tr><td>Singapore (ap-singapore-1)</td><td>약 70~100ms</td><td>매우 높음(경쟁 심함)</td><th>★★☆☆☆</th></tr>
+    <tr><td>Australia East (Sydney)</td><td>약 120ms</td><td>비교적 여유</td><th>★★☆☆☆</th></tr>
+    </table>
 
 &nbsp; 주소지는 대한민국 기준
 
@@ -873,7 +882,7 @@ Create instance 창에 적절한 값들을 넣어주세요. 각 값의 의미는
 -   Review
     &nbsp; 전체 옵션 선택지 사항들을 다시 한번 검토합니다.
 
-#### 500 Error: Out of capacity
+#### Error: 500 Out of capacity
 
 -   :rotating_light: $\color{#FF9922} \footnotesize \textnormal{500 Error}$ 란?
     
@@ -886,7 +895,7 @@ Create instance 창에 적절한 값들을 넣어주세요. 각 값의 의미는
     
     &nbsp; 될때까지 반복실행을 하고자 한다면 이제까지의 생성 단계를 매번 다시 지정하는 것은 효율이 너무 떨어집니다.
 
-    &nbsp; 위의 VM 생성 단계에서 Review 단계까지 갔을 경우에 <kbd>Save as stack</kbd> 을 누르면 현 요청이 테라폼(Terraform) 코드로 OCI 내부에 저장하는 창으로 넘어갑니다. Custom provider(외부 도구나 커스텀 플러그인이 사용되는지 체크) 같이 신경 쓸 필요없는 값들 입니다. <kbd>Next</kbd>와 <kbd>Create</kbd> 눌러 다음으로 넘어가면 됩니다. 이렇게 생성한 Stack 들은 밑의 경로를 따라 접근할 수 있습니다.
+    &nbsp; 위의 VM 생성 단계에서 Review 단계까지 갔을 경우에 <kbd>Save as stack</kbd> 을 누르면 현 요청이 테라폼(Terraform) 코드로 OCI 내부에 저장하는 창으로 넘어갑니다. Custom provider(외부 도구나 커스텀 플러그인이 사용되는지 체크) 같이 신경 쓸 필요없는 값들 입니다. <kbd>Next</kbd>와 <kbd>Create</kbd> 눌러 다음으로 넘어가면 됩니다. 이름 또한 대강 `stk-firstStaticWeb-dev-web` 등 어떻게 지어도 상관없습니다. 이렇게 생성한 Stack 들은 밑의 경로를 따라 접근할 수 있습니다.
 
     &nbsp; OCI 메인 화면 좌측상단 <kbd>☰</kbd> 버튼을 눌러 네비게이션 메뉴를 열고
     -> `Developer Services` 
@@ -995,28 +1004,211 @@ Create instance 창에 적절한 값들을 넣어주세요. 각 값의 의미는
 
     성공시엔 `{ "data": "...", }` 라는 정보를 담은 json 배열이 오며, 실패시엔 `ServiceError { ... }` 에러데이터 json 배열이 반환됩니다.
 
-    성공적이라면 이제 다음의 명령어로 무한루프를 돌 수 있습니다.
+    성공적이라면 이제 다음의 명령어로 무한루프를 돌 수 있습니다. 텍스트 파일에 다음 코드를 복사 붙여넣기 한 뒤, 확장자 명을 ".txt" 에서 ".ps1" 으로 바꿔준 다음에, 해당 디렉터리에 파워쉘을 열고 `./『텍스트_파일_이름』.ps1` 을 입력하여 해당 명령을 내릴 수 있습니다. 『YOUR_STACK_OCID』부분은 작업할 stack 의 ocid 를 넣어주세요.
 
     ```ps1
-    # 본인의 Stack OCID를 입력하세요
-    $StackId = "ocid1.ormstack.oc1.ap-singapore-1.xxxxxxxxxxxxxx"
+    # ===========================================================
+    # OCI Resource Manager Auto Apply
+    # Version 2.0.4
+    # ===========================================================
 
-    while ($true) {
-        Write-Host "--- [$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] VM 생성 시도 시작 ---" -ForegroundColor Cyan
-        
-        # OCI CLI 실행 후 결과 상태 변수에 저장
-        $JobStatus = oci resource-manager job create --stack-id $StackId --operation APPLY --wait-for-state SUCCEEDED --wait-for-state FAILED --query "data.`"lifecycle-state`"" --raw-output 2>$null
-        
-        if ($JobStatus -eq "SUCCEEDED") {
-            [System.Media.SystemSounds]::Beep.Play() # 윈도우 알림음 재생
-            Write-Host "=========================================" -ForegroundColor Green
-            Write-Host "🎉 축하합니다! VM 인스턴스 생성에 성공했습니다!" -ForegroundColor Green
-            Write-Host "=========================================" -ForegroundColor Green
-            break # 루프 종료
-        } else {
-            Write-Host "--- 재고 부족으로 실패. 60초 후 재시도합니다... ---" -ForegroundColor Yellow
-            Start-Sleep -Seconds 60
+    Write-Host "# OCI Resource Manager Auto Apply"
+
+    # Loop counter
+    $LoopCount = 0
+
+    # Stack OCID
+    $StackId = "『YOUR_STACK_OCID』"
+
+    # Retry interval
+    $RetrySeconds = 120
+
+    # OCI wait option
+    $WaitInterval = 60
+    $MaxWait = 86400
+
+
+    function Invoke-Oci
+    {
+        param(
+            [string[]]$Command
+        )
+
+        # $err = Join-Path $env:TEMP "oci_err.txt"
+        $err = Join-Path $PSScriptRoot "oci_err.txt"
+
+        if(Test-Path $err)
+        {
+            Remove-Item $err -Force
         }
+
+        Write-Host "[COMMAND]:"
+        $Command | ForEach-Object { Write-Host "  $_" }
+
+        $out = & oci @Command 2>$err
+
+        $stderr = ""
+
+        if(Test-Path $err)
+        {
+            $stderr = Get-Content $err -Raw
+            Remove-Item $err -Force
+        }
+
+        $stdout = ($out | Out-String).Trim()
+
+        return @{
+            ExitCode = $LASTEXITCODE
+            StdOut   = $stdout
+            StdErr   = $stderr
+        }
+    }
+
+    while($true)
+    {
+        $LoopCount++
+        Write-Host ""
+        Write-Host "================================================================"
+        Write-Host "## LOOP START"
+        Write-Host ""
+        Write-Host "[COUNT]: $LoopCount"
+        Write-Host "[DATE] : $(Get-Date)"
+
+        Write-Host ""
+        Write-Host "### CREATE PLAN"
+        Write-Host ""
+
+        $plan = Invoke-Oci -Command @(
+            "resource-manager"
+            "job"
+            "create-plan-job"
+            "--stack-id"
+            $StackId
+            "--wait-for-state"
+            "SUCCEEDED"
+            "--wait-for-state"
+            "FAILED"
+            "--wait-for-state"
+            "CANCELED"
+            "--wait-interval-seconds"
+            $WaitInterval
+            "--max-wait-seconds"
+            $MaxWait
+        )
+
+        if($plan.ExitCode -ne 0)
+        {
+            Write-Host ""
+            Write-Host "#### PLAN CREATE ERROR"
+            Write-Host $plan.StdErr
+
+            Start-Sleep $RetrySeconds
+            continue
+        }
+
+        try
+        {
+            $planJson = $plan.StdOut | ConvertFrom-Json
+        }
+        catch
+        {
+            Write-Host "#### Invalid PLAN JSON"
+            Write-Host $plan.StdOut
+
+            Start-Sleep $RetrySeconds
+            continue
+        }
+
+        $PlanJobId = $planJson.data.id
+        $PlanState = $planJson.data."lifecycle-state"
+
+        Write-Host ""
+        Write-Host "[PLAN JOB]: $PlanJobId"
+        Write-Host "[STATE]   : $PlanState"
+
+        if($PlanState -ne "SUCCEEDED")
+        {
+            Write-Host ""
+            Write-Host "#### PLAN FAILED"
+
+            Start-Sleep $RetrySeconds
+            continue
+        }
+
+        Write-Host ""
+        Write-Host "### CREATE APPLY"
+        Write-Host ""
+
+        $apply = Invoke-Oci -Command @(
+            "resource-manager"
+            "job"
+            "create-apply-job"
+            "--stack-id"
+            $StackId
+            "--execution-plan-strategy"
+            "FROM_PLAN_JOB_ID"
+            "--execution-plan-job-id"
+            $PlanJobId
+            "--wait-for-state"
+            "SUCCEEDED"
+            "--wait-for-state"
+            "FAILED"
+            "--wait-for-state"
+            "CANCELED"
+            "--wait-interval-seconds"
+            $WaitInterval
+            "--max-wait-seconds"
+            $MaxWait
+        )
+
+        if($apply.ExitCode -ne 0)
+        {
+            Write-Host ""
+            Write-Host "#### APPLY CREATE ERROR"
+            Write-Host $apply.StdErr
+
+            Start-Sleep $RetrySeconds
+            continue
+        }
+
+        try
+        {
+            $applyJson = $apply.StdOut | ConvertFrom-Json
+        }
+        catch
+        {
+            Write-Host "#### Invalid APPLY JSON"
+            Write-Host $apply.StdOut
+
+            Start-Sleep $RetrySeconds
+            continue
+        }
+
+        # Write-Host ($applyJson.data | ConvertTo-Json -Depth 100)
+        # exit 0
+
+        $ApplyState = $applyJson.data."lifecycle-state"
+
+        Write-Host ""
+        Write-Host "[APPLY STATE]: $ApplyState"
+
+        if($ApplyState -eq "SUCCEEDED")
+        {
+            Write-Host ""
+            Write-Host "#### STACK APPLY SUCCEEDED"
+            exit 0
+        }
+
+        $FailureCode = $applyJson.data."failure-details".code
+        $FailureMsg  = $applyJson.data."failure-details".message
+
+        Write-Host ""
+        Write-Host "#### APPLY FAILED"
+        Write-Host "[CODE]   : $FailureCode"
+        Write-Host "[MESSAGE]: $FailureMsg"
+        Write-Host "Retry from PLAN..."
+
+        Start-Sleep $RetrySeconds
     }
     ```
 
@@ -1048,7 +1240,7 @@ Create instance 창에 적절한 값들을 넣어주세요. 각 값의 의미는
     done
     ```
 
-#### 400 Error: Parameter 'applyJobPlanResolution' is not valid.
+#### Error: 400 Parameter 'applyJobPlanResolution' is not valid.
 
 400 에러는 스택에 정의된 인프라 계획을 적용할 때 안전장치(Resolution) 옵션이 빠져서 HTTP 400 (잘못된 요청) 에러를 뱉은 것입니다.
 
@@ -1072,7 +1264,7 @@ $RawResult = oci resource-manager job create --stack-id $StackId --operation APP
 
 보통 자동 매크로에서는 이전에 빌드해 둔 가장 최근의 성공적인 계획을 기반으로 인스턴스를 올리도록 지정하는 EXECUTE_PLAN 값을 부여합니다.
 
-#### 429 Error: Too many requests
+#### Error: 429 Too many requests
 
 ```ps1
 Stop-Process -Name "oci" -Force -ErrorAction SilentlyContinue
