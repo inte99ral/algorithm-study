@@ -1,14 +1,21 @@
-# Windows OS：윈도우
+# _ETC_：Windows 기타 사항
 
 ## 목차
 
--   [Windows OS：윈도우](#windows-os윈도우)
+-   [_ETC_：Windows 기타 사항](#etcwindows-기타-사항)
     -   [목차](#목차)
     -   [시작하기](#시작하기)
         -   [시작과 작업표시줄 설정](#시작과-작업표시줄-설정)
             -   [작업표시줄](#작업표시줄)
+            -   [위젯](#위젯)
             -   [시작](#시작)
+            -   [시작 앱 설정](#시작-앱-설정)
+            -   [윈도우 터미널 단축키 설정](#윈도우-터미널-단축키-설정)
         -   [One drive 체크](#one-drive-체크)
+            -   [OneDrive 단순 백업 해제](#onedrive-단순-백업-해제)
+            -   [OneDrive 경로 레지스트리 편집](#onedrive-경로-레지스트리-편집)
+            -   [OneDrive 자동 실행 방지](#onedrive-자동-실행-방지)
+        -   [속도 및 보안성 개선](#속도-및-보안성-개선)
         -   [OS 체크](#os-체크)
         -   [드라이버 체크](#드라이버-체크)
             -   [그래픽카드](#그래픽카드)
@@ -20,19 +27,15 @@
         -   [임시 파일 정리 및 최적화](#임시-파일-정리-및-최적화)
         -   [설치 파일 정리](#설치-파일-정리)
         -   [안전모드 부팅](#안전모드-부팅)
-        -   [시작 앱 설정](#시작-앱-설정)
         -   [배터리 성능 확인](#배터리-성능-확인)
         -   [터치 패드 먹통](#터치-패드-먹통)
+        -   [윈도우 듀얼쇼크4 연동](#윈도우-듀얼쇼크4-연동)
         -   [프린터 대기열 오류 해결방법](#프린터-대기열-오류-해결방법)
         -   [Windows OS 찌꺼기 정리](#windows-os-찌꺼기-정리)
-            -   [NVIDIA 그래픽 캐시파일](#nvidia-그래픽-캐시파일)
-            -   [Windows 프로그램 임시 파일](#windows-프로그램-임시-파일)
-            -   [Windows 시스템 임시 파일](#windows-시스템-임시-파일)
-            -   [Windows MS스토어 임시 파일](#windows-ms스토어-임시-파일)
-            -   [디스크 파일 정리](#디스크-파일-정리)
-            -   [windows 이미지 손상 관리](#windows-이미지-손상-관리)
-            -   [windows 시스템 손상 관리](#windows-시스템-손상-관리)
-        -   [기타 파일 정리](#기타-파일-정리)
+            -   [기타 파일 정리](#기타-파일-정리)
+            -   [임시 데이터 정리](#임시-데이터-정리)
+            -   [Windows OS 이미지 손상 관리](#windows-os-이미지-손상-관리)
+            -   [Windows OS 무결성 확인](#windows-os-무결성-확인)
             -   [디스크 정리](#디스크-정리)
             -   [레지스트리 정리](#레지스트리-정리)
             -   [레지스트리 백업](#레지스트리-백업)
@@ -58,6 +61,27 @@
 
 &nbsp; 작업표시줄에 우클릭을 하여 `작업표시줄 설정` 으로 진입하여 작업표시줄을 커스텀 할 수 있습니다.
 
+#### 위젯
+
+&nbsp; 윈도우즈 11 에선 좌측 화면 슬라이드터치 나 <kbd>Win</kbd> + <kbd>W</kbd> 명령어로 위젯 화면을 킬 수 있습니다. 다만 이것이 환경 자원을 소모하고 작업 중 방해가 될 수 있습니다.
+
+&nbsp; 다음의 방법으로 Widgets 항목이 작동하지 않게 만들거나 반대로 작동하게 만들 수 있습니다.
+
+-   `작업 표시줄 설정` 에서 항목 목록 중, 위젯 항목 토글을 '끔'으로 변경
+
+-   <kbd>Win</kbd> + <kbd>X</kbd> 입력 (또는, 작업표시줄 윈도우즈 로고 우클릭) 후 터미널(관리자) 기동. 다음의 명령어로 Widget 관련 패키지를 제거합니다.
+
+    ```bash
+    # winget 패키지 관리자가 있을 경우
+    winget uninstall "Windows Web Experience Pack"
+    # 내 계정에서만 삭제하려고 할 경우
+    Get-AppxPackage *WebExperience* | Remove-AppxPackage
+    # 모든 계정에서 싹 밀어버리려고 할 경우
+    Get-AppxPackage -AllUsers *WebExperience* | Remove-AppxPackage -AllUsers
+    ```
+
+    몇 초 후 아무 메시지 없이 다음 입력 줄로 넘어가지면 정상적으로 제거된 것입니다.
+
 #### 시작
 
 &nbsp; 작업표시줄의 윈도우 로고에 우클릭 -> `설정` -> `개인 설정` -> `시작` 항목에서 시작 팝업 박스의 설정을 할 수 있습니다.
@@ -66,9 +90,67 @@
 
 &nbsp; 시작 검색창에 `제어판` 을 검색 후, 시작 화면에 고정해두면 편합니다.
 
+#### 시작 앱 설정
+
+&nbsp; Windows OS 가 시작될 때, 자동으로 실행되는 프로그램들을 미리 지정해두면 편합니다. (예시: 스티커 메모)
+
+-   탐색기 주소창에
+    -   shell:appsfolder 입력하여 앱들의 바로가기 폴더에 접근가능
+    -   shell:startup 입력하여 바로가기 폴더를 생성하면 시작프로그램으로 기동합니다.
+
+#### 윈도우 터미널 단축키 설정
+
+&nbsp; 작업표시줄 윈도우즈 로고 우클릭으로도 터미널에 접근 가능합니다. 하지만 마우스 동작이 귀찮을 때, 단축키 접근이 편합니다.
+
+-   시작에서 powershell or cmd 중 선호하는 터미널 검색
+-   우클릭 "파일 위치 열기"
+-   해당 파일에 우클릭->추가옵션표시->바로가기 파일을 두 개를 만들어줍니다.
+-   첫번째 바로가기 파일에<br/>`-⇀`우클릭 속성 `-⇀` 바로가기 키를 클릭하고 단축키 Crtl + Alt + T 를 입력합니다.
+-   두번째 바로가기 파일에<br/>`-⇀`우클릭 속성 `-⇀` 바로가기 키를 클릭하고 단축키 Crtl + Alt + Shift + T 를 입력합니다.<br/>`-⇀`우클릭 속성 `-⇀` 고급에 관리자 권한으로 실행 체크합니다.
+-   파워쉘이 켜지면 우클릭 `-⇀` 속성의 편집옵션 항목에서 Ctrl+Shift+C/V 복사 붙여넣기 항목에 체크해주면 복사 붙여넣기를 쉽게 할 수 있습니다.
+
 ### One drive 체크
 
 &nbsp; 의도하지 않은 공유가 일어나지 않도록 사전에 One drive 설정을 조정해야 합니다.
+
+#### OneDrive 단순 백업 해제
+
+-   시작 메뉴에서 검색창에 OneDrive 검색 후 선택
+-   탐색기 창으로 팝업되는 OneDrive 폴더에 상단 경로 쪽에 OneDrive 클릭
+-   OneDrive 메뉴 설정(톱니바퀴 모양) 클릭
+-   `우측 탭 동기화 및 백업 > 백업 관리` 에서 모든 파일 해제
+-   `우측 탭 계정 > 폴더 선택` 에서 백업할 폴더만 선택
+
+#### OneDrive 경로 레지스트리 편집
+
+&nbsp; 바탕화면, 유저, 사진 폴더가 OneDrive 폴더로 연결되는 경로를 수정합니다.
+
+-   `Win + R` 을 눌러 실행 창을 열고, regedit를 입력하여 레지스트리 편집기를 실행합니다.
+-   `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders` 로 이동합니다.
+-   `Desktop`, `Personal`, `My Pictures` 항목을 찾아 값 데이터를 각각
+
+    -   `%USERPROFILE%\Desktop`
+    -   `%USERPROFILE%\Documents`
+    -   `%USERPROFILE%\Pictures`
+
+    로 수정합니다.
+
+#### OneDrive 자동 실행 방지
+
+&nbsp; OneDrive가 자동으로 실행되지 않도록 설정하여 불필요한 동기화를 방지할 수 있습니다.
+
+-   `Ctrl + Shift + del` 를 눌러 작업 관리자를 엽니다.
+-   상단의 `시작 프로그램` 탭을 클릭합니다.
+-   목록에서 **'Microsoft OneDrive'**를 찾아 우클릭한 후, **'사용 안 함'**을 선택합니다.
+
+### 속도 및 보안성 개선
+
+-   `설정 > 네트워크 및 인터넷 > 프록시` 에서 `자동으로 설정 검색` 끄기
+-   `설정 > 개인 설정 > 시작` 에서 `팁, 바로가기, 새 앱 등에 대한 권장 사항 표시` 끄기
+-   `설정 > 개인 정보 및 보안 > 일반` 에서
+    -   `내 광고 ID를 사용하여 앱에서 개인 설정된 광고를 표시하도록 허용` 끄기
+    -   `Windows에서 앱 시작을 추적해서 시작 및 검색 결과를 개선할 수 있게 해 주세요.` 끄기 (대신 명령어 목록 같은 것이 남지 않게되서 불편할 수는 있습니다)
+    -   `앱 설정 시 제안되는 내용 표시` 끄기
 
 ### OS 체크
 
@@ -123,13 +205,6 @@
 
 &nbsp; 옵션 목록에서 안전모드에 해당하는 키를 누르면 됩니다.
 
-### 시작 앱 설정
-
-탐색기 주소에서
-
--   shell:appsfolder 입력하여 앱들의 바로가기 폴더에 접근가능
--   shell:startup 입력하여 시작프로그램 설정가능
-
 ### 배터리 성능 확인
 
 cmd -> powercfg/batteryreport
@@ -147,9 +222,21 @@ Synaptics 드라이버 설치
 
 레지스트리 값에서 비활성된 값 조정
 
-<https://danantonielli.com/two-finger-tap-right-click-on-synaptic-touchpad/>
+[관련 링크](https://danantonielli.com/two-finger-tap-right-click-on-synaptic-touchpad/)
+
+### 윈도우 듀얼쇼크4 연동
+
+-   [구 깃허브 링크(지원 중단)](https://github.com/Ryochan7/DS4Windows/releases)
+-   [현 프로젝트 링크](https://ds4-windows.com/)
+
+추가 설명
+
+-   [기본설명](https://arca.live/b/zenlesszonezero/112310267)
+-   [진동오게하는법](https://arca.live/b/zenlesszonezero/111325954)
 
 ### 프린터 대기열 오류 해결방법
+
+-   [관련 링크](https://support.hp.com/kr-ko/document/c04746618)
 
 &nbsp; 프린터 스풀러 기능에 문제가 발생하였을 경우 프린터 인쇄 대기열에 문서가 계속 쌓일 뿐 아니라 취소 또한 불가능해집니다.
 
@@ -182,40 +269,7 @@ Synaptics 드라이버 설치
 
 ### Windows OS 찌꺼기 정리
 
-#### NVIDIA 그래픽 캐시파일
-
--   `win + r` 명령어로 실행창을 띄우고 `%localappdata%\nvidia` 입력
--   DXCache 와 GLCache 폴더 내부의 캐시 파일들을 삭제합니다.
-
-#### Windows 프로그램 임시 파일
-
--   `win + r` 명령어로 실행창을 띄우고 `%temp%` 입력
--   내부의 임시 파일들을 삭제합니다.
-
-#### Windows 시스템 임시 파일
-
--   `win + r` 명령어로 실행창을 띄우고 `temp` 입력
--   내부의 임시 파일들을 삭제합니다.
-
-#### Windows MS스토어 임시 파일
-
--   `win + r` 명령어로 실행창을 띄우고 `wsreset.exe` 입력
--   명령어 입력후 자동으로 마이크로소프트 스토어 캐시를 삭제합니다.
-
-#### 디스크 파일 정리
-
--   `win + r` 명령어로 실행창을 띄우고 `cleanmgr` 입력
--   상황에 따라 체크박스를 선택하고 정리합니다.
-
-#### windows 이미지 손상 관리
-
-  cmd 터미널에서 `DISM /Online /Cleanup-image /restorehealth` 명령어 입력
-
-#### windows 시스템 손상 관리
-
-  cmd 터미널에서 `sfc /scannow` 명령어 입력
-
-### 기타 파일 정리
+#### 기타 파일 정리
 
 -   `Revo Uninstaller`, `CCleaner`, `auslogics disk defrag` 와 같은 검증된 최적화 프로그램에 포함된 디스크 및 레지스트리 클리너 기능을 사용합니다.
 
@@ -225,6 +279,31 @@ Synaptics 드라이버 설치
     -   작업 관리자 상단 메뉴에서 **파일(File)**을 클릭한 후, **새 작업 실행(Run new task)**을 선택합니다.
     -   `explorer.exe` 를 입력하고 <u><b>관리자 권한으로 이 작업 실행(Create this task with administrative privileges)</u></b> 옵션을 체크합니다.
     -   확인을 클릭하고 사용자 계정 컨트롤(UAC) 창이 뜨면 예를 클릭하여 관리자 권한을 부여합니다.
+
+#### 임시 데이터 정리
+
+-   `Win + R` 입력으로 실행창 키고
+    -   실행창에 `temp` 입력. 내부 범용 임시파일 삭제
+    -   실행창에 `%temp%` 입력. 내부 Windows 앱 임시파일 삭제
+    -   실행창에 `%localappdata%\nvidia` 입력. DXCache와 GLCache 폴더 내부 NVIDIA 그래픽 캐시파일 삭제
+    -   실행창에 `wsreset.exe` 입력. 마이크로소프트 스토어 캐시파일 삭제
+    -   실행창에 `cleanmgr` 입력. 나오는 창의 체크박스를 선택하여 디스크 파일 정리
+
+#### Windows OS 이미지 손상 관리
+
+-   관리자 권한으로 터미널창을 띄워 이미지 기반 손상 관리를 시도합니다.
+    
+    ```bash
+    DISM /Online /Cleanup-image /restorehealth
+    ```
+
+#### Windows OS 무결성 확인
+
+-   관리자 권한으로 터미널창을 띄워 SFC(System File Checker)의 도움을 받으면 됩니다.
+    
+    ```bash
+    sfc /scannow
+    ```
 
 #### 디스크 정리
 

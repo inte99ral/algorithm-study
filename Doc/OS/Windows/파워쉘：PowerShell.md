@@ -13,6 +13,8 @@
     -   [스크립트 예시](#스크립트-예시)
         -   [키보드 입력 받기](#키보드-입력-받기)
     -   [명령 대체：Command Substitution](#명령-대체command-substitution)
+    -   [루프](#루프)
+        -   [라벨](#라벨)
     -   [배열：Array](#배열array)
         -   [배열 생성](#배열-생성)
         -   [배열 읽기](#배열-읽기)
@@ -40,6 +42,10 @@
         -   [MSYS2 쉘 호출](#msys2-쉘-호출)
         -   [MSYS2 쉘 호출 함수 설치](#msys2-쉘-호출-함수-설치)
         -   [문자열에서 JSON 검출](#문자열에서-json-검출)
+            -   [단일 단순 JSON(배열 인식 불가, 밑에서 첫번째) 파싱](#단일-단순-json배열-인식-불가-밑에서-첫번째-파싱)
+            -   [단일 단순 JSON(배열 인식 불가, 위에서 첫번째) 파싱](#단일-단순-json배열-인식-불가-위에서-첫번째-파싱)
+            -   [단일 복합 JSON(배열 포함, 위에서 첫번째) 파싱](#단일-복합-json배열-포함-위에서-첫번째-파싱)
+            -   [전체 JSON(문자열 전체 JSON 배열) 파싱](#전체-json문자열-전체-json-배열-파싱)
         -   [OCI CLI STACK 무한 요청](#oci-cli-stack-무한-요청)
 
 ## 개요
@@ -177,6 +183,26 @@ if ($answer -eq "Y" -or $answer -eq "y") {
 
 ```ps
 Echo "TEST : $(gcc -v)"
+```
+
+## 루프
+
+### 라벨
+
+파워쉘에서는 switch 문이 루프문 취급이거나 탈출조건이 꼬이는 등 어셈블리 언어 작업과는 프로세스 제어 방법이 다를 때가 있습니다.
+
+이 경우, 복잡하게 코드를 꼬는 것 보다 goto 문법처럼 라벨링을 하는 것이 낫습니다.
+
+```ps1
+:myLabel while (<condition 1>) {
+  foreach ($item in $items) {
+    if (<condition 2>) {
+      break myLabel
+    }
+    $item = $x   # A statement inside the For-loop
+  }
+}
+$a = $c  # A statement after the labeled While-loop
 ```
 
 ## 배열：Array
@@ -1289,142 +1315,304 @@ Read-Host
 
 ### 문자열에서 JSON 검출
 
+#### 단일 단순 JSON(배열 인식 불가, 밑에서 첫번째) 파싱
+
 ```ps1
-<#
-    @description
-        # Extract-Json
-
-        ## Abstract
-            Extracts the first valid JSON object from a string.
-    
-    @example
-        $strJson = Extract-Json $str
-        Write-Host "[Extracted JSON] : `n$($strJson.'key' | ConvertTo-Json -Depth 100)`n`n"
-
-    @author
-        inte99ral@gmail.com
-    
-    @version v1.0.1
-#>
-function Extract-Json
-{
+# * reverse
+function Extract-Json-Reverse {
+    [CmdletBinding()]
     param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory=$true, ValueFromPipeline=$true)]
         [string]$Text
     )
 
-    $chars = $Text.ToCharArray()
-    $length = $chars.Length
+    process {
+        $chars = $Text.ToCharArray()
+        $end = $Text.LastIndexOf('}')
 
-    # * find the first occurrence of '{' or '['
-    $OpenChars = [char[]]@('{', '[')
-    $start = $Text.IndexOfAny($OpenChars)
+        while ($end -ge 0) {
+            $depth = 0
+            $inString = $false
+            $escaped = $false
 
-    # * "other solution" to find the first occurrence of '{' or '['
-    # $idxObj = $Text.IndexOf('{')
-    # $idxArr = $Text.IndexOf('[')
-    # if ($idxObj -ge 0 -and $idxArr -ge 0) {
-    #     $start = [Math]::Min($idxObj, $idxArr)
-    # } elseif ($idxObj -ge 0) {
-    #     $start = $idxObj
-    # } else {
-    #     $start = $idxArr
-    # }
+            for ($i = $end; $i -ge 0; $i--) {
+                $char = $chars[$i]
 
-    while ($start -ge 0 -and $start -lt $length)
-    {
-        $openChar = $chars[$start]
+                if ($inString) {
+                    if ($escaped) {
+                        $escaped = $false
+                        continue
+                    }
 
-        # * set the corresponding closing character
-        $closeChar = if ($openChar -eq '{') { '}' } else { ']' }
+                    if ($char -eq '\') {
+                        $escaped = $true
+                        continue
+                    }
 
-        $depth = 0
-        $inString = $false
-        $escaped = $false
+                    if ($char -eq '"') {
+                        $inString = $false
+                    }
 
-        for ($i = $start; $i -lt $length; $i++)
-        {
-            $char = $chars[$i]
-
-            # * check in-string case
-            if ($inString)
-            {
-                if ($escaped)
-                {
-                    $escaped = $false
                     continue
                 }
 
-                if ($char -eq '\')
+                if ($char -eq '"') {
+                    $inString = $true
+                    continue
+                }
+
+                if ($char -eq '}') {
+                    $depth++
+                    continue
+                }
+
+                if ($char -eq '{') {
+                    $depth--
+
+                    if ($depth -eq 0) {
+                        $candidate = $Text.Substring($i, $end - $i + 1)
+                        try { return ($candidate | ConvertFrom-Json) }
+                        catch { break }
+                    }
+                }
+            }
+
+            $end = $Text.LastIndexOf('}', $end - 1)
+        }
+
+        throw "Can't find valid JSON object"
+    }
+}
+
+$str1 = @'
+    header: Content-Type: application/json
+    header: X-Content-Type-Options: nosniff
+    {
+        "data-json": 
+        {
+            "foo": 
+            {
+                "bar": "forward"
+            }
+        }
+    }
+    reply: 'HTTP/1.1 200 OK\r\n'
+    header: Cache-Control: no-cache, no-store, must-revalidate
+    header: Content-Security-Policy: default-src 'self'; object-src 'none';
+    header: Content-Encoding: gzip
+    header: Vary: Origin, Accept-Encoding
+    header: Pragma: no-cache
+    {
+        "data-json": 
+        {
+            "foo": 
+            {
+                "bar": "reverse"
+            }
+        }
+    }
+'@
+
+$strJson1 = $str1 | Extract-Json-Reverse
+Write-Host "[Extracted JSON reverse] : `n$($strJson1.'data-json' | ConvertTo-Json -Depth 100)`n`n"
+```
+
+#### 단일 단순 JSON(배열 인식 불가, 위에서 첫번째) 파싱
+
+```ps1
+# * forward
+function Extract-Json-Simple {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory=$true, ValueFromPipeline=$true)]
+        [string]$Text
+    )
+
+    process {
+        $chars = $Text.ToCharArray()
+        $start = $Text.IndexOf('{')
+
+        while ($start -ge 0 -and $start -lt $chars.Length) {
+            $depth = 0
+            $inString = $false
+            $escaped = $false
+
+            for ($i = $start; $i -lt $chars.Length; $i++) {
+                $char = $chars[$i]
+
+                if ($inString) {
+                    if ($escaped) {
+                        $escaped = $false
+                        continue
+                    }
+
+                    if ($char -eq '\') {
+                        $escaped = $true
+                        continue
+                    }
+
+                    if ($char -eq '"') {
+                        $inString = $false
+                    }
+
+                    continue
+                }
+
+                if ($char -eq '"') {
+                    $inString = $true
+                    continue
+                }
+
+                if ($char -eq '{') {
+                    $depth++
+                    continue
+                }
+
+                if ($char -eq '}') {
+                    $depth--
+
+                    if ($depth -eq 0) {
+                        $candidate = $Text.Substring($start, $i - $start + 1)
+                        try { return ($candidate | ConvertFrom-Json) }
+                        catch { break }
+                    }
+                }
+            }
+
+            $start = $Text.IndexOf('{', $start + 1)
+        }
+
+        throw "Can't find valid JSON object"
+    }
+}
+
+$str1 = @'
+    header: Content-Type: application/json
+    header: X-Content-Type-Options: nosniff
+    {
+        "data-json": 
+        {
+            "foo": 
+            {
+                "bar": "forward"
+            }
+        }
+    }
+    reply: 'HTTP/1.1 200 OK\r\n'
+    header: Cache-Control: no-cache, no-store, must-revalidate
+    header: Content-Security-Policy: default-src 'self'; object-src 'none';
+    header: Content-Encoding: gzip
+    header: Vary: Origin, Accept-Encoding
+    header: Pragma: no-cache
+    {
+        "data-json": 
+        {
+            "foo": 
+            {
+                "bar": "reverse"
+            }
+        }
+    }
+'@
+
+$strJson1 = $str1 | Extract-Json-Simple
+Write-Host "[Extracted JSON forward] : `n$($strJson1.'data-json' | ConvertTo-Json -Depth 100)`n`n"
+```
+
+#### 단일 복합 JSON(배열 포함, 위에서 첫번째) 파싱
+
+```ps1
+function Extract-Json-Single
+{
+    [CmdletBinding()]
+    param(
+        # ValueFromPipeline=$true 속성 추가
+        [Parameter(Mandatory=$true, ValueFromPipeline=$true)]
+        [string]$Text
+    )
+
+    # 파이프라인으로 들어오는 각 아이템을 처리하기 위해 process 블록 사용
+    process
+    {
+        $chars = $Text.ToCharArray()
+        $length = $chars.Length
+
+        $OpenChars = [char[]]@('{', '[')
+        $start = $Text.IndexOfAny($OpenChars)
+
+        while ($start -ge 0 -and $start -lt $length)
+        {
+            $openChar = $chars[$start]
+            $closeChar = if ($openChar -eq '{') { '}' } else { ']' }
+
+            $depth = 0
+            $inString = $false
+            $escaped = $false
+
+            for ($i = $start; $i -lt $length; $i++)
+            {
+                $char = $chars[$i]
+
+                if ($inString)
                 {
-                    $escaped = $true
+                    if ($escaped)
+                    {
+                        $escaped = $false
+                        continue
+                    }
+
+                    if ($char -eq '\')
+                    {
+                        $escaped = $true
+                        continue
+                    }
+
+                    if ($char -eq '"')
+                    {
+                        $inString = $false
+                    }
+
                     continue
                 }
 
                 if ($char -eq '"')
                 {
-                    $inString = $false
+                    $inString = $true
+                    continue
                 }
 
-                continue
-            }
-
-            # * find '"' to enter in-string mode
-            if ($char -eq '"')
-            {
-                $inString = $true
-                continue
-            }
-
-            # * find opening character
-            if ($char -eq $openChar)
-            {
-                $depth++
-                continue
-            }
-
-            # * find closing character
-            if ($char -eq $closeChar)
-            {
-                $depth--
-
-                if ($depth -eq 0)
+                if ($char -eq $openChar)
                 {
-                    $candidate = $Text.Substring($start, $i - $start + 1)
+                    $depth++
+                    continue
+                }
 
-                    try
+                if ($char -eq $closeChar)
+                {
+                    $depth--
+
+                    if ($depth -eq 0)
                     {
-                        return ($candidate | ConvertFrom-Json)
-                    }
-                    catch
-                    {
-                        # * candidate was not valid JSON
-                        break
+                        $candidate = $Text.Substring($start, $i - $start + 1)
+
+                        try
+                        {
+                            return ($candidate | ConvertFrom-Json)
+                        }
+                        catch
+                        {
+                            break
+                        }
                     }
                 }
             }
+
+            $start = $Text.IndexOfAny($OpenChars, $start + 1)
         }
 
-        # * find the next occurrence of '{' or '['
-        $start = $Text.IndexOfAny($OpenChars, $start + 1)
-
-        # * "other solution" to find the next occurrence of '{' or '['
-        # $nextObj = $Text.IndexOf('{', $start + 1)
-        # $nextArr = $Text.IndexOf('[', $start + 1)
-
-        # if ($nextObj -ge 0 -and $nextArr -ge 0) {
-        #     $start = [Math]::Min($nextObj, $nextArr)
-        # } elseif ($nextObj -ge 0) {
-        #     $start = $nextObj
-        # } else {
-        #     $start = $nextArr
-        # }
+        throw "Can't find valid JSON object or array"
     }
-
-    throw "Can't find valid JSON object or array"
 }
-
-# * how to use Extract-Json
 
 $str1 = @'
     header: Content-Type: application/json
@@ -1461,16 +1649,215 @@ $str2 = @'
     ]
 '@
 
-$strJson1 = Extract-Json $str1
+# * Extract-Json through pipeline processing
+$strJson1 = $str1 | Extract-Json-Single
 Write-Host "[Extracted JSON 1] : `n$($strJson1.'data-json' | ConvertTo-Json -Depth 100)`n`n"
 
-$strJson2 = Extract-Json $str2
+# * Extract-Json through function parameter
+$strJson2 = Extract-Json-Single $str2
 Write-Host "[Extracted JSON 2] : `n$($strJson2 | ConvertTo-Json -Depth 100)`n`n"
+```
+
+#### 전체 JSON(문자열 전체 JSON 배열) 파싱
+
+```ps1
+<#
+    @description
+        # Extract-Json
+
+        ## Abstract
+            Extracts the first valid JSON object from a string.
+    
+    @example
+        $strJson = Extract-Json $str
+        Write-Host "[Extracted JSON] : `n$($strJson.'key' | ConvertTo-Json -Depth 100)`n`n"
+
+    @author
+        inte99ral@gmail.com
+    
+    @version v1.0.1
+#>
+function Extract-Json {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory=$true, ValueFromPipeline=$true)]
+        [string]$Text
+    )
+
+    process {
+        $results = [System.Collections.Generic.List[PSObject]]::new()
+        $chars = $Text.ToCharArray()
+        $length = $chars.Length
+
+        # * find the first occurrence of '{' or '['
+        $OpenChars = [char[]]@('{', '[')
+        $start = $Text.IndexOfAny($OpenChars)
+
+        # * "other solution" to find the first occurrence of '{' or '['
+        # $idxObj = $Text.IndexOf('{')
+        # $idxArr = $Text.IndexOf('[')
+        # if ($idxObj -ge 0 -and $idxArr -ge 0) {
+        #     $start = [Math]::Min($idxObj, $idxArr)
+        # } elseif ($idxObj -ge 0) {
+        #     $start = $idxObj
+        # } else {
+        #     $start = $idxArr
+        # }
+
+        while ($start -ge 0 -and $start -lt $length) {
+            $openChar = $chars[$start]
+            $closeChar = if ($openChar -eq '{') { '}' } else { ']' }
+
+            $depth = 0
+            $inString = $false
+            $escaped = $false
+            $foundValidJson = $false
+
+            for ($i = $start; $i -lt $length; $i++) {
+                $char = $chars[$i]
+
+                if ($inString) {
+                    if ($escaped) {
+                        $escaped = $false
+                        continue
+                    }
+
+                    if ($char -eq '\') {
+                        $escaped = $true
+                        continue
+                    }
+
+                    if ($char -eq '"') {
+                        $inString = $false
+                    }
+
+                    continue
+                }
+
+                if ($char -eq '"') {
+                    $inString = $true
+                    continue
+                }
+
+                if ($char -eq $openChar) {
+                    $depth++
+                    continue
+                }
+
+                if ($char -eq $closeChar) {
+                    $depth--
+
+                    if ($depth -eq 0) {
+                        $candidate = $Text.Substring($start, $i - $start + 1)
+
+                        try {
+                            # * Single return method
+                            # return ($candidate | ConvertFrom-Json)
+
+                            $parsed = $candidate | ConvertFrom-Json
+                            $results.Add($parsed)
+                            $foundValidJson = $true
+
+                            # * After successfully parsing JSON, move the start to current JSON's end
+                            $start = $Text.IndexOfAny($OpenChars, $i + 1)
+                            break
+                        }
+                        catch {
+                            # * candidate was not valid JSON
+                            break
+                        }
+                    }
+                }
+            }
+
+            if (-not $foundValidJson) {
+                $start = $Text.IndexOfAny($OpenChars, $start + 1)
+
+                # * "other solution" to find the next occurrence of '{' or '['
+                # $nextObj = $Text.IndexOf('{', $start + 1)
+                # $nextArr = $Text.IndexOf('[', $start + 1)
+
+                # if ($nextObj -ge 0 -and $nextArr -ge 0) {
+                #     $start = [Math]::Min($nextObj, $nextArr)
+                # } elseif ($nextObj -ge 0) {
+                #     $start = $nextObj
+                # } else {
+                #     $start = $nextArr
+                # }
+            }
+
+            # * Single return method
+            # throw "Can't find valid JSON object or array"
+        }
+
+        if ($results.Count -eq 0) { throw "Can't find valid JSON object or array" }
+        elseif ($results.Count -eq 1) { return $results[0] }
+        else { return ,($results.ToArray()) }
+    }
+}
+
+$str1 = @'
+    header: Content-Type: application/json
+    header: X-Content-Type-Options: nosniff
+    {
+        "data-json": 
+        {
+            "foo": 
+            {
+                "bar": 123
+            }
+        }
+    }
+    reply: 'HTTP/1.1 200 OK\r\n'
+    header: Cache-Control: no-cache, no-store, must-revalidate
+    header: Content-Security-Policy: default-src 'self'; object-src 'none';
+    header: Content-Encoding: gzip
+    header: Vary: Origin, Accept-Encoding
+    header: Pragma: no-cache
+'@
+
+$str2 = @'
+    header: Content-Type: application/json
+    Response Array:
+    [
+        {
+            "id": 1,
+            "name": "Alice"
+        },
+        {
+            "id": 2,
+            "name": "Bob"
+        }
+    ]
+'@
+
+$str3 = @'
+    2026-08-16 10:00:01 [INFO] Request received: {"reqId": 101, "action": "LOGIN"}
+    2026-08-16 10:00:02 [DEBUG] Applied permissions: ["READ", "WRITE", "EXECUTE"]
+    2026-08-16 10:00:03 [INFO] Response sent: {"status": 200, "data": {"user": "admin"}}
+'@
+
+# * Extract-Json through pipeline processing
+$str1Json = $str1 | Extract-Json
+Write-Host "[Extracted JSON 1] : `n$($str1Json.'data-json' | ConvertTo-Json -Depth 100)`n`n"
+
+# * Extract-Json through function parameter
+$str2Json = Extract-Json $str2
+Write-Host "[Extracted JSON 2] : `n$($str2Json | ConvertTo-Json -Depth 100)`n`n"
+
+# * Extract-Json array list
+$str3Json = $str3 | Extract-Json
+Write-Host "[Extracted JSON 3] : `n$($str3Json | ConvertTo-Json -Depth 100)`n`n"
+Write-Host "[JSON3 count] : $($str3Json.Count)"
+Write-Host "[JSON3 1st action] : $($str3Json[0].action)" # * 객체 키 접근
+Write-Host "[JSON3 2nd] : $($str3Json[1] -join ', ')" # * 배열 처리
+Write-Host "[JSON3 3rd user] : $($str3Json[2].data.user)" # * 중첩 객체 접근
 ```
 
 ### OCI CLI STACK 무한 요청
 
 ```ps1
+
 # ===========================================================
 # OCI Resource Manager Auto Apply
 # Version 2.0.4
