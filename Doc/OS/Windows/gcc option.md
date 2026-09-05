@@ -1,7 +1,7 @@
 ### tasks.json 상세설명 > command
 
-- gcc 빌드에 대한 이해가 필요합니다.
-- g++ gcc 차이 cout cin << 안되던데? 1 d return
+-   gcc 빌드에 대한 이해가 필요합니다.
+-   g++ gcc 차이 cout cin << 안되던데? 1 d return
 
 [참고 문헌 링크](https://gcc.gnu.org/onlinedocs/gcc/Invoking-GCC.html)
 
@@ -11,10 +11,10 @@
 
 gcc가 실행시키는 프로그램
 
-- 전처리기 : cpp
-- 컴파일러 : cc1
-- 어셈블러 : as
-- 링커 : ld
+-   전처리기 : cpp
+-   컴파일러 : cc1
+-   어셈블러 : as
+-   링커 : ld
 
 [gcc option](https://blog.naver.com/seojongbeom/220907637623)
 

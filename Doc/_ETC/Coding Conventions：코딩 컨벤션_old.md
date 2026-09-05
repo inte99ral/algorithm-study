@@ -9,8 +9,6 @@
         -   [보편적 이름](#보편적-이름)
         -   [OCI](#oci)
         -   [C++ \& C#](#c--c)
-            -   [에픽게임즈 C# 개발호환성 스타일](#에픽게임즈-c-개발호환성-스타일)
-            -   [구글 가이드라인 스타일](#구글-가이드라인-스타일)
         -   [Java](#java)
     -   [유니코드 양식](#유니코드-양식)
     -   [코드 문서화 정리 양식](#코드-문서화-정리-양식)
@@ -100,12 +98,13 @@ class Main {
 ╠ (U+2560) ╬ (U+256C) ╣ (U+2563) <br/>
 ╚ (U+255A) ╩ (U+2569) ╝ (U+255D) <br/>
 
+─►
 ⟵ (U+27F5) ⟶ (U+27F6) <br/>
-⤎ (U+290E) ⤏ (U+290F)
-⟸(U+27F8) ⟹(U+27F9)
+⤎ (U+290E) ⤏ (U+290F) <br/>
+⟸(U+27F8) ⟹(U+27F9) <br/>
 
 ⭡(U+2B61)
-⭣(U+2B63)
+⭣(U+2B63) ↓
 
 U+261C ☜ WHITE LEFT POINTING INDEX
 U+261D ☝ WHITE UP POINTING INDEX
@@ -115,6 +114,29 @@ U+1F446 👆 WHITE UP POINTING BACKHAND INDEX
 U+1F447 👇 WHITE DOWN POINTING BACKHAND INDEX
 U+1F448 👈 WHITE LEFT POINTING BACKHAND INDEX
 U+1F449 👉 WHITE RIGHT POINTING BACKHAND INDEX
+
+사용 예시
+
+```txt
+서버 구조
+
+스마트폰
+   │
+   │ http://공인IP
+   ▼
+공유기 :80
+   │
+   │ 포트포워딩
+   ▼
+서버 PC :80
+   │
+   ▼
+Nginx
+   │
+   ├──────────────► 정적 index.html
+   │
+   └── /api/... ──► Express :3000
+```
 
 -   인수에 대한 설명이 필요할 경우 대문자 스네이크 표기법에 『(U+300E), 』(U+300F) 로 감싸서 표기합니다.
 

@@ -22,7 +22,7 @@
 
 ### 인용
 
-- 블록 인용：`>` 사용
+-   블록 인용：`>` 사용
 
   > 첫번째 블록
   >
@@ -32,17 +32,17 @@
 
 ### 코드 블럭
 
-- 인라인 코드： \` 사용
+-   인라인 코드： \` 사용
 
-  - `[](int x, int y) -> int { return x + y; };`
+    -   `[](int x, int y) -> int { return x + y; };`
 
-- 펜스드 코드 블럭：\`\`\` 사용 (언어 지정 가능)
+-   펜스드 코드 블럭：\`\`\` 사용 (언어 지정 가능)
 
   ```cpp
   [](int x, int y) -> int { return x + y; };
   ```
 
-- 들여쓰기 코드 블럭: 4개의 공백 또는 1개의 탭으로 들여쓰기 (markdownlint 나 prettier 설정에 따라 불가능 할 수 있습니다.)
+-   들여쓰기 코드 블럭: 4개의 공백 또는 1개의 탭으로 들여쓰기 (markdownlint 나 prettier 설정에 따라 불가능 할 수 있습니다.)
 
   ```txt
   코드 블럭을 시작합니다
@@ -70,6 +70,20 @@
 『RIGHT_TEXT』
 </div>
 
+-   <table>
+
+  <tr>
+    <th valign=top>첫번째(상단정렬)</th>
+    <th valign=middle>두번째(중단정렬)</th>
+    <th valign=bottom>세번째(하단정렬)</th>
+  </tr>
+  <tr>
+    <td valign=top>상단정렬<br /><br /><br /></td>
+    <td valign=middle>중단정렬</td>
+    <td valign=bottom>하단정렬</td>
+  </tr>
+  </table>
+
 ### 확장/축소：Accordion
 
 <details>
@@ -94,25 +108,25 @@ int main() {
 
 ### 수평선
 
-- 다음의 방법으로 수평선을 그릴 수 있습니다.
-  - `***`
-  - `* * *`
-  - `*****`
-  - `- - -`
-  - `-----`
-  - `<hr />`
+-   다음의 방법으로 수평선을 그릴 수 있습니다.
+    -   `***`
+    -   `* * *`
+    -   `*****`
+    -   `- - -`
+    -   `-----`
+    -   `<hr />`
 
 ### 공백：No Breaking Space
 
-- 다음의 방법으로 마크다운 문법 Lint 나 formatter에 무관하게 유동적인 공백 사용이 가능합니다.
-  - `&nbsp` (HTML Entities 의 공백)
+-   다음의 방법으로 마크다운 문법 Lint 나 formatter에 무관하게 유동적인 공백 사용이 가능합니다.
+    -   `&nbsp` (HTML Entities 의 공백)
 
 ### 줄바꿈：Breaking Line
 
-- 다음의 방법으로 강제개행이 가능합니다.
-  - ENTER + ENTER
-  - 공백 두 번 + ENTER
-  - `<br />`
+-   다음의 방법으로 강제개행이 가능합니다.
+    -   ENTER + ENTER
+    -   공백 두 번 + ENTER
+    -   `<br />`
 
 <center>
 
@@ -143,45 +157,46 @@ int main() {
 
 &nbsp; Table HTML 태그를 이용해서 섬세하게 테이블을 만드는 것 또한 가능합니다.
 
-- <table>
-  <tr>
-    <th align=left>코드블럭</th>
-  </tr>
-  <tr>
-    <td align=left>
+-   <table>
+    <tr>
+        <th align=left>코드블럭</th>
+    </tr>
+    <tr>
+        <td align=left>
 
-  ```cpp
-  #include <bits/stdc++.h>
+    ```cpp
+    #include <bits/stdc++.h>
 
-  int main() {
-    return 0;
-  }
-  ```
+    int main() {
+        return 0;
+    }
+    ```
 
     </td>
-  </tr>
-  </table>
+    </tr>
+    </table>
 
 <br />
 
-- <table>
-  <tr>
+-   <table>
+    <tr>
     <th align=left>첫번째(왼쪽정렬)</th>
     <td align=left>왼쪽정렬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-  </tr>
-  <tr>
+    </tr>
+    <tr>
     <th align=center>두번째(가운데정렬)</th>
     <td align=center>가운데정렬</td>
-  </tr>
-  <tr>
+    </tr>
+    <tr>
     <th align=right>세번째(오른쪽정렬)</th>
     <td align=right>오른쪽정렬</td>
-  </tr>
-  </table>
+    </tr>
+    </table>
 
 <br />
 
-- <table>
+-   <table>
+
   <tr>
     <th valign=top>첫번째(상단정렬)</th>
     <th valign=middle>두번째(중단정렬)</th>
@@ -196,41 +211,43 @@ int main() {
 
 ### 텍스트 서식
 
-- 기울임
-  - _이탤릭체_：`_이탤릭체_`
-- 굵게
-  - **볼드체**：`**볼드체**`
-- 취소선
-  - ~~취소선~~：`~~취소선~~`
-  - <del>취소선</del>：`<del>취소선</del>`
-- 밑줄
-  - <u>밑줄</u>：`<u>밑줄</u>`
-- 굵게 + 기울임
-  - **_볼드+이탤릭_**：`**_볼드+이탤릭_**`
-- 굵게 + 취소선
-  - **~~볼드+취소선~~**：`**~~볼드+취소선~~**`
-- 굵게 + 기울임 + 취소선
-  - **_~~볼드+이탤릭+취소선~~_**：`**_~~볼드+이탤릭+취소선~~_**`
+-   기울임
+    -   _이탤릭체_：`_이탤릭체_`
+-   굵게
+    -   **볼드체**：`**볼드체**`
+-   취소선
+    -   ~~취소선~~：`~~취소선~~`
+    -   <del>취소선</del>：`<del>취소선</del>`
+-   밑줄
+    -   <u>밑줄</u>：`<u>밑줄</u>`
+-   굵게 + 기울임
+    -   **_볼드+이탤릭_**：`**_볼드+이탤릭_**`
+-   굵게 + 취소선
+    -   **~~볼드+취소선~~**：`**~~볼드+취소선~~**`
+-   굵게 + 기울임 + 취소선
+    -   **_~~볼드+이탤릭+취소선~~_**：`**_~~볼드+이탤릭+취소선~~_**`
 
 ### 목록
 
-- 순서 없는 목록：\*, -, + 을 앞에 적습니다.
+-   순서 없는 목록：\*, -, + 을 앞에 적습니다.
 
-  - 목록1
-  - 목록2
+    -   목록1
+    -   목록2
 
-- 순서 있는 목록：숫자와 점(.) 을 앞에 적습니다.
-  1. 목록1
-  2. 목록2
-- 체크리스트：- [ ] 또는 - [x] 사용
-  - [ ] 목록1
-  - [ ] 목록2
+-   순서 있는 목록：숫자와 점(.) 을 앞에 적습니다.
+
+  1.  목록1
+  2.  목록2
+
+-   체크리스트：- [ ] 또는 - [x] 사용
+    -   [ ] 목록1
+    -   [ ] 목록2
 
 ### 참조
 
 #### 참조 > Markdown Native
 
-- 링크：`[『LINK_TEXT』](『URL』)`
+-   링크：`[『LINK_TEXT』](『URL』)`
 
 <center>
 
@@ -238,7 +255,7 @@ int main() {
 
 </center>
 
-- 이미지：`![『ALT_TEXT』](『URL』)`
+-   이미지：`![『ALT_TEXT』](『URL』)`
 
 <center>
 
@@ -248,7 +265,7 @@ int main() {
 
 #### 참조 > HTML Tag
 
-- 링크：`<a href="『URL』">『LINK_TEXT』</a>`
+-   링크：`<a href="『URL』">『LINK_TEXT』</a>`
 
 <center>
 
@@ -256,7 +273,7 @@ int main() {
 
 </center>
 
-- 이미지：`<img src="『URL』" alt="『ALT_TEXT』" width="『WIDTH_SIZE』" height="『HEIGHT_SIZE』" />`
+-   이미지：`<img src="『URL』" alt="『ALT_TEXT』" width="『WIDTH_SIZE』" height="『HEIGHT_SIZE』" />`
 
 <center>
 

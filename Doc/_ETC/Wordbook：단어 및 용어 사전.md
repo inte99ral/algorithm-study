@@ -1,10 +1,18 @@
-# 특수기호
+# Wordbook：단어 및 용어 사전
+
+## 목차
+
+## 특수 기호
+
+Special Symbol：특수기호
+
+### 정리 전
 
 전각과 반각 문자는 (IME 방식) Alt + Shift + '+'　또는　(윈도우 기준)`alt + =` 로 변환 가능
 한글키보드에선 ㄹ + 한자키로 입력가능 ㄹ
 
 특수문자 이름
-https://velog.io/@neighborkim/%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EC%95%8C%EA%B3%A0%EC%9E%88%EC%96%B4%EC%95%BC-%ED%95%A0-%ED%8A%B9%EC%88%98%EB%AC%B8%EC%9E%90-%EA%B8%B0%ED%98%B8-%EB%AA%85%EC%B9%AD
+<https://velog.io/@neighborkim/%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EC%95%8C%EA%B3%A0%EC%9E%88%EC%96%B4%EC%95%BC-%ED%95%A0-%ED%8A%B9%EC%88%98%EB%AC%B8%EC%9E%90-%EA%B8%B0%ED%98%B8-%EB%AA%85%EC%B9%AD>
 
 <center>
 
@@ -32,9 +40,28 @@ https://velog.io/@neighborkim/%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EC%95%8C%EA%
 | 슬래쉬            | Slash                                | /          | ／             |
 | 역슬래쉬          | Backslash                            | \\         | ＼             |
 | 버티컬 바         | Vertical Bar                         | \|         |                |
+
 | (소)괄호          | Round Bracket, Parenthesis           | ( )        | （）           |
 | 중괄호            | Curly Bracket, Brace                 | { }        |                |
 | 대괄호            | Square Bracket, Bracket              | [ ]        |                |
 | 꺾쇠 괄호         | Angle Bracket, Chevron               | < >        | ⟨⟩             |
 
 </center>
+
+### 정리
+
+-   <table>
+    <tr><th> 기호 </th><th> 한글명 </th><th> 영어명 </th></tr>
+    <tr><td> ( ) </td><td> 소괄호 </td><td> Parenthesis, Round Bracket </td></tr>
+    <tr><td> { } </td><td> 중괄호 </td><td> Brace, Curly Bracket </td></tr>
+    <tr><td> [ ] </td><td> 대괄호 </td><td> Bracket, Square Bracket </td></tr>
+    <tr><td> < > </td><td> 꺾쇠괄호 </td><td> Chevron, Angle Bracket </td></tr>
+    </table>
+
+## 개발자 용어
+
+[단어사전](https://velog.io/@rak/develop-english)
+
+명령문 statement (for statement for 반복문)
+
+API (Application Programming Interface)
