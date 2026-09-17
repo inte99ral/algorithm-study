@@ -1,30 +1,97 @@
 # Server：서버
 
-## 외부망 직접 연결
+## 목차
+
+-   [Server：서버](#server서버)
+    -   [목차](#목차)
+    -   [HTTP IP 주소로 연결](#http-ip-주소로-연결)
+        -   [Node.js 설치](#nodejs-설치)
+        -   [서버 테스트](#서버-테스트)
+            -   [IPv4](#ipv4)
+                -   [IPv4 포트포워딩](#ipv4-포트포워딩)
+            -   [IPv6](#ipv6)
+                -   [IPv6 방화벽 설정](#ipv6-방화벽-설정)
+        -   [서버 적용](#서버-적용)
+            -   [서버 적용 : 개요](#서버-적용--개요)
+            -   [서버 적용 : 세부 설명](#서버-적용--세부-설명)
+            -   [Express 구동](#express-구동)
+                -   [Express 설치](#express-설치)
+                -   [Express 배포할 HTML 준비](#express-배포할-html-준비)
+                -   [Express 구동 로컬테스트](#express-구동-로컬테스트)
+                -   [Express 외부망 연결 및 API 테스트](#express-외부망-연결-및-api-테스트)
+            -   [NGINX 구동](#nginx-구동)
+                -   [NGINX 설치](#nginx-설치)
+                -   [NGINX 기본 명령어](#nginx-기본-명령어)
+                -   [NGINX 구동 테스트](#nginx-구동-테스트)
+                -   [NGINX 간단실행 환경 조성](#nginx-간단실행-환경-조성)
+            -   [NGINX ⟶ Express 연결](#nginx--express-연결)
+                -   [Express 코드 조정](#express-코드-조정)
+                -   [NGINX 코드 조정](#nginx-코드-조정)
+    -   [HTTP DNS 도메인으로 연결](#http-dns-도메인으로-연결)
+
+## HTTP IP 주소로 연결
 
 ### Node.js 설치
 
-&nbsp; javascript 언어 위주로 프로젝트를 구성하기 때문에 javaScript 코드를 브라우저 밖에서 실행할 수 있게 해주는 런타임 환경인 Node.js 가 필수적으로 필요합니다.
-
-Node.js 가 있다면 javaScript 코드를 브라우저 밖에서도 실행할 수 있게 되며, NPM 이라는 강력한 node.js 패키지 환경에서 편리한 라이브러리를 마음껏 사용할 수 있습니다.
-
-&nbsp; node.js 와 npm 의 설치가 되어 있다면 이 부분을 넘겨도 됩니다. 설치 유무를 모른다면 밑의 버전 확인 명령어를 터미널에 입력해보면 됩니다.
-
-```bash
-# npm 버전 확인 명령어. 설치되어 있을 경우에 설치된 버전이 출력됨
-npm -v
-```
-
-&nbsp; Windows OS 에서는 [node.js 공식 사이트](https://nodejs.org/ko/download) 에서 설치할 수 있습니다.
-
 ### 서버 테스트
 
-먼저 본인의 IP 가 IPv4 로 할당되었는지 IPv6 로 할당되었는지 확인해야합니다. 일종의 지번주소, 도로명주소처럼 표현의 차이지만 연결방법이 달라지므로 주의해주세요.
+먼저 본인의 IP 가 IPv4 로 할당되었는지 IPv6 로 할당되었는지 확인해야합니다. 일종의 지번주소, 도로명주소처럼 표현의 차이지만 구조상 연결방법이 완전히 달라지므로 주의해주세요.
 
--   IPv4 의 경우, 포트포워딩(Port Forwarding) 작업이 필요합니다.
--   IPv6 의 경우, 방화벽이 외부 연결을 차단할 수 있기 때문에 테스트가 필요합니다.
+-   IPv4 의 경우, 내부 로컬 주소가 인터넷망에 노출되지 않습니다. 따라서 인터넷과 연결된 공유기의 주소와 내 로컬주소 포트를 연결하는 포트포워딩(Port Forwarding) 작업이 필요합니다.
 
-따라서 먼저 외부망과의 직접적인 상호접근과 할당된 Global IP 주소가 정상인지부터 확인해야합니다.
+-   IPv6 의 경우, 연결된 모든 기기에 각기 전세계에 유니크한 IPv6 주소가 할당되기 때문에 포트포워딩 작업이 필요 없습니다. 하지만 방화벽이 외부 연결을 차단하여 보안을 지키기 때문에 테스트가 필요합니다.
+
+#### IPv4
+
+터널링·릴레이 등의 우회 방법을 제외하고, 일반적인 IPv4 인바운드 서버를 운영하려면, 외부 인터넷에서 보이는 공인 IPv4 주소와 내가 포트포워딩을 설정할 수 있는 장비의 WAN IPv4 주소가 동일해야 합니다.
+
+&nbsp; 터미널(powershell 또는 cmd) 에서 `ipconfig` 를 입력하면 공유기 관리자 페이지의 <u><b>기본 게이트 웨이</u></b> 주소(공유기의 내부 IP 주소)를 알 수 있습니다. 웹 브라우저에 <u><b>기본 게이트 웨이</u></b> 주소를 주소창에 입력하여 공유기 관리자 페이지로 갈 수 있습니다. 일반적으로 관리자 비밀번호는 공유기에 적혀있습니다. 관리자 페이지에서 상위 IP 주소를 타고 올라가다보면 외부에서 이 컴퓨터에 접근가능한 공인 IP 주소를 알 수 있습니다. 이 IPv4 주소에 대하여...
+
+-   조건1. 그 IPv4 주소에 대하여 포트포워딩 설정, 보안 설정을 만질 수 있는 권한이 있어야합니다.
+
+-   조건2. 브라우저에서 `https://ifconfig.me/` 를 입력해서 확인하는 등, 외부에서 보는 우리의 IPv4 주소와 동일해야 합니다.
+
+두 조건을 만족하면 가능합니다.
+
+##### IPv4 포트포워딩
+
+&nbsp; 최상위 IPv4 에 해당하는 공유기 주소 또는 인터넷서비스 주소에 들어온 요청을 웹 서버가 실행 중인 컴퓨터의 내부 IP 주소로 전달하도록 설정해야 합니다.
+
+&nbsp; 해당 IP 주소를 웹브라우저에 입력하여 관리자 페이지에 접근합니다. 관리자 페이지는 서비스와 공유기 종류 마다 차이가 있지만, 일반적으로 포트 포워딩 (Port Forwarding) 또는 가상 서버 (Virtual Server) 라고 적혀있을 설정 메뉴를 찾습니다.
+
+&nbsp; 포트포워딩 규칙을 적절하게 추가해주세요.
+
+-   <table>
+    <tr class="0">
+    <th class="0-0">설정 항목</th>
+    <th class="0-1">값</th>
+    <th class="0-2">설명</th>
+    </tr>
+    <tr class="1">
+    <td class="1-0">외부 포트 (External Port)</td>
+    <td class="1-1">80</td>
+    <td class="1-2">외부 인터넷에서 들어오는 포트, 0~99 나 0-99 처럼 물결이나 하이픈이 있으면 범위로 지정가능. DMZ 서버의 경우 포트 제한 없이 모든 포트를 열고 외부 접근 허용</td>
+    </tr>
+    <tr class="2">
+    <td class="2-0">내부 포트 (Internal Port)</td>
+    <td class="2-1">80</td>
+    <td class="2-2">내부 컴퓨터에서 받을 포트 (Nginx 포트)</td>
+    </tr>
+    <tr class="3">
+    <td class="3-0">프로토콜 (Protocol)</td>
+    <td class="3-1">TCP</td>
+    <td class="3-2">웹페이지에 사용되는 프로토콜</td>
+    </tr>
+    <tr class="4">
+    <td class="4-0">내부 IP 주소 (Internal IP Address)</td>
+    <td class="4-1">사용자 Windows 컴퓨터의 내부 IP</td>
+    <td class="4-2">웹페이지에 사용되는 프로토콜</td>
+    </tr>
+    </table>
+
+#### IPv6
+
+외부망과의 직접적인 상호접근을 방화벽이 막지는 않는지, 그리고 할당된 Global IP 주소가 정상인지부터 확인해야합니다.
 
 -   Global IP 확인
 
@@ -68,6 +135,58 @@ npm -v
         &nbsp; 예를 들어서, ipconfig 에서 나왔던 Global IP 가 `0000:0000:0000:aaa:0000:0000:0000:0000` 이고 개방한 포트번호가 `8080` 이라면 웹 브라우저에 `http://[0000:0000:0000:aaa:0000:0000:0000:0000]:8080/` 라고 주소창에 입력하면 됩니다.
 
 &nbsp; 모든 테스트 진행이 성공적이라면 이제 컴퓨터를 서버 컴퓨터화 하는 것이 가능합니다.
+
+##### IPv6 방화벽 설정
+
+&nbsp; 접근이 정상적으로 이루어지지 않을 경우에 방화벽 설정을 조정해야합니다.
+
+&nbsp; 접근 포트에 따라 차이가 있지만, 여기선 설명용 예시로 80번 포트라고 하겠습니다. 80번이 http 프로토콜 요청을 의미하는 디폴트 포트이므로 무난합니다.
+
+&nbsp; Windows 방화벽이 외부의 80번 포트 접근을 막지 않도록 설정을 해야합니다.
+
+-   Windows OS GUI 환경에서 제어판에서 조작
+
+    &nbsp; `제어판`(보기 기준: 큰 아이콘) -> `Windows Defender 방화벽` -> 좌측 탭의 `고급 설정` 으로 이동합니다.
+
+    &nbsp; `고급 보안이 포합된 Windows Defender 방화벽` 창이 뜰 것 입니다.
+
+    &nbsp; 좌측 탭의 `인바운드 규칙` 항목으로 이동합니다. 우측 탭의 `새 규칙` 을 클릭하여 새 규칙을 추가하는 `새 인바운드 규칙 마법사` 창을 띄웁니다.
+
+    &nbsp; <u><b>규칙 종류</u></b> 단계에서 `포트(O)` 를 선택합니다. 다음을 눌러 넘어갑니다.
+
+    &nbsp; <u><b>프로토콜 및 포트</u></b> 단계에서 다음 항목을 선택해주세요.
+
+    -   적용하는 프로토콜은 `TCP(T)` 를 선택합니다. 이는 웹 통신(HTTP)에 사용되는 표준 프로토콜 중 UDP 보다는 느리지만 상호체크를 통해 안정적이므로 웹사이트 배포에 사용되는 형태입니다.
+    -   적용하는 포트는 `80` 를 적습니다. 이 예제에서는 모든 포트 요청에서 작업을 받지는 않을 것 입니다.
+
+    다음을 눌러 넘어갑니다.
+
+    &nbsp; <u><b>작업</u></b> 단계에서 `연결 허용`(Allow the connection) 을 선택하여 80번 포트로 들어오는 모든 연결을 허용합니다. 다음을 눌러 넘어갑니다.
+
+    &nbsp; <u><b>프로필</u></b> 단계에서 모두 접근할 수 있도록 `도메인`, `개인`, `공용` 모두 체크합니다. 다음을 눌러 넘어갑니다.
+
+    &nbsp; <u><b>이름</u></b> 단계에서 `WEB_NGINX_HTTP_80` 같은 느낌으로 규칙의 용도를 쉽게 알 수 있도록 이름을 정합니다. 마침을 눌러 규칙을 저장합니다.
+
+    인바운드 규칙에서 새 규칙을 추가합니다.
+
+    포트 유형을 선택하고, TCP 프로토콜의 특정 로컬 포트에 80을 입력합니다.
+
+    연결 허용을 선택하고 규칙을 저장합니다.
+
+-   또는 파워쉘(관리자 모드)에서 다음의 명령어로 방화벽 규칙을 조정할 수도 있습니다.
+
+    ```ps1
+    # * 방화벽에 TCP 80포트를 개방하는 인바운드 룰 설정
+    New-NetFirewallRule `
+    -DisplayName "NGINX HTTP 80" `
+    -Direction Inbound `
+    -Protocol TCP `
+    -LocalPort 80 `
+    -Action Allow
+
+    # * 방화벽에 적용된 룰 확인
+    Get-NetFirewallRule -DisplayName "NGINX HTTP 80"
+    ```
 
 ### 서버 적용
 
@@ -274,6 +393,8 @@ node server.js
 
 &nbsp; 이제 웹 브라우저에서 서버가 실행되는 컴퓨터의 내부 주소 `http://localhost:3000` 에 접속하여 페이지가 뜨는지 확인합니다.
 
+&nbsp; <kbd>ctrl</kbd> + <kbd>c</kbd> 를 입력하면 서버를 종료할 수 있습니다.
+
 ##### Express 외부망 연결 및 API 테스트
 
 &nbsp; `server.js` 파일을 본격적으로 로컬환경 뿐 아니라 모든 주소에서의 요청(임의의 IPv6 를 의미하는 `::` 와 임의의 IPv4를 의미하는 `0.0.0.0` 로 부터의 요청)을 전부 수신하도록 코드를 수정합니다. 아예 주소 값을 적지 않으면 자동적으로 무조건적으로 서버를 열게됩니다. 위 로컬테스트 코드의 경우처럼 IPv6 와 IPv4 수신을 나누어서 `::` 와 `0.0.0.0` 를 명시해도 똑같습니다.
@@ -302,6 +423,12 @@ app.get('/api/test', (req, res) => {
 app.listen(PORT, () => console.log(`Express server running on port ${PORT}`));
 ```
 
+&nbsp; 내부 테스트와 똑같이 다음 명령어를 통해서 서버 코드를 node.js 에서 구동시킵니다.
+
+```bash
+node server.js
+```
+
 &nbsp; 이제 외부 인터넷망(예를들어, 데이터를 킨 스마트폰에서 구글 웹브라우저에 URL 주소 입력)에서 외부망 인바운드 테스트 때와 같이 `http://Global IP + 개방한 포트` 로 접근을 시도합니다. 
 
 -   인바운드 테스트 때와 같이, ipconfig 에서 나왔던 Global IP 가 `0000:0000:0000:aaa:0000:0000:0000:0000` 이고 이번엔 개방한 포트번호가 `3000` 이므로 웹 브라우저에 `http://[0000:0000:0000:aaa:0000:0000:0000:0000]:3000/` 이라고 주소창에 입력하면 됩니다.
@@ -310,9 +437,11 @@ app.listen(PORT, () => console.log(`Express server running on port ${PORT}`));
 
 -   웹 브라우저가 `{ success: true, message: 'Express is working' }` json 객체 데이터를 서버로 부터 받아왔다면 대성공입니다.
 
-### NGINX 구동
+&nbsp; <kbd>ctrl</kbd> + <kbd>c</kbd> 를 입력하면 서버를 종료할 수 있습니다.
 
-#### NGINX 설치
+#### NGINX 구동
+
+##### NGINX 설치
 
 -   NGINX 설치 유무 확인
 
@@ -357,7 +486,7 @@ app.listen(PORT, () => console.log(`Express server running on port ${PORT}`));
 
     &nbsp; Windows 버전 nginx 에서는 Linux 에서처럼 별도의 sites-available나 conf.d 폴더를 기본적으로 제공하지 않습니다. 대신에, 설치된 경로를 `$NGINX_HOME` 라고 한다면 `$NGINX_HOME/conf/nginx.conf` 파일 내부에서 include 지시어를 사용하여 사용자 정의 설정 파일들을 포함시킬 수 있습니다.
 
-#### NGINX 기본 명령어
+##### NGINX 기본 명령어
 
 &nbsp; 터미널에 입력하는 기본적인 명령어는 다음과 같습니다. 처음엔 대충 이런 느낌이라는 것만 확인 하고, 모를때만 다시 보면 됩니다.
 
@@ -468,7 +597,7 @@ app.listen(PORT, () => console.log(`Express server running on port ${PORT}`));
 
     </table>
 
-#### NGINX 구동 테스트
+##### NGINX 구동 테스트
 
 &nbsp; 계속해서 설명의 편의를 위하여 
 
@@ -479,10 +608,48 @@ app.listen(PORT, () => console.log(`Express server running on port ${PORT}`));
 
 &nbsp; `$NGINX_HOME/conf/nginx.conf` 의 server { ... } 부분의 값을 수정하여 웹 서버의 동작 설정을 바꿀 수 있습니다. NGINX 는 기본적으로 C++ 친화적이며, 작업은 .conf 설정 파일 텍스트에 NGINX 지시어(directive) 를 적어서 기능을 조작합니다.
 
+&nbsp; 처음 nginx.conf 파일을 열어보면 다음과 같은 형태입니다.
+
+```conf
+#user  nobody;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+    sendfile        on;
+    #tcp_nopush     on;
+    keepalive_timeout  65;
+    #gzip  on;
+
+    server {
+
+    }
+}
+```
+
 &nbsp; 이 nginx.conf 파일 텍스트 중에 `http{}` 안에 적혀있는 `server{}` 묶음 하나마다 서버 하나라고 생각하면 됩니다. 예를 들어서 다음과 같이 적었다면
 
 ```conf
 http {
+    
     server {
         listen 80 default_server;
         server_name _;
@@ -556,7 +723,7 @@ http {
         # * 띄어쓰기가 있는 경로 전체를 큰따옴표("") 또는 작은따옴표('')로 감쌉니다.
         # * Windows OS 환경에서 절대 경로를 사용할 때, 역슬래시(\) 대신에 슬래시(/) 또는 역슬래시를 연속으로(\\) 사용해야 합니다.
 
-        root "C:/html";
+        root "$PROJECT_ROOT/public"; # <==== ! 프로젝트 경로로 교체해서 적어야 합니다
 
 
         # ## index
@@ -633,7 +800,7 @@ nginx -s quit
 nginx -p "$(Split-Path (where.exe nginx | Select-Object -First 1))" -s quit
 ```
 
-#### NGINX 간단실행 환경 조성
+##### NGINX 간단실행 환경 조성
 
 &nbsp; NGINX 의 실행이 귀찮지 않으셨다면 이 부분을 넘어가도 좋습니다.
 
@@ -676,6 +843,11 @@ nginx -p "$(Split-Path (where.exe nginx | Select-Object -First 1))" -s quit
 ```ps1
 # ## NGINX Config Setting
 
+# ### NGINX 경로로 이동
+function Nginx-Changedirectory {
+    cd $(Split-Path (where.exe nginx | Select-Object -First 1))
+}
+
 # ### NGINX quick start 빠른 시작
 function Nginx-Start {
     Start-Process nginx -ArgumentList "-p `"$(Split-Path (where.exe nginx | Select-Object -First 1))`""
@@ -705,7 +877,7 @@ function Nginx-Stop {
             Stop-Process -Name nginx -Force
         }
         default {
-            Write-Warning "Invalid stop-level. (Support 0–2)"
+            Write-Warning "Invalid stop-level. (Support 0 to 2)"
         }
     }
 }
@@ -734,6 +906,7 @@ function Nginx-Access {
 }
 
 # ### More short alias keyword 더 짧게 키워드로 호출
+Set-Alias cdng Nginx-Changedirectory
 Set-Alias ngstart Nginx-Start
 Set-Alias ngstop Nginx-Stop
 Set-Alias ngcheck Nginx-Check
@@ -743,7 +916,7 @@ Set-Alias ngacc Nginx-Access
 
 이후에는 새로 킨 파워쉘 창에서는 `ngstart` 같은 키워드만 입력해도 동작합니다.
 
-### NGINX ⟶ Express 연결
+#### NGINX ⟶ Express 연결
 
 &nbsp; 자, 다시 한 번 정리해봅시다. 우리가 만드려고 하는 구조는 다음과 같습니다.
 
@@ -767,7 +940,7 @@ NGINX :8080
 
 &nbsp; 외부에서 오는 접근에 대한 대문 역할을 NGINX 가 처리하며 요청의 성격에 따라 직접 처리할지, Express 에게 넘겨줄지를 결정합니다.
 
-&nbsp; 만약 요청하는 데이터가 URL 과 매핑되어있는 단순 정적 데이터일 경우엔 NGINX 가 즉시 넘겨주며, 처리과정에서 로직이 필요한 API 요청과 로그인 시도 또는 DB 조작처럼 복잡한 분석은 Express 에게 보내 처리 시킵니다.
+&nbsp; 만약 요청하는 데이터가 URL 과 매핑되어있어 외부에 전체공개되는(public) 정적 데이터일 경우엔 NGINX 가 즉시 넘겨주며, 처리과정에서 로직이 필요한 API 요청과 로그인 시도 또는 DB 조작처럼 복잡한 분석은 Express 에게 보내 처리 시킵니다.
 
 &nbsp; 계속해서 설명의 편의를 위하여 
 
@@ -775,25 +948,36 @@ NGINX :8080
 
 -   NGINX 를 설치했던 폴더 즉, nginx.exe 가 위치힌 경로를 `$NGINX_HOME` 라고 부르겠습니다.
 
-#### Express 코드 조정
+##### Express 코드 조정
 
 &nbsp; 먼저 할 일은, `$PROJECT_ROOT` 경로의 javascript 파일(예시에서 server.js 라고 이름붙임) 의 코드를 local 환경에서 api 에만 반응하도록 하는 것입니다. 다른 역할은 NGINX 에게 부여할 것 입니다.
 
 ```js
 const express = require('express');
-const path = require('path');
+// * URL 를 통한 정적파일 제공은 NGINX 가 root 지시어로 담당하므로 제거
+// const path = require('path');
 
 const app = express();
 const PORT = 3000;
 
-// * URL 를 통한 정적파일 제공은 NGINX 가 root 지시어로 담당하므로 제거
+// * Express 객체 app 설정 중 'trust proxy' 값의 기본값은 false 입니다. 요청 헤더에 프록시에 대한 정보가 있더라도 믿지 않고 직접 연결로만 취급하겠다는 소리입니다.
+// * 밑의 NGINX 가 X-Forwarded-For 요청의 헤더로 실제로 요청을 보낸 클라이언트의 IP 주소를 전달해줘도 Express 는 그걸 req.ip 로 받아들이지 않고 '난 못 믿어, 이건 127.0.0.1 에서 왔잖아? 악의적인 클라이언트가 헤더 조작한거 같은데?' 라고 판단합니다. 이러면 req.get('X-Forwarded-For') 로 직접 헤더를 뜯어서 데이터를 얻어야 합니다. 이 보안처리에서 어떤 요청을 신뢰해도 되는지 지정해줄 필요가 있습니다.
+// * 'tust proxy'라는 설정의 값을 'loopback'으로 지정함으로써, 연결해 온 프록시가 loopback 주소라면 그 프록시가 전달하는 프록시 정보는 신뢰해도 된다는 의미가 됩니다.
+app.set('trust proxy', 'loopback');
+
+// * Express 서버가 요청을 수신하여 움직일때 미들웨어 단계에서 터미널에 메세지를 출력합니다.
+app.use((req, res, next) => {
+    console.log('REQUEST');
+    next();
+});
+// * URL 를 통한 정적파일 제공은 NGINX 가 root 지시어로 담당하므로 제거합니다.
 // app.use(express.static(path.join(__dirname, 'public')));
 
 // * API 요청 처리. 후에 DB 와 연결하는 코드로 변경할 수 있음
 app.get('/api/test', (req, res) => {
     res.json({
         success: true,
-        message: 'Express is working'
+        message: 'Express is working',
     });
 });
 
@@ -804,7 +988,16 @@ app.listen(PORT, '127.0.0.1', () => {
 });
 ```
 
-#### NGINX 코드 조정
+`$PROJECT_ROOT` 위치에서 터미널에 `node server.js` 명령어를 입력하여 Express 서버를 구동합니다.
+
+로컬 환경에서 웹브라우저에 `localhost:3000/api/test` 주소를 입력했을 때, 응답으로 json 데이터가 오는 지를 확인합니다. (index.html 은 NGINX 가 제공하므로 여기선 테스트가 불가합니다.)
+또한, 요청 시에 터미널에 "REQUEST" 가 출력되는 지도 확인해주세요.
+
+터미널과 서버를 닫지말고 유지해주세요.
+
+##### NGINX 코드 조정
+
+Express 서버가 열려있는 상태에서 NGINX 의 conf 설정 중 html{...} 괄호 안의 `server{...}` 설정을 다음과 같이 변경해주세요.
 
 ```conf
 server {
@@ -813,47 +1006,69 @@ server {
 
     server_name _; # * 이 서버가 특정 도메인 전용이 아닐 경우 "_" 기입
 
-    root "C:/my-server";
+    root "$PROJECT_ROOT/public"; # <==== ! 프로젝트 경로로 교체해서 적어야 합니다 !
     index index.html;
 
     location / {
+        # * uri 위치에 매핑된 파일 반환하나 없으면 404 에러가 아니라 index.html 을 반환.
+        # * SPA(Single Page Application) 를 고려한 설정
         try_files $uri $uri/ /index.html;
     }
 
     location /api/ {
+        # * api 요청은 3000포트 Express 에게 전달
         proxy_pass http://127.0.0.1:3000;
 
+
+        # * Express 에게 요청을 전달할 때 HTTP/1.1을 사용해라
         proxy_http_version 1.1;
+
+        # * 원본 요청을 헤더 Host 에 담아 전달해라
         proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
+
+        # * 원본 클라이언트 IP 주소를 X-Real-IP라는 헤더에 담아 전달해라
+        proxy_set_header X-Real-IP $remote_addr; 
+
+        # * 이제까지 거쳐온 IP 주소를 X-Forwarded-For 라는 헤더에 누적해서 전달해라
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        # * 요청 프로토콜을 X-Forwarded-Proto 라는 헤더에 담아 전달해라
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
 ```
 
-```conf
-server {
-    listen 8080; # * 정확히는 listen 0.0.0.0:8080 이지만 생략 허용
-    listen [::]:8080;
+`root "$PROJECT_ROOT/public"; # <==== ! 프로젝트 경로로 교체해서 적을 것 !` 에서 ` $PROJECT_ROOT ` 부분을 express 서버 프로젝트 폴더 내부 public/ 경로로 적어주셔야 한다는 점 잊지마세요.
 
-    server_name _; # * 이 서버가 특정 도메인 전용이 아닐 경우 "_" 기입
+-   터미널을 새로 열고 NGINX 기동 명령어를 입력하여 기동해주세요. 
 
-    root $PROJECT_ROOT; # <==== ! 프로젝트 경로로 교체해서 적을 것 !
-    index index.html;
+    <u><b>NGINX 간단실행 환경 조성 문단</b></u>의 작업을 했다면 `ngstart` 라고만 입력하면 됩니다.
 
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
+-   터미널에서 NGINX 로그 확인 명령어를 입력하면 접속 로그도 볼 수 있습니다.
 
-    location /api/ {
-        proxy_pass http://127.0.0.1:3000;
+    <u><b>NGINX 간단실행 환경 조성 문단</b></u>의 작업을 했다면 `ngacc` 라고만 입력하면 됩니다.
 
-        proxy_http_version 1.1;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}
-```
+-   외부망의 웹 브라우저에서 `http://『내 IP 주소』:8080/` 으로 요청을 보내보세요.
+    -   웹 브라우저에서 index.html 페이지가 응답받았는지 확인해주세요.
+    -   NGINX 의 Access 로그 측 터미널에서 출력이 있는지 확인해주세요.
+    -   Express 서버 측 터미널은 응답하지 않았을 것 입니다.
+
+-   외부망의 웹 브라우저에서 `http://『내 IP 주소』:8080/api/test` 으로 요청을 보내보세요.
+    -   웹 브라우저에서 json 데이터를 응답받았는지 확인해주세요.
+    -   NGINX 의 Access 로그 측 터미널에서 출력이 있는지 확인해주세요.
+    -   Express 서버 측 터미널에서 "REQUEST" 를 출력했는지 확인하세요.
+
+이 과정이 성공했다면 축하드립니다.
+당신은 통상적인 서버 구축, 정적 웹페이지 제공, API 제공에 성공하셨습니다.
+
+종료하고 싶다면 
+
+-   Express 서버 측 터미널에서 ctrl + c 를입력해주세요.
+-   NGINX 의 Access 로그 측 터미널에서 ctrl + c 를입력해주세요.
+-   터미널에서 NGINX 종료 명령어를 입력해주세요.
+
+    <u><b>NGINX 간단실행 환경 조성 문단</b></u>의 작업을 했다면 `ngstop` 라고만 입력하면 됩니다.
+
+이제 다음 단계는 DNS 를 통하여 IP 주소를 직접 입력하는 환경이 아니라 도메인 주소를 통한 웹 서비스를 구축하는 것 입니다.
+
+## HTTP DNS 도메인으로 연결

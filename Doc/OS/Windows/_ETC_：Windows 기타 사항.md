@@ -1,8 +1,8 @@
-# _ETC_：Windows 기타 사항
+# ETC：Windows 기타 사항
 
 ## 목차
 
--   [_ETC_：Windows 기타 사항](#etcwindows-기타-사항)
+-   [ETC：Windows 기타 사항](#etcwindows-기타-사항)
     -   [목차](#목차)
     -   [시작하기](#시작하기)
         -   [시작과 작업표시줄 설정](#시작과-작업표시줄-설정)
