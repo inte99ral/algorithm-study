@@ -104,6 +104,7 @@ class Main {
 ⟸(U+27F8) ⟹(U+27F9) <br/>
 
 ⭡(U+2B61)
+┆(U+257A)
 ⭣(U+2B63) ↓
 
 U+261C ☜ WHITE LEFT POINTING INDEX

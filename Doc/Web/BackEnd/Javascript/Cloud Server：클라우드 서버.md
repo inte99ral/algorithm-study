@@ -942,7 +942,14 @@ Create instance 창에 적절한 값들을 넣어주세요. 각 값의 의미는
         &nbsp; 별도의 패키지를 추가 설치하고 싶은 지 확인합니다. 별도로 필요한 것이 없으며 후에 필요하면 pip 명령으로 설치할 수 있습니다. 이후에 설치가 시작됩니다.
 
     -   <u><b>Modify PATH to include the CLI and enable tab completion in PowerShell now?</b></u>
-        설치가 끝나고 나오는 질문입니다. 윈도우즈 환경변수 PATH 에 경로 값을 자동으로 등록해주고, PowerShell에서 탭(Tab) 자동 완성을 사용할지 묻습니다. 안할 이유 전혀없는 편리한 기능이므로 Y를 입력하는 것을 추천합니다.
+        설치가 끝나고 나오는 질문입니다. 윈도우즈 환경변수 PATH 에 경로 값을 자동으로 등록해주고, PowerShell에서 탭(Tab) 자동 완성을 사용할지 묻습니다. 안할 이유 전혀없는 편리한 기능이므로 Y를 입력하는 것을 추천합니다. 
+        
+        이후 자동으로, 파워쉘 $profile 파일에 다음 코드가 추가됩니다.
+
+        ```ps1
+        # ## OCI CLI Tab dot sourcing
+        . "D:\Program Files\oracle-cli\Lib\site-packages\oci_cli\bin\OciTabExpansion.ps1"
+        ```
 
     &nbsp; 위 과정을 거쳤다면 이제 windows 터미널에서 oci cli 를 사용할 수 있습니다. 파워쉘에서 `oci -h` 명령어로 도움말 목록이 뜨는 지 확인해볼 수 있습니다. 
     
