@@ -18,3 +18,7 @@
 ### VitaPad
 
 PS Vita를 PC용 무선 컨트롤러로 씁니다. Wi-Fi 기반의 홈브루
+
+### Wii
+
+-   [links](https://gbatemp.net/threads/release-ps-wiita-wii-u-emulator-for-ps-vita-pstv.440374/)

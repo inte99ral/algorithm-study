@@ -39,6 +39,20 @@
  */
 ````
 
+-   URL
+
+  ```js
+  //  * POST | /api/:imageId | 이미지 추가
+  /**
+   * @headers
+   *     Content-Type: multipart/form-data
+   * @param
+   *     {image} imageId - URL 의 imageId
+   * @body
+   *     {file}  file     - 업로드할 이미지 파일
+   */
+  ```
+
 ## JSDoc
 
 &nbsp; JavaScript 파일에서 JSDoc(JavaDoc과 유사한 JavaScript 문서화 도구)

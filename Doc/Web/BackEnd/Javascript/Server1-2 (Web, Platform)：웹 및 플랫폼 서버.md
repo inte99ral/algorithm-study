@@ -17,9 +17,16 @@
                 -   [경고 출력 시](#경고-출력-시)
             -   [DB 조작용 필요 파일 생성](#db-조작용-필요-파일-생성)
             -   [.env 환경변수 작성](#env-환경변수-작성)
-            -   [db.js 코드 작성](#dbjs-코드-작성)
-            -   [server.js Express 코드 DB 연결 테스트](#serverjs-express-코드-db-연결-테스트)
-            -   [server.js Express 코드 작성](#serverjs-express-코드-작성)
+            -   [DB 연결 모듈화](#db-연결-모듈화)
+            -   [Express 측 DB 연결 코드](#express-측-db-연결-코드)
+            -   [개념 정리 : HTTP Method 와 CRUD](#개념-정리--http-method-와-crud)
+            -   [개념 정리 : 멱등성](#개념-정리--멱등성)
+        -   [DB 서비스 예제 1 (유저 명단 관리)](#db-서비스-예제-1-유저-명단-관리)
+            -   [DB 서비스 예제 1 : 서비스 설계](#db-서비스-예제-1--서비스-설계)
+            -   [DB 서비스 예제 1 : Express 코드 작성](#db-서비스-예제-1--express-코드-작성)
+                -   [개념정리 : 파라미터화 쿼리(Parameterized Query)](#개념정리--파라미터화-쿼리parameterized-query)
+            -   [DB 서비스 예제 1 : URL 요청 코드](#db-서비스-예제-1--url-요청-코드)
+    -   [CORS](#cors)
     -   [검색 노출](#검색-노출)
     -   [구글 애드센스](#구글-애드센스)
 
@@ -123,7 +130,7 @@
     Get-Service *postgresql* | Select-Object Name, Status, StartType
     ```
 
-    다음 명령어로 정확한 서비스 명이 출력됩니다. 여기선 예시로 `postgresql-x64-18` 라고 하겠습니다.
+    다음 명령어로 정확한 서비스 명이 출력됩니다. 이 서비스 명을 복사해서 사용하면 됩니다. 여기선 예시로 `postgresql-x64-18` 라고 하겠습니다.
 
 -   PostgreSQL 자동실행 해제하기
 
@@ -292,6 +299,8 @@
 
     &nbsp; 이제 여기서 "Servers" → "PostgreSQL 18 - myapp_user" → "Databases" → "myapp" 에서 우클릭하여 `Query Tool` 을 새로 열면 우리가 원하는 role 로 연결을 가진 Query Tool 창이 뜹니다. 
 
+-   관리자 & 테이블 관련 쿼리 명령어 모음
+
     &nbsp; 다음의 명령어들을 응용으로 사용할 수도 있습니다. 알아만 두고 넘어갑시다.
 
     ```sql
@@ -303,13 +312,15 @@
     FROM pg_database
     WHERE datname = current_database();
 
+    -- * 유효한 모든 테이블의 『TABLE_NAME』 확인
+    SELECT schemaname, tablename 
+    FROM pg_tables 
+    WHERE schemaname NOT IN ('pg_catalog', 'information_schema');
+
     -- * 『TABLE_NAME』과 『TABLE_NAME』 의 소유주를 확인
-    SELECT
-        tablename AS table_name,
-        tableowner AS table_owner
+    SELECT schemaname, tablename, tableowner
     FROM pg_tables
-    WHERE schemaname = 'public'
-    AND tablename = '『TABLE_NAME』';
+    WHERE tablename = '『TABLE_NAME』';
 
     -- * 『DB_NAME』의 소유자를 『ROLE_NAME』 로 변경
     ALTER DATABASE 『DB_NAME』 OWNER TO 『ROLE_NAME』;
@@ -353,6 +364,8 @@
     ```
 
     &nbsp; GUI 상에선 Object Explorer 에서 "Servers" → "PostgreSQL 18" → "Databases" → "myapp" → "Schemas" → "public" → "Tables" → `users` 에 표시 됩니다.
+
+    &nbsp; 쿼리를 통한 테이블 확인은 위의 관리자 & 테이블 관련 쿼리 명령어 모음집을 확인해주세요.
 
 -   Table 동작 확인
 
@@ -500,7 +513,7 @@ example-server-project/ ($PROJECT_ROOT)
     SERVER_PORT=3000
     ```
 
-#### db.js 코드 작성
+#### DB 연결 모듈화
 
 &nbsp; .env 에 작성한 환경변수는 `require('dotenv').config();` 외부 모듈을 불러온 후에 process.env.『환경변수명』으로 사용할 수 있습니다.
 
@@ -534,7 +547,7 @@ example-server-project/ ($PROJECT_ROOT)
 
 이제 외부 javascript 코드는 `const pool = require('./db');` 같은 선언을 통해 db.js 모듈을 불러와서 사용할 수 있습니다. 예시와 같이 `pool` 이라 모듈이름을 선언하였다면, 매번 연결을 요청할 때마다 새로 작성할 필요 없이 `const result = await pool.query('SELECT NOW() AS server_time');` 비동기 요청으로 DB 연결을 시도할 수 있습니다.
 
-#### server.js Express 코드 DB 연결 테스트
+#### Express 측 DB 연결 코드
 
 &nbsp; NGINX 에서 `localhost:3000/api/test` 로 접근할 수 있던 API 테스트 코드를 이제 실제로 DB 연결이 정상적으로 이루어졌는지 확인하고 결과를 응답하는 코드로 수정하겠습니다.
 
@@ -585,7 +598,66 @@ example-server-project/ ($PROJECT_ROOT)
     });
     ```
 
-#### server.js Express 코드 작성
+이제 
+
+-   5432 포트에 postgreSQL DB가 `start-service postgresql-x64-18` 터미널 명령어 등으로 구동하고 있을 때,
+-   3000 포트에 Express 서버가 `node server.js` 명령어 등으로 구동하고 있을 때,
+
+위의 조건이 만족하고 있다면 `localhost:3000/api/test` url 요청으로 API 데이터를 받아올 수 있습니다.
+
+-   443(HTTPS 디폴트) 포트에 NGINX 게이트웨이 서버가 `start-nginx` 명령어 등으로 구동하고 있을 때,
+-   『MY_DOMAIN』 도메인에 DDNS 서비스로부터 권한을 얻고 연결하였을 때, 
+
+위의 조건이 만족하고 있다면 `https://『MY_DOMAIN』.duckdns.org/api/test` url 요청으로 API 데이터를 받아올 수 있습니다.
+
+#### 개념 정리 : HTTP Method 와 CRUD
+
+&nbsp; 지금은 DB 의 연결 상태만 확인했지만 이제 DB 에 데이터를 저장하고 읽고 수정하고 삭제하는 코드를 작성할 것 입니다. 이런 데이터 조작 작업을 흔히 CRUD 라고 줄여서 부릅니다. 
+
+-   생성 (<u><b>C</b></u>reate)
+-   읽기 (<u><b>R</b></u>ead)
+-   수정 (<u><b>U</b></u>pdate)
+-   삭제 (<u><b>D</b></u>elete)
+
+의 각 작업들의 앞글자만 따온 것 입니다. 여기에 집중하여 데이터 조작 API 를 개발하면 직관적인 도구로 만들 수 있습니다.
+
+&nbsp; 위 Express 의 DB 연결 확인 요청 코드에 app.get 을 사용하였습니다. GET 요청은 HTTP Method의 일종 입니다.
+
+&nbsp; HTTP 메서드란 RESTful API 표준에서 요청 형식의 종류를 말합니다. GET 은 일반적으로 알고 계신 url 스트링 데이터에 모든 것이 담겨있는 형식이며 POST, PATCH, PUT 은 html 형식에서 body 에 데이터를 실어 전송하는 형식입니다. POST(생성 요청), PATCH(일부수정 요청), PUT(전체수정 요청) 은 기술상은 거의 같으나 이름을 달리하여 같은 URL 로 소통할 때에 멱등성 처리등 직관적으로 작업 라인을 구분하기 위해서 분리되었습니다. 안 지켜도 상관은 없지만 지켜주는 쪽이 더 잘 설계된 API 입니다. 이런 형식이니 알아만 두세요.
+
+-   HTTP method 와 DB CRUD (Create Read Update Delete) 의 관계
+
+    -   GET: 리소스 조회 (Read)
+
+    -   POST: 새 리소스 생성 (Create), 멱등성 X 인 작업(비멱등 작업)
+
+    -   PUT: 리소스 전체 수정 또는 교체 (Update/Replace)
+
+    -   PATCH: 리소스 일부 어트리뷰트 수정 (Partial Update)
+
+    -   DELETE: 리소스 삭제 (Delete)
+
+#### 개념 정리 : 멱등성
+
+&nbsp; 멱등성에 대한 설명을 잠깐만 하고 넘어가겠습니다.
+
+&nbsp; 멱등성이란 중복 요청을 하더라도 한번 요청한 것과 결과가 같은 것을 보장하는 특성을 말합니다. 
+
+-   DELETE 메서드 요청으로 2번 학생 데이터를 삭제하라고 5번을 입력하나 1번 입력하나 DB 의 최종 처리 결과는 같습니다.
+
+-   GET 메서드 요청으로 3번 학생 데이터를 가져오라도 5번을 입력해도 앞의 4번의 결과는 새로고침되서 날아가고 마지막 결과만 보이므로 결국 최종 처리 결과가 같습니다. DB에도 영향은 없습니다.
+
+&nbsp; 하지만 POST (새로운 리소스 생성과 복잡한 처리 작업) 에 할당된 작업은 대다수가 멱등하지 못합니다. 예를들어, 2만원을 결제하는 작업을 5번을 처리했다간 여러분의 통장에서 10만원이 인출될 수 있습니다.
+
+&nbsp; 이런 이중결제같은 참사를 막기 위하여 Redis를 활용한 멱등성 키(Idempotency Key) 를 기반으로 검증 로직을 구현하여 중복 요청 실수가 있어도 복수의 처리가 일어나지 않도록 멱등성을 부여할 수 있습니다. 이는 나중에 다루겠습니다.
+
+### DB 서비스 예제 1 (유저 명단 관리)
+
+&nbsp; 이제 DB 와 연결되어 있기 때문에 저장소를 마음대로 사용할 수 있고, 이 정보의 기록 및 수정을 URL 로 조작할 수 있습니다. 이제 예시로 API 서비스를 만들어보겠습니다. 
+
+&nbsp; 각 유저를 이메일과 비밀번호와 점수를 기록하고, 점수 순으로 순위표를 뽑는 예제를 만들어보겠습니다. 
+
+#### DB 서비스 예제 1 : 서비스 설계
 
 &nbsp; 구현할 API url 과 DB 작업은 다음과 같이 매핑됩니다.
 
@@ -627,175 +699,512 @@ example-server-project/ ($PROJECT_ROOT)
     </tr>
     </table>
 
-&nbsp; 여기서 HTTP 메서드란 RESTful API 표준에서 요청 형식의 종류를 말합니다. GET 은 일반적으로 알고 계신 url 스트링 데이터에 모든 것이 담겨있는 형식이며 POST, PATCH, PUT 은 html 형식에서 body 에 데이터를 실어 전송하는 형식입니다. POST(생성 요청), PATCH(일부수정 요청), PUT(전체수정 요청) 은 기술상은 같으나 이름을 달리하여 같은 URL 로 소통할 때에 직관성을 부여하기 위해서 분리되었습니다. 안 지켜도 상관은 없지만 지켜주는 쪽이 더 잘 설계된 API 입니다.
+#### DB 서비스 예제 1 : Express 코드 작성
 
 &nbsp; server.js 에 이제 API url 을 요청 받았다면 DB에 요청을 보내고 그 답을 응답하는 코드를 작성해주면 됩니다.
 
+-   server.js
+
+    ```js
+    require('dotenv').config();
+
+    const express = require('express');
+    const bcrypt = require('bcrypt');
+    const pool = require('./db');
+
+    const app = express();
+    const PORT = Number(process.env.PORT) || 3000;
+
+    app.set('trust proxy', 'loopback');
+    app.use(express.json({ limit: '10kb' }));
+    app.use((req, res, next) => {
+        console.log('REQUEST', req.method, req.path);
+        next();
+    });
+
+    // * GET | /api/test | PostgreSQL 연결 테스트
+    app.get('/api/test', async (req, res) => {
+        try {
+            const result = await pool.query('SELECT NOW() AS server_time');
+
+            res.json({
+                success: true,
+                message: 'Express + PostgreSQL is working',
+                databaseTime: result.rows[0].server_time,
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({
+                success: false,
+                message: 'Database connection failed',
+            });
+        }
+    });
+
+    // * POST | /api/users | 새로운 유저 추가
+    app.post('/api/users', async (req, res) => {
+        const { username, email, password } = req.body;
+
+        // * Validate input check
+        // if (
+        //     typeof username !== 'string' ||
+        //     typeof email !== 'string' ||
+        //     typeof password !== 'string' ||
+        //     !username.trim() ||
+        //     !email.trim() ||
+        //     password.length < 8 ||
+        //     password.length > 72
+        // ) {
+        //     return res.status(400).json({
+        //         success: false,
+        //         message: 'Invalid user data',
+        //     });
+        // }
+
+        try {
+            const passwordHash = await bcrypt.hash(password, 12);
+
+            const result = await pool.query(
+                `INSERT INTO users
+                    (username, email, password_hash)
+                VALUES ($1, $2, $3)
+                RETURNING username, email, score`,
+                [username.trim(), email.trim().toLowerCase(), passwordHash],
+            );
+
+            res.status(201).json({
+                success: true,
+                user: result.rows[0],
+            });
+        } catch (err) {
+            if (err.code === '23505') {
+                return res.status(409).json({
+                    success: false,
+                    message: 'Email already exists',
+                });
+            }
+
+            console.error(err);
+            res.status(500).json({
+                success: false,
+                message: 'Failed to create user',
+            });
+        }
+    });
+
+    // * PATCH | /api/users/:email/score | 특정 유저의 점수 설정
+    app.patch('/api/users/:email/score', async (req, res) => {
+        const email = req.params.email;
+        // const { score } = req.body;
+        const { score: rawScore } = req.body;
+        const score = Number(rawScore);
+
+        console.log('PATCH /api/users/:email/score', { email, score });
+
+        if (typeof email !== 'string' || !email.trim() || !Number.isSafeInteger(score) || score < 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid email or score',
+            });
+        }
+
+        try {
+            const result = await pool.query(
+                `UPDATE users
+                SET score = $1
+                WHERE email = $2
+                RETURNING username, email, score`,
+                [score, email.trim().toLowerCase()],
+            );
+
+            if (result.rowCount === 0) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'User not found',
+                });
+            }
+
+            res.json({
+                success: true,
+                user: result.rows[0],
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({
+                success: false,
+                message: 'Failed to update score',
+            });
+        }
+    });
+
+    //  * GET | /api/leaderboard | 점수 상위 10명 조회
+    app.get('/api/leaderboard', async (req, res) => {
+        try {
+            const result = await pool.query(
+                `SELECT username, email, score
+                FROM users
+                ORDER BY score DESC, email ASC
+                LIMIT 10`,
+            );
+
+            res.json({
+                success: true,
+                count: result.rowCount,
+                leaderboard: result.rows,
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({
+                success: false,
+                message: 'Failed to get leaderboard',
+            });
+        }
+    });
+
+    //  * GET | /api/leaderboard/images | 조회수 상위 10개 조회
+    app.get('/api/leaderboard/images', async (req, res) => {
+        try {
+            const result = await pool.query(
+                `SELECT image_id, views
+                FROM users
+                ORDER BY views DESC, image_id ASC
+                LIMIT 10`,
+            );
+
+            res.json({
+                success: true,
+                count: result.rowCount,
+                leaderboard: result.rows,
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({
+                success: false,
+                message: 'Failed to get leaderboard',
+            });
+        }
+    });
+
+    app.listen(PORT, '127.0.0.1', () => {
+        console.log(`Express server running on port ${PORT}`);
+    });
+    ```
+
+##### 개념정리 : 파라미터화 쿼리(Parameterized Query)
+
+&nbsp; 코드 중간에 잘보면 특이하게 문자열에 변수 값을 이어붙일 때, pool.query(`$1, $2`, [var1, var2]) 같은 형식으로 값을 넣었습니다. 이런 방식을 파라미터화 쿼리(Parameterized Query) 라고 부릅니다.
+
+&nbsp; Javascript 코드에서 흔히 쓰이는 `${var1}, ${var2}` 변수 문자열 치환 방식을 쓰지않은 이유는 악의를 가진 클라이언트가 DB 를 공격하는 SQL 을 URL 에 집어 넣었을 수 있기 때문입니다. 
+
+&nbsp; 사용자 입력은 가능한 한 SQL 문자열에 직접 넣지 않는 것이 좋습니다.
+
 ```js
-require('dotenv').config();
+const result = await pool.query(
+    `INSERT INTO users
+        (username, email, password_hash)
+     VALUES ($1, $2, $3)
+     RETURNING username, email, score`,
+    [
+        username.trim(),
+        email.trim().toLowerCase(),
+        passwordHash,
+    ]
+);
+```
 
-const express = require('express');
-const bcrypt = require('bcrypt');
-const pool = require('./db');
+#### DB 서비스 예제 1 : URL 요청 코드
 
-const app = express();
-const PORT = Number(process.env.PORT) || 3000;
+&nbsp; API 가 정상적으로 요청에 응답하여 DB 데이터를 조작하고 반환해주는지 확인하기 위하여 URL 을 보내는 시도를 해보겠습니다.
 
-app.set('trust proxy', 'loopback');
-app.use(express.json({ limit: '10kb' }));
-app.use((req, res, next) => {
-    console.log('REQUEST', req.method, req.path);
-    next();
-});
+&nbsp; Postman 같은 URL 요청 서비스도 있고 터미널 curl 도구로 URL 전송이 가능합니다. 
 
-// * GET :: /api/test :: PostgreSQL 연결 테스트
-app.get('/api/test', async (req, res) => {
-    try {
-        const result = await pool.query(
-            'SELECT NOW() AS server_time'
-        );
+-   terminal shell
 
-        res.json({
-            success: true,
-            message: 'Express + PostgreSQL is working',
-            databaseTime: result.rows[0].server_time,
-        });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({
-            success: false,
-            message: 'Database connection failed',
-        });
+    ```bash
+    curl -X PUT "https://api.example.com/data/1" \
+        -H "Content-Type: application/json" \
+        -d '{"foo": "푸", "bar": "바"}'
+    ```
+
+하지만 여기선 웹 개발 공부에 걸맞게 Javascript 의 `fetch` 도구를 통해 URL 요청을 해보겠습니다.
+
+&nbsp; 개발 코드와 햇갈리지 않도록 `test/` 폴더를 생성하고 그 안에 URL Request 를 보낼 코드가 담길 `urlReq.js` 라는 이름의 파일을 생성해주세요.
+
+&nbsp; 따라서 `$PROJECT_ROOT` 디렉터리의 구조는 다음과 같게 됩니다.
+
+-   $PROJECT_ROOT
+
+    ```txt
+    example-server-project/ ($PROJECT_ROOT)
+    │
+    ├─ certs/
+    ├─ node_modules/
+    ├─ public/
+    ├─ test/
+    │   └─ urlReq.js <======== 새로 생성!
+    │
+    ├─ .env
+    ├─ db.js
+    ├─ package.json
+    ├─ package-lock.json
+    └─ server.js
+    ```
+
+&nbsp; `urlReq.js` 코드는 예시로 이런 형태를 취할 수 있습니다. 대충 형태만 보세요.
+
+-   urlReq.js 예시 (따라하지 마시오)
+
+    ```js
+    // # Node.js Fetch Request form
+    // = ================================================================
+
+    // * I/O Interface ==================================================
+
+    const readline = require('readline');
+
+    const reader = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+
+    // * GET | /api/test | PostgreSQL 연결 테스트 ========================
+
+    async function getApiTest() {
+        return fetch('http://localhost:3000/api/test', {
+            method: 'GET',
+        })
+            .then((response) => {
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return response.json();
+            })
+            .then((data) => console.log('성공:', data))
+            .catch((error) => console.error('에러:', error));
     }
-});
 
-// * POST :: /api/users :: 새로운 유저 추가
-app.post('/api/users', async (req, res) => {
-    const { username, email, password } = req.body;
+    // * Input Number Recursive Function ================================
 
-    if (
-        typeof username !== 'string' ||
-        typeof email !== 'string' ||
-        typeof password !== 'string' ||
-        !username.trim() ||
-        !email.trim() ||
-        password.length < 8 ||
-        password.length > 72
-    ) {
-        return res.status(400).json({
-            success: false,
-            message: 'Invalid user data',
-        });
-    }
-
-    try {
-        const passwordHash = await bcrypt.hash(password, 12);
-
-        const result = await pool.query(
-            `INSERT INTO users
-                (username, email, password_hash)
-             VALUES ($1, $2, $3)
-             RETURNING username, email, score`,
+    function inputNumber() {
+        reader.question(
             [
-                username.trim(),
-                email.trim().toLowerCase(),
-                passwordHash,
-            ]
-        );
+                '0: EXIT | 프로그램 종료',
+                '1: GET | /api/test | PostgreSQL 연결 테스트',
+                '\nInput Number: ',
+            ].join('\n'),
+            async (input) => {
+                const num = Number(input);
 
-        res.status(201).json({
-            success: true,
-            user: result.rows[0],
-        });
-    } catch (err) {
-        if (err.code === '23505') {
-            return res.status(409).json({
-                success: false,
-                message: 'Email already exists',
+                switch (num) {
+                    case 0:
+                        console.log('Exiting...\n');
+                        reader.close();
+                        return;
+                    case 1:
+                        await getApiTest();
+                        break;
+                    default:
+                        console.log('Wrong input.');
+                        break;
+                }
+
+                reader.question('\nContinue? (Y*/n): ', (input) => {
+                    const isContinue = input.trim().toLowerCase() === 'y' || input.trim() === '';
+
+                    if (!isContinue) {
+                        console.log('Exiting...\n');
+                        reader.close();
+                        return;
+                    }
+
+                    inputNumber(); // recursive call to continue prompting for input
+                });
+            },
+        );
+    }
+
+    // * Run
+
+    inputNumber();
+    ```
+
+콘솔의 표준 입출력 I/O 인터페이스와 연결한 reader 객체를 생성하고, `async (input) => { await ...}` 콜백 함수 안에 종료용 (Y*/n) 확인 콜백 함수를 담은 inputNumer 재귀함수를 이용해서 구현한 방법입니다. 
+
+다른 프로그래밍 언어가 익숙한 경우 매우 어색한 형태일 수 있습니다. Javascript 의 언어 지향점도 그렇고 Node.js 런타임 설계 또한 비동기 I/O 를 중심으로 설계되어 있습니다. 비절차적인 프로그램 개발시엔 막힘없이 코드가 실행되는 것이 좋지만, 지금처럼 순차적인 입출력을 구현할 때면 역으로 코드가 복잡해지는 단점이 있습니다.
+
+사용자 입력을 더 받아야 할 때마다, `reader.question( ... , async (input) => { ... })` 콜백함수를 또 선언하여 `reader.question(  reader.question( ... ) )` 안으로 더 깊게 들어가야 하는 것은 끔찍합니다.
+
+사용자 콘솔 입력을 순차적으로 받아야하는 상황에선 javascript 스럽지 않은 디자인으로 코드를 작성하는 것이 더 좋습니다.
+
+여기선 async + await 과 try/catch 를 이용하여 main 이라는 함수로 전체를 동기화 제어 처리를 해버리는 것으로 개발자에게 익숙한 방식으로 코드를 작성하겠습니다.
+
+-   urlReq.js
+
+    ```js
+    // # Node.js Fetch Request form
+    // = ================================================================
+    // * I/O Interface ==================================================
+
+    const readline = require('node:readline/promises');
+
+    const reader = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+
+    // * GET | /api/test | PostgreSQL 연결 테스트 ========================
+
+    async function getApiTest() {
+        try {
+            const response = await fetch('http://localhost:3000/api/test', {
+                method: 'GET',
             });
+
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+            const data = await response.json();
+            console.log('성공:', data);
+        } catch (error) {
+            console.error('에러:', error);
         }
-
-        console.error(err);
-        res.status(500).json({
-            success: false,
-            message: 'Failed to create user',
-        });
-    }
-});
-
-// * PATCH :: /api/user/:email/score :: 특정 유저의 점수 설정
-app.patch('/api/users/:email/score', async (req, res) => {
-    const email = req.params.email;
-    const { score } = req.body;
-
-    if (
-        typeof email !== 'string' ||
-        !email.trim() ||
-        !Number.isSafeInteger(score) ||
-        score < 0
-    ) {
-        return res.status(400).json({
-            success: false,
-            message: 'Invalid email or score',
-        });
     }
 
-    try {
-        const result = await pool.query(
-            `UPDATE users
-             SET score = $1
-             WHERE email = $2
-             RETURNING username, email, score`,
-            [score, email.trim().toLowerCase()]
-        );
+    // * GET | /api/leaderboard | 점수 상위 10명 조회 ====================
 
-        if (result.rowCount === 0) {
-            return res.status(404).json({
-                success: false,
-                message: 'User not found',
+    async function getApiLeaderboard() {
+        try {
+            const response = await fetch('http://localhost:3000/api/leaderboard', {
+                method: 'GET',
             });
+
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+            const data = await response.json();
+            console.log('성공:', data);
+        } catch (error) {
+            console.error('에러:', error);
         }
-
-        res.json({
-            success: true,
-            user: result.rows[0],
-        });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({
-            success: false,
-            message: 'Failed to update score',
-        });
     }
-});
 
-//  * GET :: /api/leaderboard :: 점수 상위 10명 조회
-app.get('/api/leaderboard', async (req, res) => {
-    try {
-        const result = await pool.query(
-            `SELECT username, email, score
-             FROM users
-             ORDER BY score DESC, email ASC
-             LIMIT 10`
-        );
+    // * POST | /api/users | 새로운 유저 추가 ============================
 
-        res.json({
-            success: true,
-            count: result.rowCount,
-            leaderboard: result.rows,
-        });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({
-            success: false,
-            message: 'Failed to get leaderboard',
-        });
+    async function postApiUsers(username, email, password) {
+        try {
+            const response = await fetch('http://localhost:3000/api/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    email: email,
+                    password: password,
+                }),
+            });
+
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+            const data = await response.json();
+            console.log('성공:', data);
+        } catch (error) {
+            console.error('에러:', error);
+        }
     }
-});
 
-app.listen(PORT, '127.0.0.1', () => {
-    console.log(`Express server running on port ${PORT}`);
-});
+    // * PATCH | /api/users/:email/score | 특정 유저의 점수 설정 =========
+
+    async function patchApiUsersScore(email, score) {
+        try {
+            const response = await fetch(`http://localhost:3000/api/users/${email}/score`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    score: score,
+                }),
+            });
+
+            const data = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                const err = new Error(data.message || `HTTP ${response.status}`);
+                err.status = response.status;
+                throw err;
+            }
+
+            console.log('성공:', data);
+        } catch (error) {
+            console.error('에러:', error);
+        }
+    }
+
+    // * Main ===========================================================
+
+    async function main() {
+        while (true) {
+            const input = await reader.question(
+                [
+                    '',
+                    '0: EXIT  | 프로그램 종료',
+                    '1: GET   | /api/test               | 연결 테스트',
+                    '2: GET   | /api/leaderboard        | 점수 상위 10명 조회',
+                    '3: POST  | /api/users              | 새로운 유저 추가',
+                    '4: PATCH | /api/users/:email/score | 특정 유저의 점수 설정',
+                    '\nInput Number: ',
+                ].join('\n'),
+            );
+
+            const num = Number(input);
+
+            switch (num) {
+                case 0:
+                    console.log('Exiting...');
+                    reader.close();
+                    return;
+                case 1:
+                    await getApiTest();
+                    break;
+                case 2:
+                    await getApiLeaderboard();
+                    break;
+                case 3: {
+                    const username = await reader.question('Username: ');
+                    const email = await reader.question('Email: ');
+                    const password = await reader.question('Password: ');
+                    await postApiUsers(username, email, password);
+                    break;
+                }
+                case 4:
+                    const email = await reader.question('Email: ');
+                    const score = await reader.question('Score: ');
+                    await patchApiUsersScore(email, score);
+                    break;
+                default:
+                    console.log('Wrong input.');
+                    break;
+            }
+
+            const answer = await reader.question('\nContinue? (Y*/n): ');
+            console.log('\n');
+            if (!['y', ''].includes(answer.trim().toLowerCase())) {
+                console.log('Exiting...');
+                reader.close();
+                return;
+            }
+        }
+    }
+
+    // * Run
+
+    main();
+    ```
+
+## CORS
+
+Express라면 cors 패키지로 간단히 해결됩니다.
+
+```js
+const cors = require('cors');
+app.use(cors()); // 라우터 등록보다 먼저
 ```
 
 ## 검색 노출
