@@ -2,27 +2,27 @@
 
 ## 목차
 
--   [코드 작성 규칙：Coding Conventions](#코드-작성-규칙coding-conventions)
-    -   [목차](#목차)
-    -   [개요](#개요)
-    -   [명명 규칙](#명명-규칙)
-        -   [보편적 이름](#보편적-이름)
-        -   [OCI](#oci)
-        -   [C++ \& C#](#c--c)
-        -   [Java](#java)
-    -   [유니코드 양식](#유니코드-양식)
-    -   [코드 문서화 정리 양식](#코드-문서화-정리-양식)
-        -   [Javascript](#javascript)
-            -   [Javascript \> React](#javascript--react)
-    -   [코드 포매터 Code Formatter \& Linter](#코드-포매터-code-formatter--linter)
-        -   [Prettier](#prettier)
-            -   [설정으로 규칙 명시：prettier](#설정으로-규칙-명시prettier)
-            -   [파일로 규칙 명시：.prettierrc.json](#파일로-규칙-명시prettierrcjson)
-        -   [ESLint](#eslint)
-            -   [설정으로 규칙 명시：.eslintrc.json](#설정으로-규칙-명시eslintrcjson)
-        -   [Markdownlint](#markdownlint)
-            -   [설정으로 규칙 명시：markdownlint.config](#설정으로-규칙-명시markdownlintconfig)
-            -   [목차 생성](#목차-생성)
+- [코드 작성 규칙：Coding Conventions](#코드-작성-규칙coding-conventions)
+    - [목차](#목차)
+    - [개요](#개요)
+    - [명명 규칙](#명명-규칙)
+        - [보편적 이름](#보편적-이름)
+        - [OCI](#oci)
+        - [C++ \& C#](#c--c)
+        - [Java](#java)
+    - [유니코드 양식](#유니코드-양식)
+    - [코드 문서화 정리 양식](#코드-문서화-정리-양식)
+        - [Javascript](#javascript)
+            - [Javascript \> React](#javascript--react)
+    - [코드 포매터 Code Formatter \& Linter](#코드-포매터-code-formatter--linter)
+        - [Prettier](#prettier)
+            - [설정으로 규칙 명시：prettier](#설정으로-규칙-명시prettier)
+            - [파일로 규칙 명시：.prettierrc.json](#파일로-규칙-명시prettierrcjson)
+        - [ESLint](#eslint)
+            - [설정으로 규칙 명시：.eslintrc.json](#설정으로-규칙-명시eslintrcjson)
+        - [Markdownlint](#markdownlint)
+            - [설정으로 규칙 명시：markdownlint.config](#설정으로-규칙-명시markdownlintconfig)
+            - [목차 생성](#목차-생성)
 
 ## 개요
 
@@ -103,9 +103,9 @@ class Main {
 ⤎ (U+290E) ⤏ (U+290F) <br/>
 ⟸(U+27F8) ⟹(U+27F9) <br/>
 
-⭡(U+2B61)
+⭡(U+2B61) ↑(U+2191)
 ┆(U+257A)
-⭣(U+2B63) ↓
+⭣(U+2B63) ↓(U+2193)
 
 U+261C ☜ WHITE LEFT POINTING INDEX
 U+261D ☝ WHITE UP POINTING INDEX
